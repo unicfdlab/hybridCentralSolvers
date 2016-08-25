@@ -1,0 +1,9 @@
+kappaFunctions/kappaFunction/kappaFunction.C
+
+compressibleTwoPhaseThermo/simplePhasePsiThermo.C
+compressibleTwoPhaseThermo/compressibleTwoPhaseMixture.C
+compressibleTwoPhaseThermo/compressibleTwoPhaseMixtureThermo.C
+
+centralMULES/centralMULES.C
+
+LIB = $(FOAM_USER_LIBBIN)/libpisoCentral

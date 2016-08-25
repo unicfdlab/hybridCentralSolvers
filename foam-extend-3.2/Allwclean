@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cd pisoCentral; wclean; cd ../
+
+cd twoPhaseMixingCentralFoam; wclean; cd ../
+
+#
+#END-OF-FILE
+#
+

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+cd pisoCentral; wmake libso; cd ../
+
+cd twoPhaseMixingCentralFoam; wmake; cd ../
+
+#
+#END-OF-FILE
+#
+
+
