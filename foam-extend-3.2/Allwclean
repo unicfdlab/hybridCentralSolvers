@@ -1,8 +1,9 @@
 #!/bin/sh
 
-cd pisoCentral; wclean; cd ../
+cd pisoCentral; wclean; wcleanLnIncludeAll; cd ../
 
-cd twoPhaseMixingCentralFoam; wclean; cd ../
+cd twoPhaseMixingCentralFoam; wclean;
+cd twoPhaseMixingCentralDyMFoam; wclean; cd ,,/
 
 #
 #END-OF-FILE

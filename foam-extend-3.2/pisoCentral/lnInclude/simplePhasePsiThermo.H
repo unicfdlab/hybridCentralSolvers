@@ -1,1 +1,0 @@
-../compressibleTwoPhaseThermo/simplePhasePsiThermo.H

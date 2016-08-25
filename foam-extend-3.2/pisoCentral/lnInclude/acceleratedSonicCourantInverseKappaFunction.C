@@ -1,1 +1,0 @@
-../kappaFunctions/derived/acceleratedSonicCourantInverse/acceleratedSonicCourantInverseKappaFunction.C
