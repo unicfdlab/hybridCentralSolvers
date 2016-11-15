@@ -1,0 +1,511 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : 3.0.1-d8a290b55d28
+Exec   : pisoCentralFoam
+Date   : Oct 13 2016
+Time   : 14:48:46
+Host   : "bl022.unicluster.ru"
+PID    : 8527
+Case   : /lustre/unicluster/home/matvey.kraposhin/run/Unicfdlab/github-hybridCentralSolvers/Tutorials-3.0.1/case-subsonic/Aco-3
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+
+PIMPLE: Operating solver in PISO mode
+
+Reading thermophysical properties
+
+Selecting thermodynamics package 
+{
+    type            hePsiThermo;
+    mixture         pureMixture;
+    transport       const;
+    thermo          hConst;
+    equationOfState perfectGas;
+    specie          specie;
+    energy          sensibleEnthalpy;
+}
+
+Reading field U
+
+Creating field kinetic energy K
+
+Selecting finite volume kappaFunction type sonicCourantInverse
+Creating turbulence model
+
+Selecting turbulence model type laminar
+No finite volume options present
+
+No MRF models present
+
+Marking cells with bad quality to limit pressure gradient
+max/min FaceSonicCourant: 2.23507/0.568081
+max/min kappa: 1/0.447412
+Courant Number max : 0 velocity magnitude: 0
+
+Starting time loop
+
+Mean and max Acoustic Courant Numbers = 1.66667e-18 3.33333e-18
+Courant Number max : 0 velocity magnitude: 0
+Time = 1e-05
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 1, Final residual = 1.10363e-17, No Iterations 1
+max/min T: 289/289
+DILUPBiCG:  Solving for p, Initial residual = 0.028196, Final residual = 3.39987e-10, No Iterations 6
+max(U): (13.6483 0.380568 2.13188e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 5.469e-11, global = -1.38002e-11, cumulative = -1.38002e-11
+max/min FaceSonicCourant: 2.23507/0.568081
+max/min kappa: 1/0.447412
+ExecutionTime = 0.04 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.472407 1.11754
+Courant Number max : 0.160803 velocity magnitude: 24.5224
+Time = 2e-05
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 1, Final residual = 3.8646e-05, No Iterations 1001
+max/min T: 309.973/263.822
+DILUPBiCG:  Solving for p, Initial residual = 0.0227913, Final residual = 6.33754e-11, No Iterations 7
+max(U): (20.3905 3.83308 1.64748e-31)
+max/min p: 70789.7/58420.5
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.831984 / 0.710512
+time step continuity errors : sum local = 9.74887e-12, global = 2.47486e-12, cumulative = -1.13253e-11
+max/min FaceSonicCourant: 2.23507/0.545203
+max/min kappa: 1/0.447412
+ExecutionTime = 0.09 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.472785 1.11754
+Courant Number max : 0.118103 velocity magnitude: 18.0107
+Time = 3e-05
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.832734 / 0.710273
+DILUPBiCG:  Solving for h, Initial residual = 0.377684, Final residual = 2.89e-10, No Iterations 7
+max/min T: 298.762/273.649
+DILUPBiCG:  Solving for p, Initial residual = 0.0234554, Final residual = 1.38061e-10, No Iterations 7
+max(U): (20.3612 4.10249 1.82843e-31)
+max/min p: 68997.7/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.831399 / 0.710703
+time step continuity errors : sum local = 2.09827e-11, global = -6.96036e-12, cumulative = -1.82857e-11
+max/min FaceSonicCourant: 2.23507/0.554197
+max/min kappa: 1/0.447412
+ExecutionTime = 0.1 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.473144 1.11754
+Courant Number max : 0.137981 velocity magnitude: 21.0421
+Time = 4e-05
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83134 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.372925, Final residual = 1.5514e-10, No Iterations 7
+max/min T: 294.028/282.168
+DILUPBiCG:  Solving for p, Initial residual = 0.0144541, Final residual = 7.26472e-10, No Iterations 6
+max(U): (18.3073 2.80398 1.6581e-31)
+max/min p: 68970.4/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.831243 / 0.710718
+time step continuity errors : sum local = 1.06876e-10, global = -1.79402e-11, cumulative = -3.62259e-11
+max/min FaceSonicCourant: 2.23507/0.562059
+max/min kappa: 1/0.447412
+ExecutionTime = 0.1 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.473395 1.11754
+Courant Number max : 0.119324 velocity magnitude: 18.1969
+Time = 5e-05
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.831242 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.235037, Final residual = 1.2354e-10, No Iterations 7
+max/min T: 294.242/283.366
+DILUPBiCG:  Solving for p, Initial residual = 0.0118594, Final residual = 5.89586e-10, No Iterations 6
+max(U): (16.9638 2.06635 2.04511e-31)
+max/min p: 68970.1/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.831241 / 0.710718
+time step continuity errors : sum local = 8.48912e-11, global = -3.72942e-11, cumulative = -7.35201e-11
+max/min FaceSonicCourant: 2.23507/0.562771
+max/min kappa: 1/0.447412
+ExecutionTime = 0.12 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.473738 1.11754
+Courant Number max : 0.116568 velocity magnitude: 17.7766
+Time = 6e-05
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.831241 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.152432, Final residual = 7.31086e-11, No Iterations 7
+max/min T: 294.69/283.248
+DILUPBiCG:  Solving for p, Initial residual = 0.0119215, Final residual = 4.49056e-10, No Iterations 6
+max(U): (16.6226 1.26728 2.24121e-31)
+max/min p: 68970.1/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.831241 / 0.710718
+time step continuity errors : sum local = 6.33474e-11, global = 1.16577e-11, cumulative = -6.18624e-11
+max/min FaceSonicCourant: 2.23507/0.562431
+max/min kappa: 1/0.447412
+ExecutionTime = 0.13 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.474084 1.11754
+Courant Number max : 0.11509 velocity magnitude: 17.5513
+Time = 7e-05
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.831241 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.11675, Final residual = 4.33207e-10, No Iterations 7
+max/min T: 295.147/282.84
+DILUPBiCG:  Solving for p, Initial residual = 0.012123, Final residual = 5.28094e-10, No Iterations 6
+max(U): (16.7367 0.989046 1.67476e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.831241 / 0.710718
+time step continuity errors : sum local = 7.28713e-11, global = 2.85233e-11, cumulative = -3.33391e-11
+max/min FaceSonicCourant: 2.23507/0.562008
+max/min kappa: 1/0.447412
+ExecutionTime = 0.14 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.47445 1.11754
+Courant Number max : 0.111869 velocity magnitude: 17.06
+Time = 8e-05
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.0988194, Final residual = 1.61883e-10, No Iterations 7
+max/min T: 295.287/282.667
+DILUPBiCG:  Solving for p, Initial residual = 0.0118866, Final residual = 4.47565e-10, No Iterations 6
+max(U): (16.9013 0.779398 1.66474e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 6.04048e-11, global = 9.80381e-12, cumulative = -2.35353e-11
+max/min FaceSonicCourant: 2.23507/0.561839
+max/min kappa: 1/0.447412
+ExecutionTime = 0.15 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.474811 1.11754
+Courant Number max : 0.112267 velocity magnitude: 17.1207
+Time = 9e-05
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.08511, Final residual = 2.54729e-10, No Iterations 6
+max/min T: 295.412/282.631
+DILUPBiCG:  Solving for p, Initial residual = 0.0119759, Final residual = 4.26518e-10, No Iterations 6
+max(U): (16.8041 0.532886 1.66719e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 5.62682e-11, global = 5.72307e-12, cumulative = -1.78122e-11
+max/min FaceSonicCourant: 2.23507/0.561803
+max/min kappa: 1/0.447412
+ExecutionTime = 0.15 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.475165 1.11754
+Courant Number max : 0.111373 velocity magnitude: 16.9844
+Time = 0.0001
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.0737108, Final residual = 6.94515e-11, No Iterations 6
+max/min T: 295.566/282.635
+DILUPBiCG:  Solving for p, Initial residual = 0.0121216, Final residual = 4.2193e-10, No Iterations 6
+max(U): (16.8378 0.494125 2.03808e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 5.44104e-11, global = 8.73802e-12, cumulative = -9.07417e-12
+max/min FaceSonicCourant: 2.23507/0.561818
+max/min kappa: 1/0.447412
+ExecutionTime = 0.18 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.475529 1.11754
+Courant Number max : 0.111779 velocity magnitude: 17.0462
+Time = 0.00011
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.0654205, Final residual = 1.51482e-10, No Iterations 6
+max/min T: 295.633/282.619
+DILUPBiCG:  Solving for p, Initial residual = 0.0122376, Final residual = 3.43352e-10, No Iterations 6
+max(U): (16.9638 0.617573 2.09041e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 4.32619e-11, global = 8.90329e-12, cumulative = -1.70874e-13
+max/min FaceSonicCourant: 2.23507/0.561798
+max/min kappa: 1/0.447412
+ExecutionTime = 0.18 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.475895 1.11754
+Courant Number max : 0.112071 velocity magnitude: 17.0908
+Time = 0.00012
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.0585583, Final residual = 8.27944e-11, No Iterations 6
+max/min T: 295.693/282.604
+DILUPBiCG:  Solving for p, Initial residual = 0.0125324, Final residual = 2.84753e-10, No Iterations 6
+max(U): (17.0344 0.577171 2.16192e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 3.50406e-11, global = 1.20188e-11, cumulative = 1.18479e-11
+max/min FaceSonicCourant: 2.23507/0.561782
+max/min kappa: 1/0.447412
+ExecutionTime = 0.19 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.47625 1.11754
+Courant Number max : 0.112515 velocity magnitude: 17.1585
+Time = 0.00013
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.053011, Final residual = 7.78605e-11, No Iterations 6
+max/min T: 295.715/282.604
+DILUPBiCG:  Solving for p, Initial residual = 0.0128712, Final residual = 3.53822e-10, No Iterations 6
+max(U): (17.0482 0.443285 1.93358e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 4.24901e-11, global = 9.17073e-12, cumulative = 2.10187e-11
+max/min FaceSonicCourant: 2.23507/0.561772
+max/min kappa: 1/0.447412
+ExecutionTime = 0.19 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.47661 1.11754
+Courant Number max : 0.112851 velocity magnitude: 17.2097
+Time = 0.00014
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.0483778, Final residual = 7.30859e-11, No Iterations 6
+max/min T: 295.781/282.605
+DILUPBiCG:  Solving for p, Initial residual = 0.013122, Final residual = 3.58588e-10, No Iterations 6
+max(U): (17.0671 0.392067 2.01116e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 4.19993e-11, global = -1.38986e-11, cumulative = 7.12008e-12
+max/min FaceSonicCourant: 2.23507/0.56177
+max/min kappa: 1/0.447412
+ExecutionTime = 0.21 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.476965 1.11754
+Courant Number max : 0.113052 velocity magnitude: 17.2404
+Time = 0.00015
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.0444146, Final residual = 2.95657e-11, No Iterations 6
+max/min T: 295.825/282.607
+DILUPBiCG:  Solving for p, Initial residual = 0.0134463, Final residual = 4.28248e-10, No Iterations 6
+max(U): (17.0848 0.403604 1.87678e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 4.88862e-11, global = -7.4962e-12, cumulative = -3.76122e-13
+max/min FaceSonicCourant: 2.23507/0.561763
+max/min kappa: 1/0.447412
+ExecutionTime = 0.23 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.477324 1.11754
+Courant Number max : 0.11304 velocity magnitude: 17.2386
+Time = 0.00016
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.0409812, Final residual = 8.01362e-10, No Iterations 5
+max/min T: 295.852/282.59
+DILUPBiCG:  Solving for p, Initial residual = 0.0137673, Final residual = 4.07395e-10, No Iterations 6
+max(U): (17.0859 0.429045 1.9472e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 4.52927e-11, global = 3.55194e-12, cumulative = 3.17582e-12
+max/min FaceSonicCourant: 2.23507/0.561746
+max/min kappa: 1/0.447412
+ExecutionTime = 0.23 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.477689 1.11754
+Courant Number max : 0.112876 velocity magnitude: 17.2135
+Time = 0.00017
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.0380085, Final residual = 8.04377e-10, No Iterations 5
+max/min T: 295.867/282.575
+DILUPBiCG:  Solving for p, Initial residual = 0.0141619, Final residual = 3.86234e-10, No Iterations 6
+max(U): (17.0578 0.437225 1.83921e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 4.17859e-11, global = 7.19172e-12, cumulative = 1.03675e-11
+max/min FaceSonicCourant: 2.23507/0.561735
+max/min kappa: 1/0.447412
+ExecutionTime = 0.24 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.478056 1.11754
+Courant Number max : 0.112548 velocity magnitude: 17.1636
+Time = 0.00018
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.0354007, Final residual = 5.49852e-12, No Iterations 7
+max/min T: 295.874/282.571
+DILUPBiCG:  Solving for p, Initial residual = 0.0145499, Final residual = 3.93486e-10, No Iterations 6
+max(U): (17.0329 0.41189 1.76657e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 4.13935e-11, global = -4.13376e-12, cumulative = 6.23378e-12
+max/min FaceSonicCourant: 2.23507/0.561733
+max/min kappa: 1/0.447412
+ExecutionTime = 0.25 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.478417 1.11754
+Courant Number max : 0.112179 velocity magnitude: 17.1073
+Time = 0.00019
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.0331833, Final residual = 1.43328e-10, No Iterations 6
+max/min T: 295.871/282.568
+DILUPBiCG:  Solving for p, Initial residual = 0.0149946, Final residual = 4.51338e-10, No Iterations 6
+max(U): (17.0838 0.395198 2.14877e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 4.61408e-11, global = 8.33083e-12, cumulative = 1.45646e-11
+max/min FaceSonicCourant: 2.23507/0.561731
+max/min kappa: 1/0.447412
+ExecutionTime = 0.25 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.478779 1.11754
+Courant Number max : 0.111947 velocity magnitude: 17.0719
+Time = 0.0002
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.0312466, Final residual = 4.181e-10, No Iterations 5
+max/min T: 295.856/282.566
+DILUPBiCG:  Solving for p, Initial residual = 0.0154534, Final residual = 4.95904e-10, No Iterations 6
+max(U): (17.1217 0.399124 1.81289e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 4.92271e-11, global = 1.36306e-11, cumulative = 2.81952e-11
+max/min FaceSonicCourant: 2.23507/0.561726
+max/min kappa: 1/0.447412
+ExecutionTime = 0.28 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.479153 1.11754
+Courant Number max : 0.112195 velocity magnitude: 17.1097
+Time = 0.00021
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.0295523, Final residual = 1.90608e-10, No Iterations 6
+max/min T: 295.849/282.56
+DILUPBiCG:  Solving for p, Initial residual = 0.0159647, Final residual = 4.26792e-10, No Iterations 6
+max(U): (17.1356 0.440341 1.81119e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 4.11043e-11, global = -2.73386e-12, cumulative = 2.54614e-11
+max/min FaceSonicCourant: 2.23507/0.561719
+max/min kappa: 1/0.447412
+ExecutionTime = 0.29 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.47952 1.11754
+Courant Number max : 0.112338 velocity magnitude: 17.1316
+Time = 0.00022
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.0280473, Final residual = 4.41128e-11, No Iterations 6
+max/min T: 295.84/282.552
+DILUPBiCG:  Solving for p, Initial residual = 0.0165049, Final residual = 4.72239e-10, No Iterations 6
+max(U): (17.132 0.391346 1.91252e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 4.40867e-11, global = -1.13311e-11, cumulative = 1.41303e-11
+max/min FaceSonicCourant: 2.23507/0.561709
+max/min kappa: 1/0.447412
+ExecutionTime = 0.29 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.479879 1.11754
+Courant Number max : 0.112274 velocity magnitude: 17.1217
+Time = 0.00023
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.0267529, Final residual = 5.15355e-10, No Iterations 5
+max/min T: 295.829/282.542
+DILUPBiCG:  Solving for p, Initial residual = 0.0170912, Final residual = 4.86467e-10, No Iterations 6
+max(U): (17.1033 0.456613 1.95907e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 4.39736e-11, global = -8.01411e-12, cumulative = 6.11616e-12
+max/min FaceSonicCourant: 2.23507/0.561701
+max/min kappa: 1/0.447412
+ExecutionTime = 0.3 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.480235 1.11754
+Courant Number max : 0.112135 velocity magnitude: 17.1005
+Time = 0.00024
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.0255335, Final residual = 1.3548e-10, No Iterations 6
+max/min T: 295.812/282.538
+DILUPBiCG:  Solving for p, Initial residual = 0.0177011, Final residual = 5.60128e-10, No Iterations 6
+max(U): (17.0772 0.485024 2.77321e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 4.89641e-11, global = -1.06585e-11, cumulative = -4.54238e-12
+max/min FaceSonicCourant: 2.23507/0.561695
+max/min kappa: 1/0.447412
+ExecutionTime = 0.31 s  ClockTime = 0 s
+
+Mean and max Acoustic Courant Numbers = 0.480594 1.11754
+Courant Number max : 0.112001 velocity magnitude: 17.0801
+Time = 0.00025
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+DILUPBiCG:  Solving for h, Initial residual = 0.0244466, Final residual = 3.84775e-11, No Iterations 6
+max/min T: 295.792/282.537
+DILUPBiCG:  Solving for p, Initial residual = 0.0182687, Final residual = 4.51213e-10, No Iterations 6
+max(U): (17.0637 0.472995 1.89969e-31)
+max/min p: 68970/58970
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 0.83124 / 0.710718
+time step continuity errors : sum local = 3.80982e-11, global = -5.22676e-12, cumulative = -9.76914e-12
+max/min FaceSonicCourant: 2.23507/0.561694
+max/min kappa: 1/0.447412
+ExecutionTime = 0.34 s  ClockTime = 0 s
+
+End
+

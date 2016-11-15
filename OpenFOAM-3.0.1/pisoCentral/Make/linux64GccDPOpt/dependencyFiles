@@ -1,0 +1,9 @@
+DEPENDENCIES = \
+kappaFunctions/kappaFunction/kappaFunction.dep\
+kappaFunctions/derived/acceleratedSonicCourantInverse/acceleratedSonicCourantInverseKappaFunction.dep\
+kappaFunctions/derived/sonicCourantInverse/sonicCourantInverseKappaFunction.dep\
+kappaFunctions/derived/standardMachToAcCourantRatio/standardMachToAcCourantRatioKappaFunction.dep\
+compressibleTwoPhaseThermo/simplePhasePsiThermo.dep\
+compressibleTwoPhaseThermo/compressibleTwoPhaseMixture.dep\
+compressibleTwoPhaseThermo/compressibleTwoPhaseMixtureThermo.dep\
+centralMULES/centralMULES.dep

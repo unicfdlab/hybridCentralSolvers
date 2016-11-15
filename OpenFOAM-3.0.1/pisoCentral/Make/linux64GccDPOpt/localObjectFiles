@@ -1,0 +1,9 @@
+LOCAL_OBJECTS = \
+kappaFunction.o\
+acceleratedSonicCourantInverseKappaFunction.o\
+sonicCourantInverseKappaFunction.o\
+standardMachToAcCourantRatioKappaFunction.o\
+simplePhasePsiThermo.o\
+compressibleTwoPhaseMixture.o\
+compressibleTwoPhaseMixtureThermo.o\
+centralMULES.o

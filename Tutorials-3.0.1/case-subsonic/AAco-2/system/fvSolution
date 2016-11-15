@@ -1,0 +1,80 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    rho
+    {
+        solver          diagonal;
+    }
+    
+    U
+    {
+        solver          PBiCG;
+        preconditioner	DILU;
+        tolerance       1e-09;
+        relTol          0.0;
+    }
+    
+    p
+    {
+        solver          PBiCG;
+        preconditioner	DILU;
+        tolerance       1e-09;
+        relTol          0.0;
+    }
+
+    h
+    {
+        $U;
+    }
+}
+
+PIMPLE
+{
+    momentumPredictor	false; //true;
+    nCorrectors		1;
+    nonOrthogonalityThreshold	60;
+    skewnessThreshold		0.5;
+    updateEnergyInPISO false;
+    
+    kappaFunction
+    {
+//        type        standardMachToAcCourantRatio;
+//        standardMachToAcCourantRatioCoeffs
+//        {
+//            writeMaxMin true; //don't write max/min of kappa per cell
+//        }
+
+//        type        sonicCourantInverse;
+//        sonicCourantInverseCoeffs
+//        {
+//            writeMaxMin true; //don't write max/min of kappa per cell
+//        }
+
+        type        acceleratedSonicCourantInverse;
+        acceleratedSonicCourantInverseCoeffs
+        {
+            writeMaxMin true; //don't write max/min of kappa per cell
+            power       2.0;
+            resetCoupledBoundaries false;
+            reinterpolateToFaces   false;
+        }
+    }
+}
+
+// ************************************************************************* //

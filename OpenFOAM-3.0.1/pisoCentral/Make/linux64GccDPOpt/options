@@ -1,0 +1,13 @@
+# 1 "options"
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 1 "options"
+EXE_INC = -I$(LIB_SRC)/transportModels/compressible/lnInclude -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude -I$(LIB_SRC)/thermophysicalModels/specie/lnInclude -I$(LIB_SRC)/meshTools/lnInclude -I$(LIB_SRC)/foam/lnInclude -I$(LIB_SRC)/finiteVolume/lnInclude
+
+
+
+
+
+
+
+LIB_LIBS = -lfluidThermophysicalModels -lmeshTools -lspecie -lfiniteVolume
