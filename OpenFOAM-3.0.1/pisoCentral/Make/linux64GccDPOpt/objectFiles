@@ -1,9 +1,0 @@
-OBJECTS = \
-$(OBJECTS_DIR)/kappaFunction.o\
-$(OBJECTS_DIR)/acceleratedSonicCourantInverseKappaFunction.o\
-$(OBJECTS_DIR)/sonicCourantInverseKappaFunction.o\
-$(OBJECTS_DIR)/standardMachToAcCourantRatioKappaFunction.o\
-$(OBJECTS_DIR)/simplePhasePsiThermo.o\
-$(OBJECTS_DIR)/compressibleTwoPhaseMixture.o\
-$(OBJECTS_DIR)/compressibleTwoPhaseMixtureThermo.o\
-$(OBJECTS_DIR)/centralMULES.o

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+cd RiemanToro
+
+RTCASES=`ls`
+for RTCASE in $RTCASES
+do
+    cd $RTCASE
+    ./Allclean
+    cd ../
+done
+cd ../
+
+#
+#END-OF-FILE
+#
+
