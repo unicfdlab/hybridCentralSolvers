@@ -90,7 +90,7 @@ velMag = 0.0;
                     )
                 );
             }
-        
+            
             surfaceScalarField magUf =
             mag
             (
@@ -100,7 +100,7 @@ velMag = 0.0;
                     rho_own * alpha_own
                     +
                     rho_nei * alpha_nei
-                ) / mesh.magSf()
+                ) / tuMagSf()
             );
         
             surfaceScalarField faceCo =

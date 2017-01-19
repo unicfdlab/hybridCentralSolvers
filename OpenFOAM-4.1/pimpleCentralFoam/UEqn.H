@@ -1,6 +1,6 @@
 MRF.correctBoundaryVelocity(U);
 
-fvVectorMatrix UEqn
+tmp<fvVectorMatrix> tUEqn
 (
     fvm::ddt(rho,U)
     +
@@ -14,6 +14,8 @@ fvVectorMatrix UEqn
     ==
     fvOptions(rho, U)
 );
+
+fvVectorMatrix& UEqn = tUEqn.ref();
 
 fvOptions.constrain(UEqn);
 

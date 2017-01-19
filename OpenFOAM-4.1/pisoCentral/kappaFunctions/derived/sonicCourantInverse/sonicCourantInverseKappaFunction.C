@@ -75,25 +75,25 @@ void sonicCourantInverseKappaFunction::update()
 
 tmp<surfaceScalarField> sonicCourantInverseKappaFunction::kappa()
 {
-    const surfaceScalarField& cSf_own = mesh_.thisDb().lookupObject<surfaceScalarField>("cSf_own");
-    const surfaceScalarField& cSf_nei = mesh_.thisDb().lookupObject<surfaceScalarField>("cSf_nei");
+    const surfaceScalarField& cf_own = mesh_.thisDb().lookupObject<surfaceScalarField>("cf_own");
+    const surfaceScalarField& cf_nei = mesh_.thisDb().lookupObject<surfaceScalarField>("cf_nei");
     const surfaceScalarField& a_own   = mesh_.thisDb().lookupObject<surfaceScalarField>("alpha_own");
     const surfaceScalarField& a_nei   = mesh_.thisDb().lookupObject<surfaceScalarField>("alpha_nei");
     
     
-    surfaceScalarField cSfbyDelta
+    surfaceScalarField cfbyDelta
     (
         mesh_.surfaceInterpolation::deltaCoeffs()
         *
         (
-            cSf_own*a_own + cSf_nei*a_nei
+            cf_own*a_own + cf_nei*a_nei
         )
     );
     
     surfaceScalarField FaceSonicCourant
     (
         "FaceSonicCourant",
-        (cSfbyDelta/mesh_.magSf() * runTime_.deltaT())
+        (cfbyDelta * runTime_.deltaT())
     );
     
     Info << "max/min FaceSonicCourant: " << max(FaceSonicCourant).value() << "/" << min(FaceSonicCourant).value() << endl;

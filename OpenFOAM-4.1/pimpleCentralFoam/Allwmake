@@ -3,8 +3,7 @@ cd ${0%/*} || exit 1    # run from this directory
 set -x
 
 wmake
+cd pimpleCentralDyMFoam; wmake; cd ../
 
-# cd pisoCentralDyMFoam; wmake; cd ../
-# cd rhoPisoCentralFoam; wmake; cd ../
 
 # ----------------------------------------------------------------- end-of-file

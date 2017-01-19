@@ -24,7 +24,6 @@ License
 \*---------------------------------------------------------------------------*/
 
 #include "standardMachToAcCourantRatioKappaFunction.H"
-#include "volFields.H"
 #include "fvMesh.H"
 #include "Time.H"
 #include "addToRunTimeSelectionTable.H"
@@ -32,6 +31,7 @@ License
 #include "volFields.H"
 #include "surfaceFields.H"
 #include "coupledFvsPatchFields.H"
+#include "correctCentralACMIInterpolation.H"
 
 namespace Foam
 {
@@ -81,8 +81,9 @@ tmp<surfaceScalarField> standardMachToAcCourantRatioKappaFunction::kappa()
     const surfaceScalarField& rho_nei = mesh_.thisDb().lookupObject<surfaceScalarField>("rho_nei");
     const surfaceScalarField& a_own   = mesh_.thisDb().lookupObject<surfaceScalarField>("alpha_own");
     const surfaceScalarField& a_nei   = mesh_.thisDb().lookupObject<surfaceScalarField>("alpha_nei");
-    const surfaceScalarField& cSf_own = mesh_.thisDb().lookupObject<surfaceScalarField>("cSf_own");
-    const surfaceScalarField& cSf_nei = mesh_.thisDb().lookupObject<surfaceScalarField>("cSf_nei");
+    const surfaceScalarField& cf_own  = mesh_.thisDb().lookupObject<surfaceScalarField>("cf_own");
+    const surfaceScalarField& cf_nei  = mesh_.thisDb().lookupObject<surfaceScalarField>("cf_nei");
+    const surfaceScalarField& uMagSf  = mesh_.thisDb().lookupObject<surfaceScalarField>("uMagSf");
     
     surfaceScalarField amaxSfbyDelta
     (
@@ -92,17 +93,18 @@ tmp<surfaceScalarField> standardMachToAcCourantRatioKappaFunction::kappa()
     surfaceScalarField FaceAcCourant
     (
         "FaceAcCourant",
-        (amaxSfbyDelta/mesh_.magSf() * runTime_.deltaT())
+        (amaxSfbyDelta/uMagSf * runTime_.deltaT())
     );
     
     Info << "max/min FaceAcCourant: " << max(FaceAcCourant).value() << "/" << min(FaceAcCourant).value() << endl;
     
     surfaceScalarField Maf
     (
+        "Maf",
         max
         (
-            mag(phi) / (rho_own*a_own + rho_nei*a_nei)
-            / (cSf_own*a_own + cSf_nei*a_nei),
+            (mag(phi) / (rho_own*a_own + rho_nei*a_nei) / uMagSf)
+            / (cf_own*a_own + cf_nei*a_nei),
             scalar(0)
         )
     );

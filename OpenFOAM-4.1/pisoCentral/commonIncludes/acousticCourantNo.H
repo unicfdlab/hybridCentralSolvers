@@ -39,10 +39,10 @@ if (mesh.nInternalFaces())
         mesh.surfaceInterpolation::deltaCoeffs()*amaxSf
     );
 
-    ACoNum = max(amaxSfbyDelta/mesh.magSf()).value()*runTime.deltaTValue();
+    ACoNum = max(amaxSfbyDelta/tuMagSf()).value()*runTime.deltaTValue();
 
     meanACoNum =
-        (sum(amaxSfbyDelta)/sum(mesh.magSf())).value()
+        (sum(amaxSfbyDelta)/sum(tuMagSf())).value()
        *runTime.deltaTValue();
 }
 

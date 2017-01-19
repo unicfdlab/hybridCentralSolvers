@@ -22,6 +22,36 @@
         mesh,
         dimensionedScalar("nei", dimless, -1.0)
     );
+    
+    tmp<surfaceScalarField> tuMagSf
+    (
+        new surfaceScalarField
+        (
+            IOobject
+            (
+                "uMagSf",
+                runTime.timeName(),
+                mesh
+            ),
+            mesh.magSf() * 1.0
+        )
+    );
+    
+    tmp<surfaceVectorField> tuSf
+    (
+        new surfaceVectorField
+        (
+            IOobject
+            (
+                "uSf",
+                runTime.timeName(),
+                mesh
+            ),
+            mesh.Sf() * 1.0
+        )
+    );
+    correctCentralACMIInterpolation(tuMagSf.ref());
+    correctCentralACMIInterpolation(tuSf.ref());
 
     surfaceScalarField phi
     (
@@ -33,7 +63,7 @@
             IOobject::READ_IF_PRESENT,
             IOobject::AUTO_WRITE
         ),
-        linearInterpolate(rho*U) & mesh.Sf()
+        linearInterpolate(rho*U) & tuSf()
     );
 
     surfaceScalarField rho_own
@@ -46,6 +76,9 @@
         "rho_nei",
         fvc::interpolate(thermo.rho()(), nei, "reconstruct(rho)")
     );
+    
+    //Update fields at ACMI interfaces
+    correctCentralACMIInterpolation(rho_nei);
 
     surfaceScalarField psi_own
     (
@@ -80,6 +113,9 @@
         fvc::interpolate(p, nei, "reconstruct(p)")
     );
     
+    //Update fields at ACMI interfaces
+    correctCentralACMIInterpolation(psi_nei);
+    
     surfaceScalarField phiv_own
     (
         "phiv_own",
@@ -91,15 +127,27 @@
         (psiU_nei / psi_nei) & mesh.Sf()
     );
     
+    surfaceScalarField cf_own
+    (
+        "cf_own",
+        fvc::interpolate(c, own, "reconstruct(psi)")
+    );
+    surfaceScalarField cf_nei
+    (
+        "cf_nei",
+        fvc::interpolate(c, nei, "reconstruct(psi)")
+    );
+    correctCentralACMIInterpolation(cf_nei);
+
     surfaceScalarField cSf_own
     (
         "cSf_own",
-        fvc::interpolate(c, own, "reconstruct(psi)")*mesh.magSf()
+        cf_own * mesh.magSf()
     );
     surfaceScalarField cSf_nei
     (
         "cSf_nei",
-        fvc::interpolate(c, nei, "reconstruct(psi)")*mesh.magSf()
+        cf_nei * mesh.magSf()
     );
     
     surfaceScalarField ap
@@ -144,7 +192,6 @@
     {
         
     }
-    
     
     phiv_own *= alpha_own;
     phiv_nei *= alpha_nei;

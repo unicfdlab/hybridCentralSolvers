@@ -5,6 +5,9 @@ HbyA.boundaryFieldRef() == U.boundaryField();
 #include "updateCentralWeights.H"
 #include "psiUpdateCentralFields.H"
 
+phid_own -= fvc::meshPhi(rho,U)*psi_own*alpha_own;
+phid_nei -= fvc::meshPhi(rho,U)*psi_nei*alpha_nei;
+
 while (pimple.correctNonOrthogonal())
 {
     fvScalarMatrix pEqn_own
@@ -42,9 +45,9 @@ while (pimple.correctNonOrthogonal())
 
 p_own = fvc::interpolate(p, own, "reconstruct(p)");
 p_nei = fvc::interpolate(p, nei, "reconstruct(p)");
-
 rho_own = p_own*psi_own;
 rho_nei = p_nei*psi_nei;
+correctCentralACMIInterpolation(rho_nei);
 
 gradp = fvc::div((alpha_own*p_own + alpha_nei*p_nei)*mesh.Sf());
 #include "limitPressureGradient.H"

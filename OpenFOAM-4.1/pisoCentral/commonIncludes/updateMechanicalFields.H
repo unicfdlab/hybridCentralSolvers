@@ -43,3 +43,8 @@
                 )()
             );
 
+    if (mesh.changing())
+    {
+        KSource -= fvc::div(fvc::meshPhi(rho,U),p);
+    }
+

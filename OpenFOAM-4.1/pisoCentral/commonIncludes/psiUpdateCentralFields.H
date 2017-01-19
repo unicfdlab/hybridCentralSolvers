@@ -1,6 +1,8 @@
 {
     psi_own     = fvc::interpolate(psi, own, "reconstruct(psi)");
     psi_nei     = fvc::interpolate(psi, nei, "reconstruct(psi)");
+    //Update fields at ACMI interfaces
+    correctCentralACMIInterpolation(psi_nei);
     
     psiU_own    = fvc::interpolate(psi*HbyA, own, "reconstruct(U)");
     psiU_nei    = fvc::interpolate(psi*HbyA, nei, "reconstruct(U)");

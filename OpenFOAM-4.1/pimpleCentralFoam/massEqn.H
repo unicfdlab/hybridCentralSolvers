@@ -12,7 +12,7 @@
         
         fvOptions.correct(rho);
         
-        Info<< "rho max/min : " << max(rho).value()
-            << " / " << min(rho).value() << endl;
+        Info<< "rho max/min : " << gMax(rho.primitiveField())
+            << " / " << gMin(rho.primitiveField()) << endl;
     }
     

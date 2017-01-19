@@ -9,4 +9,6 @@ compressibleTwoPhaseThermo/compressibleTwoPhaseMixtureThermo.C
 
 centralMULES/centralMULES.C
 
+Tools/correctCentralACMIInterpolation.C
+
 LIB = $(FOAM_USER_LIBBIN)/libpisoCentral
