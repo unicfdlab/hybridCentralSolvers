@@ -38,7 +38,7 @@ Description
     scalar globalContErr =
         (fvc::domainIntegrate(rho - rhoT)/totalMass).value();
     
-    if (corr >= nCorr)
+    if ((pimple.corrPISO() == pimple.nCorrPISO()) && (pimple.corr() == pimple.nCorrPIMPLE()))
     {
         cumulativeContErr += globalContErr;
     }

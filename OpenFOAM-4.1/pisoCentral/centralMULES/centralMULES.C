@@ -24,12 +24,8 @@ void Foam::mulesWithDiffusionImplicitLimiter
 )
 {
     const fvMesh& mesh = rho.mesh();
-    //const dictionary& MULEScontrols = mesh.solverDict("Yi");
-
-    //label nLimiterIter
-    //(
-    //    readLabel(MULEScontrols.lookup("nLimiterIter"))
-    //);
+    const word Yname (Y.name());
+    Y.rename("Yi");
     
     upwind<scalar> UDsOwn(mesh, phi_own);
     upwind<scalar> UDsNei(mesh, phi_nei);
@@ -66,6 +62,8 @@ void Foam::mulesWithDiffusionImplicitLimiter
         1.0, //psiMax,
         0.0  //psiMin,
     );
+    
+    Y.rename(Yname);
 }
 
 void Foam::mulesWithDiffusionImplicitLimiter
@@ -81,12 +79,8 @@ void Foam::mulesWithDiffusionImplicitLimiter
 )
 {
     const fvMesh& mesh = rho.mesh();
-    //const dictionary& MULEScontrols = mesh.solverDict("Yi");
-
-    //label nLimiterIter
-    //(
-    //    readLabel(MULEScontrols.lookup("nLimiterIter"))
-    //);
+    const word Yname (Y.name());
+    Y.rename("Yi");
     
     upwind<scalar> UDs(mesh, phi);
     
@@ -119,6 +113,7 @@ void Foam::mulesWithDiffusionImplicitLimiter
         1.0, //psiMax,
         0.0  //psiMin,
     );
+    Y.rename(Yname);
 }
 
 //

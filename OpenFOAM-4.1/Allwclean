@@ -4,6 +4,8 @@ cd pisoCentral; wclean; wcleanLnIncludeAll; cd ../
 
 cd pimpleCentralFoam; ./Allwclean; cd ../
 
+cd reactingPimpleCentralFoam; ./Allwclean; cd ../
+
 #cd twoPhaseMixingCentralFoam; wclean;
 #cd twoPhaseMixingCentralDyMFoam; wclean; cd ../../
 

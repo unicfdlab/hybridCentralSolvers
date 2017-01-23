@@ -11,6 +11,15 @@ do
 done
 cd ../
 
+cd ConvergingDivergingNozzle; ./Allrun; cd ../
+
+cd ForwardStep; ./Allrun; cd ../
+
+cd gasMixture; ./Allrun; cd ../
+
+cd oscillatingInlet; ./Allrun; cd ../
+
+
 #
 #END-OF-FILE
 #

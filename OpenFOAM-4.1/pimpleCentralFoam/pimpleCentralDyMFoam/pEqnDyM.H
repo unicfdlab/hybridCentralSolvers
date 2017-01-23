@@ -61,8 +61,10 @@ Info << "max/min p: " << max(p).value() << "/" << min(p).value() << endl;
 
 #include "massEqn.H"
 
-#include "compressibleContinuityErrs.H"
+volScalarField rhoT = thermo.rho();
 
-rho = thermo.rho();
+#include "centralContinuityErrs.H"
+
+rho = rhoT;
 
 

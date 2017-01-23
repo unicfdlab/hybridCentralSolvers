@@ -4,6 +4,8 @@ cd pisoCentral; wmake libso; cd ../
 
 cd pimpleCentralFoam; ./Allwmake; cd ../
 
+cd reactingPimpleCentralFoam; ./Allwmake; cd ../
+
 #cd twoPhaseMixingCentralFoam; wmake;
 #cd twoPhaseMixingCentralDyMFoam; wmake;
 #cd ../../
