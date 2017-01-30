@@ -22,11 +22,12 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    pisoCentralFoam
+    reactingPimpleCentralFoam
 
 Description
     Pressure-based semi implicit compressible flow solver based on central-upwind schemes of
-    Kurganov and Tadmor for combustion with chemical reactions
+    Kurganov and Tadmor for combustion with chemical reactions and LTS support for steady-state 
+    calculations
 
 \*---------------------------------------------------------------------------*/
 

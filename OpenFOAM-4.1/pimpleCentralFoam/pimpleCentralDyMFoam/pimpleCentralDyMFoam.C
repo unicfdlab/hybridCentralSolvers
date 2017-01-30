@@ -22,11 +22,11 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    pisoCentralFoam
+    pimpleCentralDyMFoam
 
 Description
     Pressure-based semi implicit compressible flow solver based on central-upwind schemes of
-    Kurganov and Tadmor with mesh motion
+    Kurganov and Tadmor with mesh motion and LTS support for steady-state calculations
 
 \*---------------------------------------------------------------------------*/
 
