@@ -1,3 +1,5 @@
+scalar meshCoNum = 0.0;
+
 bool correctPhi
 (
     pimple.dict().lookup("correctPhi")

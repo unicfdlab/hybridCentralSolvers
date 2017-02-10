@@ -19,6 +19,8 @@ cd gasMixture; ./Allclean; cd ../
 
 cd oscillatingInlet; ./Allclean; cd ../
 
+cd twoPhase; ./Allclean; cd ../
+
 #
 #END-OF-FILE
 #

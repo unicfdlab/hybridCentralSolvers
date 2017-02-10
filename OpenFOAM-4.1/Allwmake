@@ -6,9 +6,7 @@ cd pimpleCentralFoam; ./Allwmake; cd ../
 
 cd reactingPimpleCentralFoam; ./Allwmake; cd ../
 
-#cd twoPhaseMixingCentralFoam; wmake;
-#cd twoPhaseMixingCentralDyMFoam; wmake;
-#cd ../../
+cd twoPhaseMixingCentralFoam; ./Allwmake; cd ../
 
 #
 #END-OF-FILE

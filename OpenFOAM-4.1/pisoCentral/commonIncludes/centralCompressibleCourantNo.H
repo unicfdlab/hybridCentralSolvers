@@ -151,6 +151,95 @@ velMag = 0.0;
             << " velocity magnitude: " << velMag
             << endl;
     }
+    /*
+    else if ( CourantType == "mixedFaceCourant" )
+    {
+
+        if (mesh.nInternalFaces())
+        {
+        
+            if (writeCourant)
+            {
+                localCoPtr.reset
+                (
+                    new volScalarField
+                    (
+                        IOobject
+                        (
+                            "Co",
+                            runTime.timeName(),
+                            mesh
+                        ),
+                        mesh,
+                        dimensionedScalar("localCo", dimless,  1.0)
+                    )
+                );
+            }
+            
+            surfaceScalarField magUf =
+            kappa*amaxSf/tuMagSf()
+            +
+            (1.0 - kappa)*
+            mag
+            (
+                phi
+                / 
+                (
+                    rho_own * alpha_own
+                    +
+                    rho_nei * alpha_nei
+                ) / tuMagSf()
+            );
+            
+            surfaceScalarField faceCo =
+                mesh.surfaceInterpolation::deltaCoeffs()
+                *
+                magUf
+                *
+                runTime.deltaT() * 2.0;
+        
+            CoNum = max(faceCo).value();
+        
+            velMag = max(magUf).value();
+            
+            if (writeCourant)
+            {
+                forAll(mesh.cells(), iCell)
+                {
+                    scalar maxCoCell =  -0.01;
+                    
+                    const labelList& cellFaces = mesh.cells()[iCell];
+                    
+                    forAll(cellFaces, iFace)
+                    {
+                        if (mesh.isInternalFace(cellFaces[iFace]))
+                        {
+                            if (faceCo[cellFaces[iFace]] > maxCoCell)
+                            {
+                                maxCoCell = faceCo[cellFaces[iFace]];
+                            }
+                       }
+                    }
+                    
+                    localCoPtr()[iCell] = maxCoCell;
+                }
+                
+                forAll(localCoPtr().boundaryField(), iPatch)
+                {
+                    forAll(localCoPtr().boundaryField()[iPatch], iFace)
+                    {
+                        localCoPtr().boundaryFieldRef()[iPatch][iFace] = 
+                            faceCo.boundaryField()[iPatch][iFace];
+                    }
+                }
+            } //if writeCourant
+        } //if mesh.nInternalFaces() > 9
+    
+        Info<< "Courant Number max : " << CoNum
+            << " velocity magnitude: " << velMag
+            << endl;
+    }
+    */
     else
     {
         FatalErrorIn
@@ -160,6 +249,7 @@ velMag = 0.0;
         << endl << " must be one of:" 
         << endl << "1) cellCourant"
         << endl << "2) faceCourant"
+        //<< endl << "3) mixedFaceCourant"
         << endl << abort(FatalError);
     }
     

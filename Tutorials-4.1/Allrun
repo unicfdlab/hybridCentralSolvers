@@ -19,6 +19,7 @@ cd gasMixture; ./Allrun; cd ../
 
 cd oscillatingInlet; ./Allrun; cd ../
 
+cd twoPhase; ./Allrun; cd ../
 
 #
 #END-OF-FILE

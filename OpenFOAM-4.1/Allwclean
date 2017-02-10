@@ -6,8 +6,7 @@ cd pimpleCentralFoam; ./Allwclean; cd ../
 
 cd reactingPimpleCentralFoam; ./Allwclean; cd ../
 
-#cd twoPhaseMixingCentralFoam; wclean;
-#cd twoPhaseMixingCentralDyMFoam; wclean; cd ../../
+cd twoPhaseMixingCentralFoam; ./Allwclean; cd ../
 
 #
 #END-OF-FILE

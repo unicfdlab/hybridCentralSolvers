@@ -37,10 +37,10 @@ Description
 #include "zeroGradientFvPatchFields.H"
 #include "coupledFvsPatchFields.H"
 #include "localEulerDdtScheme.H"
-#include "fvcSmooth.H"
 #include "cellQuality.H"
 #include "fvOptions.H"
 #include "kappaFunction.H"
+#include "fvcSmooth.H"
 #include "correctCentralACMIInterpolation.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -48,7 +48,6 @@ Description
 int main(int argc, char *argv[])
 {
     #include "setRootCase.H"
-    
     #include "createTime.H"
     #include "createMesh.H"
     

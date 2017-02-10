@@ -163,9 +163,6 @@ int main(int argc, char *argv[])
                 {
                     #define PISOCENTRALFOAM_LTS
                     
-                    //// --- update weightings for central scheme
-                    //#include "updateCentralWeights.H"
-                    
                     // --- update blending function
                     #include "updateKappa.H"
                     
@@ -177,9 +174,6 @@ int main(int argc, char *argv[])
 
             if (!updateEnergyInPISO)
             {
-                //// --- update weightings for central scheme
-                //#include "updateCentralWeights.H"
-                
                 // --- update blending function
                 #include "updateKappa.H"
                 

@@ -5,9 +5,6 @@ HbyA.boundaryFieldRef() == U.boundaryField();
 #include "updateCentralWeights.H"
 #include "psiUpdateCentralFields.H"
 
-phid_own -= fvc::meshPhi(rho,U)*psi_own*alpha_own;
-phid_nei -= fvc::meshPhi(rho,U)*psi_nei*alpha_nei;
-
 while (pimple.correctNonOrthogonal())
 {
     fvScalarMatrix pEqn_own

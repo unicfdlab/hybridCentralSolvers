@@ -8,8 +8,7 @@
     kappa = kappaFuncPtr().kappa()();
 
     Info << "max/min kappa: " << max(kappa).value() << "/" << min(kappa).value() << endl;
-
-    phi_nei += (1.0 - kappa) * phi_own;
-    phi_own *= kappa;
+    phi_own = phi_own + (1.0 - kappa) * phi_nei;
+    phi_nei = kappa * phi_nei;
 }
 

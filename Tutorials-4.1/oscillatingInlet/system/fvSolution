@@ -52,7 +52,7 @@ PIMPLE
     skewnessThreshold           0.5;
     updateEnergyInPISO          false;
     fluxScheme                  Kurganov; //Tadmor;
-    correctPhi                  true;
+    correctPhi                  false;
     checkMeshCourantNo          true;
     
     kappaFunction

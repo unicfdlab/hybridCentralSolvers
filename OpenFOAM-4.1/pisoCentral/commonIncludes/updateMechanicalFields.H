@@ -6,17 +6,17 @@
             surfaceVectorField U_own
             (
                 "U_own",
-                fvc::interpolate(rho*U, own, "reconstruct(rho*U)") / rho_own
+                fvc::interpolate(rho*U, own, "reconstruct(U)") / rho_own
             );
             
             surfaceVectorField U_nei
             (
                 "U_nei",
-                fvc::interpolate(rho*U, nei, "reconstruct(rho*U)") / rho_nei
+                fvc::interpolate(rho*U, nei, "reconstruct(U)") / rho_nei
             );
 
             KChange = 
-                fvc::ddt(rho,K)
+                (rho*K - rho.oldTime()*K.oldTime())/runTime.deltaT()
                 +
                 fvc::div(phi_own*0.5*magSqr(U_own))
                 +
@@ -25,15 +25,18 @@
         else //Kurganov
         {
             KChange = 
-                fvc::ddt(rho,K)
+                (rho*K - rho.oldTime()*K.oldTime())/runTime.deltaT()
                 +
                 fvc::div(phi_own,K)
                 +
                 fvc::div(phi_nei,K);
+                //or
+                //+
+                //fvc::div(phi,K);
         }
     }
     
-    KSource = fvc::ddt(p) + fvc::div
+    KSource = (p - p.oldTime())/runTime.deltaT() + fvc::div
             (
                 (
                     linearInterpolate
@@ -42,9 +45,6 @@
                     ) & mesh.Sf()
                 )()
             );
+    
 
-    if (mesh.changing())
-    {
-        KSource -= fvc::div(fvc::meshPhi(rho,U),p);
-    }
 

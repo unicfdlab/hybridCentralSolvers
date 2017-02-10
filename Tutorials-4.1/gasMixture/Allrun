@@ -5,7 +5,7 @@ for RCASE in $RUNCASES
 do
     if [ -d $RCASE ]
     then
-        cd $RUNCASE
+        cd $RCASE
         ./Allrun
         cd ../
     fi

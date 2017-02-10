@@ -45,6 +45,7 @@ p_nei = fvc::interpolate(p, nei, "reconstruct(p)");
 
 rho_own = p_own*psi_own;
 rho_nei = p_nei*psi_nei;
+correctCentralACMIInterpolation(rho_nei);
 
 gradp = fvc::div((alpha_own*p_own + alpha_nei*p_nei)*mesh.Sf());
 #include "limitPressureGradient.H"

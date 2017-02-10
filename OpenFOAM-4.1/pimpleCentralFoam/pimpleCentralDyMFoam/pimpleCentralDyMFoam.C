@@ -90,6 +90,8 @@ int main(int argc, char *argv[])
     #include "updateCentralWeights.H"
     phi_own = phiv_own*rho_own;
     phi_nei = phiv_nei*rho_nei;
+    surfaceScalarField mphi_own = phi*0.0;
+    surfaceScalarField mphi_nei = mphi_own;
     #include "updateKappa.H"
     #include "createCentralCourantNo.H"
     
@@ -143,15 +145,25 @@ int main(int argc, char *argv[])
                 {
                     #include "centralCorrectPhi.H"
                     
-                    phi_nei += (1.0 - kappa) * phi_own;
-                    phi_own *= kappa;
+                    phi_own = phi_own + (1.0 - kappa) * phi_nei;
+                    phi_nei = kappa * phi_nei;
+                }
+                else
+                {
+                     mphi_own = alpha_own*rho_own*mesh.phi();
+                     mphi_nei = alpha_nei*rho_nei*mesh.phi();
+                    
+                    //make fluxes relative
+                    phi_own -= (mphi_own + (1.0 - kappa)*mphi_nei);
+                    phi_nei -= (mphi_nei*kappa);
+                    phi = phi_own + phi_nei;
                 }
             }
         }
         
         if (mesh.changing() && checkMeshCourantNo)
         {
-            #include "meshCourantNo.H"
+            #include "centralMeshCourantNo.H"
             #include "markBadQualityCells.H"
         }
         
@@ -187,50 +199,35 @@ int main(int argc, char *argv[])
                 {
                     #define PISOCENTRALFOAM_LTS
                     
-                    //// --- update weightings for central scheme
-                    //#include "updateCentralWeights.H"
-
-                    surfaceScalarField mphi_own = alpha_own * rho_own * fvc::meshPhi(rho,U);
-                    surfaceScalarField mphi_nei = alpha_nei * rho_nei * fvc::meshPhi(rho,U);
-                    
-                    phi_nei += mphi_nei;
+                    mphi_own = alpha_own * rho_own * mesh.phi();
+                    mphi_nei = alpha_nei * rho_nei * mesh.phi();
+                
                     phi_own += mphi_own;
+                    phi_nei += mphi_nei;
                     phi = phi_own + phi_nei;
-
-                    // --- update blending function
                     #include "updateKappa.H"
-
-                    phi_nei -= (mphi_nei + (1.0 - kappa)*mphi_own);
-                    phi_own -= (kappa*mphi_own);
-                    phi = phi_own + phi_nei;
-
-                    // --- update mechanical fields
                     #include "updateMechanicalFields.H"
                 }
             }
             
-
             if (!updateEnergyInPISO)
             {
-                //// --- update weightings for central scheme
-                //#include "updateCentralWeights.H"
+                mphi_own = alpha_own * rho_own * mesh.phi();
+                mphi_nei = alpha_nei * rho_nei * mesh.phi();
                 
-                surfaceScalarField mphi_own = alpha_own * rho_own * fvc::meshPhi(rho,U);
-                surfaceScalarField mphi_nei = alpha_nei * rho_nei * fvc::meshPhi(rho,U);
-                
-                phi_nei += mphi_nei;
                 phi_own += mphi_own;
+                phi_nei += mphi_nei;
                 phi = phi_own + phi_nei;
-                
-                // --- update blending function
                 #include "updateKappa.H"
-                
-                phi_nei -= (mphi_nei + (1.0 - kappa)*mphi_own);
-                phi_own -= (kappa*mphi_own);
-                phi = phi_own + phi_nei;
-
-                // --- update mechanical fields
                 #include "updateMechanicalFields.H"
+            }
+            
+            if (pimple.corr() < pimple.nCorrPIMPLE())
+            {
+                Info << "Making fluxes relative for next PIMPLE iter" << endl;
+                phi_own -= (mphi_own + (1.0 - kappa)*mphi_nei);
+                phi_nei -= (mphi_nei*kappa);
+                phi = phi_own + phi_nei;
             }
         }
 

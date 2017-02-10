@@ -1,0 +1,17 @@
+#!/bin/bash
+
+CLEANCASES=`ls`
+for CCASE in $CLEANCASES
+do
+    if [ -d $CCASE ]
+    then
+        cd $CCASE
+        ./Allclean
+        cd ../
+    fi
+done
+
+#
+#END-OF-FILE
+#
+

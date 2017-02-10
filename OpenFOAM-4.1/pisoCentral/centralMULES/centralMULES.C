@@ -48,7 +48,6 @@ void Foam::mulesWithDiffusionImplicitLimiter
         SuSp & Y
     );
     
-    
     MULES::limiter
     (
         lambdaFace,
