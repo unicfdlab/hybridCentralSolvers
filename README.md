@@ -12,3 +12,8 @@ Kurganov and Tadmor with mesh motion and LTS support for steady-state calculatio
 3. **reactingPimpleCentralFoam** - Pressure-based semi implicit compressible flow solver based on central-upwind schemes of 
 Kurganov and Tadmor for combustion with chemical reactions and LTS support for steady-state calculations
 
+4. **twoPhaseMixingCentralFoam** - Transient Eulerian two-phase solver. Liquid and gas are
+    considered as compressible fluids. Mass transfer at the interface is not accounted.
+
+5. **twoPhaseMixingCentralDyMFoam** - Transient Eulerian two-phase solver with dynamic meshes. Liquid and gas are
+    considered as compressible fluids. Mass transfer at the interface is not accounted.
