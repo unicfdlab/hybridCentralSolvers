@@ -1,25 +1,18 @@
 #!/bin/bash
 
-cd RiemanToro
-
-RTCASES=`ls`
-for RTCASE in $RTCASES
+RUNCASES=`ls`
+for RCASE in $RUNCASES
 do
-    cd $RTCASE
-    ./Allrun
-    cd ../
+    if [ -d $RCASE ]
+    then
+        cd $RCASE
+        if [ -e Allrun ]
+        then
+            ./Allrun
+        fi
+        cd ../
+    fi
 done
-cd ../
-
-cd ConvergingDivergingNozzle; ./Allrun; cd ../
-
-cd ForwardStep; ./Allrun; cd ../
-
-cd gasMixture; ./Allrun; cd ../
-
-cd oscillatingInlet; ./Allrun; cd ../
-
-cd twoPhase; ./Allrun; cd ../
 
 #
 #END-OF-FILE

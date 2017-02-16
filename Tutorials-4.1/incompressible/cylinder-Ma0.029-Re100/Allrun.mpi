@@ -5,7 +5,8 @@ cd ${0%/*} || exit 1    # Run from this directory
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
 
 cd constant; tar xfz polyMesh.tgz; cd ../
-runApplication `getApplication`
+runApplication decomposePar
+runApplication mpirun -np 4 `getApplication` -parallel
 #runApplication postProcess -func sampleDict
 
 #------------------------------------------------------------------------------

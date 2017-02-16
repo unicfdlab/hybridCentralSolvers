@@ -1,17 +1,1 @@
-#!/bin/bash
-
-RUNCASES=`ls`
-for RCASE in $RUNCASES
-do
-    if [ -d $RCASE ]
-    then
-        cd $RCASE
-        ./Allrun
-        cd ../
-    fi
-done
-
-#
-#END-OF-FILE
-#
-
+../Allrun
