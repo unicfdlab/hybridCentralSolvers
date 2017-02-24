@@ -1,0 +1,15 @@
+front
+{
+    type    wedge;
+}
+
+back
+{
+    type    wedge;
+}
+
+defaultFaces
+{
+    type    slip;
+}
+

@@ -8,6 +8,8 @@ cd reactingPimpleCentralFoam; ./Allwclean; cd ../
 
 cd twoPhaseMixingCentralFoam; ./Allwclean; cd ../
 
+cd chtMultiRegionCentralFoam; ./Allwclean; cd ../
+
 #
 #END-OF-FILE
 #
