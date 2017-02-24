@@ -22,11 +22,13 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    pimpleCentralFoam
+    chtMultiRegionCentralFoam
 
 Description
-    Pressure-based semi implicit compressible flow solver based on central-upwind schemes of
-    Kurganov and Tadmor and LTS support for steady-state calculations
+    Pressure-based semi implicit solver, based on hybrid central-upwind schemes
+    of Kurganov and Tadmor for conjugate simulation of compressible flows (Mach 
+    number is ranging from 0 to 6) and solid body heat transfer.
+    
 
 \*---------------------------------------------------------------------------*/
 

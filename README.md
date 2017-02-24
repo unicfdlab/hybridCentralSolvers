@@ -17,3 +17,7 @@ Kurganov and Tadmor for combustion with chemical reactions and LTS support for s
 
 5. **twoPhaseMixingCentralDyMFoam** - Transient Eulerian two-phase solver with dynamic meshes. Liquid and gas are
     considered as compressible fluids. Mass transfer at the interface is not accounted.
+
+6. **chtMultiRegionCentralFoam** -     Pressure-based semi implicit solver, based on hybrid central-upwind schemes
+    of Kurganov and Tadmor for conjugate simulation of compressible flows (Mach 
+    number is ranging from 0 to 6) and solid body heat transfer.
