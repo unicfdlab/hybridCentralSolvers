@@ -22,17 +22,17 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    pimpleCentralFoam
+    rhoPimpleCentralFoam
 
 Description
-    Pressure-based semi implicit compressible flow of perfect gas
-    solver based on central-upwind schemes of Kurganov and Tadmor 
-    and LTS support for steady-state calculations
+    Pressure-based semi implicit compressible flow  of real gas solver 
+    based on central-upwind schemes of Kurganov and Tadmor and LTS 
+    support for steady-state calculations
 
 \*---------------------------------------------------------------------------*/
 
 #include "fvCFD.H"
-#include "psiThermo.H"
+#include "rhoThermo.H"
 #include "pimpleControl.H"
 #include "turbulentFluidThermoModel.H"
 #include "zeroGradientFvPatchFields.H"
@@ -61,6 +61,7 @@ int main(int argc, char *argv[])
     #include "createFields.H"
     #include "readAdditionalPimpleControl.H"
     #include "createCommonCentralFields.H"
+    #include "createRhoHatFields.H"
     
     Info<< "Creating turbulence model\n" << endl;
     autoPtr<compressible::turbulenceModel> turbulence
@@ -120,6 +121,7 @@ int main(int argc, char *argv[])
         U.oldTime();
         h.oldTime();
         K.oldTime();
+        rhoHat.oldTime();
         
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
@@ -154,9 +156,6 @@ int main(int argc, char *argv[])
                 {
                     #define PISOCENTRALFOAM_LTS
                     
-                    //// --- update weightings for central scheme
-                    //#include "updateCentralWeights.H"
-                    
                     // --- update blending function
                     #include "updateKappa.H"
                     
@@ -168,9 +167,6 @@ int main(int argc, char *argv[])
 
             if (!updateEnergyInPISO)
             {
-                //// --- update weightings for central scheme
-                //#include "updateCentralWeights.H"
-                
                 // --- update blending function
                 #include "updateKappa.H"
                 

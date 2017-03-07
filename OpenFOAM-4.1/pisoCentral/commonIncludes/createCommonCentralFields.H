@@ -52,7 +52,7 @@
     );
     correctCentralACMIInterpolation(tuMagSf.ref());
     correctCentralACMIInterpolation(tuSf.ref());
-
+    
     surfaceScalarField phi
     (
         IOobject
@@ -65,16 +65,16 @@
         ),
         linearInterpolate(rho*U) & tuSf()
     );
-
+    
     surfaceScalarField rho_own
     (
         "rho_own",
-        fvc::interpolate(thermo.rho()(), own, "reconstruct(rho)")
+        fvc::interpolate(rho, own, "reconstruct(rho)")
     );
     surfaceScalarField rho_nei
     (
         "rho_nei",
-        fvc::interpolate(thermo.rho()(), nei, "reconstruct(rho)")
+        fvc::interpolate(rho, nei, "reconstruct(rho)")
     );
     
     //Update fields at ACMI interfaces

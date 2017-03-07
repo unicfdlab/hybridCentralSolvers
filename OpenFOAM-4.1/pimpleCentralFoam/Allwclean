@@ -3,6 +3,7 @@ cd ${0%/*} || exit 1    # run from this directory
 set -x
 
 wclean
+cd rhoPimpleCentralFoam; wclean; cd ../
 cd pimpleCentralDyMFoam; wclean; cd ../
 
 

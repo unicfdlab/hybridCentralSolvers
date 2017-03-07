@@ -1,10 +1,10 @@
 Info<< "Reading thermophysical properties\n" << endl;
 
-autoPtr<psiThermo> pThermo
+autoPtr<rhoThermo> pThermo
 (
-    psiThermo::New(mesh)
+    rhoThermo::New(mesh)
 );
-psiThermo& thermo = pThermo();
+rhoThermo& thermo = pThermo();
 thermo.correct();
 
 volScalarField& p = thermo.p();
@@ -27,6 +27,7 @@ volVectorField U
 );
 
 volVectorField HbyA ("HbyA", U);
+
 
 Info<< "Creating field kinetic energy K\n" << endl;
 volScalarField K

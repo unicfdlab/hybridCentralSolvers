@@ -11,4 +11,6 @@ centralMULES/centralMULES.C
 
 Tools/correctCentralACMIInterpolation.C
 
+thermophysicalProperties/thermo/additionalRhoThermos.C
+
 LIB = $(FOAM_USER_LIBBIN)/libpisoCentral

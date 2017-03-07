@@ -26,8 +26,9 @@ Application
 
 Description
     Pressure-based semi implicit solver, based on hybrid central-upwind schemes
-    of Kurganov and Tadmor for conjugate simulation of compressible flows (Mach 
-    number is ranging from 0 to 6) and solid body heat transfer.
+    of Kurganov and Tadmor for conjugate simulation of compressible flows of 
+    perfect gas (Mach number is ranging from 0 to 6) and solid body heat
+    transfer.
     
 
 \*---------------------------------------------------------------------------*/
