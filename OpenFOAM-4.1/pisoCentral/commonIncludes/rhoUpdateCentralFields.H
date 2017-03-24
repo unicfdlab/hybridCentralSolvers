@@ -1,11 +1,16 @@
 {
-    psi_own       = fvc::interpolate(psi, own, "reconstruct(psi)");
-    psi_nei       = fvc::interpolate(psi, nei, "reconstruct(psi)");
+    psif = linearInterpolate(psi);
+    psi_own       = fvc::interpolate(psi, own, "reconstruct(psi)")*kappa
+                      + (1.0 - kappa)*psif;
+    psi_nei       = fvc::interpolate(psi, nei, "reconstruct(psi)")*kappa
+                      + (1.0 - kappa)*psif;
     //Update fields at ACMI interfaces
     correctCentralACMIInterpolation(psi_nei);
     
-    rhoHat_own    = fvc::interpolate(rhoHat, own, "reconstruct(rhoHat)");
-    rhoHat_nei    = fvc::interpolate(rhoHat, nei, "reconstruct(rhoHat)");
+    rhoHat_own    = fvc::interpolate(rhoHat, own, "reconstruct(rhoHat)")*kappa
+                      + (1.0 - kappa)*rhoHatf;
+    rhoHat_nei    = fvc::interpolate(rhoHat, nei, "reconstruct(rhoHat)")*kappa
+                      + (1.0 - kappa)*rhoHatf;
     //Update fields at ACMI interfaces
     correctCentralACMIInterpolation(rhoHat_nei);
     

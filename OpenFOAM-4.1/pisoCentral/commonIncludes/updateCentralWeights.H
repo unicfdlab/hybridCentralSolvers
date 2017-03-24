@@ -10,7 +10,7 @@
             phiv_own   -= mesh.phi();
             phiv_nei   -= mesh.phi();
         }
-
+        
         c           = sqrt(thermo.Cp()/thermo.Cv() / psi);
         cf_own      = fvc::interpolate(c, own, "reconstruct(psi)");
         cf_nei      = fvc::interpolate(c, nei, "reconstruct(psi)");

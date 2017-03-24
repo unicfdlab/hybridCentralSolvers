@@ -1,0 +1,86 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      sampleDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+type sets;
+libs ("libsampling.so");
+
+interpolationScheme cellPoint;
+
+setFormat       csv;
+
+sets
+(
+    line1
+    {
+        type    face;
+        axis    y;
+        start   ( 2.3e-3 0      0 );
+        end     ( 2.3e-3 2.3e-3 0 );
+        nPoints 100;
+    }
+    
+    line2
+    {
+        type    face;
+        axis    y;
+        start   ( 4.6e-3 0      0 );
+        end     ( 4.6e-3 2.3e-3 0 );
+        nPoints 100;
+    }
+
+    line3
+    {
+        type    face;
+        axis    y;
+        start   ( 6.9e-3 0      0 );
+        end     ( 6.9e-3 2.3e-3 0 );
+        nPoints 100;
+    }
+
+    lineL
+    {
+        type    face;
+        axis    y;
+        start   ( 65.0e-3 0      0 );
+        end     ( 65.0e-3 2.3e-3 0 );
+        nPoints 100;
+    }
+
+    lineM
+    {
+        type    face;
+        axis    y;
+        start   ( 67.0e-3 0      0 );
+        end     ( 67.0e-3 2.3e-3 0 );
+        nPoints 100;
+    }
+
+    lineN
+    {
+        type    face;
+        axis    y;
+        start   ( 68.0e-3 0      0 );
+        end     ( 68.0e-3 2.3e-3 0 );
+        nPoints 100;
+    }
+
+);
+
+fields          (U);
+
+
+// ************************************************************************* //

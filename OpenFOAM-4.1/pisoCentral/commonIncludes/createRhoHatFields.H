@@ -11,6 +11,12 @@ volScalarField rhoHat
     rho  - psi*p
 );
 
+surfaceScalarField rhoHatf
+(
+    "rhoHatf",
+    linearInterpolate(rhoHat)
+);
+
 surfaceScalarField rhoHat_own
 (
     "rhoHat_own",

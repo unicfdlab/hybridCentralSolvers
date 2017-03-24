@@ -150,8 +150,8 @@ int main(int argc, char *argv[])
                 }
                 else
                 {
-                     mphi_own = alpha_own*rho_own*mesh.phi();
-                     mphi_nei = alpha_nei*rho_nei*mesh.phi();
+                    mphi_own = alpha_own*rho_own*mesh.phi();
+                    mphi_nei = alpha_nei*rho_nei*mesh.phi();
                     
                     //make fluxes relative
                     phi_own -= (mphi_own + (1.0 - kappa)*mphi_nei);

@@ -22,13 +22,13 @@ boundaryField
 {
     outlet
     {
-	type            totalPressure;
-	value		uniform 1e5;
-	p0		uniform 1e5;
-	phi		phi;
-	rho		rho;
-	psi		none;
-	gamma		1.4;
+        type            totalPressure;
+        value		uniform 1e5;
+        p0		uniform 1e5;
+        phi		phi;
+        rho		none;
+        psi		thermo:psi;
+        gamma		1;
     }
 
     inlet1

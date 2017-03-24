@@ -67,7 +67,7 @@ interpolationSchemes
     interpolate(((rho*nut)+thermo:mu)) linear;
     
     reconstruct(rho)		$defaultAdvScheme;
-    reconstruct(psi)		linear; //$defaultAdvScheme;
+    reconstruct(psi)		$defaultAdvScheme;
     reconstruct(p)		$defaultAdvScheme;
     reconstruct(U)		$defaultAdvSchemeV;
     reconstruct(rho*U)		$defaultAdvSchemeV;

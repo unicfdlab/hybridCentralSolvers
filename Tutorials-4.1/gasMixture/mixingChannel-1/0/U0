@@ -37,16 +37,7 @@ boundaryField
     }
     outlet
     {
-//	type		advective;
-//	rho		rho;
-//	phi		rhoPhi;
-//	value		$internalField;
-//	lInf		1.0;
-//	fieldInf	(0 0 0);
-	type		fluxCorrectedVelocity;
-	phi		rhoPhi;
-	rho		rho;
-	value		$internalField;
+        type            zeroGradient;
     }
     frontAndBack
     {

@@ -90,6 +90,11 @@
         "psi_nei",
         fvc::interpolate(psi, nei, "reconstruct(psi)")
     );
+    surfaceScalarField psif
+    (
+        "psif",
+        linearInterpolate(psi)
+    );
 
     surfaceVectorField psiU_own
     (
@@ -170,7 +175,7 @@
     surfaceScalarField aSf
     (
         "aSf",
-        am*alpha_own*0.0
+        am*alpha_own
     );
     surfaceScalarField alpha_nei
     (
@@ -186,7 +191,7 @@
     {
         //fields are equal
         alpha_own = 0.5;
-        alpha_nei = 1.0 - alpha_nei;
+        alpha_nei = 1.0 - alpha_own;
     }
     else
     {

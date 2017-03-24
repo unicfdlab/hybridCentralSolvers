@@ -50,10 +50,11 @@ velMag = 0.0;
                         mesh
                     ),
                     mesh,
-                    dimensionedScalar("localCo", dimless,  1.0)
+                    dimensionedScalar("localCo", dimless,  VSMALL),
+                    zeroGradientFvPatchScalarField::typeName
                 )
             );
-        
+            
             localCoPtr().primitiveFieldRef() = 
             (
                 fvc::surfaceSum(mag(phi))().primitiveField()
@@ -86,7 +87,8 @@ velMag = 0.0;
                             mesh
                         ),
                         mesh,
-                        dimensionedScalar("localCo", dimless,  1.0)
+                        dimensionedScalar("localCo", dimless,  VSMALL),
+                        calculatedFvPatchScalarField::typeName
                     )
                 );
             }
@@ -102,13 +104,22 @@ velMag = 0.0;
                     rho_nei * alpha_nei
                 ) / tuMagSf()
             );
-        
+            
             surfaceScalarField faceCo =
                 mesh.surfaceInterpolation::deltaCoeffs()
                 *
                 magUf
                 *
                 runTime.deltaT() * 2.0;
+            
+            //update boundary Courant numbers
+            forAll (faceCo.boundaryField(), iPatch)
+            {
+                forAll(faceCo.boundaryField()[iPatch], iFace)
+                {
+                    faceCo.boundaryFieldRef()[iPatch][iFace] /= 2.0;
+                }
+            }
         
             CoNum = max(faceCo).value();
         

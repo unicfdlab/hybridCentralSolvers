@@ -55,45 +55,13 @@
     //
     // Is it better to recalculate aSf due to changes in mesh.Sf() ?
     //
-    phi_own = fvc::interpolate(rho, own, "reconstruct(rho)") * 
-            (
-                alpha_own * 
-                (
-                    ((fvc::interpolate(tVr() * U * rho, own, "reconstruct(U)") / rho_own) & mesh.Sf()) - 
-                    mesh.phi()
-                )
-                - aSf
-            );
-
-    phi_nei = fvc::interpolate(rho, nei, "reconstruct(rho)") *
-            (
-                alpha_nei * 
-                (
-                    ((fvc::interpolate(tVr() * U * rho, nei, "reconstruct(U)") / rho_nei) & mesh.Sf()) - 
-                    mesh.phi()
-                ) 
-                + aSf
-            );
     
-//    surfaceScalarField mphid_own
-//    (
-//        "mphid_own",
-//        psi_own *
-//        (
-//            alpha_own * meshPhi
-//            + aSf
-//        )
-//    );
-
-//    surfaceScalarField mphid_nei
-//    (
-//        "mphid_nei",
-//        psi_nei *
-//        (
-//            alpha_nei * meshPhi
-//            - aSf
-//        )
-//    );
+    surfaceScalarField rhof = linearInterpolate(rho);
+    phiv_own = (fvc::interpolate(rho*U, own, "reconstruct(U)") / rho_own & mesh.Sf()) - mesh.phi();
+    phiv_nei = (fvc::interpolate(rho*U, nei, "reconstruct(U)") / rho_nei & mesh.Sf()) - mesh.phi();
+    
+    phi_own = rho_own * (alpha_own*phiv_own - aSf);
+    phi_nei = rho_nei * (alpha_nei*phiv_nei + aSf);
     
     surfaceScalarField Dpcorr_own
     (
@@ -112,30 +80,25 @@
 
     while (pimple.correctNonOrthogonal())
     {
-    
         fvScalarMatrix pcorrEqn_own
         (
               fvc::div(phi_own)
             - fvm::laplacian(Dpcorr_own,pcorr)
-//            - fvm::div(mphid_own,pcorr)
         );
         
         fvScalarMatrix pcorrEqn_nei
         (
               fvc::div(phi_nei)
             - fvm::laplacian(Dpcorr_nei,pcorr)
-//            - fvm::div(mphid_nei,pcorr) 
         );
         
         // Solve for pcorr such that the divergence of the corrected flux
-        // matches the divRhoU provided (from previous iteration, time-step...)
+        // mathes new mesh fluxes
         fvScalarMatrix pcorrEqn
         (
             rho*(1.0 - tVr())/runTime.deltaT()
             +
             fvm::Sp(psi/runTime.deltaT(),pcorr)
-            //+
-            //fvc::div(phi)
             +
             pcorrEqn_own
             +

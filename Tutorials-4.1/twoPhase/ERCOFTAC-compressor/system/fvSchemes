@@ -75,13 +75,13 @@ interpolationSchemes
     interpolate(rho)		linear;
     
     reconstruct(rho)		$defaultAdvScheme;
-    reconstruct(psi)		linear; //$defaultAdvScheme;
+    reconstruct(psi)		$defaultAdvScheme;
     reconstruct(p)		$defaultAdvScheme;
     reconstruct(U)		$defaultAdvSchemeV;
     reconstruct(U)		$defaultAdvSchemeV;
     reconstruct(rho*U)		$defaultAdvSchemeV;
     reconstruct(Dp)		$defaultAdvScheme;
-    reconstruct(rhoHat)		linear; //$defaultAdvScheme;
+    reconstruct(rhoHat)		$defaultAdvScheme;
 }
 
 snGradSchemes
