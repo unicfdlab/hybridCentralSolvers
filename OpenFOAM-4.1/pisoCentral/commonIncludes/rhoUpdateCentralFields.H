@@ -7,6 +7,7 @@
     //Update fields at ACMI interfaces
     correctCentralACMIInterpolation(psi_nei);
     
+    rhoHatf = linearInterpolate(rhoHat);
     rhoHat_own    = fvc::interpolate(rhoHat, own, "reconstruct(rhoHat)")*kappa
                       + (1.0 - kappa)*rhoHatf;
     rhoHat_nei    = fvc::interpolate(rhoHat, nei, "reconstruct(rhoHat)")*kappa

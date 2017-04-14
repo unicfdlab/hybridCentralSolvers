@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
     {
         #include "readTimeControls.H"
         #include "readAdditionalPimpleControl.H"
-	#include "acousticCourantNo.H"
+        #include "acousticCourantNo.H"
         #include "centralCompressibleCourantNo.H"
         #include "setDeltaT.H"
 
@@ -129,20 +129,31 @@ int main(int argc, char *argv[])
              if (mesh.changing())
              {
                  #include "updateFaceAreas.H"
-                 
-                 mphi_own = alpha_own*rho_own*mesh.phi();
-                 mphi_nei = alpha_nei*rho_nei*mesh.phi();
-                 //make fluxes relative
-                 phi_own -= (mphi_own + (1.0 - kappa)*mphi_nei);
-                 phi_nei -= (mphi_nei*kappa);
-                 phi = phi_own + phi_nei;
 
-                 if (checkMeshCourantNo)
-                 {
-                     #include "centralMeshCourantNo.H"
-                 }
+                if (correctPhi)
+                {
+                    #include "centralCorrectPhi.H"
+                    
+                    phi_own = phi_own + (1.0 - kappa) * phi_nei;
+                    phi_nei = kappa * phi_nei;
+                }
+                else
+                {
+                    mphi_own = alpha_own*rho_own*mesh.phi();
+                    mphi_nei = alpha_nei*rho_nei*mesh.phi();
+                    
+                    //make fluxes relative
+                    phi_own -= (mphi_own + (1.0 - kappa)*mphi_nei);
+                    phi_nei -= (mphi_nei*kappa);
+                    phi = phi_own + phi_nei;
+                }
 
-                 #include "markBadQualityCells.H"
+                if (checkMeshCourantNo)
+                {
+                    #include "centralMeshCourantNo.H"
+                }
+
+                #include "markBadQualityCells.H"
              }
         }
         
@@ -203,7 +214,6 @@ int main(int argc, char *argv[])
             
             if (pimple.corr() < pimple.nCorrPIMPLE())
             {
-                Info << "Making fluxes relative for next PIMPLE iter" << endl;
                 phi_own -= (mphi_own + (1.0 - kappa)*mphi_nei);
                 phi_nei -= (mphi_nei*kappa);
                 phi = phi_own + phi_nei;
