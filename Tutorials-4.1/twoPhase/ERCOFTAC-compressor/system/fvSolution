@@ -35,10 +35,21 @@ solvers
 
     pcorr
     {
-        solver          PBiCGStab;
-        preconditioner  DILU;
-        tolerance        1e-8;
-        relTol           0;
+        solver          PCG;
+        maxIter         50;
+        tolerance       1e-7;
+        preconditioner
+        {
+            preconditioner  GAMG;
+            tolerance       0;
+            relTol          1e-7;
+            smoother        GaussSeidel;
+            cacheAgglomeration no;
+            nCellsInCoarsestLevel 500;
+            agglomerator    faceAreaPair;
+            mergeLevels     1;
+            maxIter         50;
+        }
     }
 }
 
