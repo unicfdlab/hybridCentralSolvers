@@ -104,12 +104,12 @@ int main(int argc, char *argv[])
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
     
     Info<< "\nStarting time loop\n" << endl;
-    Info << "tuSf().boundaryField().size() = " << tuSf().boundaryField().size() << endl;
+    
     while (runTime.run())
     {
         #include "readAdditionalPimpleControl.H"
         #include "readCentralMeshControls.H"
-
+        
         {
             if (LTS)
             {
