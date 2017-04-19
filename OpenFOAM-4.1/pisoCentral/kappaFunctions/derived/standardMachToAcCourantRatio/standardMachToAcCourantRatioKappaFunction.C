@@ -32,6 +32,7 @@ License
 #include "surfaceFields.H"
 #include "coupledFvsPatchFields.H"
 #include "correctCentralACMIInterpolation.H"
+#include "localEulerDdtScheme.H"
 
 namespace Foam
 {
@@ -90,11 +91,44 @@ tmp<surfaceScalarField> standardMachToAcCourantRatioKappaFunction::kappa()
         mesh_.surfaceInterpolation::deltaCoeffs()*amaxSf
     );
     
-    surfaceScalarField FaceAcCourant
-    (
-        "FaceAcCourant",
-        (amaxSfbyDelta/uMagSf * runTime_.deltaT())
-    );
+    autoPtr<surfaceScalarField> FaceAcCourantPtr;
+    
+    if (fv::localEulerDdt::enabled(mesh_))
+    {
+        dimensionedScalar cDeltaT = runTime_.deltaT();
+        
+        cDeltaT.value() = 1.0 / gMax
+            (
+                mesh_.thisDb().lookupObject<volScalarField>(fv::localEulerDdt::rDeltaTName).internalField()
+            );
+//        surfaceScalarField rDeltaTf = linearInterpolate
+//        (
+//            mesh_.thisDb().lookupObject<volScalarField>(fv::localEulerDdt::rDeltaTName)
+//        );
+
+        FaceAcCourantPtr.set
+        (
+            new surfaceScalarField
+            (
+                "FaceAcCourant",
+                //amaxSfbyDelta/uMagSf / rDeltaTf
+                amaxSfbyDelta/uMagSf * cDeltaT
+            )
+        );
+    }
+    else
+    {
+        FaceAcCourantPtr.set
+        (
+            new surfaceScalarField
+            (
+                "FaceAcCourant",
+                amaxSfbyDelta/uMagSf * runTime_.deltaT()
+            )
+        );
+    }
+    
+    const surfaceScalarField& FaceAcCourant = FaceAcCourantPtr();
     
     Info << "max/min FaceAcCourant: " << max(FaceAcCourant).value() << "/" << min(FaceAcCourant).value() << endl;
     

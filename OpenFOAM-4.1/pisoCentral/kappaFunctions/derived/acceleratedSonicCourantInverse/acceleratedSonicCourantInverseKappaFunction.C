@@ -31,6 +31,7 @@ License
 #include "fvc.H"
 #include "volFields.H"
 #include "surfaceFields.H"
+#include "localEulerDdtScheme.H"
 
 namespace Foam
 {
@@ -87,11 +88,21 @@ tmp<surfaceScalarField> acceleratedSonicCourantInverseKappaFunction::kappa()
             max(cf_own,cf_nei)
         )
     );
+
+    dimensionedScalar cDeltaT = runTime_.deltaT();
+    
+    if (fv::localEulerDdt::enabled(mesh_))
+    {
+        cDeltaT.value() = 1.0 / gMax
+        (
+            mesh_.thisDb().lookupObject<volScalarField>(fv::localEulerDdt::rDeltaTName)
+        );
+    }
     
     surfaceScalarField FaceSonicCourant
     (
         "FaceSonicCourant",
-        (cfbyDelta * runTime_.deltaT())
+        (cfbyDelta * cDeltaT)
     );
     
     Info << "max/min FaceSonicCourant: " << max(FaceSonicCourant).value() << "/" << min(FaceSonicCourant).value() << endl;

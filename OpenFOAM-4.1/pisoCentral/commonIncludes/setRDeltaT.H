@@ -1,28 +1,48 @@
 {
     volScalarField& rDeltaT = trDeltaT.ref();
 
-    scalar maxCo
-    (
-        readScalar(runTime.controlDict().lookup("maxCo")) //0.8 is default
-    );
-
+    if (maxCoPtr.empty())
+    {
+        maxCoPtr = Function1<scalar>::New("maxCo", runTime.controlDict());
+    }
+    maxCo = maxCoPtr->value(runTime.value());
+    
+    
+    if (rDeltaTSmoothingCoeffPtr.empty())
+    {
+        rDeltaTSmoothingCoeffPtr = Function1<scalar>::New
+        (
+            "rDeltaTSmoothingCoeff",
+            runTime.controlDict()
+        );
+    }
     scalar rDeltaTSmoothingCoeff
     (
-        readScalar(runTime.controlDict().lookup("rDeltaTSmoothingCoeff")) // 0.02 is default
+        rDeltaTSmoothingCoeffPtr->value(runTime.value()) // 0.02 is default
     );
-
+    
+    
+    if (rDeltaTDampingCoeffPtr.empty())
+    {
+        rDeltaTDampingCoeffPtr = Function1<scalar>::New
+        (
+            "rDeltaTDampingCoeff",
+            runTime.controlDict()
+        );
+    }
     scalar rDeltaTDampingCoeff
     (
-        readScalar(runTime.controlDict().lookup("rDeltaTDampingCoeff")) // 1.0 is default - no damping
+        rDeltaTDampingCoeffPtr->value(runTime.value()) // 1.0 is default - no damping
     );
-
+    
+    
     scalar maxDeltaT
     (
         readScalar(runTime.controlDict().lookup("maxDeltaT")) // GREAT - is a default
     );
-
-    volScalarField rDeltaT0("rDeltaT0", rDeltaT);
     
+    
+    volScalarField rDeltaT0("rDeltaT0", rDeltaT);
     if (initialDeltaT < 0.0)
     {
         runTime.controlDict().lookup("initialDeltaT") >> initialDeltaT;
@@ -137,7 +157,8 @@
     if
     (
         rDeltaTDampingCoeff < 1.0
-     && runTime.timeIndex() > runTime.startTimeIndex() + 1
+    // && runTime.timeIndex() > runTime.startTimeIndex() + 1
+     && runTime.timeIndex() > runTime.startTimeIndex() 
     )
     {
         rDeltaT =

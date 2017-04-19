@@ -16,4 +16,9 @@
             << "Options are: Tadmor, Kurganov"
             << abort(FatalError);
     }
+    
+    if (pimple.dict().found("noFluxWeighting"))
+    {
+        pimple.dict().lookup("noFluxWeighting") >> noFluxWeighting;
+    }
 }

@@ -43,6 +43,7 @@ Description
 #include "kappaFunction.H"
 #include "fvcSmooth.H"
 #include "correctCentralACMIInterpolation.H"
+#include "Function1.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -53,10 +54,10 @@ int main(int argc, char *argv[])
     #include "createMesh.H"
     
     pimpleControl pimple(mesh);
-    
+
+    #include "createRDeltaT.H" 
+    #include "createRDeltaTVariables.H"
     #include "createTimeControls.H"
-    #include "createRDeltaT.H"
-    scalar initialDeltaT = -VGREAT;
     
     #include "createFields.H"
     #include "readAdditionalPimpleControl.H"

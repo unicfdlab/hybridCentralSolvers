@@ -1,10 +1,18 @@
     {
-        rho_own     = fvc::interpolate(rho, own, "reconstruct(rho)");
-        rho_nei     = fvc::interpolate(rho, nei, "reconstruct(rho)");
-        correctCentralACMIInterpolation(rho_nei);
+        if (noFluxWeighting)
+        {
+            phiv_own    = (fvc::interpolate(U, own, "reconstruct(U)")) & mesh.Sf();
+            phiv_nei    = (fvc::interpolate(U, nei, "reconstruct(U)")) & mesh.Sf();
+        }
+        else
+        {
+            rho_own     = fvc::interpolate(rho, own, "reconstruct(rho)");
+            rho_nei     = fvc::interpolate(rho, nei, "reconstruct(rho)");
+            correctCentralACMIInterpolation(rho_nei);
+            phiv_own    = (fvc::interpolate(rho*U, own, "reconstruct(U)") / rho_own) & mesh.Sf();
+            phiv_nei    = (fvc::interpolate(rho*U, nei, "reconstruct(U)") / rho_nei) & mesh.Sf();
+        }
         
-        phiv_own    = (fvc::interpolate(rho*U, own, "reconstruct(U)") / rho_own) & mesh.Sf();
-        phiv_nei    = (fvc::interpolate(rho*U, nei, "reconstruct(U)") / rho_nei) & mesh.Sf();
         if (mesh.changing())
         {
             phiv_own   -= mesh.phi();
@@ -33,6 +41,12 @@
         }
         else
         {
-        
+            FatalErrorIn
+            (
+                    "updateCentralWeights.H"
+            )   << "Unknown central flux scheme " << fluxScheme << nl << nl
+                << "Valid flux schemes are:" << nl
+                << "1) Kurganov" << nl
+                << "2) Tamodr" << endl;
         }
     }

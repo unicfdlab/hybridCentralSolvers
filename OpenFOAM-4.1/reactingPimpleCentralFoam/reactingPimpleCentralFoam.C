@@ -58,9 +58,9 @@ int main(int argc, char *argv[])
     
     pimpleControl pimple(mesh);
     
-    #include "createTimeControls.H"
     #include "createRDeltaT.H"
-    scalar initialDeltaT = -VGREAT;
+    #include "createRDeltaTVariables.H"
+    #include "createTimeControls.H"
     
     #include "createFields.H"
     #include "readAdditionalPimpleControl.H"

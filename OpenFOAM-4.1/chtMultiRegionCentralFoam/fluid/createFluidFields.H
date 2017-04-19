@@ -88,6 +88,7 @@ DynamicList<label> badQualityCells(0);
 
 Switch updateEnergyInPISO (false);
 word fluxScheme (word::null);
+Switch noFluxWeighting(false);
 
 #include "readAdditionalPimpleControl.H"
 #include "createCommonCentralFields.H"

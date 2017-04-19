@@ -15,11 +15,19 @@
     //Update fields at ACMI interfaces
     correctCentralACMIInterpolation(rhoHat_nei);
     
-    rhoU_own      = fvc::interpolate(rho*HbyA, own, "reconstruct(U)");
-    rhoU_nei      = fvc::interpolate(rho*HbyA, nei, "reconstruct(U)");
+    if (noFluxWeighting)
+    {
+        phiv_own    = (fvc::interpolate(HbyA, own, "reconstruct(U)")) & mesh.Sf();
+        phiv_nei    = (fvc::interpolate(HbyA, nei, "reconstruct(U)")) & mesh.Sf();
+    }
+    else
+    {
+        rhoU_own      = fvc::interpolate(rho*HbyA, own, "reconstruct(U)");
+        rhoU_nei      = fvc::interpolate(rho*HbyA, nei, "reconstruct(U)");
+        phiv_own      = (rhoU_own / rho_own) & mesh.Sf();
+        phiv_nei      = (rhoU_nei / rho_nei) & mesh.Sf();
+    }
     
-    phiv_own      = (rhoU_own / rho_own) & mesh.Sf();
-    phiv_nei      = (rhoU_nei / rho_nei) & mesh.Sf();
     if (mesh.changing())
     {
         phiv_own   -= mesh.phi();
