@@ -61,12 +61,11 @@ int main(int argc, char *argv[])
     #include "createRDeltaT.H"
     #include "createRDeltaTVariables.H"
     #include "createTimeControls.H"
-    
+    Info << "Creating fields" << endl;
     #include "createFields.H"
     #include "readAdditionalPimpleControl.H"
     #include "createCommonCentralFields.H"
     
-    Info<< "Creating turbulence model\n" << endl;
     autoPtr<compressible::turbulenceModel> turbulence
     (
         compressible::turbulenceModel::New

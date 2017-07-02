@@ -1,3 +1,17 @@
+
+volScalarField psiCpmCvByT = psi* (thermo.Cp() - thermo.Cv()) / T;
+
+surfaceScalarField pressureGradEnergyFluxContribution
+(
+    "pressureGradEnergyFluxContribution",
+    linearInterpolate
+    (
+        (turbulence->alphaEff()/rho)*
+        (1.0 - T*sqrt(psiCpmCvByT))*
+        gradp
+    ) & mesh.Sf()
+);
+
 fvScalarMatrix hEqn
 (
     fvm::ddt(rho,h)
@@ -10,6 +24,8 @@ fvScalarMatrix hEqn
     +
     KChange
     ==
+    fvc::div(pressureGradEnergyFluxContribution)
+    +
     KSource
     +
     fvOptions(rho,h)

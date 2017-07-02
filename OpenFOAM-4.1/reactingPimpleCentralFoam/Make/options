@@ -13,7 +13,7 @@ EXE_INC = \
     -I$(LIB_SRC)/ODE/lnInclude \
     -I$(LIB_SRC)/combustionModels/lnInclude \
     -I../pisoCentral/lnInclude
-
+    
 EXE_LIBS = \
     -L$(FOAM_USER_LIBBIN) \
     -lpisoCentral \
@@ -29,3 +29,5 @@ EXE_LIBS = \
     -lchemistryModel \
     -lODE \
     -lcombustionModels
+
+

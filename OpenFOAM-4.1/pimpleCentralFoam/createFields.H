@@ -26,7 +26,7 @@ volVectorField U
     mesh
 );
 
-volVectorField HbyA ("HbyA", U);
+
 
 Info<< "Creating field kinetic energy K\n" << endl;
 volScalarField K
@@ -49,10 +49,10 @@ volScalarField rho
 );
 
 dimensionedScalar v_one("v_one", pow(dimTime,-1.0), 1.0);
+volVectorField HbyA ("HbyA", U);
 volScalarField rAU ("rAU", 1.0/rho/v_one);
 rAU.primitiveFieldRef() *= runTime.deltaTValue();
 rAU.primitiveFieldRef() /= mesh.V().field();
-
 
 volScalarField KChange
 (
