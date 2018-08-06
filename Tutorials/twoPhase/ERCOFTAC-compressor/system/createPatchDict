@@ -1,0 +1,85 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v3.0+                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      createPatchDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Do a synchronisation of coupled points after creation of any patches.
+// Note: this does not work with points that are on multiple coupled patches
+//       with transformations (i.e. cyclics).
+pointSync false;
+
+// Patches to create.
+patches
+(
+    {
+        //- Master side patch
+        name            AMI_INT;
+        patchInfo
+        {
+            type            cyclicAMI;
+            matchTolerance  0.0001;
+            neighbourPatch  AMI_EXT;
+            transform       noOrdering;
+        }
+        constructFrom patches;
+        patches (GGI_INT);
+    }
+
+    {
+        //- Slave side patch
+        name            AMI_EXT;
+        patchInfo
+        {
+            type            cyclicAMI;
+            matchTolerance  0.0001;
+            neighbourPatch  AMI_INT;
+            transform       noOrdering;
+        }
+        constructFrom patches;
+        patches (GGI_EXT);
+    }
+    {
+        //- Slave side patch
+        name            INLET;
+        patchInfo
+        {
+            type            patch;
+        }
+        constructFrom patches;
+        patches (INLET);
+    }
+    {
+        //- Slave side patch
+        name            OUTLET;
+        patchInfo
+        {
+            type            patch;
+        }
+        constructFrom patches;
+        patches (OUTLET);
+    }
+    {
+        //- Slave side patch
+        name            HUB_SHROUD;
+        patchInfo
+        {
+            type            empty;
+        }
+        constructFrom patches;
+        patches (HUB_SHROUD);
+    }
+
+);
+
+// ************************************************************************* //

@@ -1,0 +1,25 @@
+basicFsi1
+{
+    type        basicFsi;
+    
+    functionObjectLibs ( "libjumpingCylinderFunctionObject.so" );
+        
+    writeControl   timeStep;
+    timeInterval    1;  //must be 1
+    
+    log         yes;
+    
+    patches     ( cylinder );
+    rho         rho;      // Indicates incompressible
+    rhoInf      1.17647822687;        // Redundant for incompressible
+    CofR        (0 0 0);     // Point for torque computation
+    
+    //FSI
+    M           0.0084054369;
+    K           0.751807234271;
+    C           0.0011129131;
+    R           282;
+    results     "yD.csv";
+    Ymax        1.0; //Almost unbounded
+}
+

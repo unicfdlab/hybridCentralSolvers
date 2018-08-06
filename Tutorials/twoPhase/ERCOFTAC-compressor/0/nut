@@ -1,0 +1,69 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v3.0+                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      nut;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 2 -1 0 0 0 0];
+
+internalField   uniform 1.0e-7;
+
+boundaryField
+{
+    INLET
+    {
+        type            calculated;
+        value           $internalField;
+    }
+    BLADE_ROT
+    {
+//        type            nutkWallFunction;
+	type		fixedValue;
+        Cmu             0.09;
+        kappa           0.41;
+        E               9.8;
+        value           $internalField;
+    }
+    HUB_SHROUD
+    {
+        type            empty;
+    }
+    AMI_INT
+    {
+        type            cyclicAMI;
+        value           $internalField;
+    }
+    AMI_EXT
+    {
+        type            cyclicAMI;
+        value           $internalField;
+    }
+    OUTLET
+    {
+        type            calculated;
+        value           $internalField;
+    }
+    BLADE_STAT
+    {
+//        type            nutkWallFunction;
+        Cmu             0.09;
+        kappa           0.41;
+        E               9.8;
+        type		fixedValue;
+        value           $internalField;
+    }
+}
+
+
+// ************************************************************************* //

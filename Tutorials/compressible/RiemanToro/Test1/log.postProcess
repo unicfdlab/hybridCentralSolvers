@@ -1,0 +1,65 @@
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+Build  : 6
+Exec   : postProcess -func sampleDict
+Date   : Aug 03 2018
+Time   : 12:15:13
+Host   : "bl009.unicluster.ru"
+PID    : 19533
+I/O    : uncollated
+Case   : /lustre/unicluster/home/matvey.kraposhin/run/Unicfdlab/hybridCentralSolvers/Tutorials/compressible/RiemanToro/Test1
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 10)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+--> FOAM Warning : 
+    From function bool Foam::functionObjectList::read()
+    in file db/functionObjects/functionObjectList/functionObjectList.C at line 746
+    Caught FatalError 
+--> FOAM FATAL ERROR: 
+Unknown sample set type uniform
+
+The sample set type uniform has been renamed lineUniform
+
+Replace "type uniform;" with "type lineUniform;" for the set line in "/lustre/unicluster/home/matvey.kraposhin/run/Unicfdlab/hybridCentralSolvers/Tutorials/compressible/RiemanToro/Test1/system/sampleDict.sets"
+
+    From function static Foam::autoPtr<Foam::sampledSet> Foam::sampledSet::New(const Foam::word&, const Foam::polyMesh&, const Foam::meshSearch&, const Foam::dictionary&)
+    in file sampledSet/sampledSet/sampledSet.C at line 161.
+
+Time = 0
+
+Reading fields:
+    volScalarFields: T p
+    volVectorFields: U
+
+Executing functionObjects
+
+Time = 0
+
+Reading fields:
+    volScalarFields: T p
+    volVectorFields: U
+
+Executing functionObjects
+
+Time = 0.25
+
+Reading fields:
+    volScalarFields: p T
+    volVectorFields: U
+
+Executing functionObjects
+
+End
+

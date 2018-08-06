@@ -1,0 +1,57 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      thermophysicalProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Note: these are the properties for a "non-normalised" inviscid gas
+
+LiqPhaseName    Liq;
+GasPhaseName    Gas;
+
+pMin            pMin [ 1 -1 -2 0 0 0 0 ] 100;
+
+Liq
+{
+    p		p;
+    T		T;
+
+    Cp          4200.0;
+    Cv		4200.0;
+    mu          1.00e-3;
+    
+    Pr          0.73;
+    rho0	999.5;
+    p0		1.0e+5;
+    R		7000;
+}
+
+Gas
+{
+    p		p;
+    T		T;
+    
+    Cp          1037.75;
+    Cv		 707.00;
+    mu          1.0e-5;
+    
+    Pr          0.73;
+    rho0	0.0;
+    p0		0.0;
+    R		287.086;
+}
+
+
+
+// ************************************************************************* //

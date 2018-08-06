@@ -1,0 +1,55 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.4.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      thermophysicalProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+LiqPhaseName    Liq;
+GasPhaseName    Gas;
+
+pMin            pMin [ 1 -1 -2 0 0 0 0 ] 1e-4;
+
+//sigma           sigma [ 1 0 -2 0 0 0 0 ] 0.07;
+
+Liq
+{
+    //not used in this simulation
+    p		p;
+    T		T;
+    
+    Cp          4200.0;
+    Cv		4200.0;
+    mu          1.00e-3;
+    Pr          0.73;
+    rho0	999.5;
+    p0		1.0e+5;
+    R		7000;
+}
+
+Gas
+{
+    p           p;
+    T           T;
+
+    Cp          1.4;
+    Cv          1.0;
+    mu          0.0;
+    Pr          0.73;
+    rho0        0.0;
+    p0          0.0;
+    R           0.4;
+}
+
+
+// ************************************************************************* //

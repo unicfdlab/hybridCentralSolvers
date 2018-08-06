@@ -1,0 +1,105 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default         Euler;
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+}
+
+defaultAdvScheme     upwind;
+defaultAdvSchemeV    upwind;
+
+divSchemes
+{
+    default         none;
+
+    //momentum equation
+    div(phi_nei,U)	Gauss $defaultAdvSchemeV;
+    div(phi_own,U)	Gauss $defaultAdvSchemeV;
+    div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
+
+    //energy equation
+    div(phi_nei,h)	Gauss $defaultAdvScheme;
+    div(phi_own,h)	Gauss $defaultAdvScheme;
+    div(phi_nei,K)	Gauss $defaultAdvScheme;
+    div(phi_own,K)	Gauss $defaultAdvScheme;
+    div(alphaEff*hi,grad(Yi)) Gauss linear;
+    div(rhoi*Uri,hi) Gauss linear;
+    div(meshPhi,p) Gauss $defaultAdvScheme;
+
+    //continuity equation
+    div(phid_nei,p)	Gauss $defaultAdvScheme;
+    div(phid_own,p)	Gauss $defaultAdvScheme;
+    
+    //pressure correction equation
+    div(mphid_own,pcorr) Gauss $defaultAdvScheme;
+    div(mphid_nei,pcorr) Gauss $defaultAdvScheme;
+    
+    //phase transport equation
+    div(phi,Y.Liq)    Gauss $defaultAdvScheme;
+    
+    //turbulence model
+    div(phi,omega)     Gauss upwind;
+    div(phi,k)         Gauss upwind;
+}
+
+laplacianSchemes
+{
+    default         Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+    default         linear;
+    
+    interpolate((rho*U))	linear;
+    interpolate(rho)		linear;
+    
+    reconstruct(rho)		$defaultAdvScheme;
+    reconstruct(psi)		$defaultAdvScheme;
+    reconstruct(p)		$defaultAdvScheme;
+    reconstruct(U)		$defaultAdvSchemeV;
+    reconstruct(U)		$defaultAdvSchemeV;
+    reconstruct(rho*U)		$defaultAdvSchemeV;
+    reconstruct(Dp)		$defaultAdvScheme;
+    reconstruct(rhoHat)		$defaultAdvScheme;
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+fluxRequired
+{
+    default	none;
+    p;
+    Yi;
+    h;Y.Liq;
+}
+
+wallDist
+{
+    method meshWave;
+}
+
+// ************************************************************************* //

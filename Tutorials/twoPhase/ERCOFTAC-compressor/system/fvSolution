@@ -1,0 +1,95 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.4.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+asymmSolver PBiCGStab;
+
+solvers
+{
+    "Y.*"
+    {
+        solver                  $asymmSolver;
+        tolerance               1e-9;
+        relTol                  0.0;
+        preconditioner          DILU;
+        nLimiterIter            3;
+    }
+
+    "(rho|U|h|p|k|omega).*"
+    {
+        $Y;
+    }
+
+    pcorr
+    {
+        solver          PCG;
+        maxIter         50;
+        tolerance       1e-7;
+        preconditioner
+        {
+            preconditioner  GAMG;
+            tolerance       0;
+            relTol          1e-7;
+            smoother        GaussSeidel;
+            cacheAgglomeration no;
+            nCellsInCoarsestLevel 500;
+            agglomerator    faceAreaPair;
+            mergeLevels     1;
+            maxIter         50;
+        }
+    }
+}
+
+PIMPLE
+{
+    momentumPredictor       false;
+    
+    updateEnergyInPISO      false;
+    
+    nOuterCorrectors        1;
+    nCorrectors             3;
+    checkMeshCourantNo      true;
+    
+    nNonOrthogonalCorrectors 1;
+    
+    nonOrthogonalityThreshold 30.0;
+    skewnessThreshold 2.0;
+    
+    fluxScheme Kurganov; //Tadmor;
+    
+    correctPhi false;
+    
+    kappaFunction
+    {
+        type    standardMachToAcCourantRatio;
+        
+        standardMachToAcCourantRatioCoeffs
+        {
+            writeMaxMin true;
+        }
+        
+//        type    acceleratedSonicCourantInverse;
+//        
+//        acceleratedSonicCourantInverseCoeffs
+//        {
+//            power 4;
+//            writeMaxMin true;
+//        }
+    }
+}
+
+
+// ************************************************************************* //

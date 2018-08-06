@@ -1,0 +1,20 @@
+#!/bin/bash
+
+RUNCASES=`ls`
+for RCASE in $RUNCASES
+do
+    if [ -d $RCASE ]
+    then
+        cd $RCASE
+        if [ -e Allrun ]
+        then
+            ./Allrun
+        fi
+        cd ../
+    fi
+done
+
+#
+#END-OF-FILE
+#
+

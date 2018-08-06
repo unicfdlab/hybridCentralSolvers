@@ -1,0 +1,17 @@
+#!/bin/sh
+
+cd pimpleCentral; wmake libso; cd ../
+
+cd pimpleCentralFoam; ./Allwmake; cd ../
+
+cd reactingPimpleCentralFoam; ./Allwmake; cd ../
+
+cd twoPhaseMixingCentralFoam; ./Allwmake; cd ../
+
+cd chtMultiRegionCentralFoam; ./Allwmake; cd ../
+
+#
+#END-OF-FILE
+#
+
+

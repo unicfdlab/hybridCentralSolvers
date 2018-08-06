@@ -1,0 +1,72 @@
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+Build  : 6
+Exec   : blockMesh
+Date   : Aug 03 2018
+Time   : 12:15:06
+Host   : "bl009.unicluster.ru"
+PID    : 19492
+I/O    : uncollated
+Case   : /lustre/unicluster/home/matvey.kraposhin/run/Unicfdlab/hybridCentralSolvers/Tutorials/compressible/RiemanToro/Test1
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 10)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Creating block mesh from
+    "/lustre/unicluster/home/matvey.kraposhin/run/Unicfdlab/hybridCentralSolvers/Tutorials/compressible/RiemanToro/Test1/system/blockMeshDict"
+Creating block edges
+No non-planar block faces defined
+Creating topology blocks
+Creating topology patches
+
+Creating block mesh topology
+
+Check topology
+
+	Basic statistics
+		Number of internal faces : 0
+		Number of boundary faces : 6
+		Number of defined boundary faces : 6
+		Number of undefined boundary faces : 0
+	Checking patch -> block consistency
+
+Creating block offsets
+Creating merge list .
+
+Creating polyMesh from blockMesh
+Creating patches
+Creating cells
+Creating points with scale 1
+    Block 0 cell size :
+        i : 0.00125 .. 0.00125
+        j : 0.02 .. 0.02
+        k : 0.02 .. 0.02
+
+
+Writing polyMesh
+----------------
+Mesh Information
+----------------
+  boundingBox: (0 -0.01 -0.01) (1 0.01 0.01)
+  nPoints: 3204
+  nCells: 800
+  nFaces: 4001
+  nInternalFaces: 799
+----------------
+Patches
+----------------
+  patch 0 (start: 799 size: 2) name: sides
+  patch 1 (start: 801 size: 1600) name: empty1
+  patch 2 (start: 2401 size: 1600) name: empty2
+
+End
+

@@ -1,0 +1,94 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default         Euler;
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+}
+
+defaultAdvScheme     vanLeer;
+defaultAdvSchemeV    vanLeerV;
+
+divSchemes
+{
+    default         none;
+
+    //momentum equation
+    div(phi_nei,U)	Gauss $defaultAdvSchemeV;
+    div(phi_own,U)	Gauss $defaultAdvSchemeV;
+    div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
+
+    //energy equation
+    div(phi_nei,h)	Gauss $defaultAdvScheme;
+    div(phi_own,h)	Gauss $defaultAdvScheme;
+    div(phi_nei,K)	Gauss $defaultAdvScheme;
+    div(phi_own,K)	Gauss $defaultAdvScheme;
+    div(alphaEff*hi,grad(Yi)) Gauss linear;
+    div(rhoi*Uri,hi)    Gauss linear;
+
+    //continuity equation
+    div(phid_nei,p)	Gauss $defaultAdvScheme;
+    div(phid_own,p)	Gauss $defaultAdvScheme;
+    
+    //mixture component transport equation
+    div(phi_nei,Yi)	Gauss $defaultAdvScheme;
+    div(phi_own,Yi)	Gauss $defaultAdvScheme;
+}
+
+laplacianSchemes
+{
+    default         Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+    default         none;
+    
+    interpolate((rho*U)) linear;
+    interpolate(((rho*nut)+thermo:mu)) linear;
+    
+    reconstruct(rho)		$defaultAdvScheme;
+    reconstruct(psi)		$defaultAdvScheme;
+    reconstruct(p)		$defaultAdvScheme;
+    reconstruct(U)		$defaultAdvSchemeV;
+    reconstruct(rho*U)		$defaultAdvSchemeV;
+    reconstruct(Dp)		$defaultAdvScheme;
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+fluxRequired
+{
+    default	none;
+    p;h;
+    Yi;
+    O2;
+    CH4;
+    H2O;
+    N2;
+    CO2;
+}
+
+// ************************************************************************* //

@@ -1,0 +1,93 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default         Euler;
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+    grad(p)         Gauss linear;
+    grad(U)         Gauss linear;
+}
+
+defaultAdvScheme     vanLeer;
+defaultAdvSchemeV    vanLeerV;
+
+divSchemes
+{
+    default         none;
+    div(phi,k)      Gauss upwind;
+    div(phi,epsilon) Gauss upwind;
+    
+    //momentum equation
+    div(phi_nei,U)	Gauss $defaultAdvSchemeV;
+    div(phi_own,U)	Gauss $defaultAdvSchemeV;
+    div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
+    
+    //energy equation
+    div(phi_nei,h)	Gauss $defaultAdvScheme;
+    div(phi_own,h)	Gauss $defaultAdvScheme;
+    div(phi_nei,K)	Gauss $defaultAdvScheme;
+    div(phi_own,K)	Gauss $defaultAdvScheme;
+    
+    //continuity equation
+    div(phid_nei,p)	Gauss $defaultAdvScheme;
+    div(phid_own,p)	Gauss $defaultAdvScheme;
+    
+    //correction equation
+    div(mphid_own,pcorr) Gauss $defaultAdvScheme;
+    div(mphid_nei,pcorr) Gauss $defaultAdvScheme;
+    
+    div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
+
+    div(meshPhi,p)  Gauss vanLeer;
+    div((meshPhi*interpolate(thermo:psi)),pcorr) Gauss vanLeer;
+}
+
+laplacianSchemes
+{
+    default         Gauss linear limited corrected 0.33;
+}
+
+interpolationSchemes
+{
+    default         linear;
+
+    reconstruct(rho)		$defaultAdvScheme;
+    reconstruct(psi)		$defaultAdvScheme;
+    reconstruct(p)		$defaultAdvScheme;
+    reconstruct(U)		$defaultAdvSchemeV;
+    reconstruct(rho*U)		$defaultAdvSchemeV;
+    reconstruct(Dp)		$defaultAdvScheme;
+}
+
+snGradSchemes
+{
+    default         limited corrected 0.33;
+}
+
+fluxRequired
+{
+    p;
+    pcorr;
+}
+
+
+// ************************************************************************* //

@@ -1,0 +1,31 @@
+// Mesh decomposition control dictionary
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+FoamFile
+{
+    version 0.5;
+    format ascii;
+
+    root     "ROOT";
+    case     "CASE";
+    instance "system";
+    local    "";
+
+    class dictionary;
+
+    object decompositionDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+numberOfSubdomains   4;
+
+method               scotch;
+
+scotchCoeffs
+{
+}
+
+
+// ************************************************************************* //
