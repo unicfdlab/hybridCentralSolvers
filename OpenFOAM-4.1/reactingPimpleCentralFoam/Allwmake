@@ -1,9 +1,0 @@
-#!/bin/sh
-cd ${0%/*} || exit 1    # run from this directory
-set -x
-
-wmake
-#cd pimpleCentralDyMFoam; wmake; cd ../
-
-
-# ----------------------------------------------------------------- end-of-file

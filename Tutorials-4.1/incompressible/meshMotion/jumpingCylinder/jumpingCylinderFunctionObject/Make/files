@@ -1,4 +1,0 @@
-basicFsi.C
-
-LIB = $(FOAM_USER_LIBBIN)/libjumpingCylinderFunctionObject
-
