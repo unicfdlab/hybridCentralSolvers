@@ -1,7 +1,10 @@
 # hybridCentralSolvers
 United collection of hybrid  Central solvers - one-phase, two-phase and multicomponent versions.
 
-Latest OpenFOAM version: 6
+Available OpenFOAM versions:
+* OpenFOAM 3.1 - master branch
+* OpenFOAM 4.1 - dev-of4.1 branch
+* OpenFOAM 6   - dev-of6 branch
 
 1. **pimpleCentralFoam** - Pressure-based semi implicit compressible flow of perfect gas solver based on 
 central-upwind schemes of Kurganov and Tadmor with LTS support for steady-state calculations
