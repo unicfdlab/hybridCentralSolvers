@@ -154,6 +154,8 @@
         "cSf_nei",
         cf_nei * mesh.magSf()
     );
+    cSf_own.setOriented(true);
+    cSf_nei.setOriented(true);
     
     surfaceScalarField ap
     (
@@ -172,6 +174,7 @@
         ap/(ap - am)
     );
     surfaceScalarField amaxSf("amaxSf", max(mag(am), mag(ap)));
+    amaxSf.setOriented(true);
     
     surfaceScalarField aSf
     (

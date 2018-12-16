@@ -38,7 +38,7 @@ Description
     scalar globalContErr =
         (fvc::domainIntegrate(rho - rhoT)/totalMass).value();
     
-    if (pimple.finalPimpleIter() && pimple.finalPISOIter())
+    if (pimple.finalIter() && pimple.finalInnerIter())
     {
         cumulativeContErr += globalContErr;
     }

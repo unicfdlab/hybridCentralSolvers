@@ -120,7 +120,7 @@ tmp<surfaceScalarField> sonicCourantInverseKappaFunction::kappa()
         )
     );
     surfaceScalarField& kappa = tKappa.ref();
-    //kappa.setOriented(true);
+    kappa.setOriented(true);
 
     resetCoupledBoundaries(kappa);
 

@@ -190,7 +190,7 @@ int main(int argc, char *argv[])
             }
 
             // --- Solve pressure (PISO)
-            if (pimple.finalPimpleIter())
+            if (pimple.finalIter())
             {
                 while (pimple.correct())
                 {
@@ -214,7 +214,7 @@ int main(int argc, char *argv[])
                 #include "updateMechanicalFields.H"
             }
 
-            if (!pimple.finalPimpleIter())
+            if (!pimple.finalIter())
             {
                 phi_own -= (mphi_own + (1.0 - kappa)*mphi_nei);
                 phi_nei -= (mphi_nei*kappa);

@@ -71,8 +71,8 @@ Foam::compressibleTwoPhaseMixtureThermo::compressibleTwoPhaseMixtureThermo
     rhoThermo(mesh, word::null),
     compressibleTwoPhaseMixture(mesh, *this),
     pMin_(this->lookup("pMin")),
-    thermoLiq_(NULL),
-    thermoGas_(NULL),
+    thermoLiq_(nullptr),
+    thermoGas_(nullptr),
     he_
     (
         IOobject

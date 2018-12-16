@@ -24,7 +24,9 @@
         cf_nei      = fvc::interpolate(c, nei, "reconstruct(psi)");
         correctCentralACMIInterpolation(cf_nei);
         cSf_own     = cf_own * mesh.magSf();
+        cSf_own.setOriented(true);
         cSf_nei     = cf_nei * mesh.magSf();
+        cSf_nei.setOriented(true);
         
         ap = max(max(phiv_own + cSf_own, phiv_nei + cSf_nei), v_zero);
         am = min(min(phiv_own - cSf_own, phiv_nei - cSf_nei), v_zero);

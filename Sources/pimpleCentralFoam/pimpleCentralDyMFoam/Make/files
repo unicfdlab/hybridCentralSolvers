@@ -1,4 +1,4 @@
 pimpleCentralDyMFoam.C
 
-EXE = $(FOAM_USER_APPBIN)/pimpleCentralDyMFoam
+EXE = $(FOAM_APPBIN)/pimpleCentralDyMFoam
 

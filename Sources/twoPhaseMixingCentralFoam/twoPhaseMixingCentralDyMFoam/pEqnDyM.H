@@ -1,5 +1,5 @@
 
-if (pimple.firstPISOIter() )
+if (pimple.corrPISO() > 1 )
 {
     thermo.correct();
 }

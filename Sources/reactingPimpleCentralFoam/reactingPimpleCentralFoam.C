@@ -159,7 +159,7 @@ int main(int argc, char *argv[])
             }
 
             // --- Solve pressure (PISO)
-            if (pimple.finalPimpleIter())
+            if (pimple.finalIter())
             {
                 while (pimple.correct())
                 {

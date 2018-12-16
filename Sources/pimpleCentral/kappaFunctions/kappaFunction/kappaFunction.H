@@ -131,7 +131,7 @@ public:
     autoPtr<kappaFunction> clone() const
     {
         notImplemented("autoPtr<kappaFunction> clone() const");
-        return autoPtr<kappaFunction>(NULL);
+        return autoPtr<kappaFunction>(nullptr);
     }
 
     //- Return pointer to new kappaFunction object created

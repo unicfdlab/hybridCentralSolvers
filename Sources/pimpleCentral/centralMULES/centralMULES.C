@@ -85,8 +85,8 @@ void Foam::mulesWithDiffusionImplicitLimiter
         rhoPhifCorr,
         zeroField(), //Sp
         Su,
-        oneField(), //psiMax,
-        zeroField() //psiMin,
+        1.0, //psiMax,
+        0.0 //psiMin,
     );
 
     Y.rename(Yname);
@@ -136,8 +136,8 @@ void Foam::mulesWithDiffusionImplicitLimiter
         rhoPhifCorr,
         zeroField(),
         Su,
-        oneField(), //psiMax,
-        zeroField() //psiMin,
+        1.0, //psiMax,
+        0.0 //psiMin,
     );
     Y.rename(Yname);
 }

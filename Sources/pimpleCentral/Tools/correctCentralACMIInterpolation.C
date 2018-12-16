@@ -44,22 +44,19 @@ void Foam::correctCentralACMIInterpolation(surfaceScalarField& nei_field)
             if (acmiPatch.owner())
             {
                 const cyclicACMIFvPatch& acmiOwnPatch = acmiPatch;
-                const cyclicACMIFvPatch& acmiNeiPatch = acmiPatch.neighbFvPatch();
+                const cyclicACMIFvPatch& acmiNeiPatch = acmiPatch.neighbPatch();
 
-                label nonOverlapOwnID = acmiOwnPatch.nonOverlapFvPatch().index();
-                label nonOverlapNeiID = acmiNeiPatch.nonOverlapFvPatch().index();
+                label nonOverlapOwnID = acmiOwnPatch.nonOverlapPatchID();
+                label nonOverlapNeiID = acmiNeiPatch.nonOverlapPatchID();
 
                 //correct interpolation for nei field on own ACMI Patch
-                forAll(acmiOwnPatch.AMIs(), i)
-                {
-                    nei_field.boundaryFieldRef()[acmiOwnPatch.index()] +=
-                        (1.0 - acmiOwnPatch.AMIs()[i].srcWeightsSum())*nei_field.boundaryField()[nonOverlapOwnID];
+                nei_field.boundaryFieldRef()[acmiOwnPatch.index()] +=
+                    (1.0 - acmiOwnPatch.AMI().srcWeightsSum())*nei_field.boundaryField()[nonOverlapOwnID];
 
                     //correct interpolation for nei field on nei ACMI Patch
                     //weights on nei ACMI Patch = acmiOwnPatch.AMI().tgtWeightsSum()
                     nei_field.boundaryFieldRef()[acmiNeiPatch.index()] +=
-                        (1.0 - acmiOwnPatch.AMIs()[i].tgtWeightsSum())*nei_field.boundaryField()[nonOverlapNeiID];
-                }
+                        (1.0 - acmiOwnPatch.AMI().tgtWeightsSum())*nei_field.boundaryField()[nonOverlapNeiID];
             }
         }
     }
@@ -79,22 +76,19 @@ void Foam::correctCentralACMIInterpolation(surfaceVectorField& nei_field)
             if (acmiPatch.owner())
             {
                 const cyclicACMIFvPatch& acmiOwnPatch = acmiPatch;
-                const cyclicACMIFvPatch& acmiNeiPatch = acmiPatch.neighbFvPatch();
+                const cyclicACMIFvPatch& acmiNeiPatch = acmiPatch.neighbPatch();
 
-                label nonOverlapOwnID = acmiOwnPatch.nonOverlapFvPatch().index();
-                label nonOverlapNeiID = acmiNeiPatch.nonOverlapFvPatch().index();
+                label nonOverlapOwnID = acmiOwnPatch.nonOverlapPatchID();
+                label nonOverlapNeiID = acmiNeiPatch.nonOverlapPatchID();
                 
-                forAll(acmiOwnPatch.AMIs(),i)
-                {
-                    //correct interpolation for nei field on own ACMI Patch
-                    nei_field.boundaryFieldRef()[acmiOwnPatch.index()] +=
-                        (1.0 - acmiOwnPatch.AMIs()[i].srcWeightsSum())*nei_field.boundaryField()[nonOverlapOwnID];
+                //correct interpolation for nei field on own ACMI Patch
+                nei_field.boundaryFieldRef()[acmiOwnPatch.index()] +=
+                    (1.0 - acmiOwnPatch.AMI().srcWeightsSum())*nei_field.boundaryField()[nonOverlapOwnID];
 
-                    //correct interpolation for nei field on nei ACMI Patch
-                    //weights on nei ACMI Patch = acmiOwnPatch.AMI().tgtWeightsSum()
-                    nei_field.boundaryFieldRef()[acmiNeiPatch.index()] +=
-                        (1.0 - acmiOwnPatch.AMIs()[i].tgtWeightsSum())*nei_field.boundaryField()[nonOverlapNeiID];
-                }
+                //correct interpolation for nei field on nei ACMI Patch
+                //weights on nei ACMI Patch = acmiOwnPatch.AMI().tgtWeightsSum()
+                nei_field.boundaryFieldRef()[acmiNeiPatch.index()] +=
+                    (1.0 - acmiOwnPatch.AMI().tgtWeightsSum())*nei_field.boundaryField()[nonOverlapNeiID];
             }
         }
     }
