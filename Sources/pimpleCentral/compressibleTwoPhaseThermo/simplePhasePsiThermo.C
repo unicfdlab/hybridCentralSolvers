@@ -132,8 +132,8 @@ Foam::simplePhasePsiThermo::simplePhasePsiThermo(const fvMesh& mesh, const dicti
 :
     name_(dict.name()),
     mesh_(mesh),
-    p_(mesh.thisDb().lookupObject<volScalarField>(dict.lookup("p"))),
-    T_(mesh.thisDb().lookupObject<volScalarField>(dict.lookup("T"))),
+    p_(mesh.thisDb().lookupObject<volScalarField>(dict.get<word>("p"))),
+    T_(mesh.thisDb().lookupObject<volScalarField>(dict.get<word>("T"))),
     he_
     (
 	IOobject
