@@ -62,7 +62,6 @@
             );
 
             aniAlphas[i].primitiveFieldRef() =
-                //coordinates[i].R().transformVector(tkappaByCp());
                 coordinates[i].transformPrincipal
                 (
                     solidRegions[i].cellCentres(),
