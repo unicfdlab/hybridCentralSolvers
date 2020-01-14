@@ -29,6 +29,8 @@ Available OpenFOAM versions:
 * OpenFOAM 3.1 - master branch
 * OpenFOAM 4.1 - dev-of4.1 branch
 * OpenFOAM 6   - dev-of6 branch
+* OpenFOAM+ 1812 - digitef-dev-1812
+* OpenFOAM+ 1912 - digitef-dev-1912
 
    When using these solvers, please cite the following works:
    * Kraposhin MV, Banholzer M, Pfitzner M, Marchevsky IK. A hybrid pressure‐based solver for nonideal single‐phase fluid flows at all speeds. Int J Numer Meth Fluids. 2018;88:79–99. https://doi.org/10.1002/fld.4512
