@@ -70,7 +70,13 @@ Foam::compressibleTwoPhaseMixtureThermo::compressibleTwoPhaseMixtureThermo
 :
     rhoThermo(mesh, word::null),
     compressibleTwoPhaseMixture(mesh, *this),
-    pMin_(this->lookup("pMin")),
+    pMin_
+    (
+        "pMin",
+        dimensionSet(1,-1,-2,0,0),
+        0.0,
+        *this
+    ),
     thermoLiq_(nullptr),
     thermoGas_(nullptr),
     he_
@@ -478,6 +484,18 @@ Foam::tmp<Foam::volScalarField> Foam::compressibleTwoPhaseMixtureThermo::mu() co
 Foam::tmp<Foam::scalarField> Foam::compressibleTwoPhaseMixtureThermo::mu(const label patchi) const
 {
     return mu_.boundaryField()[patchi];
+}
+
+Foam::tmp<Foam::volScalarField> Foam::compressibleTwoPhaseMixtureThermo::alphahe() const
+{
+    return YLiq()*thermoLiq_->alpha() + YGas()*thermoGas_->alpha();
+}
+
+Foam::tmp<Foam::scalarField> Foam::compressibleTwoPhaseMixtureThermo::alphahe(const label patchi) const
+{
+    return
+        YLiq().boundaryField()[patchi]*thermoLiq_->alpha(patchi)
+      + YGas().boundaryField()[patchi]*thermoGas_->alpha(patchi);
 }
 
 Foam::tmp<Foam::volScalarField> Foam::compressibleTwoPhaseMixtureThermo::rho() const

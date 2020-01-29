@@ -299,6 +299,12 @@ public:
             //- Dynamic viscosity of mixture for patch [kg/m/s]
             virtual tmp<scalarField> mu(const label patchi) const;
 
+            //-  Enthalpy/energy diffusion coefficient of mixture [kg/m/s]
+            virtual tmp<volScalarField> alphahe() const;
+
+            //-  Enthalpy/energy diffusion coefficient of mixture for patch [kg/m/s]
+            virtual tmp<scalarField> alphahe(const label patchi) const;
+
             //- Mixture density
             virtual tmp<volScalarField> rho() const;
 

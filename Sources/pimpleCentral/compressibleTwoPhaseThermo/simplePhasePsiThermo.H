@@ -316,6 +316,12 @@ public:
 	    return alpha_;
 	}
 
+	//-
+	const fvPatchField<scalar>& alpha(const label patchi) const
+	{
+	    return alpha_.boundaryField()[patchi];
+	}
+
 	volScalarField& rho()
 	{
 	    return rho_;
