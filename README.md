@@ -32,7 +32,7 @@ Available OpenFOAM versions:
 * OpenFOAM+ 1812 - digitef-dev-1812
 * OpenFOAM+ 1912 - digitef-dev-1912
 
-Telegram public group: https://t.me/hybridCentralSolvers for questions and discussion of features
+Telegram public group: https://t.me/hybridCentralSolvers for questions and discussion of the solvers features
 
    When using these solvers, please cite the following works:
    * Kraposhin MV, Banholzer M, Pfitzner M, Marchevsky IK. A hybrid pressure‐based solver for nonideal single‐phase fluid flows at all speeds. Int J Numer Meth Fluids. 2018;88:79–99. https://doi.org/10.1002/fld.4512
