@@ -25,6 +25,8 @@ Kurganov and Tadmor for combustion with chemical reactions and LTS support for s
     of Kurganov and Tadmor for conjugate simulation of compressible flows of perfect gas (Mach 
     number is ranging from 0 to 6) and solid body heat transfer.
 
+Telegram public group: https://t.me/hybridCentralSolvers for questions and discussion of features
+
 Available OpenFOAM versions:
 * OpenFOAM 3.1 - master branch
 * OpenFOAM 4.1 - dev-of4.1 branch
