@@ -141,6 +141,9 @@ int main(int argc, char *argv[])
 
         // --- Predict density
         #include "massEqn.H"
+        
+        // --- update chemistry
+        reaction->correct();
 
         // --- SIMPLE-like Pressure-Velocity Coupling
         while (pimple.loop())

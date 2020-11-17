@@ -26,7 +26,7 @@ upwind<scalar> UDsNei(mesh, phi_nei);
      * Create fluxes and sources
      *
      */
-    reaction->correct();
+
     label inertIndex = -1;
     volScalarField Yt(0.0*Y[0]);
     const label nComponents = Y.size();
