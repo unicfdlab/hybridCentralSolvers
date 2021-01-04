@@ -67,7 +67,7 @@ Foam::functionObjects::basicFsi::basicFsi
     Ymax_(0.0),
     Y_ (0.0, 0.0),
     Yold_(0.0, 0.0),
-    fsiResFilePtr_(0)
+    fsiResFilePtr_(nullptr)
 {
     this->read(dict);
     this->createFsiOutFile(dict);
@@ -93,7 +93,7 @@ Foam::functionObjects::basicFsi::basicFsi
     Ymax_(0.0),
     Y_ (0.0, 0.0),
     Yold_(0.0, 0.0),
-    fsiResFilePtr_(0)
+    fsiResFilePtr_(nullptr)
 {
     this->read(dict);
     this->createFsiOutFile(dict);
@@ -114,7 +114,7 @@ void Foam::functionObjects::basicFsi::createFsiOutFile(const dictionary& dict)
     {
         fsiResFilePtr_.reset
         (
-            new OFstream(dict.lookup("results"))
+            new OFstream(dict.get<word>("results"))
         );
         
         fsiResFilePtr_() << "Time;Y;Vy;Fy" << endl;
