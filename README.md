@@ -41,7 +41,7 @@ Available OpenFOAM versions:
 
 | Name | Description |
 |------|-------------|
-|Development of a new OpenFOAM solver using regularized gas dynamic equations| Figure |
+|[Development of a new OpenFOAM solver using regularized gas dynamic equations](https://www.mdpi.com/2311-5521/6/8/274)| ![GitHub Logo](https://www.mdpi.com/fluids/fluids-06-00274/article_deploy/html/images/fluids-06-00274-ag-550.jpg) |
 
 
    When using these solvers, please cite the following works:
