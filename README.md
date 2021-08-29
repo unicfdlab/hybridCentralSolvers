@@ -37,6 +37,8 @@ Available OpenFOAM versions:
 
 ## The library was useful in next research studies.
 
+### >>>>> 2021 <<<<<
+
    When using these solvers, please cite the following works:
    * [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3878441.svg)](https://doi.org/10.5281/zenodo.3878441)
    * Kraposhin MV, Banholzer M, Pfitzner M, Marchevsky IK. A hybrid pressure‐based solver for nonideal single‐phase fluid flows at all speeds. Int J Numer Meth Fluids. 2018;88:79–99. https://doi.org/10.1002/fld.4512
