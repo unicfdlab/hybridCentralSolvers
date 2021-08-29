@@ -33,6 +33,9 @@ Available OpenFOAM versions:
 * OpenFOAM 6   - dev-of6 branch
 * OpenFOAM+ 1812 - digitef-dev-1812
 * OpenFOAM+ 1912 - digitef-dev-1912
+* OpenFOAM+ 2012 - digitef-dev-2012
+
+## The library was useful in next research studies.
 
    When using these solvers, please cite the following works:
    * [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3878441.svg)](https://doi.org/10.5281/zenodo.3878441)
