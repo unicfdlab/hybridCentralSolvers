@@ -39,14 +39,19 @@ Available OpenFOAM versions:
 
 ### >>>>> 2021 <<<<<
 
-| Name | Description |
+| Title | Description |
 |------|-------------|
 |[Development of a new OpenFOAM solver using regularized gas dynamic equations](https://www.mdpi.com/2311-5521/6/8/274)| ![Jet with particles Logo](https://www.mdpi.com/fluids/fluids-06-00274/article_deploy/html/images/fluids-06-00274-ag-550.jpg) |
 
 ###  >>>>> 2019 <<<<<
-| Name | Description |
+| Title | Description |
 |------|-------------|
 |[Numerical method to simulate detonative combustion of hydrogen-air mixture in a containment](https://doi.org/10.1080/19942060.2019.1660219)| ![Containement](https://www.tandfonline.com/na101/home/literatum/publisher/tandf/journals/content/tcfm20/2019/tcfm20.v013.i01/19942060.2019.1660219/20191106/images/medium/tcfm_a_1660219_f0018_oc.jpg)|
+
+###  >>>>> 2016 <<<<<
+| Title | Description |
+|------|-------------|
+|[On the Stability of Supersonic Boundary Layers with Injection](https://thesis.library.caltech.edu/9755/)| ![Scheme of boundary layer interaction with jet]()|
 
    When using these solvers, please cite the following works:
    * [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3878441.svg)](https://doi.org/10.5281/zenodo.3878441)
