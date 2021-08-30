@@ -1,4 +1,4 @@
-# hybridCentralSolvers
+[Avail] (#Available solvers with hybrid approximation)
 United collection of hybrid  Central solvers - one-phase, two-phase and multicomponent versions.
 
 Only OpenFOAM+ version of the OpenFOAM technology is supported sinces 2018. Use branches digitef-dev-YYMM, where YYMM - corresponds to OpenFOAM+ version, for example 1812
