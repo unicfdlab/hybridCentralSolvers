@@ -64,6 +64,7 @@ Available OpenFOAM versions:
 |[Analysis of the Accuracy of OpenFOAM Solvers for the Problem of Supersonic Flow Around a Cone](https://link.springer.com/chapter/10.1007/978-3-319-93713-7_18)|![Cone sketch](https://media.springernature.com/lw785/springer-static/image/chp%3A10.1007%2F978-3-319-93713-7_18/MediaObjects/469704_1_En_18_Fig1_HTML.gif)|
 |[Development of a new OpenFOAM solver using regularized gas dynamic equations](https://doi.org/10.1016/j.compfluid.2018.02.010)|![Ladenburgh jet](https://ars.els-cdn.com/content/image/1-s2.0-S0045793018300641-gr14.jpg)|
 |[A hybrid pressure-based solver for nonideal single-phase fluid flows at all speeds](https://doi.org/10.1002/fld.4512)|![Experiment vs. calculation](https://onlinelibrary.wiley.com/cms/asset/16108f70-6fec-4197-9aab-f84cbc5c2a1d/fld4512-fig-0005-m.jpg)|
+|[Comparison of the Performance of Open-Source and Commercial CFD Packages for Simulating Supersonic Compressible Jet Flows](https://doi.org/10.1109/IVMEM.2018.00019)|![Airbag computational domain sketch](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Airbag.png)|
 
 
 ### >>>>> 2017 <<<<<
