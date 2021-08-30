@@ -47,7 +47,7 @@ You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab
 
 # Research studies where the library was useful
 
-### <p align="center"> >>>>> 2021 <<<<< </p>
+    ## <p align="center"> >>>>> 2021 <<<<< </p>
 
 | Title | Description |
 |------|-------------|
@@ -55,7 +55,7 @@ You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab
 |[Dynamics of detonation transmission and propagation in a curved chamber: a numerical and experimental analysis](https://doi.org/10.1016/j.combustflame.2020.09.032)|![Experiment vs calculation](https://ars.els-cdn.com/content/image/1-s2.0-S0010218020304168-gr2.jpg)|
 |[Modelling of Supersonic and Subsonic Flows Using Hybrid PressureBased Solver in Openfoam](https://doi.org/10.11159/ffhmt21.107)|![Schematic of Bluff body burner](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Bluff-body-sketch.png)|
 
-### >>>>> 2020 <<<<<
+    ## <p align="center"> >>>>> 2020 <<<<< </p>
 
 | Title | Description |
 |------|-------------|
@@ -68,7 +68,8 @@ You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab
 |[Pressure-Based Solution Framework for Non-Ideal Flows at All Mach Numbers](https://link.springer.com/chapter/10.1007/978-3-030-49626-5_4)|![Fully developed jet structure of a n-hexane jet injected into a quiescent nitrogen atmosphere](https://media.springernature.com/lw785/springer-static/image/chp%3A10.1007%2F978-3-030-49626-5_4/MediaObjects/492738_1_En_4_Fig3_HTML.png)|
 |[Entwicklung eines Simulationsmodells für Schaltlichtbögen in Überspannungsableitern](https://publikationsserver.tu-braunschweig.de/servlets/MCRFileNodeServlet/dbbs_derivate_00047899/Diss_Sander_Christian.pdf)|![Spark](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/spark-tubraunscheig.png)|
 
-###  >>>>> 2019 <<<<<
+    ## <p align="center">  >>>>> 2019 <<<<< </p>
+    
 | Title | Description |
 |------|-------------|
 |[Numerical method to simulate detonative combustion of hydrogen-air mixture in a containment](https://doi.org/10.1080/19942060.2019.1660219)| ![Containement](https://www.tandfonline.com/na101/home/literatum/publisher/tandf/journals/content/tcfm20/2019/tcfm20.v013.i01/19942060.2019.1660219/20191106/images/medium/tcfm_a_1660219_f0018_oc.jpg)|
@@ -76,7 +77,8 @@ You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab
 |[Verification on the Ensemble of Independent Numerical Solutions](https://link.springer.com/chapter/10.1007/978-3-030-22750-0_25)|![Solvers comparison](https://media.springernature.com/lw785/springer-static/image/chp%3A10.1007%2F978-3-030-22750-0_25/MediaObjects/485772_1_En_25_Fig2_HTML.png)|
 |[Computational Study of Reactants Mixing in a Rotating Detonation Combustor Using Compressible RANS](https://link.springer.com/article/10.1007/s10494-019-00097-x)|![Detailed shock structure of the baseline flow case in the injection region derived from the Mach number contour plot at the longitudinal mid-plane](https://media.springernature.com/lw685/springer-static/image/art%3A10.1007%2Fs10494-019-00097-x/MediaObjects/10494_2019_97_Fig5_HTML.png?as=webp)|
 
-### >>>>> 2018 <<<<<
+    ## <p align="center"> >>>>> 2018 <<<<< </p>
+
 | Title | Description |
 |------|-------------|
 |[Real-Gas Effects and Phase Separation in Underexpanded Jets at Engine-Relevant Conditions](https://doi.org/10.2514/6.2018-1815)|![Jet development history](https://www.researchgate.net/profile/Christoph-Traxinger/publication/322309300/figure/fig5/AS:622107033612289@1525333283581/figure-fig5_W640.jpg)|
@@ -87,7 +89,8 @@ You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab
 |[Numerical modelling of two-dimensional perfect gas flows using RKDG method on unstructured meshes](https://doi.org/10.1063/1.5065323)|![RKDG (a) vs. rhoPimpleCentralFoam (b)](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/forwardStep-RKDG-vs-RPCF.png)|
 |[CFD methodologies for compressible atomising and cavitating multi-phase flows](https://eprints.utas.edu.au/28677/)|![Jet iso contours](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Jet-Hongjiang.png)|
 
-### >>>>> 2017 <<<<<
+    ## <p align="center"> >>>>> 2017 <<<<< </p>
+
 | Title | Description |
 |------|-------------|
 |[Numerical investigation on an array of Helmholtz resonators for the reduction of micro-pressure waves in modern and future high-speed rail tunnel systems](https://doi.org/10.1016/j.jsv.2017.04.022)| ![Helmholtz resonantors array mesh](https://ars.els-cdn.com/content/image/1-s2.0-S0022460X17303280-gr10.jpg)|
@@ -97,7 +100,8 @@ You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab
 |[Computational analysis and mitigation of micro-pressure waves in high-speed train tunnels](https://doi.org/10.25560/72653)|![Typical high speed train](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Train-1.png)|
 |[Numerical study of characteristic modes and frequencies of flow in high-speed compressors (in English)](https://doi.org/10.15514/ISPRAS-2017-29(1)-2)|![ERCOFTAC Pump sketch](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/ERCOFTAC-pump.png)|
 
-###  >>>>> 2016 <<<<<
+    ## <p align="center">  >>>>> 2016 <<<<< </p>
+
 | Title | Description |
 |------|-------------|
 |[On the Stability of Supersonic Boundary Layers with Injection](https://thesis.library.caltech.edu/9755/)| ![Scheme of boundary layer interaction with jet](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/boundary-layer.png)|
