@@ -35,7 +35,7 @@ Available OpenFOAM versions:
 * OpenFOAM+ 1912 - digitef-dev-1912
 * OpenFOAM+ 2012 - digitef-dev-2012
 
-## The library was useful in next research studies.
+## The library/approach was useful in next research studies.
 
 ### >>>>> 2021 <<<<<
 
