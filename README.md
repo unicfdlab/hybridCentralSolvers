@@ -77,6 +77,7 @@ Available OpenFOAM versions:
 | Title | Description |
 |------|-------------|
 |[On the Stability of Supersonic Boundary Layers with Injection](https://thesis.library.caltech.edu/9755/)| ![Scheme of boundary layer interaction with jet](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/boundary-layer.png)|
+|[Study of capabilities of hybrid scheme for advection terms approximation in mathematical models of compressible flows (in Russian)](https://ispranproceedings.elpub.ru/jour/article/view/121)|![Liquid ring vacuum pump](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/LRVP.png)|
 
    When using these solvers, please cite the following works:
    * [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3878441.svg)](https://doi.org/10.5281/zenodo.3878441)
