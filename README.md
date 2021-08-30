@@ -106,6 +106,7 @@ The library is available for next version of OpenFOAM:
 |[Numerical analysis of cavitation about marine propellers using a compressible multiphase VOF fractional step method](https://www.researchgate.net/publication/319306852_Numerical_analysis_of_cavitation_about_marine_propellers_using_a_compressible_multiphase_VOF_fractional_step_method)|![Comparison of cavitation morphology between cFSMVOF and other commercial/open-source codes](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/cFSMVOF.png)|
 |[Computational analysis and mitigation of micro-pressure waves in high-speed train tunnels](https://doi.org/10.25560/72653)|![Typical high speed train](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Train-1.png)|
 |[Numerical study of characteristic modes and frequencies of flow in high-speed compressors (in English)](https://doi.org/10.15514/ISPRAS-2017-29(1)-2)|![ERCOFTAC Pump sketch](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/ERCOFTAC-pump.png)|
+|[Implementation of the solver for coupled simulation for heat transfer in gas and solid - 12th OpenFOAM Workshop](https://www.researchgate.net/publication/320924871_Implementation_of_the_solver_for_coupled_simulation_for_heat_transfer_in_gas_and_solid_-_12th_OpenFOAM_Workshop)|![Problem statement](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/cht-supersonic-cone.png)|
 
 ## <p align="center">  >>>>> 2016 <<<<< </p>
 
