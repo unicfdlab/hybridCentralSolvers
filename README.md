@@ -1,10 +1,10 @@
 # Contents
 
-1. [Link 1](#Available-solvers-with-hybrid-approximation)
-2. [Link 2](#Discussions-group-in-Telegram)
-3. [Link 3](#Available-OpenFOAM-versions)
-4. [Link 4](#Research-studies-where-the-library-was-useful)
-5. [Link 5](#For-citations)
+1. [Available solvers with hybrid approximation](#Available-solvers-with-hybrid-approximation)
+2. [Discussions group in Telegram](#Discussions-group-in-Telegram)
+3. [Available OpenFOAM versions](#Available-OpenFOAM-versions)
+4. [Research studies where the library was useful](#Research-studies-where-the-library-was-useful)
+5. [For citations](#For-citations)
 
 # Available solvers with hybrid approximation
 
