@@ -1,3 +1,7 @@
+# Contents
+
+1. (Link 1)[# Available-solvers-with-hybrid-approximation]
+
 # Available solvers with hybrid approximation
 
 United collection of hybrid  Central solvers - one-phase, two-phase and multicomponent versions.
