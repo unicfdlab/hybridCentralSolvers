@@ -85,6 +85,7 @@ Available OpenFOAM versions:
 |[ Analysis of Radiation Discretization for Modelling a Spark Gap for Surge Currents ](https://doi.org/10.14311/ppt.2017.1.56)|![Spark sketch](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Plasma-spark-sketch.png)|
 |[Numerical analysis of cavitation about marine propellers using a compressible multiphase VOF fractional step method](https://www.researchgate.net/publication/319306852_Numerical_analysis_of_cavitation_about_marine_propellers_using_a_compressible_multiphase_VOF_fractional_step_method)|![Comparison of cavitation morphology between cFSMVOF and other commercial/open-source codes](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/cFSMVOF.png)|
 |[Computational analysis and mitigation of micro-pressure waves in high-speed train tunnels](https://doi.org/10.25560/72653)|![Typical high speed train](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Train-1.png)|
+|[Numerical study of characteristic modes and frequencies of flow in high-speed compressors.](https://doi.org/10.15514/ISPRAS-2017-29(1)-2)|![ERCOFTAC Pump sketch](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/ERCOFTAC-pump.png)|
 
 ###  >>>>> 2016 <<<<<
 | Title | Description |
