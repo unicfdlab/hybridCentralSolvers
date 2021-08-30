@@ -48,6 +48,7 @@ Available OpenFOAM versions:
 | Title | Description |
 |------|-------------|
 |[Numerical simulation of transpiration cooling experiments in supersonic flow using OpenFOAM](https://link.springer.com/article/10.1007/s12567-019-00292-6)|![Schematic illustration of the applied porous interface model](https://media.springernature.com/full/springer-static/image/art%3A10.1007%2Fs12567-019-00292-6/MediaObjects/12567_2019_292_Fig1_HTML.png?as=webp)|
+|[On uncertainty quantification via the ensemble of independent numerical solutions](https://doi.org/10.1016/j.jocs.2020.101114)|![Flow scheme](https://ars.els-cdn.com/content/image/1-s2.0-S1877750319310695-gr1.jpg)|
 
 ###  >>>>> 2019 <<<<<
 | Title | Description |
@@ -61,12 +62,13 @@ Available OpenFOAM versions:
 |------|-------------|
 |[Real-Gas Effects and Phase Separation in Underexpanded Jets at Engine-Relevant Conditions](https://doi.org/10.2514/6.2018-1815)|![Jet development history](https://www.researchgate.net/profile/Christoph-Traxinger/publication/322309300/figure/fig5/AS:622107033612289@1525333283581/figure-fig5_W640.jpg)|
 |[Analysis of the Accuracy of OpenFOAM Solvers for the Problem of Supersonic Flow Around a Cone](https://link.springer.com/chapter/10.1007/978-3-319-93713-7_18)|![Cone sketch](https://media.springernature.com/lw785/springer-static/image/chp%3A10.1007%2F978-3-319-93713-7_18/MediaObjects/469704_1_En_18_Fig1_HTML.gif)|
-|[Analysis of the Accuracy of OpenFOAM Solvers for the Problem of Supersonic Flow Around a Cone](https://link.springer.com/chapter/10.1007/978-3-319-93713-7_18)|![Flow around the cone](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/index.jpeg)|
+
 
 ### >>>>> 2017 <<<<<
 | Title | Description |
 |------|-------------|
 |[Numerical investigation on an array of Helmholtz resonators for the reduction of micro-pressure waves in modern and future high-speed rail tunnel systems](https://doi.org/10.1016/j.jsv.2017.04.022)| ![Helmholtz resonantors array mesh](https://ars.els-cdn.com/content/image/1-s2.0-S0022460X17303280-gr10.jpg)|
+|[Comparative Study of the Accuracy for OpenFOAM Solvers](https://doi.org/10.1109/ISPRAS.2017.00028)|![Flow around the cone](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/index.jpeg)|
 
 ###  >>>>> 2016 <<<<<
 | Title | Description |
