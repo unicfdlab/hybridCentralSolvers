@@ -72,6 +72,7 @@ Available OpenFOAM versions:
 |------|-------------|
 |[Numerical investigation on an array of Helmholtz resonators for the reduction of micro-pressure waves in modern and future high-speed rail tunnel systems](https://doi.org/10.1016/j.jsv.2017.04.022)| ![Helmholtz resonantors array mesh](https://ars.els-cdn.com/content/image/1-s2.0-S0022460X17303280-gr10.jpg)|
 |[Comparative Study of the Accuracy for OpenFOAM Solvers](https://doi.org/10.1109/ISPRAS.2017.00028)|![Flow around the cone](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/index.jpeg)|
+|[ Analysis of Radiation Discretization for Modelling a Spark Gap for Surge Currents ](https://doi.org/10.14311/ppt.2017.1.56)|![Spark sketch](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Plasma-spark-sketch.png)|
 
 ###  >>>>> 2016 <<<<<
 | Title | Description |
