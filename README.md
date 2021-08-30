@@ -72,6 +72,7 @@ Available OpenFOAM versions:
 |[A hybrid pressure-based solver for nonideal single-phase fluid flows at all speeds](https://doi.org/10.1002/fld.4512)|![Experiment vs. calculation](https://onlinelibrary.wiley.com/cms/asset/16108f70-6fec-4197-9aab-f84cbc5c2a1d/fld4512-fig-0005-m.jpg)|
 |[Comparison of the Performance of Open-Source and Commercial CFD Packages for Simulating Supersonic Compressible Jet Flows](https://doi.org/10.1109/IVMEM.2018.00019)|![Airbag computational domain sketch](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Airbag.png)|
 |[Numerical modelling of two-dimensional perfect gas flows using RKDG method on unstructured meshes](https://doi.org/10.1063/1.5065323)|![RKDG (a) vs. rhoPimpleCentralFoam (b)](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/forwardStep-RKDG-vs-RPCF.png)|
+|[CFD methodologies for compressible atomising and cavitating multi-phase flows](https://eprints.utas.edu.au/28677/)|![Jet iso contours](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Jet-Hongjiang.png)|
 
 ### >>>>> 2017 <<<<<
 | Title | Description |
