@@ -77,6 +77,8 @@ Available OpenFOAM versions:
 |[Numerical investigation on an array of Helmholtz resonators for the reduction of micro-pressure waves in modern and future high-speed rail tunnel systems](https://doi.org/10.1016/j.jsv.2017.04.022)| ![Helmholtz resonantors array mesh](https://ars.els-cdn.com/content/image/1-s2.0-S0022460X17303280-gr10.jpg)|
 |[Comparative Study of the Accuracy for OpenFOAM Solvers](https://doi.org/10.1109/ISPRAS.2017.00028)|![Flow around the cone](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/index.jpeg)|
 |[ Analysis of Radiation Discretization for Modelling a Spark Gap for Surge Currents ](https://doi.org/10.14311/ppt.2017.1.56)|![Spark sketch](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Plasma-spark-sketch.png)|
+|[Numerical analysis of cavitation about marine propellers using a compressible multiphase VOF fractional step method](https://www.researchgate.net/profile/Hongjiang-Yu/publication/319306852_Numerical_analysis_of_cavitation_about_marine_propellers_using_a_compressible_multiphase_VOF_fractional_step_method/links/59a27682458515fd1febed58/Numerical-analysis-of-cavitation-about-marine-propellers-using-a-compressible-multiphase-VOF-fractional-step-method.pdf)|![Comparison of cavitation morphology between cFSMVOF and other commercial/open-source 
+codes](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/cFSMVOF.png)|
 
 ###  >>>>> 2016 <<<<<
 | Title | Description |
