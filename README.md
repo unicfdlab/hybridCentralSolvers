@@ -52,6 +52,7 @@ Available OpenFOAM versions:
 |[On uncertainty quantification via the ensemble of independent numerical solutions](https://doi.org/10.1016/j.jocs.2020.101114)|![Flow scheme](https://ars.els-cdn.com/content/image/1-s2.0-S1877750319310695-gr1.jpg)|
 |[Influence of hydrogen equivalence ratios on supersonic combustion based on large eddy simulations](https://doi.org/10.1016/j.ijhydene.2020.02.054)|![Model scramjet](https://ars.els-cdn.com/content/image/1-s2.0-S036031992030584X-gr1.jpg)|
 |[A quasi-direct numerical simulation solver for compressible reacting flows](https://doi.org/10.1016/j.compfluid.2020.104718)|![Data exchange between OpenFOAM and Cantera](https://ars.els-cdn.com/content/image/1-s2.0-S0045793020302887-gr1.jpg)|
+|[ON THE CONSTRUCTION OF  A GENERALIZED COMPUTATIONAL EXPERIMENT IN VERIFICATION PROBLEMS](https://lppm3.ru/files/journal/XLVIII/MathMontXLVIII-Alekseev.pdf)|![#D flow around cone](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Cone-exact-3D.png)|
 
 ###  >>>>> 2019 <<<<<
 | Title | Description |
