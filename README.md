@@ -53,6 +53,7 @@ Available OpenFOAM versions:
 |[Influence of hydrogen equivalence ratios on supersonic combustion based on large eddy simulations](https://doi.org/10.1016/j.ijhydene.2020.02.054)|![Model scramjet](https://ars.els-cdn.com/content/image/1-s2.0-S036031992030584X-gr1.jpg)|
 |[A quasi-direct numerical simulation solver for compressible reacting flows](https://doi.org/10.1016/j.compfluid.2020.104718)|![Data exchange between OpenFOAM and Cantera](https://ars.els-cdn.com/content/image/1-s2.0-S0045793020302887-gr1.jpg)|
 |[ON THE CONSTRUCTION OF  A GENERALIZED COMPUTATIONAL EXPERIMENT IN VERIFICATION PROBLEMS](https://lppm3.ru/files/journal/XLVIII/MathMontXLVIII-Alekseev.pdf)|![#D flow around cone](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Cone-exact-3D.png)|
+|[Enhanced Pressure Based Coupled Algorithm to Combine with Pressure–Velocity-Enthalpy for all Mach Number Flow](https://link.springer.com/article/10.1007/s42405-020-00337-9)|![Original pressure based p–h coupled algorithm](https://media.springernature.com/lw685/springer-static/image/art%3A10.1007%2Fs42405-020-00337-9/MediaObjects/42405_2020_337_Fig1_HTML.png?as=webp)|
 
 ###  >>>>> 2019 <<<<<
 | Title | Description |
