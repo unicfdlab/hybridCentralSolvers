@@ -1,6 +1,7 @@
 # Contents
 
 1. [Link 1](#Available-solvers-with-hybrid-approximation)
+2. [Link 2](#Discussions-group-in-Telegram)
 
 # Available solvers with hybrid approximation
 
@@ -30,7 +31,7 @@ Kurganov and Tadmor for combustion with chemical reactions and LTS support for s
     of Kurganov and Tadmor for conjugate simulation of compressible flows of perfect gas (Mach 
     number is ranging from 0 to 6) and solid body heat transfer.
 
-# Discussion Telegram group
+# Discussions group in Telegram
 
 You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab/hybridCentralSolvers) usage at Telegram Group: https://t.me/hybridCentralSolvers 
 
