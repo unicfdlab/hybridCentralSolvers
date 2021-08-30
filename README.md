@@ -61,6 +61,7 @@ Available OpenFOAM versions:
 |------|-------------|
 |[Real-Gas Effects and Phase Separation in Underexpanded Jets at Engine-Relevant Conditions](https://doi.org/10.2514/6.2018-1815)|![Jet development history](https://www.researchgate.net/profile/Christoph-Traxinger/publication/322309300/figure/fig5/AS:622107033612289@1525333283581/figure-fig5_W640.jpg)|
 |[Analysis of the Accuracy of OpenFOAM Solvers for the Problem of Supersonic Flow Around a Cone](https://link.springer.com/chapter/10.1007/978-3-319-93713-7_18)|![Cone sketch](https://media.springernature.com/lw785/springer-static/image/chp%3A10.1007%2F978-3-319-93713-7_18/MediaObjects/469704_1_En_18_Fig1_HTML.gif)|
+|[Analysis of the Accuracy of OpenFOAM Solvers for the Problem of Supersonic Flow Around a Cone](https://link.springer.com/chapter/10.1007/978-3-319-93713-7_18)|![Flow around the cone](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/index.jpeg)|
 
 ### >>>>> 2017 <<<<<
 | Title | Description |
