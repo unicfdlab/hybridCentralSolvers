@@ -43,6 +43,12 @@ Available OpenFOAM versions:
 |------|-------------|
 |[Development of a new OpenFOAM solver using regularized gas dynamic equations](https://www.mdpi.com/2311-5521/6/8/274)| ![Jet with particles Logo](https://www.mdpi.com/fluids/fluids-06-00274/article_deploy/html/images/fluids-06-00274-ag-550.jpg) |
 
+### >>>>> 2020 <<<<<
+
+| Title | Description |
+|------|-------------|
+|[Numerical simulation of transpiration cooling experiments in supersonic flow using OpenFOAM](https://link.springer.com/article/10.1007/s12567-019-00292-6)|![Schematic illustration of the applied porous interface model](https://media.springernature.com/full/springer-static/image/art%3A10.1007%2Fs12567-019-00292-6/MediaObjects/12567_2019_292_Fig1_HTML.png?as=webp)|
+
 ###  >>>>> 2019 <<<<<
 | Title | Description |
 |------|-------------|
