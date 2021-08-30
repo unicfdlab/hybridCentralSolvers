@@ -4,7 +4,7 @@
 2. [Discussions group in Telegram](#Discussions-group-in-Telegram)
 3. [Available OpenFOAM versions](#Available-OpenFOAM-versions)
 4. [Research studies where the library was useful](#Research-studies-where-the-library-was-useful)
-5. [For citations](#For-citations)
+5. [For citation](#For-citation)
 
 # Available solvers with hybrid approximation
 
@@ -109,7 +109,7 @@ You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab
 |[Study of capabilities of hybrid scheme for advection terms approximation in mathematical models of compressible flows (in Russian)](https://ispranproceedings.elpub.ru/jour/article/view/121)|![Liquid ring vacuum pump](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/LRVP.png)|
 |[LES Discretization Methods for Unstructured Meshes Based on the Finite Volume Method](https://doi.org/10.21656/1000-0887.370228)|![Vorticity: Flow around cylinder](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Vorticity-vs-scheme.png)|
 
-# For citations
+# For citation
     
    When using these solvers, please cite the following works:
    * [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3878441.svg)](https://doi.org/10.5281/zenodo.3878441)
