@@ -7,6 +7,7 @@
 5. [For citation](#For-citation)
 
 # Available solvers with hybrid approximation
+[To the contents](#Contents)
 
 United collection of hybrid  Central solvers - one-phase, two-phase and multicomponent versions.
 
@@ -35,10 +36,14 @@ Kurganov and Tadmor for combustion with chemical reactions and LTS support for s
     number is ranging from 0 to 6) and solid body heat transfer.
 
 # Discussions group in Telegram
+[To the contents](#Contents)
 
 You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab/hybridCentralSolvers) usage at Telegram Group: https://t.me/hybridCentralSolvers 
 
-# Available OpenFOAM versions:
+# Available OpenFOAM versions
+[To the contents](#Contents)
+
+The library is available for next version of OpenFOAM:
 * OpenFOAM 3.1 - master branch
 * OpenFOAM 4.1 - dev-of4.1 branch
 * OpenFOAM 6   - dev-of6 branch
@@ -47,6 +52,7 @@ You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab
 * OpenFOAM+ 2012 - digitef-dev-2012
 
 # Research studies where the library was useful
+[To the contents](#Contents)
 
 ## <p align="center"> >>>>> 2021 <<<<<  </p> 
 
@@ -110,6 +116,7 @@ You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab
 |[LES Discretization Methods for Unstructured Meshes Based on the Finite Volume Method](https://doi.org/10.21656/1000-0887.370228)|![Vorticity: Flow around cylinder](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Vorticity-vs-scheme.png)|
 
 # For citation
+[To the contents](#Contents)
     
    When using these solvers, please cite the following works:
    * [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3878441.svg)](https://doi.org/10.5281/zenodo.3878441)
