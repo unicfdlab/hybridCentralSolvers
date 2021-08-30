@@ -1,6 +1,6 @@
 # Contents
 
-1. (Link 1)[# Available-solvers-with-hybrid-approximation]
+1. [Link 1](# Available-solvers-with-hybrid-approximation)
 
 # Available solvers with hybrid approximation
 
