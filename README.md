@@ -2,6 +2,8 @@
 
 1. [Link 1](#Available-solvers-with-hybrid-approximation)
 2. [Link 2](#Discussions-group-in-Telegram)
+3. [Link 3](#Available-OpenFOAM-versions)
+4. [Link 4](# Research-studies-where-the-library/approach-was-useful)
 
 # Available solvers with hybrid approximation
 
@@ -35,7 +37,7 @@ Kurganov and Tadmor for combustion with chemical reactions and LTS support for s
 
 You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab/hybridCentralSolvers) usage at Telegram Group: https://t.me/hybridCentralSolvers 
 
-Available OpenFOAM versions:
+# Available OpenFOAM versions:
 * OpenFOAM 3.1 - master branch
 * OpenFOAM 4.1 - dev-of4.1 branch
 * OpenFOAM 6   - dev-of6 branch
@@ -43,9 +45,9 @@ Available OpenFOAM versions:
 * OpenFOAM+ 1912 - digitef-dev-1912
 * OpenFOAM+ 2012 - digitef-dev-2012
 
-## The library/approach was useful in next research studies.
+# Research studies where the library/approach was useful
 
-### >>>>> 2021 <<<<<
+<p align="center"> ### >>>>> 2021 <<<<< </p>
 
 | Title | Description |
 |------|-------------|
