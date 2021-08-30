@@ -47,7 +47,7 @@ You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab
 
 # Research studies where the library was useful
 
-    ## <p align="center"> >>>>> 2021 <<<<< </p>
+    ### <p align="center"> >>>>> 2021 <<<<<  </p> 
 
 | Title | Description |
 |------|-------------|
