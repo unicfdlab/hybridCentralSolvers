@@ -63,6 +63,7 @@ Available OpenFOAM versions:
 |[Real-Gas Effects and Phase Separation in Underexpanded Jets at Engine-Relevant Conditions](https://doi.org/10.2514/6.2018-1815)|![Jet development history](https://www.researchgate.net/profile/Christoph-Traxinger/publication/322309300/figure/fig5/AS:622107033612289@1525333283581/figure-fig5_W640.jpg)|
 |[Analysis of the Accuracy of OpenFOAM Solvers for the Problem of Supersonic Flow Around a Cone](https://link.springer.com/chapter/10.1007/978-3-319-93713-7_18)|![Cone sketch](https://media.springernature.com/lw785/springer-static/image/chp%3A10.1007%2F978-3-319-93713-7_18/MediaObjects/469704_1_En_18_Fig1_HTML.gif)|
 |[Development of a new OpenFOAM solver using regularized gas dynamic equations](https://doi.org/10.1016/j.compfluid.2018.02.010)|![Ladenburgh jet](https://ars.els-cdn.com/content/image/1-s2.0-S0045793018300641-gr14.jpg)|
+|[A hybrid pressure-based solver for nonideal single-phase fluid flows at all speeds](https://doi.org/10.1002/fld.4512)|![Experiment vs. calculation](https://onlinelibrary.wiley.com/cms/asset/16108f70-6fec-4197-9aab-f84cbc5c2a1d/fld4512-fig-0005-m.jpg)|
 
 
 ### >>>>> 2017 <<<<<
