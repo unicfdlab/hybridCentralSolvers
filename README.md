@@ -42,6 +42,7 @@ Available OpenFOAM versions:
 | Title | Description |
 |------|-------------|
 |[Development of a new OpenFOAM solver using regularized gas dynamic equations](https://www.mdpi.com/2311-5521/6/8/274)| ![Jet with particles Logo](https://www.mdpi.com/fluids/fluids-06-00274/article_deploy/html/images/fluids-06-00274-ag-550.jpg) |
+|[Dynamics of detonation transmission and propagation in a curved chamber: a numerical and experimental analysis](https://doi.org/10.1016/j.combustflame.2020.09.032)|![Experiment vs calculation](https://ars.els-cdn.com/content/image/1-s2.0-S0010218020304168-gr2.jpg)|
 
 ### >>>>> 2020 <<<<<
 
