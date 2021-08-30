@@ -51,6 +51,7 @@ Available OpenFOAM versions:
 |[Numerical simulation of transpiration cooling experiments in supersonic flow using OpenFOAM](https://link.springer.com/article/10.1007/s12567-019-00292-6)|![Schematic illustration of the applied porous interface model](https://media.springernature.com/full/springer-static/image/art%3A10.1007%2Fs12567-019-00292-6/MediaObjects/12567_2019_292_Fig1_HTML.png?as=webp)|
 |[On uncertainty quantification via the ensemble of independent numerical solutions](https://doi.org/10.1016/j.jocs.2020.101114)|![Flow scheme](https://ars.els-cdn.com/content/image/1-s2.0-S1877750319310695-gr1.jpg)|
 |[Influence of hydrogen equivalence ratios on supersonic combustion based on large eddy simulations](https://doi.org/10.1016/j.ijhydene.2020.02.054)|![Model scramjet](https://ars.els-cdn.com/content/image/1-s2.0-S036031992030584X-gr1.jpg)|
+|[A quasi-direct numerical simulation solver for compressible reacting flows](https://doi.org/10.1016/j.compfluid.2020.104718)|![Data exchange between OpenFOAM and Cantera](https://ars.els-cdn.com/content/image/1-s2.0-S0045793020302887-gr1.jpg)|
 
 ###  >>>>> 2019 <<<<<
 | Title | Description |
