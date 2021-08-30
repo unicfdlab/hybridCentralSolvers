@@ -1,4 +1,4 @@
-[Avail] (#Available-solvers-with-hybrid-approximation)
+# Available solvers with hybrid approximation
 
 United collection of hybrid  Central solvers - one-phase, two-phase and multicomponent versions.
 
@@ -26,7 +26,9 @@ Kurganov and Tadmor for combustion with chemical reactions and LTS support for s
     of Kurganov and Tadmor for conjugate simulation of compressible flows of perfect gas (Mach 
     number is ranging from 0 to 6) and solid body heat transfer.
 
-Telegram public group: https://t.me/hybridCentralSolvers for questions and discussion of the solvers features
+# Discussion Telegram group
+
+You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab/hybridCentralSolvers) usage at Telegram Group: https://t.me/hybridCentralSolvers 
 
 Available OpenFOAM versions:
 * OpenFOAM 3.1 - master branch
