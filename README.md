@@ -3,7 +3,7 @@
 1. [Link 1](#Available-solvers-with-hybrid-approximation)
 2. [Link 2](#Discussions-group-in-Telegram)
 3. [Link 3](#Available-OpenFOAM-versions)
-4. [Link 4](# Research-studies-where-the-library/approach-was-useful)
+4. [Link 4](#Research-studies-where-the-library-was-useful)
 
 # Available solvers with hybrid approximation
 
@@ -45,7 +45,7 @@ You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab
 * OpenFOAM+ 1912 - digitef-dev-1912
 * OpenFOAM+ 2012 - digitef-dev-2012
 
-# Research studies where the library/approach was useful
+# Research studies where the library was useful
 
 <p align="center"> ### >>>>> 2021 <<<<< </p>
 
