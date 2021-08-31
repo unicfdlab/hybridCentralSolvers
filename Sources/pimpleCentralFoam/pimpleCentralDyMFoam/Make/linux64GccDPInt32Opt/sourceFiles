@@ -1,0 +1,4 @@
+SOURCE = \
+pimpleCentralDyMFoam.C \
+
+# sources

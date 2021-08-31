@@ -1,0 +1,13 @@
+SOURCE = \
+kappaFunctions/kappaFunction/kappaFunction.C \
+kappaFunctions/derived/acceleratedSonicCourantInverse/acceleratedSonicCourantInverseKappaFunction.C \
+kappaFunctions/derived/sonicCourantInverse/sonicCourantInverseKappaFunction.C \
+kappaFunctions/derived/standardMachToAcCourantRatio/standardMachToAcCourantRatioKappaFunction.C \
+compressibleTwoPhaseThermo/simplePhasePsiThermo.C \
+compressibleTwoPhaseThermo/compressibleTwoPhaseMixture.C \
+compressibleTwoPhaseThermo/compressibleTwoPhaseMixtureThermo.C \
+centralMULES/centralMULES.C \
+Tools/correctCentralACMIInterpolation.C \
+thermophysicalProperties/thermo/additionalRhoThermos.C \
+
+# sources
