@@ -75,6 +75,7 @@ The library is available for next version of OpenFOAM:
 |[Enhanced Pressure Based Coupled Algorithm to Combine with Pressure–Velocity-Enthalpy for all Mach Number Flow](https://link.springer.com/article/10.1007/s42405-020-00337-9):  **Article**  |![Original pressure based p–h coupled algorithm](https://media.springernature.com/lw685/springer-static/image/art%3A10.1007%2Fs42405-020-00337-9/MediaObjects/42405_2020_337_Fig1_HTML.png?as=webp)|
 |[Pressure-Based Solution Framework for Non-Ideal Flows at All Mach Numbers](https://link.springer.com/chapter/10.1007/978-3-030-49626-5_4):  **Article**  |![Fully developed jet structure of a n-hexane jet injected into a quiescent nitrogen atmosphere](https://media.springernature.com/lw785/springer-static/image/chp%3A10.1007%2F978-3-030-49626-5_4/MediaObjects/492738_1_En_4_Fig3_HTML.png)|
 |[Entwicklung eines Simulationsmodells für Schaltlichtbögen in Überspannungsableitern](https://publikationsserver.tu-braunschweig.de/servlets/MCRFileNodeServlet/dbbs_derivate_00047899/Diss_Sander_Christian.pdf):  **PhD Thesis**  |![Spark](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/spark-tubraunscheig.png)|
+|[A pressure-based solution framework for sub- and supersonic flows considering real-gas effects and phase separation under engine-relevant conditions](https://doi.org/10.1016/j.compfluid.2020.104452): **Article**|![Jet visualization](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/1-s2.0-S0045793020300281-gr15.jpg)|
 
 ## <p align="center">  >>>>> 2019 <<<<< </p>
     
