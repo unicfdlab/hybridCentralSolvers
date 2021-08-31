@@ -115,6 +115,7 @@ The library is available for next version of OpenFOAM:
 |[Numerical study of characteristic modes and frequencies of flow in high-speed compressors (in English)](https://doi.org/10.15514/ISPRAS-2017-29(1)-2):  **Article** |![ERCOFTAC Pump sketch](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Figs/ERCOFTAC-pump.png)|
 |[Implementation of the solver for coupled simulation for heat transfer in gas and solid - 12th OpenFOAM Workshop](https://www.researchgate.net/publication/320924871_Implementation_of_the_solver_for_coupled_simulation_for_heat_transfer_in_gas_and_solid_-_12th_OpenFOAM_Workshop):  **Presentation** |![Problem statement](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Figs/cht-supersonic-cone.png)|
  |[Numerical modelling of compressible flows with hybrid approximation of convective fluxes (In Russian)](https://keldysh.ru/council/3/D00202403/kraposhin_diss.pdf): **PhD Thesis**|![Comparison of density and pressure based approaches](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Figs/Dens-rho-vs-pres.png)|
+|[Application of open-source software for industrial problems of vehicle lift-off gas dynamics (in Russian)](https://journals.ssau.ru/vestnik/article/view/5610): **Article**|![Comparison of Eggers experiment with calculation](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Figs/Eggers-exp-vs-calc.png)|
 
 ## <p align="center">  >>>>> 2016 <<<<< </p>
 
