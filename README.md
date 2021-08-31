@@ -88,6 +88,7 @@ The library is available for next version of OpenFOAM:
 |[Numerical investigation of the flow characteristics of underexpanded methane jets](https://doi.org/10.1063/1.5092776): **Article**|![Methane jets flow visualization](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/methane-jet.jpeg)|
 |[The numerical simulation of compressible jet at low Reynolds number using OpenFOAM](https://doi.org/10.1051/e3sconf/201912810008): **Article**|![Q-criterion for Re3600 Ma0.9 jet](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Re3600M0.9-jet.jpeg)|
 |[Rocket plume URANS simulation using OpenFOAM](https://doi.org/10.1016/j.rineng.2019.100056): **Article**|![Rocket plume shadowgraph](https://ars.els-cdn.com/content/image/1-s2.0-S2590123019300568-gr3.jpg)|
+|[Numerische Modellierung und Untersuchung der Hochdruckeindüsung nicht-idealer Fluide bei überkritischen Druckverhältnissen (in German)](https://athene-forschung.unibw.de/130039): **PhD Thesis**|![Jets with separation](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/overexpjets-sep.png)|
 
 ## <p align="center"> >>>>> 2018 <<<<< </p>
 
