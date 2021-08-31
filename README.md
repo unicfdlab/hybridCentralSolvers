@@ -86,7 +86,8 @@ The library is available for next version of OpenFOAM:
 |[Verification on the Ensemble of Independent Numerical Solutions](https://link.springer.com/chapter/10.1007/978-3-030-22750-0_25):  **Article**  |![Solvers comparison](https://media.springernature.com/lw785/springer-static/image/chp%3A10.1007%2F978-3-030-22750-0_25/MediaObjects/485772_1_En_25_Fig2_HTML.png)|
 |[Computational Study of Reactants Mixing in a Rotating Detonation Combustor Using Compressible RANS](https://link.springer.com/article/10.1007/s10494-019-00097-x):  **Article**  |![Detailed shock structure of the baseline flow case in the injection region derived from the Mach number contour plot at the longitudinal mid-plane](https://media.springernature.com/lw685/springer-static/image/art%3A10.1007%2Fs10494-019-00097-x/MediaObjects/10494_2019_97_Fig5_HTML.png?as=webp)|
 |[Numerical investigation of the flow characteristics of underexpanded methane jets](https://doi.org/10.1063/1.5092776): **Article**|![Methane jets flow visualization](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/methane-jet.jpeg)|
-|[The numerical simulation of compressible jet at low Reynolds number using OpenFOAM](https://doi.org/10.1051/e3sconf/201912810008): **Article**|![Q-criterion for Re3600 Ma0.9 jet](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Re3600M0.9-jet.jpeg)|    
+|[The numerical simulation of compressible jet at low Reynolds number using OpenFOAM](https://doi.org/10.1051/e3sconf/201912810008): **Article**|![Q-criterion for Re3600 Ma0.9 jet](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Re3600M0.9-jet.jpeg)|
+|[Rocket plume URANS simulation using OpenFOAM](https://doi.org/10.1016/j.rineng.2019.100056): **Article**|![Rocket plume shadowgraph](https://ars.els-cdn.com/content/image/1-s2.0-S2590123019300568-gr3.jpg)|
 
 ## <p align="center"> >>>>> 2018 <<<<< </p>
 
