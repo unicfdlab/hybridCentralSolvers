@@ -44,12 +44,12 @@ You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab
 [To the contents](#Contents)
 
 The library is available for next version of OpenFOAM:
-* OpenFOAM 3.1 - master branch
-* OpenFOAM 4.1 - dev-of4.1 branch
-* OpenFOAM 6   - dev-of6 branch
-* OpenFOAM+ 1812 - digitef-dev-1812
-* OpenFOAM+ 1912 - digitef-dev-1912
-* OpenFOAM+ 2012 - digitef-dev-2012
+* OpenFOAM 3.1 - [master branch](https://github.com/unicfdlab/hybridCentralSolvers/tree/master)
+* OpenFOAM 4.1 - [dev-of4.1 branch](https://github.com/unicfdlab/hybridCentralSolvers/tree/dev-of4.1)
+* OpenFOAM 6   - [dev-of6 branch](https://github.com/unicfdlab/hybridCentralSolvers/tree/dev-of6)
+* OpenFOAM+ 1812 - [digitef-dev-1812](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-1812)
+* OpenFOAM+ 1912 - [digitef-dev-1912](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-1912)
+* OpenFOAM+ 2012 - [digitef-dev-2012](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-2012)
 
 # Research studies where the library was useful
 [To the contents](#Contents)
