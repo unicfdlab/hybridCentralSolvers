@@ -84,6 +84,7 @@ The library is available for next version of OpenFOAM:
 |[Numerical investigation of the auto-ignition of transient hydrogen injection in supersonic airflow](https://doi.org/10.1016/j.ijhydene.2019.07.215):  **Article**  |![Shadowgraph of the jet](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/1-s2.0-S0360319919328514-gr4.jpg)|
 |[Verification on the Ensemble of Independent Numerical Solutions](https://link.springer.com/chapter/10.1007/978-3-030-22750-0_25):  **Article**  |![Solvers comparison](https://media.springernature.com/lw785/springer-static/image/chp%3A10.1007%2F978-3-030-22750-0_25/MediaObjects/485772_1_En_25_Fig2_HTML.png)|
 |[Computational Study of Reactants Mixing in a Rotating Detonation Combustor Using Compressible RANS](https://link.springer.com/article/10.1007/s10494-019-00097-x):  **Article**  |![Detailed shock structure of the baseline flow case in the injection region derived from the Mach number contour plot at the longitudinal mid-plane](https://media.springernature.com/lw685/springer-static/image/art%3A10.1007%2Fs10494-019-00097-x/MediaObjects/10494_2019_97_Fig5_HTML.png?as=webp)|
+ |[Numerical investigation of the flow characteristics of underexpanded methane jets](https://doi.org/10.1063/1.5092776): **Article**|![Methane jets flow visualization](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/methane-jet.jpeg)|
 
 ## <p align="center"> >>>>> 2018 <<<<< </p>
 
