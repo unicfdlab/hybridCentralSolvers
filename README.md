@@ -114,7 +114,7 @@ The library is available for next version of OpenFOAM:
 | Title | Description |
 |------|-------------|
 |[On the Stability of Supersonic Boundary Layers with Injection](https://thesis.library.caltech.edu/9755/):  **PhD Thesis** | ![Scheme of boundary layer interaction with jet](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/boundary-layer.png)|
-|[Study of capabilities of hybrid scheme for advection terms approximation in mathematical models of compressible flows (in Russian)](https://ispranproceedings.elpub.ru/jour/article/view/121)|![Liquid ring vacuum pump](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/LRVP.png):  **Article** |
+|[Study of capabilities of hybrid scheme for advection terms approximation in mathematical models of compressible flows (in Russian)](https://ispranproceedings.elpub.ru/jour/article/view/121):  **Article** |![Liquid ring vacuum pump](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/LRVP.png)|
 |[LES Discretization Methods for Unstructured Meshes Based on the Finite Volume Method](https://doi.org/10.21656/1000-0887.370228):  **Article** |![Vorticity: Flow around cylinder](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Vorticity-vs-scheme.png)|
 
 # For citation
