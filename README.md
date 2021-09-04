@@ -11,7 +11,7 @@
 
 United collection of hybrid  Central solvers - one-phase, two-phase and multicomponent versions.
 
-Only OpenFOAM+ version of the OpenFOAM technology is supported sinces 2018. Use branches digitef-dev-YYMM, where YYMM - corresponds to OpenFOAM+ version, for example 1812
+Only OpenFOAM+ version of the OpenFOAM technology is supported since 2018. Use branches digitef-dev-YYMM, where YYMM - corresponds to OpenFOAM+ version, for example 1812
 
 1. **pimpleCentralFoam** - Pressure-based semi implicit compressible flow of perfect gas solver based on 
 central-upwind schemes of Kurganov and Tadmor with LTS support for steady-state calculations
