@@ -40,6 +40,8 @@ Kurganov and Tadmor for combustion with chemical reactions and LTS support for s
 
 You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab/hybridCentralSolvers) usage at Telegram Group: https://t.me/hybridCentralSolvers 
 
+The [ResearchGate](https://www.researchgate.net/) project dedicated to the development of [hybridCentralSolvers  library](https://www.researchgate.net/project/Development-and-implementation-of-hybrid-Density-Pressure-scheme-for-compressible-flows-simulation-in-OpenFOAM)
+
 # Available OpenFOAM versions
 [To the contents](#Contents)
 
