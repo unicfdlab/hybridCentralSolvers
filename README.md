@@ -56,6 +56,8 @@ The library is available for next version of OpenFOAM:
 # Research studies where the library was useful
 [To the contents](#Contents)
 
+If you want to see your research in this list, please write to [Issues](https://github.com/unicfdlab/hybridCentralSolvers/issues) .
+
 ## <p align="center"> >>>>> 2021 <<<<<  </p> 
 
 | Title | Description |
