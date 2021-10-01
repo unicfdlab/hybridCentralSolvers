@@ -120,6 +120,7 @@ If you want to see your research in this list, please write to [Issues](https://
 |[Implementation of the solver for coupled simulation for heat transfer in gas and solid - 12th OpenFOAM Workshop](https://www.researchgate.net/publication/320924871_Implementation_of_the_solver_for_coupled_simulation_for_heat_transfer_in_gas_and_solid_-_12th_OpenFOAM_Workshop):  **Presentation** |![Problem statement](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Figs/cht-supersonic-cone.png)|
  |[Numerical modelling of compressible flows with hybrid approximation of convective fluxes (In Russian)](https://keldysh.ru/council/3/D00202403/kraposhin_diss.pdf): **PhD Thesis**|![Comparison of density and pressure based approaches](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Figs/Dens-rho-vs-pres.png)|
 |[Application of open-source software for industrial problems of vehicle lift-off gas dynamics (in Russian)](https://journals.ssau.ru/vestnik/article/view/5610): **Article**|![Comparison of Eggers experiment with calculation](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Figs/Eggers-exp-vs-calc.png)|
+|[Optimization for Internal Turbulent Compressible Flows Using Adjoints](https://www.researchgate.net/publication/318144074_Optimization_for_Internal_Turbulent_Compressible_Flows_Using_Adjoints):  **Article** |![Porosity and velocity fields](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Figs/OptIntCompFlows_AIAA.png)|
 
 ## <p align="center">  >>>>> 2016 <<<<< </p>
 
