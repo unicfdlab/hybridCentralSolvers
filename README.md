@@ -59,7 +59,7 @@ The library is available for next version of OpenFOAM:
 
 The library or approach were used in next projects:
 * [multiRegionRectingPimpleCentralFoam](https://github.com/TonkomoLLC/hybridCentralSolvers/tree/master/OpenFOAM-4.1/multiRegionReactingPimpleCentralFoam) -- a solver for coupled simulation of gas dynamics and heat transfer using hybrid KT/PIMPLE approximation of convective fluxes
-* [adjointReactingRhoPimpleCentralFoam](https://github.com/clapointe2011/public/tree/master/discreteAdjointOpenFOAM/applications/solvers/adjoint/adjointReactingRhoPimpleCentralFoam) -- a solve for adjoint shape optimization of region with gas flow modelled using hybrid KT/PIMPLE approximation of convective fluxes
+* [adjointReactingRhoPimpleCentralFoam](https://github.com/clapointe2011/public/tree/master/discreteAdjointOpenFOAM/applications/solvers/adjoint/adjointReactingRhoPimpleCentralFoam) -- a solver for adjoint shape optimization of region with gas flow modelled using hybrid KT/PIMPLE approximation of convective fluxes
 
 
 # Research studies where the library was useful
