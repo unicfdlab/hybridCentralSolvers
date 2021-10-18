@@ -3,7 +3,7 @@
 1. [Available solvers with hybrid approximation](#Available-solvers-with-hybrid-approximation)
 2. [Discussions group in Telegram](#Discussions-group-in-Telegram)
 3. [Available OpenFOAM versions](#Available-OpenFOAM-versions)
-4. [Derived projects][#Derived-projects]
+4. [Derived projects](#Derived-projects)
 5. [Research studies where the library was useful](#Research-studies-where-the-library-was-useful)
 6. [For citation](#For-citation)
 
