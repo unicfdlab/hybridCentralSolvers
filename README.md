@@ -3,8 +3,9 @@
 1. [Available solvers with hybrid approximation](#Available-solvers-with-hybrid-approximation)
 2. [Discussions group in Telegram](#Discussions-group-in-Telegram)
 3. [Available OpenFOAM versions](#Available-OpenFOAM-versions)
-4. [Research studies where the library was useful](#Research-studies-where-the-library-was-useful)
-5. [For citation](#For-citation)
+4. [Derived projects][#Derived-projects]
+5. [Research studies where the library was useful](#Research-studies-where-the-library-was-useful)
+6. [For citation](#For-citation)
 
 # Available solvers with hybrid approximation
 [To the contents](#Contents)
@@ -52,6 +53,14 @@ The library is available for next version of OpenFOAM:
 * OpenFOAM+ 1812 - [digitef-dev-1812](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-1812)
 * OpenFOAM+ 1912 - [digitef-dev-1912](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-1912)
 * OpenFOAM+ 2012 - [digitef-dev-2012](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-2012)
+
+# Derived projects
+[To the contents](#Contents)
+
+The library or approach were used in next projects:
+* [multiRegionRectingPimpleCentralFoam](https://github.com/TonkomoLLC/hybridCentralSolvers/tree/master/OpenFOAM-4.1/multiRegionReactingPimpleCentralFoam) -- a solver for coupled simulation of gas dynamics and heat transfer using hybrid KT/PIMPLE approximation of convective fluxes
+* [adjointReactingRhoPimpleCentralFoam](https://github.com/clapointe2011/public/tree/master/discreteAdjointOpenFOAM/applications/solvers/adjoint/adjointReactingRhoPimpleCentralFoam) -- a solve for adjoint shape optimization of region with gas flow modelled using hybrid KT/PIMPLE approximation of convective fluxes
+
 
 # Research studies where the library was useful
 [To the contents](#Contents)
