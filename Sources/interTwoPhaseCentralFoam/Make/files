@@ -1,0 +1,6 @@
+kappaFunction.C
+standardMachToAcCourantRatioKappaFunction.C
+interTwoPhaseCentralFoam.C
+interTwoPhaseCentralFoamApp.C
+
+EXE = $(FOAM_USER_APPBIN)/interTwoPhaseCentralFoam
