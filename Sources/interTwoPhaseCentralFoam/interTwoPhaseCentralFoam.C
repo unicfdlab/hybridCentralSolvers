@@ -6,7 +6,7 @@ namespace Foam
     defineRunTimeSelectionTable(interTwoPhaseCentralFoam, dictionary);
 }
 
-Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh)
+Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pimpleControl& ctrl)
 :
 
     IOdictionary
@@ -20,6 +20,8 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh)
             IOobject::NO_WRITE
         )
     ),
+
+    pimple_ (ctrl),
 
     U_
     (
@@ -813,6 +815,7 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh)
     ),
 
 /************************kappa Function*********************************/
+/*
     kappaFuncPtr
     (
        fv::kappaFunction::New
@@ -822,7 +825,7 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh)
           mesh
         )
     ),
-
+*/
     kappa
     (
       IOobject
@@ -960,11 +963,6 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh)
        mag(phi_/mesh.magSf())
      ),
 
-     vF1_
-     (
-       fvc::interpolate(volumeFraction1_)
-     ),
-
      E_
      (
        (
@@ -1002,6 +1000,47 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh)
      Ep_
      (
        0*EF_
+     ),
+
+     ddtvF1_
+     (
+       fvc::ddt(volumeFraction1_)
+     ),
+
+     ddtvF2_
+     (
+       fvc::ddt(volumeFraction2_)
+     ),
+
+     vF1face_
+     (
+       fvc::interpolate(volumeFraction1_, "reconstruct(volumeFraction1)")
+     ),
+
+     vF2face_
+     (
+       1.0 - vF1face_
+     ),
+
+     vFPhi1_
+     (
+       phi_*vF1face_
+     ),
+
+     vFPhi2_
+     (
+       phi_ - vFPhi1_
+     ),
+
+     divU_
+     (
+       volumeFraction1_*E1_/rho1_
+       +
+       volumeFraction2_*E2_/rho2_
+       -
+       ddtvF1_ - fvc::div(vFPhi1_)
+       -
+       ddtvF2_ - fvc::div(vFPhi2_)
      )
 
 
@@ -1034,6 +1073,8 @@ void Foam::interTwoPhaseCentralFoam::saveOld()
       rho2AmpU_.oldTime();
       TSource1_.oldTime();
       TSource2_.oldTime();
+      ddtvF1_.oldTime();
+      ddtvF2_.oldTime();
 
     }
 
@@ -1044,47 +1085,42 @@ void Foam::interTwoPhaseCentralFoam::saveOld()
     void Foam::interTwoPhaseCentralFoam::alpha1Eqnsolve()
     {
 
-//      alphaPhiCorrect();
-//      Info<< "Mark 2.1" << nl << endl;
+      vF1face_ = fvc::interpolate(volumeFraction1_, "reconstruct(volumeFraction1)");
+      vF2face_ = 1.0 - vF1face_;
+      vFPhi1_ = phi_*vF1face_;
+      vFPhi2_ = phi_ - vFPhi1_;
+
       fvScalarMatrix alpha1Eqn
       (
+/*
+        fvm::ddt(volumeFraction1_)
+        +
+        fvc::div(vFPhi1_)
+        ==
+        (1+K_)*fvc::div(phi_)*volumeFraction1_
+*/
         fvm::ddt(volumeFraction1_)
         +
         fvc::div(phi_, volumeFraction1_)
-//        +
-//        fvm::div(phic_, volumeFraction1_)
         ==
-  //      (1 + K_)*fvc::div(phi_)
-        fvc::div(phi_)*volumeFraction1_
+        (1+K_)*fvc::div(phi_)*volumeFraction1_
 
       );
 
       alpha1Eqn.solve();
 
       volumeFraction2_ = 1 - volumeFraction1_;
+
+
+
+      ddtvF1_ = fvc::ddt(volumeFraction1_);
+      ddtvF2_ = fvc::ddt(volumeFraction2_);
+
       Info<< "max: volumeFraction1 " << max(volumeFraction1_).value()
           << " min: " << min(volumeFraction1_).value()
           << nl << endl;
     }
 
-    void Foam::interTwoPhaseCentralFoam::alpha2Eqnsolve()
-    {
-
-      fvScalarMatrix alpha2Eqn
-      (
-        fvm::ddt(volumeFraction2_)
-        +
-        fvm::div(phi_, volumeFraction2_)
-        ==
-        (fvc::div(phi_)*fvm::Sp(1 + K_, volumeFraction2_))
-
-      );
-
-      alpha2Eqn.solve();
-
-      volumeFraction1_ = 1 - volumeFraction2_;
-
-    }
 
     void Foam::interTwoPhaseCentralFoam::UEqnsolve()
     {
@@ -1160,7 +1196,7 @@ void Foam::interTwoPhaseCentralFoam::saveOld()
     void Foam::interTwoPhaseCentralFoam::rho1Eqnsolve()
     {
       fvScalarMatrix rho1Eqn
-      ( //volumeFraction1_*
+      (
         (
         fvm::ddt(rho1_)
         +
@@ -1175,7 +1211,7 @@ void Foam::interTwoPhaseCentralFoam::saveOld()
     void Foam::interTwoPhaseCentralFoam::rho2Eqnsolve()
     {
       fvScalarMatrix rho2Eqn
-      ( //volumeFraction2_*
+      (
         (
         fvm::ddt(rho2_)
         +
@@ -1202,13 +1238,11 @@ void Foam::interTwoPhaseCentralFoam::saveOld()
             volumeFraction1_*
             (fvm::ddt(psi1_,p_) + fvc::ddt(rho01_)
             + pEqn1_own + pEqn1_nei
-//            - fvm::laplacian(rho01_*rbyA_,p_)
             )
             +
             volumeFraction2_*
             (fvm::ddt(psi2_,p_) + fvc::ddt(rho02_)
             + pEqn2_own + pEqn2_nei
-//            - fvm::laplacian(rho02_*rbyA_,p_)
             )
         );
 
@@ -1322,27 +1356,27 @@ void Foam::interTwoPhaseCentralFoam::saveOld()
     void Foam::interTwoPhaseCentralFoam::alphaPhi()
     {
 
-//       vF1_ = fvc::interpolate(volumeFraction1_);
-
-
-//        phi1_ = (phi1_own+phi1_nei)/(alpha1_own*rho1_own+alpha1_nei*rho1_nei);
-//        phi2_ = (phi2_own+phi2_nei)/(alpha2_own*rho2_own+alpha2_nei*rho2_nei);
-
         phi_ =
         (phi1_own+phi1_nei)/(alpha1_own*rho1_own+alpha1_nei*rho1_nei)
 //        +
 //        (phi2_own+phi2_nei)/(alpha2_own*rho2_own+alpha2_nei*rho2_nei)
         ;
+
 /*
-        phi_ =
+        surfaceScalarField rbyAf = fvc::interpolate(rbyA_);
+
+        divU();
+        Foam::CorrectPhi
         (
-          vF1_*(phi1_own+phi1_nei) + (1-vF1_)*(phi2_own+phi2_nei)
-        )
-        /
-        (
-          vF1_*(rho1_own+rho1_nei)+ (1-vF1_)*(rho2_own+rho2_nei)
+          U_,
+          phi_,
+          p_,
+          rbyAf,
+          divU_,
+          pimple_
         );
-        */
+*/
+
         Info << "C1: " << max(sqrt(C1_)).value() << endl;
         Info << "C2: " << max(sqrt(C2_)).value() << endl;
     }
@@ -1352,9 +1386,8 @@ void Foam::interTwoPhaseCentralFoam::saveOld()
     {
 
       pressureGradient();
-//      U_ = HbyA_-rbyA_*fvc::grad(p_);
-      U_ = HbyA_-volumeFraction1_*rbyA_*gradp1-volumeFraction2_*rbyA_*gradp2;
-//      U_ = HbyA_-rbyA_*gradp2;
+//      U_ = HbyA_-volumeFraction1_*rbyA_*gradp1-volumeFraction2_*rbyA_*gradp2;
+      U_ = HbyA_-rbyA_*gradp2;
       U_.correctBoundaryConditions();
 
     }
@@ -1365,21 +1398,9 @@ void Foam::interTwoPhaseCentralFoam::saveOld()
         rho2_ = psi2_*p_+rho02Sc_;
         rho1_.correctBoundaryConditions();
         rho2_.correctBoundaryConditions();
-//        rho01_ = rho1_ - psi1_*p_;
-//        rho02_ = rho2_ - psi2_*p_;
-
-//Divide
 
         p_own = fvc::interpolate(p_, own_, "reconstruct(p)");
         p_nei = fvc::interpolate(p_, nei_, "reconstruct(p)");
-
-//        rho1_own = psi1_own*p_own;
-//        rho2_own = psi2_own*p_own;
-//        rho1_nei = psi1_nei*p_nei;
-//        rho2_nei = psi2_nei*p_nei;
-
-//      rho_ = volumeFraction1_ * rho1_ + volumeFraction2_ * rho2_;
-//      psi1_.write();
 
     }
 
@@ -1465,6 +1486,7 @@ void Foam::interTwoPhaseCentralFoam::saveOld()
 
       gradp1 = fvc::div((alpha1_own*p_own + alpha1_nei*p_nei)*U_.mesh().Sf());
       gradp2 = fvc::div((alpha2_own*p_own + alpha2_nei*p_nei)*U_.mesh().Sf());
+
     }
 
     void Foam::interTwoPhaseCentralFoam::CallFlux()
@@ -1500,7 +1522,18 @@ void Foam::interTwoPhaseCentralFoam::saveOld()
     void Foam::interTwoPhaseCentralFoam::UpdateCentralWeights()
     {
 
-//      C_ = volumeFraction1_*sqrt(C1_) + volumeFraction2_*sqrt(C2_);
+      rho1_own     = fvc::interpolate(rho1_, own_, "reconstruct(rho1)");
+      rho1_nei     = fvc::interpolate(rho1_, nei_, "reconstruct(rho1)");
+
+      rho2_own     = fvc::interpolate(rho2_, own_, "reconstruct(rho2)");
+      rho2_nei     = fvc::interpolate(rho2_, nei_, "reconstruct(rho2)");
+
+      phi1v_own    = (fvc::interpolate(U_, own_, "reconstruct(U)")) & U_.mesh().Sf();
+      phi1v_nei    = (fvc::interpolate(U_, nei_, "reconstruct(U)")) & U_.mesh().Sf();
+
+      phi2v_own    = (fvc::interpolate(U_, own_, "reconstruct(U)")) & U_.mesh().Sf();
+      phi2v_nei    = (fvc::interpolate(U_, nei_, "reconstruct(U)")) & U_.mesh().Sf();
+      /*
 
       rho1_own     = fvc::interpolate(rho1_, own_, "reconstruct(rho1)");
       rho1_nei     = fvc::interpolate(rho1_, nei_, "reconstruct(rho1)");
@@ -1514,18 +1547,20 @@ void Foam::interTwoPhaseCentralFoam::saveOld()
       phi2v_own    = (fvc::interpolate(rho2_*U_, own_, "reconstruct(U)") / rho2_own) & U_.mesh().Sf();
       phi2v_nei    = (fvc::interpolate(rho2_*U_, nei_, "reconstruct(U)") / rho2_nei) & U_.mesh().Sf();
 
+
       C2_own      = fvc::interpolate(sqrt(C2_), own_, "reconstruct(psi2)");
       C2_nei      = fvc::interpolate(sqrt(C2_), nei_, "reconstruct(psi2)");
 
       C1_own      = fvc::interpolate(sqrt(C1_), own_, "reconstruct(psi1)");
       C1_nei      = fvc::interpolate(sqrt(C1_), nei_, "reconstruct(psi1)");
-/*
+*/
+      speedOfSound();
       C2_own      = fvc::interpolate((C_), own_, "reconstruct(psi2)");
       C2_nei      = fvc::interpolate((C_), nei_, "reconstruct(psi2)");
 
       C1_own      = fvc::interpolate((C_), own_, "reconstruct(psi1)");
       C1_nei      = fvc::interpolate((C_), nei_, "reconstruct(psi1)");
-*/
+
 
       C1Sf_own = C1_own * U_.mesh().magSf();
       C1Sf_own.setOriented(true);
@@ -1804,4 +1839,45 @@ void Foam::interTwoPhaseCentralFoam::saveOld()
     void Foam::interTwoPhaseCentralFoam::alphaPhiCorrect()
     {
       phic_ = mag(phi_/U_.mesh().magSf());
+    }
+
+    void Foam::interTwoPhaseCentralFoam::divU()
+    {
+      E1_ =
+      (
+        fvc::ddt(rho01_)+fvc::ddt(psi1_,p_)
+        +
+        fvc::div(phi1_own+phi1_nei)
+      );
+
+      E2_ =
+      (
+        fvc::ddt(rho02_)+fvc::ddt(psi2_,p_)
+        +
+        fvc::div(phi2_own+phi2_nei)
+      );
+
+      divU_ =
+        volumeFraction1_*E1_/rho1_
+        +
+        volumeFraction2_*E2_/rho2_
+        -
+        ddtvF1_ - fvc::div(vFPhi1_)
+        -
+        ddtvF2_ - fvc::div(vFPhi2_);
+
+    }
+
+    void Foam::interTwoPhaseCentralFoam::speedOfSound()
+    {
+
+      volScalarField rbypsiM = 1/(volumeFraction1_*psi1_+volumeFraction2_*psi2_);
+      volScalarField psiM = 1/rbypsiM;
+      volScalarField y1 = volumeFraction1_*(rho1_/rho_);
+      volScalarField y2 = volumeFraction2_*(rho2_/rho_);
+      volScalarField CpM = y1*Cp1_ + y2*Cp2_;
+      volScalarField CvM = y1*(Cp1_/gamma1_) + y2*(Cp2_/gamma2_);
+      volScalarField gammaM = CpM/CvM;
+      C_ = sqrt(gammaM/psiM);
+
     }

@@ -9,10 +9,12 @@
 #include "volFields.H"
 #include "surfaceFields.H"
 #include "scalarField.H"
-#include "kappaFunction.H"
-#include "standardMachToAcCourantRatioKappaFunction.H"
+//#include "kappaFunction.H"
+//#include "standardMachToAcCourantRatioKappaFunction.H"
 #include "psiThermo.H"
 //#include "fvMesh.H"
+#include "CorrectPhi.H"
+#include "pimpleControl.H"
 
 namespace Foam
 {
@@ -27,6 +29,8 @@ class interTwoPhaseCentralFoam
 {
 protected:
     //- Primitative variables
+
+        pimpleControl& pimple_;
 
         //- Velocity
         volVectorField U_;
@@ -278,7 +282,7 @@ protected:
       volVectorField gradp2;
 
 /************************kappa Function*********************************/
-      autoPtr<fv::kappaFunction> kappaFuncPtr;
+//      autoPtr<fv::kappaFunction> kappaFuncPtr;
 
       surfaceScalarField kappa;
 
@@ -323,7 +327,6 @@ protected:
      dimensionedScalar scAlpha_;
      surfaceScalarField phic_;
 
-     surfaceScalarField vF1_;
      volScalarField E_;
      volScalarField E1_;
      volScalarField E2_;
@@ -331,6 +334,14 @@ protected:
 
      volScalarField Ep_;
 
+     volScalarField ddtvF1_;
+     volScalarField ddtvF2_;
+     surfaceScalarField vF1face_;
+     surfaceScalarField vF2face_;
+     surfaceScalarField vFPhi1_;
+     surfaceScalarField vFPhi2_;
+
+     volScalarField divU_;
 
 public:
 
@@ -351,7 +362,7 @@ public:
 
 // * * * * * * * * * *  Constructor and Destructor Functions * * * * * * * * //
     // Constructor
-    interTwoPhaseCentralFoam(const fvMesh& mesh);
+    interTwoPhaseCentralFoam(const fvMesh& mesh, pimpleControl& ctrl);
 
     // Selector
        static autoPtr<interTwoPhaseCentralFoam> New(const fvMesh& mesh);
@@ -425,7 +436,6 @@ public:
 
     //- Solve sub-step stepi
     virtual void alpha1Eqnsolve();
-    virtual void alpha2Eqnsolve();
     virtual void UEqnsolve();
     virtual void TEqnsolve();
     virtual void rho1Eqnsolve();
@@ -465,7 +475,8 @@ public:
     void TViscousitySource();
     void info();
     void alphaPhiCorrect();
-
+    void divU();
+    void speedOfSound();
 
 }; // End of the class
 

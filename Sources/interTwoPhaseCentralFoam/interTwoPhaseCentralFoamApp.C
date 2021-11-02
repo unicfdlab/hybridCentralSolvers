@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
   pimpleControl pimple(mesh);
 //  Info << "nCorrPIMPLE: " << pimple.nCorrPIMPLE()  << endl;
 
-  interTwoPhaseCentralFoam Veronika(mesh);
+  interTwoPhaseCentralFoam Veronika(mesh, pimple);
 
 
   #include "createTimeControls.H"
@@ -61,10 +61,7 @@ int main(int argc, char *argv[])
 
     while (pimple.loop())
     {
-
-
       Veronika.alpha1Eqnsolve();
-//      Veronika.alpha2Eqnsolve();
 
       Veronika.rho1Eqnsolve();
       Veronika.rho2Eqnsolve();
