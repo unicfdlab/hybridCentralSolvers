@@ -1,7 +1,7 @@
 # Contents
 
 1. [Available solvers with hybrid approximation](#Available-solvers-with-hybrid-approximation)
-2. [Discussions group in Telegram](#Discussions-group-in-Telegram)
+2. [Meeting points for users and developers](#Meeting-points-for-users-and-developers)
 3. [Available OpenFOAM versions](#Available-OpenFOAM-versions)
 4. [Derived projects](#Derived-projects)
 5. [Research studies where the library was useful](#Research-studies-where-the-library-was-useful)
@@ -36,7 +36,7 @@ Kurganov and Tadmor for combustion with chemical reactions and LTS support for s
     of Kurganov and Tadmor for conjugate simulation of compressible flows of perfect gas (Mach 
     number is ranging from 0 to 6) and solid body heat transfer.
 
-# Discussions group in Telegram
+# Meeting points for users and developers
 [To the contents](#Contents)
 
 You can discuss questions of [hybridCentralSolvers](https://github.com/unicfdlab/hybridCentralSolvers) usage at Telegram Group: https://t.me/hybridCentralSolvers 
