@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     runTime++;
     Info<< "Time = " << runTime.timeName() << nl << endl;
     Veronika.saveOld();
-//    Veronika.alphaPhi();
+//    Veronika.volumeFlux();
 //    Veronika.alphaEqnsolve();
 
 //    Veronika.rho1Eqnsolve();
@@ -70,8 +70,8 @@ int main(int argc, char *argv[])
 
       Veronika.TEqnsolve();     //Solve TEqn
 
-      Veronika.ThermoCoefficient(); //Update psi1_ = molM1_/(R_ * T_) and psi2_
-      Veronika.Update();         //Calculate values of C1_, C2_, Z1_, Z2_, K_, and phi_
+      Veronika.Compressibility(); //Update psi1_ = molM1_/(R_ * T_) and psi2_
+      Veronika.CompressibilityCoefficient();         //Calculate values of C1_, C2_, Z1_, Z2_, K_, and phi_
       Veronika.DensityThermo();
 
       Veronika.UpdateCentralWeights(); //Calculate fluxes (phi1_own and phi1_nei)
@@ -82,9 +82,9 @@ int main(int argc, char *argv[])
 
       Veronika.DensityThermo();        //Update rho1_ and rho2_ through rho_ = psi_*p_
       Veronika.Density();
-      Veronika.Velocity();
+      Veronika.ReconstructVelocity();
 
-      Veronika.alphaPhi();
+      Veronika.volumeFlux();
 
       Veronika.Tviscosity();
       Veronika.TViscousitySource();
