@@ -1,4 +1,31 @@
 
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     |
+    \\  /    A nd           | Copyright (C) 2019-2021
+     \\/     M anipulation  | Synthetik Applied Technologies
+-------------------------------------------------------------------------------
+License
+    This file is derivative work of OpenFOAM.
+    OpenFOAM is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+    for more details.
+    You should have received a copy of the GNU General Public License
+    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
+Class
+    Foam::singlePhaseCompressibleSystem
+Description
+    Compressible system with one phase
+SourceFiles
+    singlePhaseCompressibleSystem.C
+\*---------------------------------------------------------------------------*/
+
 #ifndef interTwoPhaseCentralFoam_H
 #define interTwoPhaseCentralFoam_H
 
@@ -121,9 +148,13 @@ protected:
        //- Set in the phaseProperties
        dimensioned< scalar > mu2_;
 
-       //- Prandtl number
+       //- Prandtl number of the first phase
        //- Set in the phaseProperties
-       dimensioned< scalar > Pr_;
+       dimensioned< scalar > Pr1_;
+
+       //- Prandtl number of the second phase
+       //- Set in the phaseProperties
+       dimensioned< scalar > Pr2_;
 
        //- Thermal diffusivity of the first phase
        dimensioned< scalar > alpha1_;
@@ -185,23 +216,23 @@ protected:
 
       surfaceScalarField phi1v_nei;
 
-      surfaceScalarField C1_own;
+      surfaceScalarField C_own;
 
-      surfaceScalarField C1_nei;
+      surfaceScalarField C_nei;
 
-      surfaceScalarField C1Sf_own;
+      surfaceScalarField CSf_own;
 
-      surfaceScalarField C1Sf_nei;
+      surfaceScalarField CSf_nei;
 
-      surfaceScalarField ap1;
+      surfaceScalarField ap;
 
-      surfaceScalarField am1;
+      surfaceScalarField am;
 
-      surfaceScalarField alpha1_own;
+      surfaceScalarField alpha_own;
 
-      surfaceScalarField aSf1;
+      surfaceScalarField aSf;
 
-      surfaceScalarField alpha1_nei;
+      surfaceScalarField alpha_nei;
 
       surfaceScalarField phi1_own;
 
@@ -216,24 +247,6 @@ protected:
       surfaceScalarField phi2v_own;
 
       surfaceScalarField phi2v_nei;
-
-      surfaceScalarField C2_own;
-
-      surfaceScalarField C2_nei;
-
-      surfaceScalarField C2Sf_own;
-
-      surfaceScalarField C2Sf_nei;
-
-      surfaceScalarField ap2;
-
-      surfaceScalarField am2;
-
-      surfaceScalarField alpha2_own;
-
-      surfaceScalarField aSf2;
-
-      surfaceScalarField alpha2_nei;
 
       surfaceScalarField phi2_own;
 
@@ -295,9 +308,7 @@ protected:
 
       surfaceScalarField p_nei;
 
-      volVectorField gradp1;
-
-      volVectorField gradp2;
+      volVectorField gradp_;
 
 /******************************Viscosity Terms*********************************/
 
@@ -398,7 +409,7 @@ public:
     //- Solve an equation for pressure
     virtual void pEqnsolve();
 
-// * * * * * * * * * * * * * * * * Middle Functions * * * * * * * * * * * * * //
+//* * * * * * * * * * * * * * * Intermidiate Functions * * * * * * * * * * * *//
 
     virtual void Flux();
 
@@ -422,15 +433,15 @@ public:
 
     void UpdateCentralFields();
 
+    void ThermalConductivity();
+/*
     void divDevRhoReff();
 
-    void Tviscosity();
-
-    void alpha();
+    void viscosityTEqn();
 
     void devRhoReff();
-
-    void TViscousitySource();
+*/
+    void TSource();
 
     void info();
 
