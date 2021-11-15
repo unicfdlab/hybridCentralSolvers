@@ -41,6 +41,7 @@ SourceFiles
 #include "psiThermo.H"
 #include "CorrectPhi.H"
 #include "pimpleControl.H"
+#include "physicoChemicalConstants.H"
 
 namespace Foam
 {
@@ -168,20 +169,8 @@ namespace Foam
             //- Heat capacity ratio of the second phase
             dimensioned< scalar > gamma2_;
 
-            //- Squared speed of sound of the first phase
-            volScalarField C1_;
-
-            //- Squared speed of sound of the second phase
-            volScalarField C2_;
-
             //- Squared speed of sound of a mixture
             volScalarField C_;
-
-            //- Acoustic impendans of the first phase
-            volScalarField Z1_;
-
-            //- Acoustic impendans of the second phase
-            volScalarField Z2_;
 
             //- A compressibiliy factor
             volScalarField K_;
@@ -191,14 +180,6 @@ namespace Foam
 
             //- The 1/A matrix of the Momentum equation
             volScalarField rbyA_;
-
-            //- The magnitude of Velocity of the first phase
-            // It is calculated as rho1_*magSqr(U_)
-            volScalarField rho1AmpU_;
-
-            //- The magnitude of Velocity of the second phase
-            // It is calculated as rho2_*magSqr(U_)
-            volScalarField rho2AmpU_;
 
 /********************Variables for Update-Central Wieghts Function*************/
 
@@ -212,31 +193,15 @@ namespace Foam
 
             surfaceScalarField rho1_nei;
 
-            surfaceScalarField phi1v_own;
+            surfaceScalarField alpha_own_;
 
-            surfaceScalarField phi1v_nei;
+            surfaceScalarField aSf_;
 
-            surfaceScalarField C_own;
+            surfaceScalarField alpha_nei_;
 
-            surfaceScalarField C_nei;
+            surfaceScalarField phi1_own_;
 
-            surfaceScalarField CSf_own;
-
-            surfaceScalarField CSf_nei;
-
-            surfaceScalarField ap;
-
-            surfaceScalarField am;
-
-            surfaceScalarField alpha_own;
-
-            surfaceScalarField aSf;
-
-            surfaceScalarField alpha_nei;
-
-            surfaceScalarField phi1_own;
-
-            surfaceScalarField phi1_nei;
+            surfaceScalarField phi1_nei_;
 
 /**********************************Phase Two***********************************/
 
@@ -244,69 +209,37 @@ namespace Foam
 
             surfaceScalarField rho2_nei;
 
-            surfaceScalarField phi2v_own;
+            surfaceScalarField phi2_own_;
 
-            surfaceScalarField phi2v_nei;
-
-            surfaceScalarField phi2_own;
-
-            surfaceScalarField phi2_nei;
+            surfaceScalarField phi2_nei_;
 
 /****************************Update Central Fields*****************************/
 
-            surfaceScalarField psi1_own;
+            surfaceScalarField phi1d_own_;
 
-            surfaceScalarField psi1_nei;
+            surfaceScalarField phi1d_nei_;
 
-            surfaceVectorField psiU1_own;
+            surfaceScalarField Dp1_own_;
 
-            surfaceVectorField psiU1_nei;
+            surfaceScalarField Dp1_nei_;
 
-            surfaceScalarField aphi1v_own;
+            surfaceScalarField phi2d_own_;
 
-            surfaceScalarField aphi1v_nei;
+            surfaceScalarField phi2d_nei_;
 
-            surfaceScalarField phi1d_own;
+            surfaceScalarField Dp2_own_;
 
-            surfaceScalarField phi1d_nei;
+            surfaceScalarField Dp2_nei_;
 
-            surfaceScalarField Dp1_own;
+            fvScalarMatrix pEqn1_own_;
 
-            surfaceScalarField Dp1_nei;
+            fvScalarMatrix pEqn1_nei_;
 
-            surfaceScalarField psi2_own;
+            fvScalarMatrix pEqn2_own_;
 
-            surfaceScalarField psi2_nei;
-
-            surfaceVectorField psiU2_own;
-
-            surfaceVectorField psiU2_nei;
-
-            surfaceScalarField aphi2v_own;
-
-            surfaceScalarField aphi2v_nei;
-
-            surfaceScalarField phi2d_own;
-
-            surfaceScalarField phi2d_nei;
-
-            surfaceScalarField Dp2_own;
-
-            surfaceScalarField Dp2_nei;
-
-            fvScalarMatrix pEqn1_own;
-
-            fvScalarMatrix pEqn1_nei;
-
-            fvScalarMatrix pEqn2_own;
-
-            fvScalarMatrix pEqn2_nei;
+            fvScalarMatrix pEqn2_nei_;
 
 /*******************************Reconstruct Velocity***************************/
-
-            surfaceScalarField p_own;
-
-            surfaceScalarField p_nei;
 
             volVectorField gradp_;
 
@@ -328,17 +261,13 @@ namespace Foam
 
             volScalarField TSource2_;
 
-            surfaceScalarField psi1f;
+            surfaceScalarField phi01d_own_;
 
-            surfaceScalarField psi2f;
+            surfaceScalarField phi01d_nei_;
 
-            surfaceScalarField phi01d_own;
+            surfaceScalarField phi02d_own_;
 
-            surfaceScalarField phi01d_nei;
-
-            surfaceScalarField phi02d_own;
-
-            surfaceScalarField phi02d_nei;
+            surfaceScalarField phi02d_nei_;
 
 /******************************Something Essential*****************************/
 
@@ -351,21 +280,13 @@ namespace Foam
             //- Continuity error of a mixture
             volScalarField E_;
 
-            volScalarField ddtvF1_;
-
-            volScalarField ddtvF2_;
-
             surfaceScalarField vF1face_;
 
             surfaceScalarField vF2face_;
 
-            surfaceScalarField vFPhi1_;
+            dimensionedScalar rho1Min;
 
-            surfaceScalarField vFPhi2_;
-
-            surfaceScalarField phiU_own;
-
-            surfaceScalarField phiU_nei;
+            dimensionedScalar rho2Min;
 
         public:
 
@@ -397,57 +318,65 @@ namespace Foam
             //- Construct Momentum equation and extract rbyA_ and HbyA_
             void UEqn();
 
+            void ReconstructVelocity();
+
             //- Solve an equation for Temperature
             virtual void TEqnsolve();
-
-            //- Estimate error of Continuity equation for the first phase
-            virtual void rho1Eqnsolve();
-
-            //- Estimate error of Continuity equation for the second phase
-            virtual void rho2Eqnsolve();
 
             //- Solve an equation for pressure
             virtual void pEqnsolve();
 
+            //- Estimate error of Continuity equation for the first phase
+            virtual void massError1();
+
+            //- Estimate error of Continuity equation for the second phase
+            virtual void massError2();
+
+            void TSource();
+
+            void pressureGradient();
+
 //* * * * * * * * * * * * * * * Intermidiate Functions * * * * * * * * * * * *//
+
+            void Initialize();
+
+//* * * * * * * * * * * * * * * * Flux` Functions * * * * * * * * * * * * * *//
 
             virtual void Flux();
 
-            virtual void CompressibilityCoefficient();
-
             virtual void volumeFlux();
 
-            void ReconstructVelocity();
+//* * * * * * * * * * * * * * * Update Dencities * * * * * * * * * * * * * * *//
 
             void DensityThermo();
 
             void Density();
 
+//* * * * * * * * * * * * * Update Dependable Variables * * * * * * * * * * *//
+
+            virtual void updateK_();
+
             void Compressibility();
 
-            void Initialize();
+            void speedOfSound();
 
-            void pressureGradient();
+//* * * * * * * * * * * * * * Kurganov's coefficients * * * * * * * * * * * *//
 
             void UpdateCentralWeights();
 
             void UpdateCentralFields();
 
-            void ThermalConductivity();
-        /*
+//* * * * * * * * * * * * * * * * * Viscosity * * * * * * * * * * * * * * * *//
+
             void divDevRhoReff();
 
             void viscosityTEqn();
 
             void devRhoReff();
-        */
-            void TSource();
 
-            void info();
+//* * * * * * * * * * * * * * * * * * Others * * * * * * * * * * * * * * * * *//
 
             void divU();
-
-            void speedOfSound();
 
     }; // End of the class
 

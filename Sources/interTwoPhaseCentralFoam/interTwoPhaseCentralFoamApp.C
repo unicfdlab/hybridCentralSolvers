@@ -78,9 +78,9 @@ int main(int argc, char *argv[])
         {
             Veronika.alpha1Eqnsolve();
 
-            Veronika.rho1Eqnsolve();
+            Veronika.massError1();
 
-            Veronika.rho2Eqnsolve();
+            Veronika.massError2();
 
             Veronika.UEqn();          //Generate fvmatrix for UEqn (note: without grad(p_))
 
@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
 
             Veronika.Compressibility(); //Update psi1_ = molM1_/(R_ * T_) and psi2_
 
-            Veronika.CompressibilityCoefficient();         //Calculate values of C1_, C2_, Z1_, Z2_, K_, and phi_
+            Veronika.updateK_();         //Calculate values of C1_, C2_, Z1_, Z2_, K_, and phi_
 
             Veronika.DensityThermo();
 
