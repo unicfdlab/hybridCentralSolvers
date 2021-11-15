@@ -776,5 +776,6 @@ $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/solutionControl.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/solutionControlTemplates.C \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/solutionControlI.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/pimpleControlI.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/physicoChemicalConstants.H \
 
 #END

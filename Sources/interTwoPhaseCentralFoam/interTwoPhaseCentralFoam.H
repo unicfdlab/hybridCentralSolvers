@@ -41,6 +41,7 @@ SourceFiles
 #include "psiThermo.H"
 #include "CorrectPhi.H"
 #include "pimpleControl.H"
+#include "physicoChemicalConstants.H"
 
 namespace Foam
 {
@@ -49,407 +50,335 @@ namespace Foam
                     Class interTwoPhaseCentralFoam Declaration
 \*---------------------------------------------------------------------------*/
 
-class interTwoPhaseCentralFoam
-:
-   public IOdictionary
-{
-protected:
+    class interTwoPhaseCentralFoam
+    :
+    public IOdictionary
+    {
+        protected:
 
-        pimpleControl& pimple_;
+            pimpleControl& pimple_;
 
-        //- Velocity
-        //- MUST_READ
-        volVectorField U_;
+            //- Velocity
+            //- MUST_READ
+            volVectorField U_;
 
-        //- Velocity estimated on cell boundaries
-        surfaceScalarField phi_;
+            //- Velocity estimated on cell boundaries
+            surfaceScalarField phi_;
 
-        //- Pressure
-        //- MUST_READ
-        volScalarField p_;
+            //- Pressure
+            //- MUST_READ
+            volScalarField p_;
 
-        //- Temperature
-        //- MUST_READ
-        volScalarField T_;
+            //- Temperature
+            //- MUST_READ
+            volScalarField T_;
 
-        //- Universal gas constant
-        //- Set in the phaseProperties file
-        dimensioned< scalar > R_;
+            //- Universal gas constant
+            //- Set in the phaseProperties file
+            dimensioned< scalar > R_;
 
-        //- Specific gas constant of the first phase
-        //- Set in the phaseProperties file
-        dimensioned< scalar > R1_;
+            //- Specific gas constant of the first phase
+            //- Set in the phaseProperties file
+            dimensioned< scalar > R1_;
 
-        //- Specific gas constant of the second phase
-        //- Set in the phaseProperties file
-        dimensioned< scalar > R2_;
+            //- Specific gas constant of the second phase
+            //- Set in the phaseProperties file
+            dimensioned< scalar > R2_;
 
-        //- Molecular mass of the first phase
-        //- Set in the phaseProperties file
-        dimensioned< scalar > molM1_;
+            //- Molecular mass of the first phase
+            //- Set in the phaseProperties file
+            dimensioned< scalar > molM1_;
 
-        //- Molecular mass of the second phase
-        //- Set in the phaseProperties file
-        dimensioned< scalar > molM2_;
+            //- Molecular mass of the second phase
+            //- Set in the phaseProperties file
+            dimensioned< scalar > molM2_;
 
-        //- Compressibility coefficient of the first phase
-        volScalarField psi1_;
+            //- Compressibility coefficient of the first phase
+            volScalarField psi1_;
 
-        //- Compressibility coefficient of the second phase
-        volScalarField psi2_;
+            //- Compressibility coefficient of the second phase
+            volScalarField psi2_;
 
-        //- Density of the first phase
-        volScalarField rho1_;
+            //- Density of the first phase
+            volScalarField rho1_;
 
-        //- Density of the second phase
-        volScalarField rho2_;
+            //- Density of the second phase
+            volScalarField rho2_;
 
 
-        //- Volume fraction of the first phase
-        //- MUST_READ
-        volScalarField volumeFraction1_;
+            //- Volume fraction of the first phase
+            //- MUST_READ
+            volScalarField volumeFraction1_;
 
-        //- Volume fraction of the first phase
-        //- NO_READ
-        volScalarField volumeFraction2_;
+            //- Volume fraction of the first phase
+            //- NO_READ
+            volScalarField volumeFraction2_;
 
-        //- Total density of a mixture
-        volScalarField rho_;
+            //- Total density of a mixture
+            volScalarField rho_;
 
-       // Constant density of the first phase, i.e. rho_01
-       // Set in the phaseProperties file as rho01
-       dimensioned< scalar > rho01Sc_;
+            // Constant density of the first phase, i.e. rho_01
+            // Set in the phaseProperties file as rho01
+            dimensioned< scalar > rho01Sc_;
 
-       // Constant density of a phase, i.e. rho_02
-       // Set in the phaseProperties file as rho02
-       dimensioned< scalar > rho02Sc_;
+            // Constant density of a phase, i.e. rho_02
+            // Set in the phaseProperties file as rho02
+            dimensioned< scalar > rho02Sc_;
 
-       //- Constant density of the first phase, i.e. rho_01
-      //- Set in the phaseProperties file as rho01
-       volScalarField rho01_;
+             //- Constant density of the first phase, i.e. rho_01
+            //- Set in the phaseProperties file as rho01
+            volScalarField rho01_;
 
-       //- Constant density of the first phase, i.e. rho_02
-       //- Set in the phaseProperties file as rho02
-       volScalarField rho02_;
+            //- Constant density of the first phase, i.e. rho_02
+            //- Set in the phaseProperties file as rho02
+            volScalarField rho02_;
 
-       //- Specific heat of the first phase
-       //- Set in the phaseProperties
-       dimensioned< scalar > Cp1_;
+            //- Specific heat of the first phase
+            //- Set in the phaseProperties
+            dimensioned< scalar > Cp1_;
 
-       //- Specific heat of the second phase
-       //- Set in the phaseProperties
-       dimensioned< scalar > Cp2_;
+            //- Specific heat of the second phase
+            //- Set in the phaseProperties
+            dimensioned< scalar > Cp2_;
 
-       //- Dynamic viscousity of the first phase
-       //- Set in the phaseProperties
-       dimensioned< scalar > mu1_;
+            //- Dynamic viscousity of the first phase
+            //- Set in the phaseProperties
+            dimensioned< scalar > mu1_;
 
-       //- Dynamic viscousity of the second phase
-       //- Set in the phaseProperties
-       dimensioned< scalar > mu2_;
+            //- Dynamic viscousity of the second phase
+            //- Set in the phaseProperties
+            dimensioned< scalar > mu2_;
 
-       //- Prandtl number of the first phase
-       //- Set in the phaseProperties
-       dimensioned< scalar > Pr1_;
+            //- Prandtl number of the first phase
+            //- Set in the phaseProperties
+            dimensioned< scalar > Pr1_;
 
-       //- Prandtl number of the second phase
-       //- Set in the phaseProperties
-       dimensioned< scalar > Pr2_;
+            //- Prandtl number of the second phase
+            //- Set in the phaseProperties
+            dimensioned< scalar > Pr2_;
 
-       //- Thermal diffusivity of the first phase
-       dimensioned< scalar > alpha1_;
+            //- Thermal diffusivity of the first phase
+            dimensioned< scalar > alpha1_;
 
-       //- Thermal diffusivity of the second phase
-       dimensioned< scalar > alpha2_;
+            //- Thermal diffusivity of the second phase
+            dimensioned< scalar > alpha2_;
 
-       //- Heat capacity ratio of the first phase
-       dimensioned< scalar > gamma1_;
+            //- Heat capacity ratio of the first phase
+            dimensioned< scalar > gamma1_;
 
-       //- Heat capacity ratio of the second phase
-       dimensioned< scalar > gamma2_;
+            //- Heat capacity ratio of the second phase
+            dimensioned< scalar > gamma2_;
 
-      //- Squared speed of sound of the first phase
-      volScalarField C1_;
+            //- Squared speed of sound of a mixture
+            volScalarField C_;
 
-      //- Squared speed of sound of the second phase
-      volScalarField C2_;
+            //- A compressibiliy factor
+            volScalarField K_;
 
-      //- Squared speed of sound of a mixture
-      volScalarField C_;
+            //- The H/A matrix of the Momentum equation
+            volVectorField HbyA_;
 
-      //- Acoustic impendans of the first phase
-      volScalarField Z1_;
-
-      //- Acoustic impendans of the second phase
-      volScalarField Z2_;
-
-      //- A compressibiliy factor
-      volScalarField K_;
-
-      //- The H/A matrix of the Momentum equation
-      volVectorField HbyA_;
-
-      //- The 1/A matrix of the Momentum equation
-      volScalarField rbyA_;
-
-      //- The magnitude of Velocity of the first phase
-      // It is calculated as rho1_*magSqr(U_)
-      volScalarField rho1AmpU_;
-
-      //- The magnitude of Velocity of the second phase
-      // It is calculated as rho2_*magSqr(U_)
-      volScalarField rho2AmpU_;
+            //- The 1/A matrix of the Momentum equation
+            volScalarField rbyA_;
 
 /********************Variables for Update-Central Wieghts Function*************/
 
-      dimensionedScalar v_zero;
+            dimensionedScalar v_zero;
 
-      surfaceScalarField own_;
+            surfaceScalarField own_;
 
-      surfaceScalarField nei_;
+            surfaceScalarField nei_;
 
-      surfaceScalarField rho1_own;
+            surfaceScalarField rho1_own;
 
-      surfaceScalarField rho1_nei;
+            surfaceScalarField rho1_nei;
 
-      surfaceScalarField phi1v_own;
+            surfaceScalarField alpha_own_;
 
-      surfaceScalarField phi1v_nei;
+            surfaceScalarField aSf_;
 
-      surfaceScalarField C_own;
+            surfaceScalarField alpha_nei_;
 
-      surfaceScalarField C_nei;
+            surfaceScalarField phi1_own_;
 
-      surfaceScalarField CSf_own;
-
-      surfaceScalarField CSf_nei;
-
-      surfaceScalarField ap;
-
-      surfaceScalarField am;
-
-      surfaceScalarField alpha_own;
-
-      surfaceScalarField aSf;
-
-      surfaceScalarField alpha_nei;
-
-      surfaceScalarField phi1_own;
-
-      surfaceScalarField phi1_nei;
+            surfaceScalarField phi1_nei_;
 
 /**********************************Phase Two***********************************/
 
-      surfaceScalarField rho2_own;
+            surfaceScalarField rho2_own;
 
-      surfaceScalarField rho2_nei;
+            surfaceScalarField rho2_nei;
 
-      surfaceScalarField phi2v_own;
+            surfaceScalarField phi2_own_;
 
-      surfaceScalarField phi2v_nei;
-
-      surfaceScalarField phi2_own;
-
-      surfaceScalarField phi2_nei;
+            surfaceScalarField phi2_nei_;
 
 /****************************Update Central Fields*****************************/
 
-      surfaceScalarField psi1_own;
+            surfaceScalarField phi1d_own_;
 
-      surfaceScalarField psi1_nei;
+            surfaceScalarField phi1d_nei_;
 
-      surfaceVectorField psiU1_own;
+            surfaceScalarField Dp1_own_;
 
-      surfaceVectorField psiU1_nei;
+            surfaceScalarField Dp1_nei_;
 
-      surfaceScalarField aphi1v_own;
+            surfaceScalarField phi2d_own_;
 
-      surfaceScalarField aphi1v_nei;
+            surfaceScalarField phi2d_nei_;
 
-      surfaceScalarField phi1d_own;
+            surfaceScalarField Dp2_own_;
 
-      surfaceScalarField phi1d_nei;
+            surfaceScalarField Dp2_nei_;
 
-      surfaceScalarField Dp1_own;
+            fvScalarMatrix pEqn1_own_;
 
-      surfaceScalarField Dp1_nei;
+            fvScalarMatrix pEqn1_nei_;
 
-      surfaceScalarField psi2_own;
+            fvScalarMatrix pEqn2_own_;
 
-      surfaceScalarField psi2_nei;
-
-      surfaceVectorField psiU2_own;
-
-      surfaceVectorField psiU2_nei;
-
-      surfaceScalarField aphi2v_own;
-
-      surfaceScalarField aphi2v_nei;
-
-      surfaceScalarField phi2d_own;
-
-      surfaceScalarField phi2d_nei;
-
-      surfaceScalarField Dp2_own;
-
-      surfaceScalarField Dp2_nei;
-
-      fvScalarMatrix pEqn1_own;
-
-      fvScalarMatrix pEqn1_nei;
-
-      fvScalarMatrix pEqn2_own;
-
-      fvScalarMatrix pEqn2_nei;
+            fvScalarMatrix pEqn2_nei_;
 
 /*******************************Reconstruct Velocity***************************/
 
-      surfaceScalarField p_own;
-
-      surfaceScalarField p_nei;
-
-      volVectorField gradp_;
+            volVectorField gradp_;
 
 /******************************Viscosity Terms*********************************/
 
-     fvVectorMatrix divDevRhoReff1_;
+            fvVectorMatrix divDevRhoReff1_;
 
-     fvVectorMatrix divDevRhoReff2_;
+            fvVectorMatrix divDevRhoReff2_;
 
-     fvScalarMatrix Tviscosity1;
+            fvScalarMatrix Tviscosity1;
 
-     fvScalarMatrix Tviscosity2;
+            fvScalarMatrix Tviscosity2;
 
-     volSymmTensorField devRhoReff1_;
+            volSymmTensorField devRhoReff1_;
 
-     volSymmTensorField devRhoReff2_;
+            volSymmTensorField devRhoReff2_;
 
-     volScalarField TSource1_;
+            volScalarField TSource1_;
 
-     volScalarField TSource2_;
+            volScalarField TSource2_;
 
-     surfaceScalarField psi1f;
+            surfaceScalarField phi01d_own_;
 
-     surfaceScalarField psi2f;
+            surfaceScalarField phi01d_nei_;
 
-     surfaceScalarField phi01d_own;
+            surfaceScalarField phi02d_own_;
 
-     surfaceScalarField phi01d_nei;
-
-     surfaceScalarField phi02d_own;
-
-     surfaceScalarField phi02d_nei;
+            surfaceScalarField phi02d_nei_;
 
 /******************************Something Essential*****************************/
 
-     //- Continuity error of the first phase
-     volScalarField E1_;
+            //- Continuity error of the first phase
+            volScalarField E1_;
 
-     //- Continuity error of the first phase
-     volScalarField E2_;
+            //- Continuity error of the first phase
+            volScalarField E2_;
 
-     //- Continuity error of a mixture
-     volScalarField E_;
+            //- Continuity error of a mixture
+            volScalarField E_;
 
-     volScalarField ddtvF1_;
+            surfaceScalarField vF1face_;
 
-     volScalarField ddtvF2_;
+            surfaceScalarField vF2face_;
 
-     surfaceScalarField vF1face_;
+            dimensionedScalar rho1Min;
 
-     surfaceScalarField vF2face_;
+            dimensionedScalar rho2Min;
 
-     surfaceScalarField vFPhi1_;
+        public:
 
-     surfaceScalarField vFPhi2_;
-
-     surfaceScalarField phiU_own;
-
-     surfaceScalarField phiU_nei;
-
-public:
-
-   TypeName("interTwoPhaseCentralFoam");
+            TypeName("interTwoPhaseCentralFoam");
 
 // * * * * * * * * * *  Constructor and Destructor Functions * * * * * * * * //
-    // Constructor
-    interTwoPhaseCentralFoam(const fvMesh& mesh, pimpleControl& ctrl);
+            // Constructor
+            interTwoPhaseCentralFoam(const fvMesh& mesh, pimpleControl& ctrl);
 
-    //- Destructor
-    virtual ~interTwoPhaseCentralFoam();
+            //- Destructor
+            virtual ~interTwoPhaseCentralFoam();
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-    void saveOld();
+            void saveOld();
 
 
-    surfaceScalarField phiC()
-    {
-      surfaceScalarField phiC = fvc::flux(U_);
-      return phiC;
-    }
+            surfaceScalarField phiC()
+            {
+              surfaceScalarField phiC = fvc::flux(U_);
+              return phiC;
+            }
 
 // * * * * * * * * * * * * * * * * Main Functions  * * * * * * * * * * * * * //
 
-    //- Solve an equation for volumeFraction1_
-    virtual void alpha1Eqnsolve();
+            //- Solve an equation for volumeFraction1_
+            virtual void alpha1Eqnsolve();
 
-    //- Construct Momentum equation and extract rbyA_ and HbyA_
-    void UEqn();
+            //- Construct Momentum equation and extract rbyA_ and HbyA_
+            void UEqn();
 
-    //- Solve an equation for Temperature
-    virtual void TEqnsolve();
+            void ReconstructVelocity();
 
-    //- Estimate error of Continuity equation for the first phase
-    virtual void rho1Eqnsolve();
+            //- Solve an equation for Temperature
+            virtual void TEqnsolve();
 
-    //- Estimate error of Continuity equation for the second phase
-    virtual void rho2Eqnsolve();
+            //- Solve an equation for pressure
+            virtual void pEqnsolve();
 
-    //- Solve an equation for pressure
-    virtual void pEqnsolve();
+            //- Estimate error of Continuity equation for the first phase
+            virtual void massError1();
+
+            //- Estimate error of Continuity equation for the second phase
+            virtual void massError2();
+
+            void TSource();
+
+            void pressureGradient();
 
 //* * * * * * * * * * * * * * * Intermidiate Functions * * * * * * * * * * * *//
 
-    virtual void Flux();
+            void Initialize();
 
-    virtual void CompressibilityCoefficient();
+//* * * * * * * * * * * * * * * * Flux` Functions * * * * * * * * * * * * * *//
 
-    virtual void volumeFlux();
+            virtual void Flux();
 
-    void ReconstructVelocity();
+            virtual void volumeFlux();
 
-    void DensityThermo();
+//* * * * * * * * * * * * * * * Update Dencities * * * * * * * * * * * * * * *//
 
-    void Density();
+            void DensityThermo();
 
-    void Compressibility();
+            void Density();
 
-    void Initialize();
+//* * * * * * * * * * * * * Update Dependable Variables * * * * * * * * * * *//
 
-    void pressureGradient();
+            virtual void updateK_();
 
-    void UpdateCentralWeights();
+            void Compressibility();
 
-    void UpdateCentralFields();
+            void speedOfSound();
 
-    void ThermalConductivity();
-/*
-    void divDevRhoReff();
+//* * * * * * * * * * * * * * Kurganov's coefficients * * * * * * * * * * * *//
 
-    void viscosityTEqn();
+            void UpdateCentralWeights();
 
-    void devRhoReff();
-*/
-    void TSource();
+            void UpdateCentralFields();
 
-    void info();
+//* * * * * * * * * * * * * * * * * Viscosity * * * * * * * * * * * * * * * *//
 
-    void divU();
+            void divDevRhoReff();
 
-    void speedOfSound();
+            void viscosityTEqn();
 
-}; // End of the class
+            void devRhoReff();
+
+//* * * * * * * * * * * * * * * * * * Others * * * * * * * * * * * * * * * * *//
+
+            void divU();
+
+    }; // End of the class
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
