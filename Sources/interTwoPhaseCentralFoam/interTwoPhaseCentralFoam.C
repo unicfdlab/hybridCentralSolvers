@@ -185,40 +185,14 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
         volumeFraction1_*rho1_ + volumeFraction2_*rho2_
     ),
 
-    rho01Sc_
+    rho01_
     (
         dimensioned< scalar >("rho01", *this)
     ),
 
-    rho02Sc_
-    (
-        dimensioned< scalar >("rho02", *this)
-    ),
-
-    rho01_
-    (
-        IOobject
-        (
-            "rho01",
-            mesh.time().timeName(),
-            mesh,
-            IOobject::NO_READ,
-            IOobject::NO_WRITE
-        ),
-        (rho01Sc_*rho1_)/rho1_
-    ),
-
     rho02_
     (
-        IOobject
-        (
-            "rho02",
-            mesh.time().timeName(),
-            mesh,
-            IOobject::NO_READ,
-            IOobject::NO_WRITE
-        ),
-        (rho02Sc_*rho2_)/rho2_
+        dimensioned< scalar >("rho02", *this)
     ),
 
     Cp1_
@@ -346,18 +320,6 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
         dimensionedScalar("nei", dimless, -1.0)
     ),
 
-    rho1_own
-    (
-        "rho1own",
-        fvc::interpolate(rho1_, own_, "reconstruct(rho1)")
-    ),
-
-    rho1_nei
-    (
-        "rho1nei",
-        fvc::interpolate(rho1_, nei_, "reconstruct(rho1)")
-    ),
-
     alpha_own_
     (
         "alpha_own_ ",
@@ -379,39 +341,27 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
     phi1_own_
     (
         "phi1_own_",
-        phi_*rho1_own*0.0
+        phi_*fvc::interpolate(rho1_, own_, "reconstruct(rho1)")*0.0
     ),
 
     phi1_nei_
     (
         "phi1_nei_",
-        phi_*rho1_own*0.0
+        phi_*fvc::interpolate(rho1_, own_, "reconstruct(rho1)")*0.0
     ),
 
 /*******************************Region Two**********************************/
 
-    rho2_own
-    (
-        "rho2own",
-        fvc::interpolate(rho2_, own_, "reconstruct(rho2)")
-    ),
-
-    rho2_nei
-    (
-        "rho2nei",
-        fvc::interpolate(rho2_, nei_, "reconstruct(rho2)")
-    ),
-
     phi2_own_
     (
         "phi2_own_",
-        phi_*rho2_own*0.0
+        phi_*fvc::interpolate(rho1_, own_, "reconstruct(rho1)")*0.0
     ),
 
     phi2_nei_
     (
         "phi2_nei_",
-        phi_*rho2_own*0.0
+        phi_*fvc::interpolate(rho1_, own_, "reconstruct(rho1)")*0.0
     ),
 
 /***********************Tadmor-Kurganov Scheme*******************************/
@@ -536,22 +486,22 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
 
     phi01d_own_
     (
-        phi_*rho01Sc_
+        phi_*rho01_
     ),
 
     phi01d_nei_
     (
-        phi_*rho01Sc_
+        phi_*rho01_
     ),
 
     phi02d_own_
     (
-        phi_*rho02Sc_
+        phi_*rho02_
     ),
 
     phi02d_nei_
     (
-        phi_*rho02Sc_
+        phi_*rho02_
     ),
 
     E1_
@@ -587,6 +537,11 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
     rho2Min
     (
         dimensioned< scalar >("rho2Min", *this)
+    ),
+
+    Usq_
+    (
+        magSqr(U_)
     )
 
 {
@@ -611,8 +566,7 @@ void Foam::interTwoPhaseCentralFoam::saveOld()
     p_.oldTime();
     psi1_.oldTime();
     psi2_.oldTime();
-    rho01_.oldTime();
-    rho02_.oldTime();
+    Usq_.oldTime();
 }
 
 
@@ -735,13 +689,11 @@ void Foam::interTwoPhaseCentralFoam::pEqnsolve()
     (
         volumeFraction1_*
         (
-            fvm::ddt(psi1_,p_) + fvc::ddt(rho01_)
-            + pEqn1_own_ + pEqn1_nei_
+            fvm::ddt(psi1_,p_) + pEqn1_own_ + pEqn1_nei_
         )
         + volumeFraction2_*
         (
-            fvm::ddt(psi2_,p_) + fvc::ddt(rho02_)
-            + pEqn2_own_ + pEqn2_nei_
+            fvm::ddt(psi2_,p_) + pEqn2_own_ + pEqn2_nei_
         )
     );
 
@@ -777,25 +729,23 @@ void Foam::interTwoPhaseCentralFoam::massError2()
 
 void Foam::interTwoPhaseCentralFoam::TSource()
 {
-    volScalarField rho1AmpU_ = magSqr(U_)*rho1_;
-    volScalarField rho2AmpU_ = magSqr(U_)*rho2_;
+    Usq_ = 0.5*magSqr(U_);
+    volScalarField rho1AmpU_ = Usq_*rho1_;
+    volScalarField rho2AmpU_ = Usq_*rho2_;
 
     TSource1_ =
     (
-      0.5*fvc::ddt(rho1AmpU_)
-      + 0.5*(fvc::div(phi1_own_,magSqr(U_)) + fvc::div(phi1_nei_,magSqr(U_)))
+      fvc::ddt(rho1AmpU_)
+      + fvc::div(phi1_own_,Usq_) + fvc::div(phi1_nei_,Usq_)
       - fvc::ddt(p_)
     );
 
     TSource2_ =
     (
-      0.5*fvc::ddt(rho2AmpU_)
-      + 0.5*(fvc::div(phi2_own_,magSqr(U_)) + fvc::div(phi2_nei_,magSqr(U_)))
+      fvc::ddt(rho2AmpU_)
+      + fvc::div(phi2_own_,Usq_) + fvc::div(phi2_nei_,Usq_)
       - fvc::ddt(p_)
     );
-
-    Info<< " max: E1 " << Foam::constant::physicoChemical::R
-        << nl << endl;
 }
 
 //* * * * * * * * * * * * * * * Intermidiate Functions * * * * * * * * * * * *//
@@ -806,9 +756,6 @@ void Foam::interTwoPhaseCentralFoam::Initialize()
     R_ = Foam::constant::physicoChemical::R;
 
     Compressibility();
-
-    rho01_ = (rho01Sc_*rho1_)/rho1_;
-    rho02_ = (rho02Sc_*rho2_)/rho2_;
 
     DensityThermo();
 
@@ -862,6 +809,9 @@ void Foam::interTwoPhaseCentralFoam::Flux()
 
 void Foam::interTwoPhaseCentralFoam::volumeFlux()
 {
+  surfaceScalarField rho1_own = fvc::interpolate(rho1_, own_, "reconstruct(rho1)");
+  surfaceScalarField rho1_nei = fvc::interpolate(rho1_, nei_, "reconstruct(rho1)");
+
     phi_ =
     (
         (phi1_own_ + phi1_nei_)
@@ -873,8 +823,8 @@ void Foam::interTwoPhaseCentralFoam::volumeFlux()
 
 void Foam::interTwoPhaseCentralFoam::DensityThermo()
 {
-    rho1_ = psi1_*p_ + rho01Sc_;
-    rho2_ = psi2_*p_ + rho02Sc_;
+    rho1_ = psi1_*p_ + rho01_;
+    rho2_ = psi2_*p_ + rho02_;
     rho1_ = max(rho1_,rho1Min);
     rho2_ = max(rho2_,rho2Min);
     rho1_.correctBoundaryConditions();
@@ -936,11 +886,11 @@ void Foam::interTwoPhaseCentralFoam::speedOfSound()
 
 void Foam::interTwoPhaseCentralFoam::UpdateCentralWeights()
 {
-    rho1_own = fvc::interpolate(rho1_, own_, "reconstruct(rho1)");
-    rho1_nei = fvc::interpolate(rho1_, nei_, "reconstruct(rho1)");
+    surfaceScalarField rho1_own = fvc::interpolate(rho1_, own_, "reconstruct(rho1)");
+    surfaceScalarField rho1_nei = fvc::interpolate(rho1_, nei_, "reconstruct(rho1)");
 
-    rho2_own = fvc::interpolate(rho2_, own_, "reconstruct(rho2)");
-    rho2_nei = fvc::interpolate(rho2_, nei_, "reconstruct(rho2)");
+    surfaceScalarField rho2_own = fvc::interpolate(rho2_, own_, "reconstruct(rho2)");
+    surfaceScalarField rho2_nei = fvc::interpolate(rho2_, nei_, "reconstruct(rho2)");
 
     surfaceScalarField phi1v_own = (fvc::interpolate(U_, own_, "reconstruct(U)")) & U_.mesh().Sf();
     surfaceScalarField phi1v_nei = (fvc::interpolate(U_, nei_, "reconstruct(U)")) & U_.mesh().Sf();
@@ -967,11 +917,11 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralWeights()
 
 void Foam::interTwoPhaseCentralFoam::UpdateCentralFields()
 {
-    rho1_own = fvc::interpolate(rho1_, own_, "reconstruct(rho1)");
-    rho1_nei = fvc::interpolate(rho1_, nei_, "reconstruct(rho1)");
+    surfaceScalarField rho1_own = fvc::interpolate(rho1_, own_, "reconstruct(rho1)");
+    surfaceScalarField rho1_nei = fvc::interpolate(rho1_, nei_, "reconstruct(rho1)");
 
-    rho2_own = fvc::interpolate(rho2_, own_, "reconstruct(rho1)");
-    rho2_nei = fvc::interpolate(rho2_, nei_, "reconstruct(rho1)");
+    surfaceScalarField rho2_own = fvc::interpolate(rho2_, own_, "reconstruct(rho1)");
+    surfaceScalarField rho2_nei = fvc::interpolate(rho2_, nei_, "reconstruct(rho1)");
 
     surfaceScalarField psi1_own = fvc::interpolate(psi1_, own_, "reconstruct(psi)");
     surfaceScalarField psi1_nei = fvc::interpolate(psi1_, nei_, "reconstruct(psi)");
@@ -1009,11 +959,11 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralFields()
     Dp2_own_ = alpha_own_ *fvc::interpolate(rho2_*rbyA_, own_, "reconstruct(Dp)");
     Dp2_nei_ = alpha_nei_*fvc::interpolate(rho2_*rbyA_, nei_, "reconstruct(Dp)");
 
-    phi01d_own_ = aphi1v_own*rho01Sc_;
-    phi01d_nei_ = aphi1v_nei*rho01Sc_;
+    phi01d_own_ = aphi1v_own*rho01_;
+    phi01d_nei_ = aphi1v_nei*rho01_;
 
-    phi02d_own_ = aphi2v_own*rho02Sc_;
-    phi02d_nei_ = aphi2v_nei*rho02Sc_;
+    phi02d_own_ = aphi2v_own*rho02_;
+    phi02d_nei_ = aphi2v_nei*rho02_;
 }
 
 //* * * * * * * * * * * * * * * * * Viscosity * * * * * * * * * * * * * * * *//
