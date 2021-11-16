@@ -329,8 +329,6 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
     aSf_
     (
         "aSf_",
-//        alpha_own_
-  //      phi_*fvc::interpolate(rho1_, own_, "reconstruct(rho1)")*0.0
         (fvc::interpolate(U_, own_, "reconstruct(U)")) & mesh.Sf()
     ),
 
