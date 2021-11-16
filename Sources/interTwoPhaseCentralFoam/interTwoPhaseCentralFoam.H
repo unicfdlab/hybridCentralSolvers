@@ -105,7 +105,6 @@ namespace Foam
             //- Density of the second phase
             volScalarField rho2_;
 
-
             //- Volume fraction of the first phase
             //- MUST_READ
             volScalarField volumeFraction1_;
@@ -119,19 +118,11 @@ namespace Foam
 
             // Constant density of the first phase, i.e. rho_01
             // Set in the phaseProperties file as rho01
-            dimensioned< scalar > rho01Sc_;
+            dimensioned< scalar > rho01_;
 
             // Constant density of a phase, i.e. rho_02
             // Set in the phaseProperties file as rho02
-            dimensioned< scalar > rho02Sc_;
-
-             //- Constant density of the first phase, i.e. rho_01
-            //- Set in the phaseProperties file as rho01
-            volScalarField rho01_;
-
-            //- Constant density of the first phase, i.e. rho_02
-            //- Set in the phaseProperties file as rho02
-            volScalarField rho02_;
+            dimensioned< scalar > rho02_;
 
             //- Specific heat of the first phase
             //- Set in the phaseProperties
@@ -189,10 +180,6 @@ namespace Foam
 
             surfaceScalarField nei_;
 
-            surfaceScalarField rho1_own;
-
-            surfaceScalarField rho1_nei;
-
             surfaceScalarField alpha_own_;
 
             surfaceScalarField aSf_;
@@ -204,10 +191,6 @@ namespace Foam
             surfaceScalarField phi1_nei_;
 
 /**********************************Phase Two***********************************/
-
-            surfaceScalarField rho2_own;
-
-            surfaceScalarField rho2_nei;
 
             surfaceScalarField phi2_own_;
 
@@ -287,6 +270,8 @@ namespace Foam
             dimensionedScalar rho1Min;
 
             dimensionedScalar rho2Min;
+
+            volScalarField Q_;
 
         public:
 
