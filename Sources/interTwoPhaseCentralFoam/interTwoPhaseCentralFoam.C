@@ -329,7 +329,9 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
     aSf_
     (
         "aSf_",
-        alpha_own_
+//        alpha_own_
+  //      phi_*fvc::interpolate(rho1_, own_, "reconstruct(rho1)")*0.0
+        (fvc::interpolate(U_, own_, "reconstruct(U)")) & mesh.Sf()
     ),
 
     alpha_nei_
@@ -750,7 +752,6 @@ void Foam::interTwoPhaseCentralFoam::TSource()
 
 void Foam::interTwoPhaseCentralFoam::Initialize()
 {
-
     R_ = Foam::constant::physicoChemical::R;
 
     Compressibility();
@@ -781,7 +782,6 @@ void Foam::interTwoPhaseCentralFoam::Initialize()
 //      Tviscosity2 = (- 0*fvm::laplacian(alpha1_*Cp1_, T_));
 
     TSource1_ = 0*fvc::ddt(p_);
-
     TSource2_ = 0*fvc::ddt(p_);
 }
 
@@ -884,6 +884,7 @@ void Foam::interTwoPhaseCentralFoam::speedOfSound()
 
 void Foam::interTwoPhaseCentralFoam::UpdateCentralWeights()
 {
+
     surfaceScalarField rho1_own = fvc::interpolate(rho1_, own_, "reconstruct(rho1)");
     surfaceScalarField rho1_nei = fvc::interpolate(rho1_, nei_, "reconstruct(rho1)");
 
@@ -909,7 +910,6 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralWeights()
     alpha_own_ = ap/(ap - am);
     aSf_ = am*alpha_own_ ;
     alpha_nei_ = 1.0 - alpha_own_ ;
-
     }
 
 
