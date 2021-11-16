@@ -271,7 +271,7 @@ namespace Foam
 
             dimensionedScalar rho2Min;
 
-            volScalarField Usq_;
+            volScalarField Q_;
 
         public:
 

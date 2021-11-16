@@ -539,7 +539,7 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
         dimensioned< scalar >("rho2Min", *this)
     ),
 
-    Usq_
+    Q_
     (
         magSqr(U_)
     )
@@ -566,7 +566,7 @@ void Foam::interTwoPhaseCentralFoam::saveOld()
     p_.oldTime();
     psi1_.oldTime();
     psi2_.oldTime();
-    Usq_.oldTime();
+    Q_.oldTime();
 }
 
 
@@ -729,21 +729,19 @@ void Foam::interTwoPhaseCentralFoam::massError2()
 
 void Foam::interTwoPhaseCentralFoam::TSource()
 {
-    Usq_ = 0.5*magSqr(U_);
-    volScalarField rho1AmpU_ = Usq_*rho1_;
-    volScalarField rho2AmpU_ = Usq_*rho2_;
+    Q_ = 0.5*magSqr(U_);
 
     TSource1_ =
     (
-      fvc::ddt(rho1AmpU_)
-      + fvc::div(phi1_own_,Usq_) + fvc::div(phi1_nei_,Usq_)
+      fvc::ddt(rho1_,Q_)
+      + fvc::div(phi1_own_,Q_) + fvc::div(phi1_nei_,Q_)
       - fvc::ddt(p_)
     );
 
     TSource2_ =
     (
-      fvc::ddt(rho2AmpU_)
-      + fvc::div(phi2_own_,Usq_) + fvc::div(phi2_nei_,Usq_)
+      fvc::ddt(rho2_,Q_)
+      + fvc::div(phi2_own_,Q_) + fvc::div(phi2_nei_,Q_)
       - fvc::ddt(p_)
     );
 }
