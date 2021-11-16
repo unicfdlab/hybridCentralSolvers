@@ -541,7 +541,7 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
 
     Q_
     (
-        magSqr(U_)
+        0.5*magSqr(U_)
     )
 
 {
@@ -635,19 +635,19 @@ void Foam::interTwoPhaseCentralFoam::TEqnsolve()
     (
         volumeFraction1_ *
         (
-            Cp1_*fvm::ddt(rho1_,T_)
-            + Cp1_*fvm::div(phi1_own_,T_) + Cp1_*fvm::div(phi1_nei_,T_)
-            - Cp1_*fvm::Sp(E1_,T_)
+            fvm::ddt(rho1_,T_)
+            + fvm::div(phi1_own_,T_) + fvm::div(phi1_nei_,T_)
+            - fvm::Sp(E1_,T_)
 //          + Tviscosity1
-            + TSource1_
+            + 1/Cp1_*TSource1_
         )
         + volumeFraction2_*
         (
-            Cp2_*fvm::ddt(rho2_,T_)
-            + Cp2_*fvm::div(phi2_own_,T_) + Cp2_*fvm::div(phi2_nei_,T_)
-            - Cp2_*fvm::Sp(E2_,T_)
+            fvm::ddt(rho2_,T_)
+            + fvm::div(phi2_own_,T_) + fvm::div(phi2_nei_,T_)
+            - fvm::Sp(E2_,T_)
 //          + Tviscosity2
-            + TSource2_
+            + 1/Cp2_*TSource2_
         )
     );
 
@@ -736,6 +736,7 @@ void Foam::interTwoPhaseCentralFoam::TSource()
       fvc::ddt(rho1_,Q_)
       + fvc::div(phi1_own_,Q_) + fvc::div(phi1_nei_,Q_)
       - fvc::ddt(p_)
+      - fvc::Sp(E1_,T_)
     );
 
     TSource2_ =
@@ -743,6 +744,7 @@ void Foam::interTwoPhaseCentralFoam::TSource()
       fvc::ddt(rho2_,Q_)
       + fvc::div(phi2_own_,Q_) + fvc::div(phi2_nei_,Q_)
       - fvc::ddt(p_)
+      - fvc::Sp(E2_,T_)
     );
 }
 
@@ -894,8 +896,8 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralWeights()
 
     speedOfSound();
 
-    surfaceScalarField C_own = fvc::interpolate(C_, own_, "reconstruct(psi1)");
-    surfaceScalarField C_nei = fvc::interpolate(C_, nei_, "reconstruct(psi1)");
+    surfaceScalarField C_own = fvc::interpolate(C_, own_, "reconstruct(psi)");
+    surfaceScalarField C_nei = fvc::interpolate(C_, nei_, "reconstruct(psi)");
 
     surfaceScalarField CSf_own = C_own*U_.mesh().magSf();
     CSf_own.setOriented(true);
@@ -916,14 +918,14 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralFields()
     surfaceScalarField rho1_own = fvc::interpolate(rho1_, own_, "reconstruct(rho1)");
     surfaceScalarField rho1_nei = fvc::interpolate(rho1_, nei_, "reconstruct(rho1)");
 
-    surfaceScalarField rho2_own = fvc::interpolate(rho2_, own_, "reconstruct(rho1)");
-    surfaceScalarField rho2_nei = fvc::interpolate(rho2_, nei_, "reconstruct(rho1)");
+    surfaceScalarField rho2_own = fvc::interpolate(rho2_, own_, "reconstruct(rho2)");
+    surfaceScalarField rho2_nei = fvc::interpolate(rho2_, nei_, "reconstruct(rho2)");
 
-    surfaceScalarField psi1_own = fvc::interpolate(psi1_, own_, "reconstruct(psi)");
-    surfaceScalarField psi1_nei = fvc::interpolate(psi1_, nei_, "reconstruct(psi)");
+    surfaceScalarField psi1_own = fvc::interpolate(psi1_, own_, "reconstruct(psi1)");
+    surfaceScalarField psi1_nei = fvc::interpolate(psi1_, nei_, "reconstruct(psi1)");
 
-    surfaceScalarField psi2_own = fvc::interpolate(psi2_, own_, "reconstruct(psi)");
-    surfaceScalarField psi2_nei = fvc::interpolate(psi2_, nei_, "reconstruct(psi)");
+    surfaceScalarField psi2_own = fvc::interpolate(psi2_, own_, "reconstruct(psi2)");
+    surfaceScalarField psi2_nei = fvc::interpolate(psi2_, nei_, "reconstruct(psi2)");
 
     surfaceVectorField rhoU1_own = fvc::interpolate(rho1_*HbyA_, own_, "reconstruct(U)");
     surfaceVectorField rhoU1_nei = fvc::interpolate(rho1_*HbyA_, nei_, "reconstruct(U)");
