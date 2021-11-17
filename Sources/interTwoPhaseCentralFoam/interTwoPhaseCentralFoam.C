@@ -736,7 +736,7 @@ void Foam::interTwoPhaseCentralFoam::TSource()
       fvc::ddt(rho1_,Q_)
       + fvc::div(phi1_own_,Q_) + fvc::div(phi1_nei_,Q_)
       - fvc::ddt(p_)
-      - fvc::Sp(E1_,T_)
+      - Cp1_*fvc::Sp(E1_,T_)
     );
 
     TSource2_ =
@@ -744,7 +744,7 @@ void Foam::interTwoPhaseCentralFoam::TSource()
       fvc::ddt(rho2_,Q_)
       + fvc::div(phi2_own_,Q_) + fvc::div(phi2_nei_,Q_)
       - fvc::ddt(p_)
-      - fvc::Sp(E2_,T_)
+      - Cp2_*fvc::Sp(E2_,T_)
     );
 }
 
