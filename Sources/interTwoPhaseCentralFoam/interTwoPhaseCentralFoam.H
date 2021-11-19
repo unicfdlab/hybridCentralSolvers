@@ -186,6 +186,18 @@ namespace Foam
 
             surfaceScalarField alpha_nei_;
 
+            surfaceScalarField alpha1_own_;
+
+            surfaceScalarField aSf1_;
+
+            surfaceScalarField alpha1_nei_;
+
+            surfaceScalarField alpha2_own_;
+
+            surfaceScalarField aSf2_;
+
+            surfaceScalarField alpha2_nei_;
+
             surfaceScalarField phi1_own_;
 
             surfaceScalarField phi1_nei_;
@@ -345,11 +357,17 @@ namespace Foam
 
             void speedOfSound();
 
-//* * * * * * * * * * * * * * Kurganov's coefficients * * * * * * * * * * * *//
+//* * * * * * * * * * * * Kurganov's coefficients Mixture * * * * * * * * * *//
 
             void UpdateCentralWeights();
 
             void UpdateCentralFields();
+
+//* * * * * * * * * Kurganov's coefficients Individual Phases * * * * * * * *//
+
+            void UpdateCentralWeightsIndividual();
+
+            void UpdateCentralFieldsIndividual();
 
 //* * * * * * * * * * * * * * * * * Viscosity * * * * * * * * * * * * * * * *//
 

@@ -96,6 +96,10 @@ int main(int argc, char *argv[])
 
             Veronika.UpdateCentralFields();  //Calculate coefficients of pEqn: phi1d_own, phi1_nei, Dp1_own, and Dp2_nei
 
+//            Veronika.UpdateCentralWeightsIndividual();
+
+//            Veronika.UpdateCentralFieldsIndividual();
+
             Veronika.pEqnsolve();            //Solve pEqn
 
             Veronika.Flux();
