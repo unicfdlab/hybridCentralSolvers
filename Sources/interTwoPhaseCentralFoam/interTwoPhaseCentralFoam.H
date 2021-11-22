@@ -256,6 +256,8 @@ namespace Foam
 
             volScalarField TSource2_;
 
+            volScalarField TSource_;            
+
             surfaceScalarField phi01d_own_;
 
             surfaceScalarField phi01d_nei_;
@@ -320,6 +322,8 @@ namespace Foam
             //- Solve an equation for Temperature
             virtual void TEqnsolve();
 
+            virtual void TEqnV2solve();
+
             //- Solve an equation for pressure
             virtual void pEqnsolve();
 
@@ -330,6 +334,8 @@ namespace Foam
             virtual void massError2();
 
             void TSource();
+
+            void TSourceV2();
 
             void pressureGradient();
 

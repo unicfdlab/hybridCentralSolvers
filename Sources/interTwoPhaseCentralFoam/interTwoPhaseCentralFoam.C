@@ -520,6 +520,11 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
         fvc::ddt(p_)
     ),
 
+    TSource_
+    (
+        volumeFraction1_*1/Cp1_*TSource1_
+    ),
+
     phi01d_own_
     (
         phi_*rho01_
@@ -691,6 +696,27 @@ void Foam::interTwoPhaseCentralFoam::TEqnsolve()
 }
 
 
+void Foam::interTwoPhaseCentralFoam::TEqnV2solve()
+{
+    surfaceScalarField phiU_own = vF1face_*phi1_own_ + vF2face_*phi2_own_;
+    surfaceScalarField phiU_nei = vF1face_*phi1_nei_ + vF2face_*phi2_nei_;
+
+    E_ = fvc::ddt(rho_) + fvc::div(phiU_own) + fvc::div(phiU_nei);
+
+    fvScalarMatrix TEqn
+    (
+        fvm::ddt(rho_,T_)
+        + fvm::div(phiU_own,T_) + fvm::div(phiU_nei,T_)
+        - fvm::Sp(E_,T_)
+        + TSource_
+        + volumeFraction1_*1/Cp1_*TSource1_
+        + volumeFraction2_*1/Cp2_*TSource2_
+    );
+
+    TEqn.solve();
+}
+
+
 void Foam::interTwoPhaseCentralFoam::pEqnsolve()
 {
     pEqn1_own_ =
@@ -784,6 +810,31 @@ void Foam::interTwoPhaseCentralFoam::TSource()
     );
 }
 
+
+void Foam::interTwoPhaseCentralFoam::TSourceV2()
+{
+    surfaceScalarField phiUCp_own = 1/Cp1_*vF1face_*phi1_own_ + 1/Cp2_*vF2face_*phi2_own_;
+    surfaceScalarField phiUCp_nei = 1/Cp1_*vF1face_*phi1_nei_ + 1/Cp2_*vF2face_*phi2_nei_;
+
+    Q_ = 0.5*magSqr(U_);
+
+    TSource_ = fvc::div(phiUCp_own,Q_) + fvc::div(phiUCp_nei,Q_);
+
+    TSource1_ =
+    (
+      fvc::ddt(rho1_,Q_)
+      - fvc::ddt(p_)
+      - fvc::Sp(E1_,Q_)
+    );
+
+    TSource2_ =
+    (
+      fvc::ddt(rho2_,Q_)
+      - fvc::ddt(p_)
+      - fvc::Sp(E2_,Q_)
+    );
+}
+
 //* * * * * * * * * * * * * * * Intermidiate Functions * * * * * * * * * * * *//
 
 void Foam::interTwoPhaseCentralFoam::Initialize()
@@ -819,6 +870,7 @@ void Foam::interTwoPhaseCentralFoam::Initialize()
 
     TSource1_ = 0*fvc::ddt(p_);
     TSource2_ = 0*fvc::ddt(p_);
+    TSource_ = volumeFraction1_*1/Cp1_*TSource1_;
 }
 
 void Foam::interTwoPhaseCentralFoam::pressureGradient()
