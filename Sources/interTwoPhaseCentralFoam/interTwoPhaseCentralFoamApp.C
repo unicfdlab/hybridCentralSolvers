@@ -84,9 +84,9 @@ int main(int argc, char *argv[])
 
             Veronika.UEqn();          //Generate fvmatrix for UEqn (note: without grad(p_))
 
-//            Veronika.TEqnsolve();
+            Veronika.TEqnsolve();
 
-            Veronika.TEqnV2solve();     //Solve TEqn
+//            Veronika.TEqnV2solve();     //Solve TEqn
 
             Veronika.Compressibility(); //Update psi1_ = molM1_/(R_ * T_) and psi2_
 
@@ -114,8 +114,8 @@ int main(int argc, char *argv[])
 
             Veronika.volumeFlux();
 
-//            Veronika.TSource();
-            Veronika.TSourceV2();
+            Veronika.TSource();
+//            Veronika.TSourceV2();
         }
 
         runTime.write();
