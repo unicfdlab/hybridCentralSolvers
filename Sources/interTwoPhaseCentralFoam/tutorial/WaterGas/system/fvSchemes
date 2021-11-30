@@ -1,0 +1,121 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default         Euler;
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+}
+
+defaultAdvScheme     Minmod;
+defaultAdvSchemeV    MinmodV;
+
+divSchemes
+{
+    default         none;
+div(((interpolate(volumeFraction1)*phi1_nei_)+((1-interpolate(volumeFraction1))*phi2_nei_)),U) Gauss $defaultAdvSchemeV;
+div(((interpolate(volumeFraction1)*phi1_own_)+((1-interpolate(volumeFraction1))*phi2_own_)),U) Gauss $defaultAdvSchemeV;
+   //Volume Fraction Equation
+   div(phi,volumeFraction1) Gauss $defaultAdvScheme;
+   //continuity equation
+   div(phi1d_own_,p) Gauss $defaultAdvScheme;
+   div(phi1d_nei_,p) Gauss $defaultAdvScheme;
+
+   div(phi2d_own_,p) Gauss $defaultAdvScheme;
+   div(phi2d_nei_,p) Gauss $defaultAdvScheme;
+
+   //Momentum equation
+   div(phi1_own_,U) Gauss $defaultAdvSchemeV;
+   div(phi1_nei_,U) Gauss $defaultAdvSchemeV;
+
+   div(phi2_own_,U) Gauss $defaultAdvSchemeV;
+   div(phi2_nei_,U) Gauss $defaultAdvSchemeV;
+
+   div((mu1*dev2(T(grad(U))))) Gauss linear;
+   div((mu2*dev2(T(grad(U))))) Gauss linear;
+
+   //Energy equation
+
+   div(((interpolate(volumeFraction1)*phi1_nei_)+((1-interpolate(volumeFraction1))*phi2_nei_)),T) Gauss $defaultAdvScheme;
+   div(((interpolate(volumeFraction1)*phi1_own_)+((1-interpolate(volumeFraction1))*phi2_own_)),T) Gauss $defaultAdvScheme;
+
+   div(((((1|Cp1)*interpolate(volumeFraction1))*phi1_nei_)+(((1|Cp2)*(1-interpolate(volumeFraction1)))*phi2_nei_)),(0.5*magSqr(U))) Gauss $defaultAdvScheme;
+   div(((((1|Cp1)*interpolate(volumeFraction1))*phi1_own_)+(((1|Cp2)*(1-interpolate(volumeFraction1)))*phi2_own_)),(0.5*magSqr(U))) Gauss $defaultAdvScheme;
+
+   div(phi1_own_,T) Gauss $defaultAdvScheme;
+   div(phi1_nei_,T) Gauss $defaultAdvScheme;
+
+   div(phi1_own_,(0.5*magSqr(U))) Gauss $defaultAdvScheme;
+   div(phi1_nei_,(0.5*magSqr(U))) Gauss $defaultAdvScheme;
+
+   div(phi2_own_,T) Gauss $defaultAdvScheme;
+   div(phi2_nei_,T) Gauss $defaultAdvScheme;
+
+   div(phi2_own_,(0.5*magSqr(U))) Gauss $defaultAdvScheme;
+   div(phi2_nei_,(0.5*magSqr(U))) Gauss $defaultAdvScheme;
+
+}
+
+laplacianSchemes
+{
+    default         Gauss linear uncorrected;
+}
+
+interpolationSchemes
+{
+    default         none;
+
+    flux(U)             linear;
+    interpolate(U)      linear;
+    interpolate(symm(grad(U))) linear;
+    interpolate(volumeFraction1) linear;
+
+    interpolate(rbyA) linear;
+
+    reconstruct(rho1)	  	$defaultAdvScheme;
+    reconstruct(phi)      $defaultAdvScheme;
+    reconstruct(psi1)		  $defaultAdvScheme;
+    reconstruct(U)		    $defaultAdvSchemeV;
+
+    reconstruct(rho2)	  	$defaultAdvScheme;
+    reconstruct(psi2)	  	$defaultAdvScheme;
+
+    reconstruct(psi)	  	$defaultAdvScheme;
+
+    reconstruct(p)		    $defaultAdvScheme;
+    reconstruct(Dp)		    $defaultAdvScheme;
+    reconstruct(volumeFraction1) Minmod phi;
+
+
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+fluxRequired
+{
+    default	none;
+    p;
+}
+
+// ************************************************************************* //
