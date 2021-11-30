@@ -678,7 +678,7 @@ void Foam::interTwoPhaseCentralFoam::TEqnsolve()
         (
             fvm::ddt(rho1_,T_)
             + fvm::div(phi1_own_,T_) + fvm::div(phi1_nei_,T_)
-            - fvm::Sp(E1_,T_)
+//            - fvm::Sp(E1_,T_)
 //          + Tviscosity1
             + 1/Cp1_*TSource1_
         )
@@ -686,7 +686,7 @@ void Foam::interTwoPhaseCentralFoam::TEqnsolve()
         (
             fvm::ddt(rho2_,T_)
             + fvm::div(phi2_own_,T_) + fvm::div(phi2_nei_,T_)
-            - fvm::Sp(E2_,T_)
+//            - fvm::Sp(E2_,T_)
 //          + Tviscosity2
             + 1/Cp2_*TSource2_
         )
@@ -798,7 +798,7 @@ void Foam::interTwoPhaseCentralFoam::TSource()
       fvc::ddt(rho1_,Q_)
       + fvc::div(phi1_own_,Q_) + fvc::div(phi1_nei_,Q_)
       - fvc::ddt(p_)
-      - fvc::Sp(E1_,Q_)
+//      - fvc::Sp(E1_,Q_)
     );
 
     TSource2_ =
@@ -806,7 +806,7 @@ void Foam::interTwoPhaseCentralFoam::TSource()
       fvc::ddt(rho2_,Q_)
       + fvc::div(phi2_own_,Q_) + fvc::div(phi2_nei_,Q_)
       - fvc::ddt(p_)
-      - fvc::Sp(E2_,Q_)
+//      - fvc::Sp(E2_,Q_)
     );
 }
 
@@ -880,6 +880,7 @@ void Foam::interTwoPhaseCentralFoam::pressureGradient()
 
 //    gradp_ = fvc::div((alpha_own_ *p_own + alpha_nei_*p_nei)*U_.mesh().Sf());
     gradp_ = fvc::div((alpha1_own_ *p_own + alpha1_nei_*p_nei)*U_.mesh().Sf());
+//    gradp_ = fvc::grad(p_);
 }
 
 //* * * * * * * * * * * * * * * * * Flux` Functions * * * * * * * * * * * * *//
@@ -999,6 +1000,11 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralWeights()
     alpha_own_ = ap/(ap - am);
     aSf_ = am*alpha_own_ ;
     alpha_nei_ = 1.0 - alpha_own_ ;
+    /*
+    alpha_own_ = 0.5+0*ap/(ap - am);
+    aSf_ = 0*am*alpha_own_;
+    alpha_nei_ = 1.0 - alpha_own_ ;
+    */
     }
 
 
@@ -1082,6 +1088,11 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralWeightsIndividual()
     aSf1_ = am1*alpha1_own_ ;
     alpha1_nei_ = 1.0 - alpha1_own_ ;
 
+    /*
+    alpha1_own_ = 0.5+0*ap1/(ap1 - am1);
+    aSf1_ = 0*am1*alpha1_own_ ;
+    alpha1_nei_ = 1.0 - alpha1_own_ ;
+    */
 //************************************ Phase Two *****************************//
 
     surfaceScalarField rho2_own = fvc::interpolate(rho2_, own_, "reconstruct(rho2)");

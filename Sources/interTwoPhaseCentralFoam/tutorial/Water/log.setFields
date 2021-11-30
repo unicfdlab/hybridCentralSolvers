@@ -1,0 +1,41 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _7bdb509494-20201222 OPENFOAM=2012
+Arch   : "LSB;label=32;scalar=64"
+Exec   : setFields
+Date   : Nov 25 2021
+Time   : 12:41:18
+Host   : Jarvis
+PID    : 899
+I/O    : uncollated
+Case   : /mnt/d/tutorial/sod/Water_5000
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+Reading setFieldsDict
+
+Setting field default values
+    Setting internal values of volScalarField T
+    Setting internal values of volScalarField p
+    Setting internal values of volVectorField U
+    Setting internal values of volScalarField volumeFraction1
+
+Setting field region values
+    Adding cells with centre within boxes 1((0 -1 -1) (0.5 1 1))
+    Setting internal values of volScalarField T
+    Setting internal values of volScalarField p
+
+End
+
