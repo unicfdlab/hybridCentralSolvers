@@ -287,6 +287,47 @@ namespace Foam
 
             volScalarField Q_;
 
+        protected:
+
+            //- Solve for density using explicit fluxes
+            void solveRho
+                (
+                    volScalarField& rhoi, 
+                    const surfaceScalarField& phii_own,
+                    const surfaceScalarField& phii_nei
+                );
+
+            //- Update mass flux components using KT scheme coefficients
+            void UpdateCentralMassFluxes
+            (
+                const volScalarField& rhoi,
+                const dimensionedScalar& rho0i,
+                const volScalarField& psii,
+                const volVectorField& HbyA,
+                const volScalarField& rbyA,
+                const surfaceScalarField& alpha_own,
+                const surfaceScalarField& alpha_nei,
+                const surfaceScalarField& aSf,
+                surfaceScalarField& phidi_own,
+                surfaceScalarField& phidi_nei,
+                surfaceScalarField& phi0i_own,
+                surfaceScalarField& phi0i_nei,
+                surfaceScalarField& Dpi_own,
+                surfaceScalarField& Dpi_nei
+            );
+
+            //- Update KT central weights using given density, velocity and 
+            //sound velocity
+            void UpdateCentralWeights
+            (
+                const volScalarField& rhoi,
+                const volVectorField& U,
+                const volScalarField& Ci,
+                surfaceScalarField& alpha_own,
+                surfaceScalarField& alpha_nei,
+                surfaceScalarField& aSf
+            );
+
         public:
 
             TypeName("interTwoPhaseCentralFoam");
@@ -314,9 +355,16 @@ namespace Foam
             //- Solve an equation for volumeFraction1_
             virtual void alpha1Eqnsolve();
 
+            //- Solve for density of the first phase
+            void solveRho1();
+
+            //- Solve for density of the second phase
+            void solveRho2();
+
             //- Construct Momentum equation and extract rbyA_ and HbyA_
             void UEqn();
 
+            //- Reconstructs velocity from pressure gradient, H and A operators
             void ReconstructVelocity();
 
             //- Solve an equation for Temperature
@@ -357,7 +405,7 @@ namespace Foam
 
 //* * * * * * * * * * * * * Update Dependable Variables * * * * * * * * * * *//
 
-            virtual void updateK_();
+            virtual void updateK();
 
             void Compressibility();
 

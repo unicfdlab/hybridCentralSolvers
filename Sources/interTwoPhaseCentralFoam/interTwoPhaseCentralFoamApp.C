@@ -73,6 +73,8 @@ int main(int argc, char *argv[])
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
         Veronika.saveOld();
+        Veronika.solveRho1();
+        Veronika.solveRho2();
 
         while (pimple.loop())
         {
@@ -90,13 +92,13 @@ int main(int argc, char *argv[])
 
             Veronika.Compressibility(); //Update psi1_ = molM1_/(R_ * T_) and psi2_
 
-            Veronika.updateK_();         //Calculate values of C1_, C2_, Z1_, Z2_, K_, and phi_
+            Veronika.updateK();         //Calculate values of C1_, C2_, Z1_, Z2_, K_, and phi_
 
             Veronika.DensityThermo();
 
-//            Veronika.UpdateCentralWeights(); //Calculate fluxes (phi1_own and phi1_nei)
+            // Veronika.UpdateCentralWeights(); //Calculate fluxes (phi1_own and phi1_nei)
 
-//            Veronika.UpdateCentralFields();  //Calculate coefficients of pEqn: phi1d_own, phi1_nei, Dp1_own, and Dp2_nei
+            // Veronika.UpdateCentralFields();  //Calculate coefficients of pEqn: phi1d_own, phi1_nei, Dp1_own, and Dp2_nei
 
             Veronika.UpdateCentralWeightsIndividual();
 
