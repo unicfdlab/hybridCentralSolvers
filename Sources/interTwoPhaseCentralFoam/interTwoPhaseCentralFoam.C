@@ -735,13 +735,13 @@ void Foam::interTwoPhaseCentralFoam::Initialize()
     alpha1_ = mu1_/Pr1_;
     alpha2_ = mu2_/Pr2_;
 
-    UpdateCentralWeights();
+    UpdateCentralWeightsIndividual();
 
 //      divDevRhoReff();
 
     UEqn();
 
-    UpdateCentralFields();
+    UpdateCentralFieldsIndividual();
 
     pressureGradient();
 
@@ -781,21 +781,21 @@ void Foam::interTwoPhaseCentralFoam::updateKappa()
             nei_,
             "reconstruct(U)"
         ) & mesh.Sf();
-    
+
     surfaceScalarField CfSf = max(Cf_own_, Cf_nei_) * mesh.magSf();
     CfSf.setOriented(true);
-    
+
     surfaceScalarField amaxSf =
         max
         (
             max
             (
-                mag(phiv_own + CfSf), 
+                mag(phiv_own + CfSf),
                 mag(phiv_own - CfSf)
             ),
             max
             (
-                mag(phiv_nei + CfSf), 
+                mag(phiv_nei + CfSf),
                 mag(phiv_nei - CfSf)
             )
         );
@@ -805,15 +805,15 @@ void Foam::interTwoPhaseCentralFoam::updateKappa()
     (
         mesh.surfaceInterpolation::deltaCoeffs()*amaxSf
     );
-    
-    surfaceScalarField FaceAcCo = 
+
+    surfaceScalarField FaceAcCo =
         (
             amaxSfbyDelta/mesh.magSf() * mesh.time().deltaT()
         );
 
     surfaceScalarField Maf = linearInterpolate(mag(U_)/C_);
-    
-    kappa_ = 
+
+    kappa_ =
         min
         (
             Maf/FaceAcCo,
@@ -908,7 +908,7 @@ void Foam::interTwoPhaseCentralFoam::volumeFlux()
     phi_ =
     (
         (phi1_own_ + phi1_nei_)
-        /(alpha_own_*rho1_own + alpha_nei_*rho1_nei)
+        /(alpha1_own_*rho1_own + alpha1_nei_*rho1_nei)
     );
 }
 
@@ -933,9 +933,9 @@ void Foam::interTwoPhaseCentralFoam::cellCourantNo()
     //         )
     //     );
 
-    //     surfaceScalarField rhoPhi = 
-    
-    //     localCoPtr().primitiveFieldRef() = 
+    //     surfaceScalarField rhoPhi =
+
+    //     localCoPtr().primitiveFieldRef() =
     //     (
     //         fvc::surfaceSum(mag(phi))().primitiveField()
     //         /
@@ -943,10 +943,10 @@ void Foam::interTwoPhaseCentralFoam::cellCourantNo()
     //         /
     //         mesh.V().field()
     //     ) * 0.5 * runTime.deltaT().value();
-            
+
     //     CoNum = gMax(localCoPtr().internalField());
     // }
-        
+
     // Info<< "Courant Number max: " <<  CoNum << endl;
 }
 
@@ -1011,7 +1011,7 @@ void Foam::interTwoPhaseCentralFoam::speedOfSound()
     volScalarField gammaM = CpM/CvM;
 
     C_ = sqrt(gammaM/psiM);
-    
+
     Cf_own_ = fvc::interpolate(C_, own_, "reconstruct(psi)");
     Cf_nei_ = fvc::interpolate(C_, nei_, "reconstruct(psi)");
 }
@@ -1029,14 +1029,14 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralWeights
     const auto& Sf = U.mesh().Sf();
     const auto&mSf = U.mesh().magSf();
 
-    surfaceScalarField rhoi_own = 
+    surfaceScalarField rhoi_own =
         fvc::interpolate(rhoi, own_, "reconstruct(" + rhoi.name() + ")");
-    surfaceScalarField rhoi_nei = 
+    surfaceScalarField rhoi_nei =
         fvc::interpolate(rhoi, nei_, "reconstruct(" + rhoi.name() + ")");
 
-    surfaceScalarField phiv_own = 
+    surfaceScalarField phiv_own =
         (fvc::interpolate(rhoi*U, own_, "reconstruct(U)") & Sf)/rhoi_own;
-    surfaceScalarField phiv_nei = 
+    surfaceScalarField phiv_nei =
         (fvc::interpolate(rhoi*U, nei_, "reconstruct(U)") & Sf)/rhoi_nei;
 
     surfaceScalarField Ci_own = fvc::interpolate(Ci, own_, "reconstruct(psi)");
@@ -1047,9 +1047,9 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralWeights
     surfaceScalarField CiSf_nei = Ci_nei*mSf;
     CiSf_nei.setOriented(true);
 
-    surfaceScalarField api = 
+    surfaceScalarField api =
         max(max(phiv_own + CiSf_own, phiv_nei + CiSf_nei), v_zero);
-    surfaceScalarField ami = 
+    surfaceScalarField ami =
         min(min(phiv_own - CiSf_own, phiv_nei - CiSf_nei), v_zero);
 
     alpha_own = api/(api - ami);
@@ -1075,19 +1075,19 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralMassFluxes
     surfaceScalarField& Dpi_nei
 )
 {
-    surfaceScalarField rhoi_own = 
+    surfaceScalarField rhoi_own =
         fvc::interpolate(rhoi, own_, "reconstruct(" + rhoi.name() + ")");
-    surfaceScalarField rhoi_nei = 
+    surfaceScalarField rhoi_nei =
         fvc::interpolate(rhoi, nei_, "reconstruct(" + rhoi.name() + ")");
 
-    surfaceScalarField psii_own = 
+    surfaceScalarField psii_own =
         fvc::interpolate(psii, own_, "reconstruct(" + psii.name() + ")");
-    surfaceScalarField psii_nei = 
+    surfaceScalarField psii_nei =
         fvc::interpolate(psii, nei_, "reconstruct(" + psii.name() + ")");
-    
-    surfaceVectorField rhoUi_own = 
+
+    surfaceVectorField rhoUi_own =
         fvc::interpolate(rhoi*HbyA, own_, "reconstruct(U)");
-    surfaceVectorField rhoUi_nei = 
+    surfaceVectorField rhoUi_nei =
         fvc::interpolate(rhoi*HbyA, nei_, "reconstruct(U)");
 
     surfaceScalarField phiv_own = (rhoUi_own & U_.mesh().Sf())/rhoi_own;
@@ -1255,4 +1255,3 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralFieldsIndividual()
         Dp2_nei_
     );
 }
-
