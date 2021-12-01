@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
 
     scalar CoNum = 0.0;
     scalar meanCoNum = 0.0;
+    bool   LTS = false;
 
     pimpleControl pimple(mesh);
 
@@ -52,15 +53,15 @@ int main(int argc, char *argv[])
     while (runTime.run())
     {
 
-        scalarField sumPhi_
+        scalarField sumPhi
         (
             fvc::surfaceSum(mag(Veronika.phiC()))().primitiveField()
         );
 
-        CoNum = gMax((sumPhi_)/mesh.V().field())*runTime.deltaTValue();
+        CoNum = gMax((sumPhi)/mesh.V().field())*runTime.deltaTValue();
 
         meanCoNum =
-            (gSum(sumPhi_)/gSum(mesh.V().field()))*runTime.deltaTValue();
+            (gSum(sumPhi)/gSum(mesh.V().field()))*runTime.deltaTValue();
 
         Info<< "Courant Number mean: " << meanCoNum
             << " max: " << CoNum << endl;
@@ -96,6 +97,8 @@ int main(int argc, char *argv[])
 
             Veronika.DensityThermo();
 
+            Veronika.speedOfSound();
+
             // Veronika.UpdateCentralWeights(); //Calculate fluxes (phi1_own and phi1_nei)
 
             // Veronika.UpdateCentralFields();  //Calculate coefficients of pEqn: phi1d_own, phi1_nei, Dp1_own, and Dp2_nei
@@ -107,6 +110,8 @@ int main(int argc, char *argv[])
             Veronika.pEqnsolve();            //Solve pEqn
 
             Veronika.Flux();
+
+            Veronika.updateKappa();
 
             Veronika.DensityThermo();        //Update rho1_ and rho2_ through rho_ = psi_*p_
 

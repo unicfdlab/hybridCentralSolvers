@@ -6,7 +6,7 @@
     amaxSf.setOriented(true);
     
     kappaFuncPtr().update();
-    kappa = kappaFuncPtr().kappa()();
+    kappa.primitiveFieldRef() = kappaFuncPtr().kappa()();
 
     Info << "max/min kappa: " << max(kappa).value() << "/" << min(kappa).value() << endl;
     phi_own += (1.0 - kappa) * phi_nei;

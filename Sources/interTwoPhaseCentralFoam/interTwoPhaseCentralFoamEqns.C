@@ -53,7 +53,11 @@ void Foam::interTwoPhaseCentralFoam::solveRho2()
 
 void Foam::interTwoPhaseCentralFoam::alpha1Eqnsolve()
 {
-    vF1face_ = fvc::interpolate(volumeFraction1_,"reconstruct(volumeFraction1)");
+    vF1face_ = fvc::interpolate
+    (
+        volumeFraction1_,
+        "reconstruct(volumeFraction1)"
+    );
     vF2face_ = 1.0 - vF1face_;
 
     fvScalarMatrix alpha1Eqn
@@ -80,6 +84,7 @@ void Foam::interTwoPhaseCentralFoam::alpha1Eqnsolve()
 void Foam::interTwoPhaseCentralFoam::UEqn()
 {
     Density();
+    divDevRhoReff();
 
     surfaceScalarField phiU_own = vF1face_*phi1_own_ + vF2face_*phi2_own_;
     surfaceScalarField phiU_nei = vF1face_*phi1_nei_ + vF2face_*phi2_nei_;
@@ -91,6 +96,8 @@ void Foam::interTwoPhaseCentralFoam::UEqn()
         fvm::ddt(rho_,U_) - fvm::Sp(E_,U_)
         +
         fvm::div(phiU_own,U_) + fvm::div(phiU_nei,U_)
+        +
+        divDevRhoReff_
     );
 
     rbyA_  = 1.0/UEqn.A();
@@ -118,7 +125,8 @@ void Foam::interTwoPhaseCentralFoam::TEqnsolve()
 //          + Tviscosity1
             + 1/Cp1_*TSource1_
         )
-        + volumeFraction2_*
+        + 
+        volumeFraction2_*
         (
             fvm::ddt(rho2_,T_)
             + fvm::div(phi2_own_,T_) + fvm::div(phi2_nei_,T_)

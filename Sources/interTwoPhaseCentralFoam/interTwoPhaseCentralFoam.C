@@ -287,6 +287,20 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
         dimensionSet(-1, 3, 1, 0, 0, 0, 0)
     ),
 
+    kappa_
+    (
+        IOobject
+        (
+            "kappa",
+            mesh.time().timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionedScalar("zero", dimless, 0.0)
+    ),
+
 /***********************Tadmor-Kurganov Scheme*******************************/
 
     v_zero
@@ -400,6 +414,26 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
         phi_*fvc::interpolate(rho1_, own_, "reconstruct(rho1)")*0.0
     ),
 
+    Cf_own_
+    (
+        "Cf_own",
+        0.0*aSf1_/mesh.magSf()
+    ),
+
+    Cf_nei_
+    (
+        "Cf_nei",
+        Cf_own_
+    ),
+
+    mu_
+    (
+        "mu",
+        volumeFraction1_*mu1_
+        +
+        volumeFraction2_*mu2_
+    ),
+
 /***********************Tadmor-Kurganov Scheme*******************************/
 
 /*************************Pressure Equation*********************************/
@@ -452,6 +486,26 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
         alpha_own_ *fvc::interpolate(rho2_*rbyA_, own_, "reconstruct(Dp)")
     ),
 
+    phi01d_own_
+    (
+        phi_*rho01_
+    ),
+
+    phi01d_nei_
+    (
+        phi_*rho01_
+    ),
+
+    phi02d_own_
+    (
+        phi_*rho02_
+    ),
+
+    phi02d_nei_
+    (
+        phi_*rho02_
+    ),
+
     pEqn1_own_
     (
         fvm::div(phi1d_own_,p_) - fvm::laplacian(Dp1_own_, p_)
@@ -478,16 +532,9 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
         fvc::grad(p_)
     ),
 
-    divDevRhoReff1_
+    divDevRhoReff_
     (
         - fvm::laplacian(mu1_, U_)
-        - fvc::div((mu1_)*dev2(Foam::T(fvc::grad(U_))))
-    ),
-
-    divDevRhoReff2_
-    (
-        - fvm::laplacian(mu2_, U_)
-        - fvc::div((mu2_)*dev2(Foam::T(fvc::grad(U_))))
     ),
 
     Tviscosity1
@@ -523,26 +570,6 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
     TSource_
     (
         volumeFraction1_*1/Cp1_*TSource1_
-    ),
-
-    phi01d_own_
-    (
-        phi_*rho01_
-    ),
-
-    phi01d_nei_
-    (
-        phi_*rho01_
-    ),
-
-    phi02d_own_
-    (
-        phi_*rho02_
-    ),
-
-    phi02d_nei_
-    (
-        phi_*rho02_
     ),
 
     E1_
@@ -695,7 +722,7 @@ void Foam::interTwoPhaseCentralFoam::Initialize()
 
     Density();
 
-    updateK_();
+    updateK();
 
     // Thermal conductivity
     alpha1_ = mu1_/Pr1_;
@@ -732,17 +759,188 @@ void Foam::interTwoPhaseCentralFoam::Flux()
     phi2_nei_ = pEqn2_nei_.flux() + phi02d_nei_;
 }
 
+void Foam::interTwoPhaseCentralFoam::updateKappa()
+{
+    const fvMesh& mesh = U_.mesh();
+    surfaceScalarField phiv_own = fvc::interpolate
+        (
+            U_,
+            own_,
+            "reconstruct(U)"
+        ) & mesh.Sf();
+    surfaceScalarField phiv_nei = fvc::interpolate
+        (
+            U_,
+            nei_,
+            "reconstruct(U)"
+        ) & mesh.Sf();
+    
+    surfaceScalarField CfSf = max(Cf_own_, Cf_nei_) * mesh.magSf();
+    CfSf.setOriented(true);
+    
+    surfaceScalarField amaxSf =
+        max
+        (
+            max
+            (
+                mag(phiv_own + CfSf), 
+                mag(phiv_own - CfSf)
+            ),
+            max
+            (
+                mag(phiv_nei + CfSf), 
+                mag(phiv_nei - CfSf)
+            )
+        );
+    amaxSf.setOriented(true);
+
+    surfaceScalarField amaxSfbyDelta
+    (
+        mesh.surfaceInterpolation::deltaCoeffs()*amaxSf
+    );
+    
+    surfaceScalarField FaceAcCo = 
+        (
+            amaxSfbyDelta/mesh.magSf() * mesh.time().deltaT()
+        );
+
+    surfaceScalarField Maf = linearInterpolate(mag(U_)/C_);
+    
+    kappa_ = 
+        min
+        (
+            Maf/FaceAcCo,
+            scalar(1.0)
+        );
+
+    Info<< "max/min kappa: " << max(kappa_).value()
+        << "/" << min(kappa_).value()
+        << endl;
+
+    writeMaxMinKappa (kappa_);
+
+    kappaBlend(kappa_, phi1_own_, phi1_nei_);
+    kappaBlend(kappa_, phi2_own_, phi2_nei_);
+}
+
+void Foam::interTwoPhaseCentralFoam::writeMaxMinKappa
+(
+    const surfaceScalarField& kappa
+)
+{
+    const fvMesh& mesh = kappa.mesh();
+    if (kappa.mesh().time().outputTime())
+    {
+        volScalarField maxKappa
+        (
+            IOobject
+            (
+                "maxKappa",
+                mesh.time().timeName(),
+                mesh,
+                IOobject::NO_READ,
+                IOobject::NO_WRITE
+            ),
+            mesh,
+            dimensionedScalar("maxkappa", dimless,  0.0)
+        );
+
+        volScalarField minKappa
+        (
+            "minKappa",
+            maxKappa*0.0
+        );
+
+        forAll(mesh.cells(), iCell)
+        {
+            scalar maxKappaCell =  -0.01;
+            scalar minKappaCell =  1.01;
+
+            const labelList& cellFaces = mesh.cells()[iCell];
+
+            forAll(cellFaces, iFace)
+            {
+                if (mesh.isInternalFace(cellFaces[iFace]))
+                {
+                    if (kappa[cellFaces[iFace]] > maxKappaCell)
+                    {
+                        maxKappaCell = kappa[cellFaces[iFace]];
+                    }
+                    if (kappa[cellFaces[iFace]] < minKappaCell)
+                    {
+                        minKappaCell = kappa[cellFaces[iFace]];
+                    }
+                }
+            }
+
+            maxKappa[iCell] = maxKappaCell;
+            minKappa[iCell] = minKappaCell;
+        }
+
+        maxKappa.write();
+        minKappa.write();
+    }
+}
+
 
 void Foam::interTwoPhaseCentralFoam::volumeFlux()
 {
-  surfaceScalarField rho1_own = fvc::interpolate(rho1_, own_, "reconstruct(rho1)");
-  surfaceScalarField rho1_nei = fvc::interpolate(rho1_, nei_, "reconstruct(rho1)");
+    surfaceScalarField rho1_own = fvc::interpolate
+    (
+        rho1_,
+        own_,
+        "reconstruct(rho1)"
+    );
+    surfaceScalarField rho1_nei = fvc::interpolate
+    (
+        rho1_,
+        nei_,
+        "reconstruct(rho1)"
+    );
 
     phi_ =
     (
         (phi1_own_ + phi1_nei_)
-        /(alpha_own_ *rho1_own + alpha_nei_*rho1_nei)
+        /(alpha_own_*rho1_own + alpha_nei_*rho1_nei)
     );
+}
+
+void Foam::interTwoPhaseCentralFoam::cellCourantNo()
+{
+    // autoPtr<volScalarField> localCoPtr;
+    // if (mesh.nInternalFaces())
+    // {
+    //     localCoPtr.reset
+    //     (
+    //         new volScalarField
+    //         (
+    //             IOobject
+    //             (
+    //                 "Co",
+    //                 mesh.time().timeName(),
+    //                 mesh
+    //             ),
+    //             mesh,
+    //             dimensionedScalar("localCo", dimless,  VSMALL),
+    //             zeroGradientFvPatchScalarField::typeName
+    //         )
+    //     );
+
+    //     surfaceScalarField rhoPhi = 
+    
+    //     localCoPtr().primitiveFieldRef() = 
+    //     (
+    //         fvc::surfaceSum(mag(phi))().primitiveField()
+    //         /
+    //         rho.primitiveField()
+    //         /
+    //         mesh.V().field()
+    //     ) * 0.5 * runTime.deltaT().value();
+            
+    //     CoNum = gMax(localCoPtr().internalField());
+    // }
+        
+    // Info<< "Courant Number max: " <<  CoNum << endl;
 }
 
 //* * * * * * * * * * * * * * * Update Dencities * * * * * * * * * * * * * * *//
@@ -806,6 +1004,9 @@ void Foam::interTwoPhaseCentralFoam::speedOfSound()
     volScalarField gammaM = CpM/CvM;
 
     C_ = sqrt(gammaM/psiM);
+    
+    Cf_own_ = fvc::interpolate(C_, own_, "reconstruct(psi)");
+    Cf_nei_ = fvc::interpolate(C_, nei_, "reconstruct(psi)");
 }
 
 void Foam::interTwoPhaseCentralFoam::UpdateCentralWeights
@@ -896,6 +1097,17 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralMassFluxes
 
     Dpi_own = alpha_own*fvc::interpolate(rhoi*rbyA, own_, "reconstruct(Dp)");
     Dpi_nei = alpha_nei*fvc::interpolate(rhoi*rbyA, nei_, "reconstruct(Dp)");
+}
+
+void Foam::interTwoPhaseCentralFoam::kappaBlend
+(
+    const surfaceScalarField& kappa,
+    surfaceScalarField& phi_own,
+    surfaceScalarField& phi_nei
+)
+{
+    phi_own += (1.0 - kappa) * phi_nei;
+    phi_nei = kappa * phi_nei;
 }
 
 //* * * * * * * * * * * * Kurganov's coefficients Mixture * * * * * * * * * *//

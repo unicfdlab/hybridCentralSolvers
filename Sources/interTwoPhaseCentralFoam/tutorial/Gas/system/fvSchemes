@@ -49,8 +49,7 @@ div(((interpolate(volumeFraction1)*phi1_own_)+((1-interpolate(volumeFraction1))*
    div(phi2_own_,U) Gauss $defaultAdvSchemeV;
    div(phi2_nei_,U) Gauss $defaultAdvSchemeV;
 
-   div((mu1*dev2(T(grad(U))))) Gauss linear;
-   div((mu2*dev2(T(grad(U))))) Gauss linear;
+   div((mu*dev2(T(grad(U))))) Gauss linear;
 
    //Energy equation
 

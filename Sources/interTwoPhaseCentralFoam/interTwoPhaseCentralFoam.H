@@ -36,8 +36,7 @@ SourceFiles
 #include "volFields.H"
 #include "surfaceFields.H"
 #include "scalarField.H"
-//#include "kappaFunction.H"
-//#include "standardMachToAcCourantRatioKappaFunction.H"
+#include "kappaFunction.H"
 #include "psiThermo.H"
 #include "CorrectPhi.H"
 #include "pimpleControl.H"
@@ -172,6 +171,12 @@ namespace Foam
             //- The 1/A matrix of the Momentum equation
             volScalarField rbyA_;
 
+            //- Kappa KT/PISO blending function
+            autoPtr<fv::kappaFunction> kappaFuncPtr_;
+
+            //- Kappa KT/PISO blending field
+            surfaceScalarField kappa_;
+
 /********************Variables for Update-Central Wieghts Function*************/
 
             dimensionedScalar v_zero;
@@ -208,6 +213,17 @@ namespace Foam
 
             surfaceScalarField phi2_nei_;
 
+/*                             Mixture props                                  */
+
+            //- mixture speed of sound interpolated to faces from owners
+            surfaceScalarField Cf_own_;
+
+            //- mixture speed of sound interpolated to faces from neighbours
+            surfaceScalarField Cf_nei_;
+            
+            //- mixture dynamic viscosity
+            volScalarField mu_;
+
 /****************************Update Central Fields*****************************/
 
             surfaceScalarField phi1d_own_;
@@ -226,6 +242,14 @@ namespace Foam
 
             surfaceScalarField Dp2_nei_;
 
+            surfaceScalarField phi01d_own_;
+
+            surfaceScalarField phi01d_nei_;
+
+            surfaceScalarField phi02d_own_;
+
+            surfaceScalarField phi02d_nei_;
+
             fvScalarMatrix pEqn1_own_;
 
             fvScalarMatrix pEqn1_nei_;
@@ -240,9 +264,7 @@ namespace Foam
 
 /******************************Viscosity Terms*********************************/
 
-            fvVectorMatrix divDevRhoReff1_;
-
-            fvVectorMatrix divDevRhoReff2_;
+            fvVectorMatrix divDevRhoReff_;
 
             fvScalarMatrix Tviscosity1;
 
@@ -257,14 +279,6 @@ namespace Foam
             volScalarField TSource2_;
 
             volScalarField TSource_;            
-
-            surfaceScalarField phi01d_own_;
-
-            surfaceScalarField phi01d_nei_;
-
-            surfaceScalarField phi02d_own_;
-
-            surfaceScalarField phi02d_nei_;
 
 /******************************Something Essential*****************************/
 
@@ -327,6 +341,24 @@ namespace Foam
                 surfaceScalarField& alpha_nei,
                 surfaceScalarField& aSf
             );
+
+            //- Update value of kappa and blend all neccesary flux fields
+            void kappaBlend
+            (
+                const surfaceScalarField& kappa,
+                surfaceScalarField& phi_own,
+                surfaceScalarField& phi_nei
+            );
+
+            //- Writes min and max of kappa in cells for post-processing
+            void writeMaxMinKappa
+            (
+                const surfaceScalarField& kappa
+            );
+
+            //- Calculate cell Courant number
+            void cellCourantNo
+            ();
 
         public:
 
@@ -391,11 +423,13 @@ namespace Foam
 
             void Initialize();
 
-//* * * * * * * * * * * * * * * * Flux` Functions * * * * * * * * * * * * * *//
+//* * * * * * * * * * * * * * * * Flux Functions * * * * * * * * * * * * * *//
 
-            virtual void Flux();
+            void Flux();
 
-            virtual void volumeFlux();
+            void volumeFlux();
+
+            void updateKappa();
 
 //* * * * * * * * * * * * * * * Update Dencities * * * * * * * * * * * * * * *//
 

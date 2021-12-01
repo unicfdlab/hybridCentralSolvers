@@ -32,7 +32,7 @@ void Foam::interTwoPhaseCentralFoam::pressureGradient()
 //    gradp_ = fvc::div((alpha2_own_ *p_own + alpha2_nei_*p_nei)*U_.mesh().Sf());
 //    gradp_ = fvc::grad(p_);
 
-    gradp_ = volumeFraction1_*
+    gradp_ =  volumeFraction1_*
         fvc::div((alpha1_own_ *p_own + alpha1_nei_*p_nei)*U_.mesh().Sf());
     gradp_ += volumeFraction2_*
         fvc::div((alpha2_own_ *p_own + alpha2_nei_*p_nei)*U_.mesh().Sf());
@@ -42,16 +42,11 @@ void Foam::interTwoPhaseCentralFoam::pressureGradient()
 
 void Foam::interTwoPhaseCentralFoam::divDevRhoReff()
 {
-    divDevRhoReff1_ =
+    mu_ = volumeFraction1_*mu1_ + volumeFraction2_*mu2_;
+    divDevRhoReff_ =
     (
-        - fvm::laplacian(mu1_, U_)
-        - fvc::div((mu1_)*dev2(Foam::T(fvc::grad(U_))))
-    );
-
-    divDevRhoReff2_ =
-    (
-        - fvm::laplacian(mu2_, U_)
-        - fvc::div((mu2_)*dev2(Foam::T(fvc::grad(U_))))
+        - fvm::laplacian(mu_, U_)
+        - fvc::div((mu_)*dev2(Foam::T(fvc::grad(U_))))
     );
 }
 
