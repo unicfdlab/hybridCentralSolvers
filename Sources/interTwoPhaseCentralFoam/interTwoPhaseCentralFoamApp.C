@@ -79,6 +79,8 @@ int main(int argc, char *argv[])
 
         while (pimple.loop())
         {
+            Veronika.updateK();         //Calculate values of C1_, C2_, Z1_, Z2_, K_, and phi_
+
             Veronika.alpha1Eqnsolve();
 
             Veronika.massError1();
@@ -93,7 +95,7 @@ int main(int argc, char *argv[])
 
             Veronika.Compressibility(); //Update psi1_ = molM1_/(R_ * T_) and psi2_
 
-            Veronika.updateK();         //Calculate values of C1_, C2_, Z1_, Z2_, K_, and phi_
+//            Veronika.updateK();         //Calculate values of C1_, C2_, Z1_, Z2_, K_, and phi_
 
             Veronika.DensityThermo();
 

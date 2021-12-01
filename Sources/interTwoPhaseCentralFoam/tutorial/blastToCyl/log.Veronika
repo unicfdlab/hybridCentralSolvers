@@ -1,0 +1,41 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2012                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _269d0ffd5c-20210619 OPENFOAM=2012 patch=210618
+Arch   : "LSB;label=32;scalar=64"
+Exec   : Veronika
+Date   : Dec 01 2021
+Time   : 14:16:12
+Host   : friday
+PID    : 24205
+I/O    : uncollated
+Case   : /home/aleksandr/OpenFOAM/aleksandr-v2012/hybridCentralSolvers/Sources/interTwoPhaseCentralFoam/tutorial/blastToCyl
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+
+PIMPLE: no residual control data found. Calculations will employ 5 corrector loops
+
+
+
+--> FOAM FATAL IO ERROR: (openfoam-2012 patch=210618)
+Entry 'R' not found in dictionary "/home/aleksandr/OpenFOAM/aleksandr-v2012/hybridCentralSolvers/Sources/interTwoPhaseCentralFoam/tutorial/blastToCyl/constant/phaseProperties"
+
+file: /home/aleksandr/OpenFOAM/aleksandr-v2012/hybridCentralSolvers/Sources/interTwoPhaseCentralFoam/tutorial/blastToCyl/constant/phaseProperties at line 11 to 29.
+
+    From bool Foam::dimensioned<Type>::readEntry(const Foam::word&, const Foam::dictionary&, bool, bool, Foam::keyType::option) [with Type = double]
+    in file /usr/lib/openfoam/openfoam2012/src/OpenFOAM/lnInclude/dimensionedType.C at line 100.
+
+FOAM exiting
+
