@@ -17,30 +17,44 @@ FoamFile
 
 solvers
 {
-    "(rho1|rho2|volumeFraction1|U|T|p).*"
+    "(rho1|rho2|volumeFraction1|U|T|p)"
     {
         solver          PBiCGStab;
         preconditioner	DILU;
         tolerance       1e-9;
         relTol          0.0;
+        cAlpha          1.0;
+        nAlphaCorr      1;
+    }
+
+    "(rho1|rho2|volumeFraction1|U|T|p)Final"
+    {
+      $p;
+    }
+
+    "pcorrFinal"
+    {
+      solver          PCG;
+      preconditioner  DIC;
+      tolerance       1e-9;
+      relTol          0.0;
     }
 }
 
 PIMPLE
 {
 
-    nOuterCorrectors            7;
+    nOuterCorrectors            3;
     nCorrectors                 1;
 
     kappaFunction
-{
-    type standardMachToAcCourantRatio;
-
-    standardMachToAcCourantRatioCoeffs
     {
-      writeMaxMin true;
+        type standardMachToAcCourantRatio;
+        standardMachToAcCourantRatioCoeffs
+        {
+            writeMaxMin false;
+        }
     }
-}
 }
 
 // ************************************************************************* //

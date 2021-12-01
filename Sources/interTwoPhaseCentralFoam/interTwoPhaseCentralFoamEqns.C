@@ -21,6 +21,7 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 \*---------------------------------------------------------------------------*/
 #include "interTwoPhaseCentralFoam.H"
+#include "MULES.H"
 
 //Equations of the model
 
@@ -53,27 +54,132 @@ void Foam::interTwoPhaseCentralFoam::solveRho2()
 
 void Foam::interTwoPhaseCentralFoam::alpha1Eqnsolve()
 {
-    vF1face_ = fvc::interpolate
+    //MULES version with antidiffusive flux
+
+    const fvMesh& mesh = phi_.mesh();
+    word alphaScheme("div(phi,volumeFraction1)");
+    word alpharScheme("div(phirb,volumeFraction1)");
+
+    interface_.correct();
+
+    // Set the off-centering coefficient according to ddt scheme
+    scalar ocCoeff = 0;
+
+    // Set the time blending factor, 1 for Euler
+    scalar cnCoeff = 1.0/(1.0 + ocCoeff);
+
+    scalar cAlpha  =  interface_.cAlpha(); //or read from dictionary
+
+    // Standard face-flux compression coefficient
+    surfaceScalarField phic(cAlpha*mag(phi_/mesh.magSf()));
+
+    surfaceScalarField::Boundary& phicBf =
+        phic.boundaryFieldRef();
+
+    // Do not compress interface at non-coupled boundary faces
+    // (inlets, outlets etc.)
+    forAll(phic.boundaryField(), patchi)
+    {
+        fvsPatchScalarField& phicp = phicBf[patchi];
+
+        if (!phicp.coupled())
+        {
+            phicp == 0;
+        }
+    }
+
+    tmp<surfaceScalarField> phiCN(phi_);
+    
+    volScalarField divU
     (
-        volumeFraction1_,
-        "reconstruct(volumeFraction1)"
-    );
-    vF2face_ = 1.0 - vF1face_;
-
-    fvScalarMatrix alpha1Eqn
-    (
-
-        fvm::ddt(volumeFraction1_)
-        +
-        fvc::div(phi_, volumeFraction1_)
-        ==
-        (1 + K_)*fvc::div(phi_)*volumeFraction1_
-
+        fvc::div(phi_)
     );
 
-    alpha1Eqn.solve();
+    const dictionary& vf1Controls = mesh.solverDict(volumeFraction1_.name());
+    label nAlphaCorr(vf1Controls.get<label>("nAlphaCorr"));
 
-    volumeFraction2_ = 1 - volumeFraction1_;
+    for (int aCorr=0; aCorr<nAlphaCorr; aCorr++)
+    {
+        volScalarField::Internal Sp
+        (
+            IOobject
+            (
+                "Sp",
+                mesh.time().timeName(),
+                mesh
+            ),
+            divU*0.0
+        );
+
+        volScalarField::Internal Su
+        (
+            IOobject
+            (
+                "Su",
+                mesh.time().timeName(),
+                mesh
+            ),
+            (1.0 + K_)*divU*volumeFraction1_
+        );
+
+
+        surfaceScalarField phir(phic*interface_.nHatf());
+
+        tmp<surfaceScalarField> talphaPhi1Un
+        (
+            fvc::flux
+            (
+                phiCN(),
+                cnCoeff*volumeFraction1_,
+                alphaScheme
+            ) 
+          + fvc::flux
+            (
+               -fvc::flux(-phir, volumeFraction2_, alpharScheme),
+                volumeFraction1_,
+                alpharScheme
+            )
+        );
+        
+        surfaceScalarField alphaPhi10 = talphaPhi1Un;
+
+        MULES::explicitSolve
+        (
+            geometricOneField(),
+            volumeFraction1_,
+            phiCN,
+            alphaPhi10,
+            Sp,
+            Su,
+            oneField(),
+            zeroField()
+        );
+
+        //#include "alphasMinMax.H"
+    }
+
+
+    // vF1face_ = fvc::interpolate
+    // (
+    //     volumeFraction1_,
+    //     "reconstruct(volumeFraction1)"
+    // );
+    // vF2face_ = 1.0 - vF1face_;
+
+    // fvScalarMatrix alpha1Eqn
+    // (
+
+    //     fvm::ddt(volumeFraction1_)
+    //     +
+    //     fvc::div(phi_, volumeFraction1_)
+    //     ==
+    //     (1 + K_)*fvc::div(phi_)*volumeFraction1_
+
+    // );
+
+    // alpha1Eqn.solve();
+
+    // volumeFraction2_ = 1 - volumeFraction1_;
 
     Info<< "max: volumeFraction1 " << max(volumeFraction1_).value()
         << " min: " << min(volumeFraction1_).value()

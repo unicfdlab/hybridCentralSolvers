@@ -172,6 +172,13 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
         1 - volumeFraction1_
     ),
 
+    interface_
+    (
+        volumeFraction1_,
+        U_,
+        *this
+    ),
+
     rho_
     (
         IOobject

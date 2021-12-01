@@ -41,6 +41,7 @@ SourceFiles
 #include "CorrectPhi.H"
 #include "pimpleControl.H"
 #include "physicoChemicalConstants.H"
+#include "interfaceProperties.H"
 
 namespace Foam
 {
@@ -111,6 +112,9 @@ namespace Foam
             //- Volume fraction of the first phase
             //- NO_READ
             volScalarField volumeFraction2_;
+
+            //- Description of the interface
+            interfaceProperties interface_;
 
             //- Total density of a mixture
             volScalarField rho_;
