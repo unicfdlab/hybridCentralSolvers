@@ -77,7 +77,7 @@ div(((interpolate(volumeFraction1)*phi1_own_)+((1-interpolate(volumeFraction1))*
 
 laplacianSchemes
 {
-    default         Gauss linear uncorrected;
+    default         Gauss linear corrected;
 }
 
 interpolationSchemes

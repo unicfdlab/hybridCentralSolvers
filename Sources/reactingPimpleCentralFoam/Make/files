@@ -1,3 +1,3 @@
 reactingPimpleCentralFoam.C
 
-EXE = $(FOAM_APPBIN)/reactingPimpleCentralFoam
+EXE = $(FOAM_USER_APPBIN)/reactingPimpleCentralFoam

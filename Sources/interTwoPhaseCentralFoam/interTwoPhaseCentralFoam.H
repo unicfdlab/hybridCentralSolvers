@@ -309,11 +309,11 @@ namespace Foam
 
             //- Solve for density using explicit fluxes
             void solveRho
-                (
-                    volScalarField& rhoi, 
-                    const surfaceScalarField& phii_own,
-                    const surfaceScalarField& phii_nei
-                );
+            (
+                volScalarField& rhoi, 
+                const surfaceScalarField& phii_own,
+                const surfaceScalarField& phii_nei
+            );
 
             //- Update mass flux components using KT scheme coefficients
             void UpdateCentralMassFluxes
@@ -363,6 +363,18 @@ namespace Foam
             //- Calculate cell Courant number
             void cellCourantNo
             ();
+            
+            //- Combines balance matrices from different phases
+            // values of matrices m1 and m2 are multiplied
+            void combineMatrices
+            (
+                const fvScalarMatrix& m1,
+                const fvScalarMatrix& m2,
+                const volScalarField& vf1,
+                const volScalarField& vf2,
+                fvScalarMatrix& m,
+                bool removeConst = false
+            );
 
         public:
 

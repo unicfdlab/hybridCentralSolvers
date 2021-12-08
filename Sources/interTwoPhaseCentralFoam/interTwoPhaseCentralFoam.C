@@ -826,8 +826,8 @@ void Foam::interTwoPhaseCentralFoam::updateKappa()
 
     writeMaxMinKappa (kappa_);
 
-    kappaBlend(kappa_, phi1_own_, phi1_nei_);
-    kappaBlend(kappa_, phi2_own_, phi2_nei_);
+    //kappaBlend(kappa_, phi1_own_, phi1_nei_);
+    //kappaBlend(kappa_, phi2_own_, phi2_nei_);
 }
 
 void Foam::interTwoPhaseCentralFoam::writeMaxMinKappa
@@ -948,6 +948,75 @@ void Foam::interTwoPhaseCentralFoam::cellCourantNo()
     // }
 
     // Info<< "Courant Number max: " <<  CoNum << endl;
+}
+
+void Foam::interTwoPhaseCentralFoam::combineMatrices
+(
+    const fvScalarMatrix& m1,
+    const fvScalarMatrix& m2,
+    const volScalarField& vf1,
+    const volScalarField& vf2,
+    fvScalarMatrix& m,
+    bool removeConst
+)
+{
+    autoPtr<lduMatrix> ldu1;
+    autoPtr<lduMatrix> ldu2;
+    
+    if (removeConst)
+    {
+        ldu1.reset
+        (
+            new lduMatrix(const_cast<fvScalarMatrix&>(m1),true)
+        );
+        ldu2.reset
+        (
+            new lduMatrix(const_cast<fvScalarMatrix&>(m2),true)
+        );
+    }
+    else
+    {
+        ldu1.reset(new lduMatrix(m1));
+        ldu2.reset(new lduMatrix(m2));
+    }
+    
+    ldu1().lduMatrix::operator*=
+        (
+            vf1.primitiveField()
+        );
+    ldu2().lduMatrix::operator*=
+        (
+            vf2.primitiveField()
+        );
+    m.lduMatrix::operator+=(ldu1());
+    m.lduMatrix::operator+=(ldu2());
+    
+    m.source() += 
+        vf1.primitiveField()*
+        m1.source();
+    m.source() += 
+        vf2.primitiveField()*
+        m2.source();
+
+    forAll(m.boundaryCoeffs(), patchi)
+    {
+        scalarField pvf1
+        (
+             vf1.mesh().boundary()[patchi].patchInternalField(vf1.field())
+        );
+        scalarField pvf2
+        (
+             vf2.mesh().boundary()[patchi].patchInternalField(vf2.field())
+        );
+        
+        m.internalCoeffs()[patchi] =
+            pvf1*m1.internalCoeffs()[patchi] +
+            pvf2*m2.internalCoeffs()[patchi];
+
+        m.boundaryCoeffs()[patchi] =
+            pvf1*m1.boundaryCoeffs()[patchi] +
+            pvf2*m2.boundaryCoeffs()[patchi];
+    }
 }
 
 //* * * * * * * * * * * * * * * Update Dencities * * * * * * * * * * * * * * *//

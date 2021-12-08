@@ -45,11 +45,13 @@ void Foam::interTwoPhaseCentralFoam::solveRho
 void Foam::interTwoPhaseCentralFoam::solveRho1()
 {
     solveRho(rho1_, phi1_own_, phi1_nei_);
+    rho1_ = max(rho1_,rho1Min);
 }
 
 void Foam::interTwoPhaseCentralFoam::solveRho2()
 {
     solveRho(rho2_, phi2_own_, phi2_nei_);
+    rho2_ = max(rho2_,rho2Min);
 }
 
 void Foam::interTwoPhaseCentralFoam::alpha1Eqnsolve()
@@ -221,25 +223,36 @@ void Foam::interTwoPhaseCentralFoam::ReconstructVelocity()
 
 void Foam::interTwoPhaseCentralFoam::TEqnsolve()
 {
+    fvScalarMatrix TEqn1
+    (
+        fvm::ddt(rho1_,T_)
+        + fvm::div(phi1_own_,T_) + fvm::div(phi1_nei_,T_)
+        - fvm::Sp(E1_,T_)
+        + 1/Cp1_*TSource1_
+    );
+    
+    fvScalarMatrix TEqn2
+    (
+        fvm::ddt(rho2_,T_)
+        + fvm::div(phi2_own_,T_) + fvm::div(phi2_nei_,T_)
+        - fvm::Sp(E2_,T_)
+        + 1/Cp2_*TSource2_
+    );
+    
     fvScalarMatrix TEqn
     (
-        volumeFraction1_ *
-        (
-            fvm::ddt(rho1_,T_)
-            + fvm::div(phi1_own_,T_) + fvm::div(phi1_nei_,T_)
-            - fvm::Sp(E1_,T_)
-//          + Tviscosity1
-            + 1/Cp1_*TSource1_
-        )
-        + 
-        volumeFraction2_*
-        (
-            fvm::ddt(rho2_,T_)
-            + fvm::div(phi2_own_,T_) + fvm::div(phi2_nei_,T_)
-            - fvm::Sp(E2_,T_)
-//          + Tviscosity2
-            + 1/Cp2_*TSource2_
-        )
+        T_,
+        rho1_.dimensions()*T_.dimensions()/dimTime
+    );
+    
+    combineMatrices
+    (
+        TEqn1,
+        TEqn2,
+        volumeFraction1_,
+        volumeFraction2_,
+        TEqn,
+        true //do not copy: update origin matrices
     );
 
     TEqn.solve();
@@ -295,19 +308,33 @@ void Foam::interTwoPhaseCentralFoam::pEqnsolve()
         + fvm::div(phi2d_nei_,p_)
         - fvm::laplacian(Dp2_nei_, p_)
     );
-
-    fvScalarMatrix pEqn
+    
+    fvScalarMatrix pEqn1
     (
-        volumeFraction1_*
-        (
-            fvm::ddt(psi1_,p_) + pEqn1_own_ + pEqn1_nei_
-        )
-        + volumeFraction2_*
-        (
-            fvm::ddt(psi2_,p_) + pEqn2_own_ + pEqn2_nei_
-        )
+        fvm::ddt(psi1_,p_) + pEqn1_own_ + pEqn1_nei_
     );
 
+    fvScalarMatrix pEqn2
+    (
+        fvm::ddt(psi2_,p_) + pEqn2_own_ + pEqn2_nei_
+    );
+    
+    fvScalarMatrix pEqn
+    (
+        p_,
+        p_.dimensions()*psi1_.dimensions()/dimTime
+    );
+    
+    combineMatrices
+    (
+        pEqn1,
+        pEqn2,
+        volumeFraction1_,
+        volumeFraction2_,
+        pEqn,
+        true //do not copy: update origin matrices
+    );
+    
     pEqn.solve();
 }
 
