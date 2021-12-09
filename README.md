@@ -67,6 +67,13 @@ The library or approach were used in next projects:
 
 If you want to see your research in this list, please write to [Issues](https://github.com/unicfdlab/hybridCentralSolvers/issues) .
 
+## <p align="center"> >>>>> 2022 <<<<<  </p> 
+
+| Title | Description |
+|------|-------------|
+|[Analysis of the ignition induced by shock wave focusing equipped with conical and hemispherical reflectors](https://doi.org/10.1016/j.combustflame.2021.111763) | --- |
+
+
 ## <p align="center"> >>>>> 2021 <<<<<  </p> 
 
 | Title | Description |
