@@ -216,7 +216,8 @@ void Foam::interTwoPhaseCentralFoam::UEqn()
 void Foam::interTwoPhaseCentralFoam::ReconstructVelocity()
 {
     pressureGradient();
-    U_ = HbyA_ - rbyA_*gradp_;
+    U_ = HbyA_ - rbyA_*gradp_ 
+         +  rbyA_*fvc::reconstruct(phib_/rAUf_);
     U_.correctBoundaryConditions();
 }
 

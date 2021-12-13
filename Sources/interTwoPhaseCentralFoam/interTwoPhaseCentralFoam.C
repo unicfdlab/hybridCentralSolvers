@@ -294,6 +294,12 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
         dimensionSet(-1, 3, 1, 0, 0, 0, 0)
     ),
 
+    phib_
+    (
+        "phib",
+        0.0*(linearInterpolate(HbyA) & mesh.Sf())
+    ),
+
     kappa_
     (
         IOobject
@@ -1323,4 +1329,15 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralFieldsIndividual()
         Dp2_own_,
         Dp2_nei_
     );
+    
+    //add contribution from body forces
+    {
+        const fvMesh& mesh = HbyA_.mesh();
+        surfaceScalarField ghSf = gh_ & mesh.Sf();
+        rAUf_ = linearInterpolate(rbyA_);
+        phib_ = -ghSf*fvc::snGrad(rho_)/rAUf_;
+        
+        phi01d_own_ += linearInterpolate(rho1_)*phib_;
+        phi02d_own_ += linearInterpolate(rho2_)*phib_;
+    }
 }

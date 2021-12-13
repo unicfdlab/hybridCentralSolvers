@@ -175,6 +175,9 @@ namespace Foam
             //- The 1/A matrix of the Momentum equation
             volScalarField rbyA_;
 
+            //- Volumetric flux due to body forces
+            surfaceScalarField phib_;
+
             //- Kappa KT/PISO blending function
             autoPtr<fv::kappaFunction> kappaFuncPtr_;
 
