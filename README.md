@@ -71,7 +71,7 @@ If you want to see your research in this list, please write to [Issues](https://
 
 | Title | Description |
 |------|-------------|
-|[Analysis of the ignition induced by shock wave focusing equipped with conical and hemispherical reflectors](https://doi.org/10.1016/j.combustflame.2021.111763) | --- |
+|[Analysis of the ignition induced by shock wave focusing equipped with conical and hemispherical reflectors](https://www.researchgate.net/publication/355077511_Analysis_of_the_ignition_induced_by_shock_wave_focusing_equipped_with_conical_and_hemispherical_reflectors):  **Article** |![Temperature distribution](https://ars.els-cdn.com/content/image/1-s2.0-S001021802100506X-gr5.jpg)| 
 
 
 ## <p align="center"> >>>>> 2021 <<<<<  </p> 
