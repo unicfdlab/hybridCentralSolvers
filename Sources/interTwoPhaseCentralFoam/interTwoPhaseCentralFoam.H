@@ -42,7 +42,11 @@ SourceFiles
 #include "pimpleControl.H"
 #include "physicoChemicalConstants.H"
 #include "interfaceProperties.H"
-
+/*
+#include "readGravitationalAcceleration.H"
+#include "readhRef.H"
+#include "gh.H"
+*/
 namespace Foam
 {
 
@@ -227,7 +231,7 @@ namespace Foam
 
             //- mixture speed of sound interpolated to faces from neighbours
             surfaceScalarField Cf_nei_;
-            
+
             //- mixture dynamic viscosity
             volScalarField mu_;
 
@@ -285,7 +289,7 @@ namespace Foam
 
             volScalarField TSource2_;
 
-            volScalarField TSource_;            
+            volScalarField TSource_;
 
 /******************************Something Essential*****************************/
 
@@ -313,7 +317,7 @@ namespace Foam
             //- Solve for density using explicit fluxes
             void solveRho
             (
-                volScalarField& rhoi, 
+                volScalarField& rhoi,
                 const surfaceScalarField& phii_own,
                 const surfaceScalarField& phii_nei
             );
@@ -337,7 +341,7 @@ namespace Foam
                 surfaceScalarField& Dpi_nei
             );
 
-            //- Update KT central weights using given density, velocity and 
+            //- Update KT central weights using given density, velocity and
             //sound velocity
             void UpdateCentralWeights
             (
@@ -366,7 +370,7 @@ namespace Foam
             //- Calculate cell Courant number
             void cellCourantNo
             ();
-            
+
             //- Combines balance matrices from different phases
             // values of matrices m1 and m2 are multiplied
             void combineMatrices
