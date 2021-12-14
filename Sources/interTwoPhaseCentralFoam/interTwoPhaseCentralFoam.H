@@ -42,11 +42,8 @@ SourceFiles
 #include "pimpleControl.H"
 #include "physicoChemicalConstants.H"
 #include "interfaceProperties.H"
-/*
-#include "readGravitationalAcceleration.H"
-#include "readhRef.H"
-#include "gh.H"
-*/
+
+#include "gravityMeshObject.H"
 namespace Foam
 {
 
@@ -311,6 +308,12 @@ namespace Foam
             dimensionedScalar rho2Min;
 
             volScalarField Q_;
+
+            surfaceScalarField rAUf_;
+
+            volScalarField gh_;
+
+            surfaceScalarField ghf_;
 
         protected:
 

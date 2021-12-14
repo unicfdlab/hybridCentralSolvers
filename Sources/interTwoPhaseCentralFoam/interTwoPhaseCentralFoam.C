@@ -623,6 +623,39 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
     Q_
     (
         0.5*magSqr(U_)
+    ),
+
+    rAUf_
+    (
+        linearInterpolate(rbyA_)
+    ),
+
+    gh_
+    (
+        IOobject
+        (
+            "gh",
+            mesh.time().timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionSet(1, 1, -2, 0, 0, 0, 0)
+    ),
+
+    ghf_
+    (
+        IOobject
+        (
+            "ghf",
+            mesh.time().timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionSet(1, 1, -2, 0, 0, 0, 0)
     )
 
 {
@@ -727,6 +760,39 @@ void Foam::interTwoPhaseCentralFoam::TSourceV2()
 
 void Foam::interTwoPhaseCentralFoam::Initialize()
 {
+
+    const fvMesh & mesh = U_.mesh();
+    const Foam::Time& runTime = U_.mesh().time();
+
+    Info<< "\nReading g" << endl;
+    const meshObjects::gravity& g = meshObjects::gravity::New(runTime);
+
+    Info<< "\nReading hRef" << endl;
+    uniformDimensionedScalarField hRef
+    (
+        IOobject
+        (
+            "hRef",
+            runTime.constant(),
+            mesh,
+            IOobject::READ_IF_PRESENT,
+            IOobject::NO_WRITE
+        ),
+        dimensionedScalar(dimLength, Zero)
+    );
+
+    Info<< "Calculating field g.h\n" << endl;
+    dimensionedScalar ghRef
+    (
+        mag(g.value()) > SMALL
+      ? g & (cmptMag(g.value())/mag(g.value()))*hRef
+      : dimensionedScalar("ghRef", g.dimensions()*dimLength, 0)
+    );
+
+    gh_ = ((g & U_.mesh().C()) - ghRef);
+
+    ghf_ = ((g & U_.mesh().Cf()) - ghRef);
+
     R_ = Foam::constant::physicoChemical::R;
 
     Compressibility();
@@ -1332,8 +1398,9 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralFieldsIndividual()
 
     //add contribution from body forces
     {
-        const fvMesh& mesh = HbyA_.mesh();
-        surfaceScalarField ghSf = gh_ & mesh.Sf();
+//        const fvMesh& mesh = HbyA_.mesh();
+        surfaceScalarField ghSf = ghf_ * U_.mesh().magSf();
+
         rAUf_ = linearInterpolate(rbyA_);
         phib_ = -ghSf*fvc::snGrad(rho_)/rAUf_;
 
