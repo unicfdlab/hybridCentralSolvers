@@ -1407,4 +1407,105 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralFieldsIndividual()
         phi01d_own_ += linearInterpolate(rho1_)*phib_;
         phi02d_own_ += linearInterpolate(rho2_)*phib_;
     }
+
+
+
+    {
+        forAll(phib_.boundaryField(), patchi)
+        {
+            if (!phib_.boundaryField()[patchi].coupled())
+            {
+                (phib_.boundaryField(), patchi) = 0.0;
+            }
+        }
+    }
+
+     // Cache p_rgh prior to solve for density update
+     volScalarField p_rgh_0(p_rgh);
+     volScalarField rhol_0(rho1);
+     volScalarField p_0(p);
+
+     while (pimple.correctNonOrthogonal())
+     {
+         fvScalarMatrix p_rghEqnIncomp_own
+         (
+             fvc::div(phiHbyA_own)
+           - fvm::laplacian(rAUf_own, p_rgh)
+         );
+
+         fvScalarMatrix p_rghEqnIncomp_nei
+         (
+             fvc::div(phiHbyA_nei)
+           - fvm::laplacian(rAUf_nei, p_rgh)
+         );
+
+         solve
+         (
+         pos(alpha1)
+        *(
+             (
+               alpha1*fvc::ddt(rho1)
+               + fvc::surfaceAsymmetricIntegrate(aphiv_own, rho1_own, alpha1)
+               + fvc::surfaceAsymmetricIntegrate(aphiv_nei, rho1_nei, alpha1)
+              )/rho1
+           - ddtAlpha1
+           - fvc::div(alphaPhi1)
+         ) +
+         pos(alpha2)
+         *(
+             (
+                 alpha2*fvc::ddt(rho2)
+                 + fvc::surfaceAsymmetricIntegrate(aphiv_own, rho2_own, alpha2)
+                 + fvc::surfaceAsymmetricIntegrate(aphiv_nei, rho2_nei, alpha2)
+             )/rho2
+           - ddtAlpha2
+           - fvc::div(alphaPhi2)
+           + (alpha2*psi2/rho2)*correction(fvm::st::ddt(p_rgh))
+          )
+              + (pos(alpha1)*alpha1*psi1/rho1
+              + pos(alpha2)*alpha2*psi2/rho2)*correction(fvm::ddt(p_rgh))
+              + p_rghEqnIncomp_own + p_rghEqnIncomp_nei,
+             mesh.solver(p_rgh.select(pimple.finalInnerIter()))
+         );
+
+         if (pimple.finalNonOrthogonalIter())
+         {
+             p = max
+             (
+                 (p_rgh + alpha1*rhol_0*ghRamped) / (1.0 - ghRamped*mixture.psi()),
+                 pMin
+             );
+
+             aphiv_own = phiHbyA_own + p_rghEqnIncomp_own.flux();
+             aphiv_nei = phiHbyA_nei + p_rghEqnIncomp_nei.flux();
+             phi       = aphiv_own + aphiv_nei;
+
+             mixture.thermo1().correctRho(psi1*(p - p_0));
+             mixture.thermo2().correctRho(psi2*(p - p_0));
+             mixture.correctRho();
+
+             gradp = fvc::grad(p_rgh);
+
+             U = HbyA - rAU*gradp
+                 + rAU*fvc::reconstruct(phib/(rAUf_own + rAUf_nei));
+             fvOptions.correct(U);
+             U.correctBoundaryConditions();
+
+             if(printDebugValues)
+             {
+                 Info << "max/min rho1:" << max(rho1).value() << "/" << min(rho1).value() << endl;
+                 Info << "max/min rho2:" << max(rho2).value() << "/" << min(rho2).value() << endl;
+                 Info << "max/min psi1:" << max(psi1).value() << "/" << min(psi1).value() << endl;
+                 Info << "max/min psi2:" << max(psi2).value() << "/" << min(psi2).value() << endl;
+                 Info << "max/min p:" << max(p).value() << "/" << min(p).value() << endl;
+                 Info << "max(mag(U)): " << max(mag(U)).value() << endl;
+             }
+         }
+     }
+
+     dpdt = (p_rgh - p_rgh.oldTime())/runTime.deltaT();
+
+     K.storePrevIter();
+
+     K = 0.5*magSqr(U);
 }
