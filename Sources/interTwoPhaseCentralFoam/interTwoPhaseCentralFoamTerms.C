@@ -24,8 +24,8 @@ License
 
 void Foam::interTwoPhaseCentralFoam::pressureGradient()
 {
-    surfaceScalarField p_own = fvc::interpolate(p_, own_, "reconstruct(p)");
-    surfaceScalarField p_nei = fvc::interpolate(p_, nei_, "reconstruct(p)");
+    surfaceScalarField p_own = fvc::interpolate(p_rgh_, own_, "reconstruct(p)");
+    surfaceScalarField p_nei = fvc::interpolate(p_rgh_, nei_, "reconstruct(p)");
     // gradp_ = fvc::div((alpha_own_ *p_own + alpha_nei_*p_nei)*U_.mesh().Sf());
 
 //    gradp_ = fvc::div((alpha1_own_ *p_own + alpha1_nei_*p_nei)*U_.mesh().Sf());
@@ -93,4 +93,3 @@ void Foam::interTwoPhaseCentralFoam::divU()
 //
 //END-OF-FILE
 //
-

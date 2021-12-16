@@ -43,6 +43,7 @@ SourceFiles
 #include "physicoChemicalConstants.H"
 #include "interfaceProperties.H"
 
+#include "gravityMeshObject.H"
 namespace Foam
 {
 
@@ -68,6 +69,8 @@ namespace Foam
             //- Pressure
             //- MUST_READ
             volScalarField p_;
+
+            volScalarField p_rgh_;
 
             //- Temperature
             //- MUST_READ
@@ -227,7 +230,7 @@ namespace Foam
 
             //- mixture speed of sound interpolated to faces from neighbours
             surfaceScalarField Cf_nei_;
-            
+
             //- mixture dynamic viscosity
             volScalarField mu_;
 
@@ -285,7 +288,7 @@ namespace Foam
 
             volScalarField TSource2_;
 
-            volScalarField TSource_;            
+            volScalarField TSource_;
 
 /******************************Something Essential*****************************/
 
@@ -308,12 +311,28 @@ namespace Foam
 
             volScalarField Q_;
 
+            surfaceScalarField rAUf_;
+
+            volScalarField gh_;
+
+            surfaceScalarField ghf_;
+
+            volScalarField Wp_;
+
+            surfaceScalarField Wp_own_;
+
+            surfaceScalarField Wp_nei_;
+
+            volScalarField rho0_;
+
+            surfaceScalarField rho0ghf_;
+
         protected:
 
             //- Solve for density using explicit fluxes
             void solveRho
             (
-                volScalarField& rhoi, 
+                volScalarField& rhoi,
                 const surfaceScalarField& phii_own,
                 const surfaceScalarField& phii_nei
             );
@@ -337,7 +356,7 @@ namespace Foam
                 surfaceScalarField& Dpi_nei
             );
 
-            //- Update KT central weights using given density, velocity and 
+            //- Update KT central weights using given density, velocity and
             //sound velocity
             void UpdateCentralWeights
             (
@@ -366,7 +385,7 @@ namespace Foam
             //- Calculate cell Courant number
             void cellCourantNo
             ();
-            
+
             //- Combines balance matrices from different phases
             // values of matrices m1 and m2 are multiplied
             void combineMatrices
@@ -421,8 +440,6 @@ namespace Foam
             //- Solve an equation for Temperature
             virtual void TEqnsolve();
 
-            virtual void TEqnV2solve();
-
             //- Solve an equation for pressure
             virtual void pEqnsolve();
 
@@ -433,8 +450,6 @@ namespace Foam
             virtual void massError2();
 
             void TSource();
-
-            void TSourceV2();
 
             void pressureGradient();
 
@@ -487,6 +502,10 @@ namespace Foam
 //* * * * * * * * * * * * * * * * * * Others * * * * * * * * * * * * * * * * *//
 
             void divU();
+
+//* * * * * * * * * * * * * * * * * * Adds * * * * * * * * * * * * * * * * *//
+
+            void Adds();
 
     }; // End of the class
 
