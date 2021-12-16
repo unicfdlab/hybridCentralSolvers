@@ -70,6 +70,8 @@ namespace Foam
             //- MUST_READ
             volScalarField p_;
 
+            volScalarField p_rgh_;
+
             //- Temperature
             //- MUST_READ
             volScalarField T_;
@@ -315,6 +317,16 @@ namespace Foam
 
             surfaceScalarField ghf_;
 
+            volScalarField Wp_;
+
+            surfaceScalarField Wp_own_;
+
+            surfaceScalarField Wp_nei_;
+
+            volScalarField rho0_;
+
+            surfaceScalarField rho0ghf_;
+
         protected:
 
             //- Solve for density using explicit fluxes
@@ -428,8 +440,6 @@ namespace Foam
             //- Solve an equation for Temperature
             virtual void TEqnsolve();
 
-            virtual void TEqnV2solve();
-
             //- Solve an equation for pressure
             virtual void pEqnsolve();
 
@@ -440,8 +450,6 @@ namespace Foam
             virtual void massError2();
 
             void TSource();
-
-            void TSourceV2();
 
             void pressureGradient();
 
@@ -494,6 +502,10 @@ namespace Foam
 //* * * * * * * * * * * * * * * * * * Others * * * * * * * * * * * * * * * * *//
 
             void divU();
+
+//* * * * * * * * * * * * * * * * * * Adds * * * * * * * * * * * * * * * * *//
+
+            void Adds();
 
     }; // End of the class
 

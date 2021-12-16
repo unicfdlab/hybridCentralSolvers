@@ -27,7 +27,7 @@ License
 
 void Foam::interTwoPhaseCentralFoam::solveRho
 (
-    volScalarField& rhoi, 
+    volScalarField& rhoi,
     const surfaceScalarField& phii_own,
     const surfaceScalarField& phii_nei
 )
@@ -91,7 +91,7 @@ void Foam::interTwoPhaseCentralFoam::alpha1Eqnsolve()
     }
 
     tmp<surfaceScalarField> phiCN(phi_);
-    
+
     volScalarField divU
     (
         fvc::div(phi_)
@@ -134,7 +134,7 @@ void Foam::interTwoPhaseCentralFoam::alpha1Eqnsolve()
                 phiCN(),
                 cnCoeff*volumeFraction1_,
                 alphaScheme
-            ) 
+            )
           + fvc::flux
             (
                -fvc::flux(-phir, volumeFraction2_, alpharScheme),
@@ -142,7 +142,7 @@ void Foam::interTwoPhaseCentralFoam::alpha1Eqnsolve()
                 alpharScheme
             )
         );
-        
+
         surfaceScalarField alphaPhi10 = talphaPhi1Un;
 
         MULES::explicitSolve
@@ -161,12 +161,12 @@ void Foam::interTwoPhaseCentralFoam::alpha1Eqnsolve()
     }
 
 
-    // vF1face_ = fvc::interpolate
-    // (
-    //     volumeFraction1_,
-    //     "reconstruct(volumeFraction1)"
-    // );
-    // vF2face_ = 1.0 - vF1face_;
+     vF1face_ = fvc::interpolate
+     (
+         volumeFraction1_,
+         "reconstruct(volumeFraction1)"
+     );
+     vF2face_ = 1.0 - vF1face_;
 
     // fvScalarMatrix alpha1Eqn
     // (
@@ -181,7 +181,7 @@ void Foam::interTwoPhaseCentralFoam::alpha1Eqnsolve()
 
     // alpha1Eqn.solve();
 
-    // volumeFraction2_ = 1 - volumeFraction1_;
+     volumeFraction2_ = 1 - volumeFraction1_;
 
     Info<< "max: volumeFraction1 " << max(volumeFraction1_).value()
         << " min: " << min(volumeFraction1_).value()
@@ -216,7 +216,7 @@ void Foam::interTwoPhaseCentralFoam::UEqn()
 void Foam::interTwoPhaseCentralFoam::ReconstructVelocity()
 {
     pressureGradient();
-    U_ = HbyA_ - rbyA_*gradp_ 
+    U_ = HbyA_ - rbyA_*gradp_
          +  rbyA_*fvc::reconstruct(phib_/rAUf_);
     U_.correctBoundaryConditions();
 }
@@ -231,7 +231,7 @@ void Foam::interTwoPhaseCentralFoam::TEqnsolve()
         - fvm::Sp(E1_,T_)
         + 1/Cp1_*TSource1_
     );
-    
+
     fvScalarMatrix TEqn2
     (
         fvm::ddt(rho2_,T_)
@@ -239,13 +239,13 @@ void Foam::interTwoPhaseCentralFoam::TEqnsolve()
         - fvm::Sp(E2_,T_)
         + 1/Cp2_*TSource2_
     );
-    
+
     fvScalarMatrix TEqn
     (
         T_,
         rho1_.dimensions()*T_.dimensions()/dimTime
     );
-    
+
     combineMatrices
     (
         TEqn1,
@@ -259,73 +259,61 @@ void Foam::interTwoPhaseCentralFoam::TEqnsolve()
     TEqn.solve();
 }
 
-void Foam::interTwoPhaseCentralFoam::TEqnV2solve()
-{
-    surfaceScalarField phiU_own = vF1face_*phi1_own_ + vF2face_*phi2_own_;
-    surfaceScalarField phiU_nei = vF1face_*phi1_nei_ + vF2face_*phi2_nei_;
-
-    E_ = fvc::ddt(rho_) + fvc::div(phiU_own) + fvc::div(phiU_nei);
-
-    fvScalarMatrix TEqn
-    (
-        fvm::ddt(rho_,T_)
-        + fvm::div(phiU_own,T_) + fvm::div(phiU_nei,T_)
-        - fvm::Sp(E_,T_)
-        + TSource_
-        + volumeFraction1_*1/Cp1_*TSource1_
-        + volumeFraction2_*1/Cp2_*TSource2_
-    );
-
-    TEqn.solve();
-}
-
 
 void Foam::interTwoPhaseCentralFoam::pEqnsolve()
 {
+    Wp_ = 1/(1 - (volumeFraction1_*psi1_ + volumeFraction2_*psi2_)*gh_);
+
+//    p_rgh_ = (p_/Wp_) - rho0_*gh_;
+
     pEqn1_own_ =
     (
         fvc::div(phi01d_own_)
-        + fvm::div(phi1d_own_,p_)
-        - fvm::laplacian(Dp1_own_, p_)
+        + fvm::div(phi1d_own_,p_rgh_)
+        - fvm::laplacian(Dp1_own_, p_rgh_)
     );
 
     pEqn1_nei_ =
     (
         fvc::div(phi01d_nei_)
-        + fvm::div(phi1d_nei_,p_)
-        - fvm::laplacian(Dp1_nei_, p_)
+        + fvm::div(phi1d_nei_,p_rgh_)
+        - fvm::laplacian(Dp1_nei_, p_rgh_)
     );
 
     pEqn2_own_ =
     (
         fvc::div(phi02d_own_)
-        + fvm::div(phi2d_own_,p_)
-        - fvm::laplacian(Dp2_own_, p_)
+        + fvm::div(phi2d_own_,p_rgh_)
+        - fvm::laplacian(Dp2_own_, p_rgh_)
     );
 
     pEqn2_nei_ =
     (
         fvc::div(phi02d_nei_)
-        + fvm::div(phi2d_nei_,p_)
-        - fvm::laplacian(Dp2_nei_, p_)
+        + fvm::div(phi2d_nei_,p_rgh_)
+        - fvm::laplacian(Dp2_nei_, p_rgh_)
     );
-    
+
     fvScalarMatrix pEqn1
     (
-        fvm::ddt(psi1_,p_) + pEqn1_own_ + pEqn1_nei_
+//        fvc::ddt(rho1_) + psi1_*correction(fvm::ddt(p_rgh_)) +
+        fvm::ddt(psi1_,p_rgh_) +
+        pEqn1_own_ + pEqn1_nei_
     );
 
     fvScalarMatrix pEqn2
     (
-        fvm::ddt(psi2_,p_) + pEqn2_own_ + pEqn2_nei_
+//        fvc::ddt(rho2_) + psi2_*correction(fvm::ddt(p_rgh_)) +
+        fvm::ddt(psi2_,p_rgh_) +
+        pEqn2_own_ + pEqn2_nei_
     );
-    
+
     fvScalarMatrix pEqn
     (
-        p_,
-        p_.dimensions()*psi1_.dimensions()/dimTime
+        p_rgh_,
+        p_rgh_.dimensions()*psi1_.dimensions()/dimTime
     );
-    
+
     combineMatrices
     (
         pEqn1,
@@ -335,11 +323,12 @@ void Foam::interTwoPhaseCentralFoam::pEqnsolve()
         pEqn,
         true //do not copy: update origin matrices
     );
-    
+
     pEqn.solve();
+
+    p_ = Wp_*(p_rgh_ + rho0_*gh_);
 }
 
 //
 //END-OF-FILE
 //
-
