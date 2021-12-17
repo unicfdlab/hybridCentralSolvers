@@ -43,9 +43,9 @@ timeFormat      general;
 
 timePrecision   6;
 
-runTimeModifiable yes;
+runTimeModifiable true;
 
-adjustTimeStep  no;
+adjustTimeStep  false;
 
 maxCo           0.1;
 maxAlphaCo      1;

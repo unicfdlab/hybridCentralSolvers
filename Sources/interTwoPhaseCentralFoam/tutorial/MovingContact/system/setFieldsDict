@@ -20,7 +20,7 @@ defaultFieldValues
     volScalarFieldValue T 300
     volScalarFieldValue p 1e+5
     volVectorFieldValue U ( 100 0 0 )
-    volScalarFieldValue alpha.liquid 0
+    volScalarFieldValue volumeFraction1 0
 );
 
 regions
@@ -30,7 +30,7 @@ regions
         box ( 5 -1 -1 ) ( 10  1  1 );
         fieldValues
         (
-            volScalarFieldValue alpha.liquid 1
+            volScalarFieldValue volumeFraction1 1
         );
     }
 );

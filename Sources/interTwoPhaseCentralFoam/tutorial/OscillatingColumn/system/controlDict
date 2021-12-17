@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     centrotechDropletFoam;
+application     interTwoCentralFoam;
 
 startFrom       startTime;
 
@@ -43,11 +43,12 @@ timeFormat      general;
 
 timePrecision   6;
 
-runTimeModifiable yes;
+runTimeModifiable true;
 
-adjustTimeStep  yes;
+adjustTimeStep  true;
 
 maxCo           0.1;
+
 maxAlphaCo      1;
 
 maxDeltaT       1;

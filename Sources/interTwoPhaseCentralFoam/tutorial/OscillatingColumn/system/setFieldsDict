@@ -17,10 +17,10 @@ FoamFile
 
 defaultFieldValues
 (
-    volScalarFieldValue T 2500
-    volScalarFieldValue p 1
+    volScalarFieldValue T 273
+    volScalarFieldValue p 101300
     volVectorFieldValue U ( 0 0 0 )
-    volScalarFieldValue alpha.liquid 0
+    volScalarFieldValue volumeFraction1 0
 );
 
 regions
@@ -31,7 +31,7 @@ regions
         fieldValues
         (
             volVectorFieldValue U ( 1 0 0 )
-            volScalarFieldValue alpha.liquid 1
+            volScalarFieldValue volumeFraction1 1
         );
     }
 );

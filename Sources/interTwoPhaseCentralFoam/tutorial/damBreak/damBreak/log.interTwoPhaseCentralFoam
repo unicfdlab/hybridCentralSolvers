@@ -1,0 +1,63 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2012                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _269d0ffd5c-20210619 OPENFOAM=2012 patch=210618
+Arch   : "LSB;label=32;scalar=64"
+Exec   : interTwoPhaseCentralFoam
+Date   : Dec 17 2021
+Time   : 15:26:23
+Host   : friday
+PID    : 22674
+I/O    : uncollated
+Case   : /home/aleksandr/OpenFOAM/aleksandr-v2012/hybridCentralSolvers/Sources/interTwoPhaseCentralFoam/tutorial/damBreak/damBreak
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+
+PIMPLE: no residual control data found. Calculations will employ 3 corrector loops
+
+Selecting surfaceTensionModel constant
+
+Constructor is working
+
+
+Starting time loop
+
+
+Reading g
+
+Reading hRef
+Calculating field g.h
+
+ C1 1458.69 C2 331.198
+Courant Number mean: 0 max: 0
+deltaT = 1.1999e-05
+Time = 1.1999e-05
+
+diagonal:  Solving for rho1, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rho2, Initial residual = 0, Final residual = 0, No Iterations 0
+PIMPLE: iteration 1
+
+
+--> FOAM FATAL IO ERROR: (openfoam-2012 patch=210618)
+Entry 'div((phi1_own_+phi1_nei_),volumeFraction1)' not found in dictionary "/home/aleksandr/OpenFOAM/aleksandr-v2012/hybridCentralSolvers/Sources/interTwoPhaseCentralFoam/tutorial/damBreak/damBreak/system/fvSchemes.divSchemes"
+
+
+file: /home/aleksandr/OpenFOAM/aleksandr-v2012/hybridCentralSolvers/Sources/interTwoPhaseCentralFoam/tutorial/damBreak/damBreak/system/fvSchemes.divSchemes at line 33.
+
+    From const Foam::entry& Foam::dictionary::lookupEntry(const Foam::word&, Foam::keyType::option) const
+    in file db/dictionary/dictionary.C at line 413.
+
+FOAM exiting
+
