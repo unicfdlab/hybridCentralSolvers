@@ -1,0 +1,76 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1912                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default         Euler;
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+}
+
+defaultAdvScheme    Minmod;
+defaultAdvSchemeV   MinmodV;
+
+divSchemes
+{
+    default                                none;
+    
+    divScalarTerm                   localBlended $defaultAdvScheme upwind; //alsow used fot reconstruct K, rho
+    divVectorTerm                   localBlended $defaultAdvSchemeV upwind;
+    
+    div(rhoPhi_own,U)                      Gauss localBlended $defaultAdvSchemeV upwind;
+    div(rhoPhi_nei,U)                      Gauss localBlended $defaultAdvSchemeV upwind;
+    
+    div(phi,alpha)                         Gauss $defaultAdvScheme;
+    div(phirb,alpha)                       Gauss linear;
+    
+    div(rhoPhi,k)                          Gauss $defaultAdvScheme;
+
+    div(((rho*nuEff)*dev2(T(grad(U)))))    Gauss linear;
+}
+
+laplacianSchemes
+{
+    default                     Gauss linear limited 0.5;
+}
+
+interpolationSchemes
+{
+    default                     linear;
+    
+    reconstruct(scalar)         $defaultAdvScheme;
+    reconstruct(vector)         $defaultAdvSchemeV; //localBlended $defaultAdvSchemeV upwind;
+    reconstruct(alpha.liquid)   $defaultAdvScheme phi; //!essential to accurately compute alpha transport
+   
+   interpolate(T)              localMin; //!essential to accurately compute blending function
+}
+
+snGradSchemes
+{
+    default         limited 0.5;
+}
+
+fluxRequired
+{
+    p;
+    alpha1s;
+}
+
+// ************************************************************************* //

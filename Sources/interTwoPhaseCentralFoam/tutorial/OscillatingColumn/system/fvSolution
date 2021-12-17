@@ -1,0 +1,113 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1912                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+    tol                 1e-9;
+
+solvers
+{
+    "alpha.liquid.*|alpha1s"
+    {
+        nAlphaCorr      1;
+        nAlphaSubCycles 1;
+        cAlpha          1; // Note: cAlpha is not used by isoAdvector but must
+                           // be specified because interfacePropertes object
+                           // reads it during construction.
+        
+        //for smoothing solver
+        cDalpha          0.5;
+        //solver         PBiCGStab;
+        //preconditioner DILU;
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       $tol;
+        relTol          0;
+    }
+    
+    p_rgh
+    {
+//        solver          PBiCGStab;
+//        preconditioner  DILU;
+        solver          PCG;
+        preconditioner
+        {
+            preconditioner GAMG;
+            tolerance 0;
+            relTol 1e-3;
+            smoother GaussSeidel;
+            nPreSweeps 0;
+            nPostSweeps 1;
+            cacheAgglomeration true;
+            nCellsInCoarsestLevel 500;
+            agglomerator faceAreaPair;
+            mergeLevels 1;
+        }
+        tolerance       $tol;
+        relTol          0.;
+    }
+    p_rghFinal
+    {
+        $p_rgh;
+        relTol          0;
+    }
+
+    "U.*|k.*"
+    {
+        solver          PBiCGStab;
+        preconditioner  DILU;
+        tolerance       $tol;
+        relTol          0;
+    }
+
+    "Ttot.*"
+    {
+        $U;
+    }
+    
+    "p.*"
+    {
+        $p_rgh;
+    }
+    
+    "T|TFinal"
+    {
+        $U;
+    }
+
+}
+
+PIMPLE
+{
+    momentumPredictor   no;
+    nOuterCorrectors    3;
+    nCorrectors         1;
+    nNonOrthogonalCorrectors 0;
+    printDebugValues    true;
+    kappaFunction
+    {
+        type standardMachToAcCourantRatio;
+
+        standardMachToAcCourantRatioCoeffs
+        {
+            writeMaxMin         true;
+        }
+    }
+}
+
+
+
+
+// ************************************************************************* //

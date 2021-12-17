@@ -17,7 +17,7 @@ FoamFile
 
 solvers
 {
-    "(rho1|rho2|volumeFraction1|U|T|p)"
+    "(rho1|rho2|volumeFraction1|U|T|p|p_rgh).*"
     {
         solver          PBiCGStab;
         preconditioner	DILU;
@@ -25,19 +25,6 @@ solvers
         relTol          0.0;
         cAlpha          1.0;
         nAlphaCorr      1;
-    }
-
-    "(rho1|rho2|volumeFraction1|U|T|p)Final"
-    {
-      $p;
-    }
-
-    "pcorrFinal"
-    {
-      solver          PCG;
-      preconditioner  DIC;
-      tolerance       1e-9;
-      relTol          0.0;
     }
 }
 

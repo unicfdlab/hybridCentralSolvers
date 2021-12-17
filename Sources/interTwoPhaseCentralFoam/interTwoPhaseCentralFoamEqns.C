@@ -55,7 +55,7 @@ void Foam::interTwoPhaseCentralFoam::solveRho2()
 }
 
 void Foam::interTwoPhaseCentralFoam::alpha1Eqnsolve()
-{
+{/*
     //MULES version with antidiffusive flux
 
     const fvMesh& mesh = phi_.mesh();
@@ -159,7 +159,7 @@ void Foam::interTwoPhaseCentralFoam::alpha1Eqnsolve()
 
         //#include "alphasMinMax.H"
     }
-
+*/
 
      vF1face_ = fvc::interpolate
      (
@@ -168,24 +168,23 @@ void Foam::interTwoPhaseCentralFoam::alpha1Eqnsolve()
      );
      vF2face_ = 1.0 - vF1face_;
 
-    // fvScalarMatrix alpha1Eqn
-    // (
+     fvScalarMatrix alpha1Eqn
+     (
 
-    //     fvm::ddt(volumeFraction1_)
-    //     +
-    //     fvc::div(phi_, volumeFraction1_)
-    //     ==
-    //     (1 + K_)*fvc::div(phi_)*volumeFraction1_
+         fvm::ddt(rho1_,volumeFraction1_)
+         +
+         fvm::div((phi1_own_ + phi1_nei_), volumeFraction1_)
+     );
 
-    // );
-
-    // alpha1Eqn.solve();
+     alpha1Eqn.solve();
 
      volumeFraction2_ = 1 - volumeFraction1_;
 
-    Info<< "max: volumeFraction1 " << max(volumeFraction1_).value()
-        << " min: " << min(volumeFraction1_).value()
-        << nl << endl;
+     Info<< "Phase-1 volume fraction = "
+         << volumeFraction1_.weightedAverage(U_.mesh().Vsc()).value()
+         << "  Min(" << volumeFraction1_.name() << ") = " << min(volumeFraction1_).value()
+         << "  Max(" << volumeFraction1_.name() << ") = " << max(volumeFraction1_).value()
+         << endl;
 }
 
 
@@ -296,15 +295,15 @@ void Foam::interTwoPhaseCentralFoam::pEqnsolve()
 
     fvScalarMatrix pEqn1
     (
-//        fvc::ddt(rho1_) + psi1_*correction(fvm::ddt(p_rgh_)) +
-        fvm::ddt(psi1_,p_rgh_) +
+        fvc::ddt(rho1_) + psi1_*correction(fvm::ddt(p_rgh_)) +
+//        fvm::ddt(psi1_,p_rgh_) +
         pEqn1_own_ + pEqn1_nei_
     );
 
     fvScalarMatrix pEqn2
     (
-//        fvc::ddt(rho2_) + psi2_*correction(fvm::ddt(p_rgh_)) +
-        fvm::ddt(psi2_,p_rgh_) +
+        fvc::ddt(rho2_) + psi2_*correction(fvm::ddt(p_rgh_)) +
+//        fvm::ddt(psi2_,p_rgh_) +
         pEqn2_own_ + pEqn2_nei_
     );
 
