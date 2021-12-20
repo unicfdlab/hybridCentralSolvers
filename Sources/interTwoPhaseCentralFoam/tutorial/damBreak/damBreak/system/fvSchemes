@@ -106,7 +106,10 @@ interpolationSchemes
 
     reconstruct(p_rgh)		$defaultAdvScheme;
     reconstruct(Dp)		    $defaultAdvScheme;
-    reconstruct(volumeFraction1) Minmod phi;
+    reconstruct(volumeFraction1) $defaultAdvScheme phi;
+
+    dotInterpolate(S,(rho1_0*U_0)) linear;
+    dotInterpolate(S,(rho2_0*U_0)) linear;
 
 
 }

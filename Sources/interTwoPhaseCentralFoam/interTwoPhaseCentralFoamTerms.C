@@ -30,12 +30,13 @@ void Foam::interTwoPhaseCentralFoam::pressureGradient()
 
 //    gradp_ = fvc::div((alpha1_own_ *p_own + alpha1_nei_*p_nei)*U_.mesh().Sf());
 //    gradp_ = fvc::div((alpha2_own_ *p_own + alpha2_nei_*p_nei)*U_.mesh().Sf());
-//    gradp_ = fvc::grad(p_);
-
+    gradp_ = fvc::grad(p_rgh_);
+/*
     gradp_ =  volumeFraction1_*
         fvc::div((alpha1_own_ *p_own + alpha1_nei_*p_nei)*U_.mesh().Sf());
     gradp_ += volumeFraction2_*
         fvc::div((alpha2_own_ *p_own + alpha2_nei_*p_nei)*U_.mesh().Sf());
+*/
 }
 
 //* * * * * * * * * * * * * * * * * Viscosity * * * * * * * * * * * * * * * *//

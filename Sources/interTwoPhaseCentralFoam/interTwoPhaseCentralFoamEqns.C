@@ -295,15 +295,15 @@ void Foam::interTwoPhaseCentralFoam::pEqnsolve()
 
     fvScalarMatrix pEqn1
     (
-//        fvc::ddt(rho1_) + psi1_*correction(fvm::ddt(p_rgh_)) +
-        fvm::ddt(psi1_,p_rgh_) +
+        fvc::ddt(rho1_) + psi1_*correction(fvm::ddt(p_rgh_)) +
+//        fvm::ddt(psi1_,p_rgh_) +
         pEqn1_own_ + pEqn1_nei_
     );
 
     fvScalarMatrix pEqn2
     (
-//        fvc::ddt(rho2_) + psi2_*correction(fvm::ddt(p_rgh_)) +
-        fvm::ddt(psi2_,p_rgh_) +
+        fvc::ddt(rho2_) + psi2_*correction(fvm::ddt(p_rgh_)) +
+//        fvm::ddt(psi2_,p_rgh_) +
         pEqn2_own_ + pEqn2_nei_
     );
 
@@ -326,7 +326,7 @@ void Foam::interTwoPhaseCentralFoam::pEqnsolve()
     pEqn.solve();
 
     p_ = Wp_*(p_rgh_ + rho0_*gh_);
-
+/*
     const Foam::Time& runTime = U_.mesh().time();
 
     if(runTime.outputTime())
@@ -340,6 +340,7 @@ void Foam::interTwoPhaseCentralFoam::pEqnsolve()
       phi1.write();
       phi2.write();
     }
+*/
 }
 
 //

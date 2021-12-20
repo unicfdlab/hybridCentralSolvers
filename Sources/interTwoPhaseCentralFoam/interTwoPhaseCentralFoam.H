@@ -329,6 +329,10 @@ namespace Foam
 
             volScalarField pcorr_;
 
+            surfaceScalarField phi1_;
+
+            surfaceScalarField phi2_;
+
         protected:
 
             //- Solve for density using explicit fluxes
