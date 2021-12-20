@@ -698,6 +698,18 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
     (
         "pcorr",
         p_rgh_
+    ),
+
+    phi1_
+    (
+        "phi1",
+        phi1_own_ + phi1_nei_
+    ),
+
+    phi2_
+    (
+        "phi2",
+        phi2_own_ + phi2_nei_
     )
 
 {
@@ -725,6 +737,8 @@ void Foam::interTwoPhaseCentralFoam::saveOld()
     psi2_.oldTime();
     Q_.oldTime();
     p_rgh_.oldTime();
+    phi1_.oldTime();
+    phi2_.oldTime();
 }
 
 void Foam::interTwoPhaseCentralFoam::massError1()
@@ -851,9 +865,11 @@ void Foam::interTwoPhaseCentralFoam::Flux()
 {
     phi1_own_ = pEqn1_own_.flux() + phi01d_own_;
     phi1_nei_ = pEqn1_nei_.flux() + phi01d_nei_;
+    phi1_ = phi1_own_ + phi1_nei_;
 
     phi2_own_ = pEqn2_own_.flux() + phi02d_own_;
     phi2_nei_ = pEqn2_nei_.flux() + phi02d_nei_;
+    phi2_ = phi2_own_ + phi2_nei_;
 }
 
 void Foam::interTwoPhaseCentralFoam::updateKappa()
@@ -1536,6 +1552,10 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralFieldsIndividual()
 
         phi01d_own_ += linearInterpolate(rho1_)*phib_;
         phi02d_own_ += linearInterpolate(rho2_)*phib_;
+
+//        phi01d_own_ +=linearInterpolate(rho1_*rbyA_)*fvc::ddtCorr(rho1_, U_, phi1_)*(1.0 - kappa_);
+//        phi02d_own_ +=linearInterpolate(rho2_*rbyA_)*fvc::ddtCorr(rho2_, U_, phi2_)*(1.0 - kappa_);
+
     }
 
 
