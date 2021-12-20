@@ -11,48 +11,26 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "system";
-    object      controlDict;
+    object      setFieldsDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     interTwoPhaseCentralFoam;
+defaultFieldValues
+(
+    volScalarFieldValue volumeFraction1 0
+);
 
-startFrom       startTime;
+regions
+(
+    boxToCell
+    {
+        box (0 0 -1) (0.1461 0.292 1);
+        fieldValues
+        (
+            volScalarFieldValue volumeFraction1 1
+        );
+    }
+);
 
-startTime       0;
-
-stopAt          endTime;
-
-endTime         1;
-
-deltaT          10e-6;
-
-writeControl    adjustable;
-
-writeInterval   0.01;
-
-purgeWrite      0;
-
-writeFormat     ascii;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable true;
-
-adjustTimeStep  true;
-
-maxCo           0.1;
-
-maxAlphaCo      1;
-
-maxDeltaT       1;
-
-//#sinclude   "sampling"
 
 // ************************************************************************* //

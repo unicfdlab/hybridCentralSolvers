@@ -10,49 +10,45 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "system";
-    object      controlDict;
+    object      sampling;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     interTwoPhaseCentralFoam;
+functions
+{
+    sampleSets
+    {
+        type    sets;
+        libs    (sampling);
 
-startFrom       startTime;
+        writeControl  timeStep;
+        writeInterval 1;
 
-startTime       0;
+        setFormat           vtk;
+        interpolationScheme cellPointFace;
+        fields ( alpha.water );
 
-stopAt          endTime;
+        sets
+        (
+            gauge_1
+            {
+                type    face;
+                axis    y;
+                start   (0.02 0.20 0.005);
+                end     (0.02 0.25 0.005);
+                nPoints 100;
+            }
 
-endTime         1;
-
-deltaT          10e-6;
-
-writeControl    adjustable;
-
-writeInterval   0.01;
-
-purgeWrite      0;
-
-writeFormat     ascii;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable true;
-
-adjustTimeStep  true;
-
-maxCo           0.1;
-
-maxAlphaCo      1;
-
-maxDeltaT       1;
-
-//#sinclude   "sampling"
+            gauge_2
+            {
+                type    face;
+                axis    y;
+                start   (0.2 0.03 0.005);
+                end     (0.2 0.55 0.005);
+                nPoints 100;
+            }
+        );
+    }
+}
 
 // ************************************************************************* //

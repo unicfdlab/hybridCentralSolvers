@@ -17,13 +17,13 @@ FoamFile
 
 solvers
 {
-    "(rho1|rho2|volumeFraction1|U|T|p_rgh).*"
+    "(rho1|rho2|volumeFraction1|U|T|p_rgh|pcorr).*"
     {
         solver          PBiCGStab;
-        preconditioner	DILU;
+        preconditioner	diagonal none;
         tolerance       1e-9;
         relTol          0.0;
-        cAlpha          1.0;
+        cAlpha          0.0;
         nAlphaCorr      1;
     }
 }
@@ -31,7 +31,7 @@ solvers
 PIMPLE
 {
 
-    nOuterCorrectors            5;
+    nOuterCorrectors            3;
     nCorrectors                 1;
 
     kappaFunction

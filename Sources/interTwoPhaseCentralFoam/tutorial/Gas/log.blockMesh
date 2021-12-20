@@ -8,12 +8,12 @@
 Build  : _269d0ffd5c-20210619 OPENFOAM=2012 patch=210618
 Arch   : "LSB;label=32;scalar=64"
 Exec   : blockMesh
-Date   : Dec 17 2021
-Time   : 15:26:22
+Date   : Dec 20 2021
+Time   : 13:40:14
 Host   : friday
-PID    : 22668
+PID    : 9787
 I/O    : uncollated
-Case   : /home/aleksandr/OpenFOAM/aleksandr-v2012/hybridCentralSolvers/Sources/interTwoPhaseCentralFoam/tutorial/damBreak/damBreak
+Case   : /home/aleksandr/OpenFOAM/aleksandr-v2012/hybridCentralSolvers/Sources/interTwoPhaseCentralFoam/tutorial/Gas
 nProcs : 1
 trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
 fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
@@ -29,17 +29,13 @@ Creating topology blocks
 Creating topology patches
 
 Creating block mesh topology
---> FOAM Warning : 
-    From Foam::polyMesh::polyMesh(const Foam::IOobject&, Foam::pointField&&, const cellShapeList&, const faceListList&, const wordList&, const Foam::PtrList<Foam::dictionary>&, const Foam::word&, const Foam::word&, bool)
-    in file meshes/polyMesh/polyMeshFromShapeMesh.C at line 920
-    Found 10 undefined faces in mesh; adding to default patch defaultFaces
 
 Check topology
 
 	Basic statistics
-		Number of internal faces : 4
-		Number of boundary faces : 22
-		Number of defined boundary faces : 22
+		Number of internal faces : 0
+		Number of boundary faces : 6
+		Number of defined boundary faces : 6
 		Number of undefined boundary faces : 0
 	Checking patch -> block consistency
 
@@ -49,31 +45,11 @@ Creating merge list (topological search)...
 Creating polyMesh from blockMesh
 Creating patches
 Creating cells
-Creating points with scale 0.146
+Creating points with scale 1
     Block 0 cell size :
-        i : 0.0126957 .. 0.0126957
-        j : 0.00599987 .. 0.00599987
-        k : 0.0146 .. 0.0146
-
-    Block 1 cell size :
-        i : 0.0141053 .. 0.0141053
-        j : 0.00599987 .. 0.00599987
-        k : 0.0146 .. 0.0146
-
-    Block 2 cell size :
-        i : 0.0126957 .. 0.0126957
-        j : 0.0127619 .. 0.0127619
-        k : 0.0146 .. 0.0146
-
-    Block 3 cell size :
-        i : 0.00599987 .. 0.00599987
-        j : 0.0127619 .. 0.0127619
-        k : 0.0146 .. 0.0146
-
-    Block 4 cell size :
-        i : 0.0141053 .. 0.0141053
-        j : 0.0127619 .. 0.0127619
-        k : 0.0146 .. 0.0146
+        i : 0.001 .. 0.001
+        j : 2 .. 2
+        k : 2 .. 2
 
 
 There are no merge patch pairs
@@ -82,19 +58,16 @@ Writing polyMesh with 0 cellZones
 ----------------
 Mesh Information
 ----------------
-  boundingBox: (0 0 0) (0.584 0.584 0.0146)
-  nPoints: 4746
-  nCells: 2268
-  nFaces: 9176
-  nInternalFaces: 4432
+  boundingBox: (0 -1 -1) (1 1 1)
+  nPoints: 4004
+  nCells: 1000
+  nFaces: 5001
+  nInternalFaces: 999
 ----------------
 Patches
 ----------------
-  patch 0 (start: 4432 size: 50) name: leftWall
-  patch 1 (start: 4482 size: 50) name: rightWall
-  patch 2 (start: 4532 size: 62) name: lowerWall
-  patch 3 (start: 4594 size: 46) name: atmosphere
-  patch 4 (start: 4640 size: 4536) name: defaultFaces
+  patch 0 (start: 999 size: 2) name: sides
+  patch 1 (start: 1001 size: 4000) name: empty
 
 End
 

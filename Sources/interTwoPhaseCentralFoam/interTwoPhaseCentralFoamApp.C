@@ -91,8 +91,6 @@ int main(int argc, char *argv[])
 
             Veronika.TEqnsolve();
 
-//            Veronika.TEqnV2solve();     //Solve TEqn
-
             Veronika.Compressibility(); //Update psi1_ = molM1_/(R_ * T_) and psi2_
 
 //            Veronika.updateK();         //Calculate values of C1_, C2_, Z1_, Z2_, K_, and phi_

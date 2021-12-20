@@ -8,12 +8,12 @@
 Build  : _269d0ffd5c-20210619 OPENFOAM=2012 patch=210618
 Arch   : "LSB;label=32;scalar=64"
 Exec   : setFields
-Date   : Dec 17 2021
-Time   : 15:26:23
+Date   : Dec 20 2021
+Time   : 13:40:14
 Host   : friday
-PID    : 22670
+PID    : 9792
 I/O    : uncollated
-Case   : /home/aleksandr/OpenFOAM/aleksandr-v2012/hybridCentralSolvers/Sources/interTwoPhaseCentralFoam/tutorial/damBreak/damBreak
+Case   : /home/aleksandr/OpenFOAM/aleksandr-v2012/hybridCentralSolvers/Sources/interTwoPhaseCentralFoam/tutorial/Gas
 nProcs : 1
 trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
 fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
@@ -27,11 +27,15 @@ Create mesh for time = 0
 Reading setFieldsDict
 
 Setting field default values
+    Setting internal values of volScalarField T
+    Setting internal values of volScalarField p
+    Setting internal values of volVectorField U
     Setting internal values of volScalarField volumeFraction1
 
 Setting field region values
-    Adding cells with centre within boxes 1((0 0 -1) (0.1461 0.292 1))
-    Setting internal values of volScalarField volumeFraction1
+    Adding cells with centre within boxes 1((0 -1 -1) (0.5 1 1))
+    Setting internal values of volScalarField T
+    Setting internal values of volScalarField p
 
 End
 

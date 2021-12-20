@@ -23,17 +23,17 @@ boundaryField
 {
     leftWall
     {
-        type            zeroGradient;
+        type            noSlip;
     }
 
     rightWall
     {
-        type            zeroGradient;
+        type            noSlip;
     }
 
     lowerWall
     {
-        type            zeroGradient;
+        type            noSlip;
     }
 
     atmosphere
