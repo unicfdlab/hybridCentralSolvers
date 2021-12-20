@@ -1,19 +1,19 @@
 /*---------------------------------------------------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2012                                 |
+|  \\    /   O peration     | Version:  2012                                  |
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
-Build  : _7bdb509494-20201222 OPENFOAM=2012
+Build  : _269d0ffd5c-20210619 OPENFOAM=2012 patch=210618
 Arch   : "LSB;label=32;scalar=64"
 Exec   : blockMesh
-Date   : Nov 25 2021
-Time   : 12:41:17
-Host   : Jarvis
-PID    : 896
+Date   : Dec 17 2021
+Time   : 14:38:47
+Host   : friday
+PID    : 19550
 I/O    : uncollated
-Case   : /mnt/d/tutorial/sod/Water_5000
+Case   : /home/aleksandr/OpenFOAM/aleksandr-v2012/hybridCentralSolvers/Sources/interTwoPhaseCentralFoam/tutorial/Water
 nProcs : 1
 trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
 fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)

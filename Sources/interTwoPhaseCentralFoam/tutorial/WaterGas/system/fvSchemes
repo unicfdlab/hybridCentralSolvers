@@ -31,6 +31,8 @@ defaultAdvSchemeV    MinmodV;
 divSchemes
 {
     default         none;
+    div((phi1_own_+phi1_nei_),volumeFraction1) Gauss $defaultAdvScheme;
+
 div(((interpolate(volumeFraction1)*phi1_nei_)+((1-interpolate(volumeFraction1))*phi2_nei_)),U) Gauss $defaultAdvSchemeV;
 div(((interpolate(volumeFraction1)*phi1_own_)+((1-interpolate(volumeFraction1))*phi2_own_)),U) Gauss $defaultAdvSchemeV;
    //Volume Fraction Equation
@@ -38,11 +40,11 @@ div(((interpolate(volumeFraction1)*phi1_own_)+((1-interpolate(volumeFraction1))*
    div(phirb,volumeFraction1) Gauss linear; //must be always linear
 
    //continuity equation
-   div(phi1d_own_,p) Gauss $defaultAdvScheme;
-   div(phi1d_nei_,p) Gauss $defaultAdvScheme;
+   div(phi1d_own_,p_rgh) Gauss $defaultAdvScheme;
+   div(phi1d_nei_,p_rgh) Gauss $defaultAdvScheme;
 
-   div(phi2d_own_,p) Gauss $defaultAdvScheme;
-   div(phi2d_nei_,p) Gauss $defaultAdvScheme;
+   div(phi2d_own_,p_rgh) Gauss $defaultAdvScheme;
+   div(phi2d_nei_,p_rgh) Gauss $defaultAdvScheme;
 
    //Momentum equation
    div(phi1_own_,U) Gauss $defaultAdvSchemeV;
@@ -100,7 +102,9 @@ interpolationSchemes
 
     reconstruct(psi)	  	$defaultAdvScheme;
 
-    reconstruct(p)		    $defaultAdvScheme;
+    reconstruct(p)      	$defaultAdvScheme;
+
+    reconstruct(p_rgh)		$defaultAdvScheme;
     reconstruct(Dp)		    $defaultAdvScheme;
     reconstruct(volumeFraction1) Minmod phi;
 
@@ -115,7 +119,7 @@ snGradSchemes
 fluxRequired
 {
     default	none;
-    p;
+    p_rgh;
 }
 
 // ************************************************************************* //

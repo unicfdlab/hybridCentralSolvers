@@ -327,6 +327,8 @@ namespace Foam
 
             surfaceScalarField rho0ghf_;
 
+            volScalarField pcorr_;
+
         protected:
 
             //- Solve for density using explicit fluxes
@@ -503,9 +505,9 @@ namespace Foam
 
             void divU();
 
-//* * * * * * * * * * * * * * * * * * Adds * * * * * * * * * * * * * * * * *//
+//* * * * * * * * * * * * * * * * * * Gravity Terms * * * * * * * * * * * * * * * *//
 
-            void Adds();
+            void GravityCorrection();
 
     }; // End of the class
 

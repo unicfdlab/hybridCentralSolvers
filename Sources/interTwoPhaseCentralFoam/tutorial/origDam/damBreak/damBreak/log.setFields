@@ -1,0 +1,37 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2012                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _269d0ffd5c-20210619 OPENFOAM=2012 patch=210618
+Arch   : "LSB;label=32;scalar=64"
+Exec   : setFields
+Date   : Dec 17 2021
+Time   : 12:56:13
+Host   : friday
+PID    : 11782
+I/O    : uncollated
+Case   : /home/aleksandr/OpenFOAM/aleksandr-v2012/hybridCentralSolvers/Sources/interTwoPhaseCentralFoam/tutorial/origDam/damBreak/damBreak
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+Reading setFieldsDict
+
+Setting field default values
+    Setting internal values of volScalarField alpha.water
+
+Setting field region values
+    Adding cells with centre within boxes 1((0 0 -1) (0.1461 0.292 1))
+    Setting internal values of volScalarField alpha.water
+
+End
+

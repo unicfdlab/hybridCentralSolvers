@@ -167,25 +167,24 @@ void Foam::interTwoPhaseCentralFoam::alpha1Eqnsolve()
          "reconstruct(volumeFraction1)"
      );
      vF2face_ = 1.0 - vF1face_;
+/*
+     fvScalarMatrix alpha1Eqn
+     (
 
-    // fvScalarMatrix alpha1Eqn
-    // (
+         fvm::ddt(rho1_,volumeFraction1_)
+         +
+         fvm::div((phi1_own_ + phi1_nei_), volumeFraction1_)
+     );
 
-    //     fvm::ddt(volumeFraction1_)
-    //     +
-    //     fvc::div(phi_, volumeFraction1_)
-    //     ==
-    //     (1 + K_)*fvc::div(phi_)*volumeFraction1_
-
-    // );
-
-    // alpha1Eqn.solve();
-
+     alpha1Eqn.solve();
+*/
      volumeFraction2_ = 1 - volumeFraction1_;
 
-    Info<< "max: volumeFraction1 " << max(volumeFraction1_).value()
-        << " min: " << min(volumeFraction1_).value()
-        << nl << endl;
+     Info<< "Phase-1 volume fraction = "
+         << volumeFraction1_.weightedAverage(U_.mesh().Vsc()).value()
+         << "  Min(" << volumeFraction1_.name() << ") = " << min(volumeFraction1_).value()
+         << "  Max(" << volumeFraction1_.name() << ") = " << max(volumeFraction1_).value()
+         << endl;
 }
 
 
@@ -327,6 +326,20 @@ void Foam::interTwoPhaseCentralFoam::pEqnsolve()
     pEqn.solve();
 
     p_ = Wp_*(p_rgh_ + rho0_*gh_);
+
+    const Foam::Time& runTime = U_.mesh().time();
+
+    if(runTime.outputTime())
+    {
+      surfaceScalarField phi1
+      ( "phi1", phi1_own_+phi1_nei_);
+
+      surfaceScalarField phi2
+      ( "phi2", phi2_own_+phi2_nei_);
+
+      phi1.write();
+      phi2.write();
+    }
 }
 
 //

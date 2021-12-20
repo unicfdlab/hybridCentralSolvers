@@ -1,0 +1,33 @@
+massControl
+{
+    type        massControl;
+    libs        ("libconservativityControl.so");
+    phiName     phi;
+    rhoName     rho;
+    //spNames	(contErr);
+
+}
+
+momControl
+{
+    type        momentumControl;
+    libs        ("libconservativityControl.so");
+    phiName     phi;
+    rhoName     rho;
+    UName       U;
+    pName       p;
+    //spNames	(contErr);
+
+}
+
+energyControl
+{
+    type        energyControl;
+    libs        ("libconservativityControl.so");
+    phiName     phi;
+    rhoName     rho;
+    eName       h;
+    KName       K;
+    pName       p;
+    //spNames	(contErr);
+}
