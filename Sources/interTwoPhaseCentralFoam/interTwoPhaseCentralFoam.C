@@ -1529,7 +1529,6 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralFieldsIndividual()
 
     //add contribution from body forces
     {
-//        const fvMesh& mesh = HbyA_.mesh();
         surfaceScalarField ghSf = ghf_ * U_.mesh().magSf();
 
         rAUf_ = linearInterpolate(rbyA_);
@@ -1571,5 +1570,6 @@ void Foam::interTwoPhaseCentralFoam::GravityCorrection()
 
     Wp_nei_ = 1/(1.0 - (vF1face_*psi1_nei + vF2face_*psi2_nei)*ghf_);
 
-    rho0ghf_ = (vF1face_*rho01_ + vF2face_*rho02_)*ghf_;;
+
+    rho0ghf_ = (vF1face_*rho01_ + vF2face_*rho02_)*ghf_;
 }
