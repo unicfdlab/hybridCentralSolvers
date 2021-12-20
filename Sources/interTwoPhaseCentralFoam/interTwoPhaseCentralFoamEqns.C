@@ -320,27 +320,25 @@ void Foam::interTwoPhaseCentralFoam::pEqnsolve()
         volumeFraction1_,
         volumeFraction2_,
         pEqn,
-        true //do not copy: update origin matrices
+        true //do not copy: update original matrices
     );
 
     pEqn.solve();
 
     p_ = Wp_*(p_rgh_ + rho0_*gh_);
-/*
+
     const Foam::Time& runTime = U_.mesh().time();
 
     if(runTime.outputTime())
     {
-      surfaceScalarField phi1
-      ( "phi1", phi1_own_+phi1_nei_);
-
-      surfaceScalarField phi2
-      ( "phi2", phi2_own_+phi2_nei_);
-
-      phi1.write();
-      phi2.write();
+        volScalarField rhogh = rho0_*gh_;
+        rhogh.rename("rhogh");
+        rhogh.write();
+        p_rgh_.write();
+        Wp_.rename("Wp");
+        Wp_.write();
     }
-*/
+
 }
 
 //

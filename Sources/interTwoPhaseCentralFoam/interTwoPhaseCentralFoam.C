@@ -322,6 +322,8 @@ Foam::interTwoPhaseCentralFoam::interTwoPhaseCentralFoam(const fvMesh& mesh, pim
         dimensionedScalar("zero", dimless, 0.0)
     ),
 
+    onemkappa_(1.0 - kappa_),
+
 /***********************Tadmor-Kurganov Scheme*******************************/
 
     v_zero
@@ -739,6 +741,7 @@ void Foam::interTwoPhaseCentralFoam::saveOld()
     p_rgh_.oldTime();
     phi1_.oldTime();
     phi2_.oldTime();
+    phi_.oldTime();
 }
 
 void Foam::interTwoPhaseCentralFoam::massError1()
@@ -925,7 +928,7 @@ void Foam::interTwoPhaseCentralFoam::updateKappa()
             Maf/FaceAcCo,
             scalar(1.0)
         );
-
+    onemkappa_ = 1.0 - kappa_;
     Info<< "max/min kappa: " << max(kappa_).value()
         << "/" << min(kappa_).value()
         << endl;
@@ -1546,27 +1549,98 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralFieldsIndividual()
     //add contribution from body forces
     {
         surfaceScalarField ghSf = ghf_ * U_.mesh().magSf();
-
+        
         rAUf_ = linearInterpolate(rbyA_);
         phib_ = -ghSf*fvc::snGrad(rho_)*rAUf_;
+        
+        {
+            forAll(phib_.boundaryField(), patchi)
+            {
+                if (!phib_.boundaryField()[patchi].coupled())
+                {
+                    phib_.boundaryFieldRef()[patchi] = 0.0;
+                }
+            }
+        }
 
+        surfaceScalarField rho1_own = fvc::interpolate
+        (
+            rho1_,
+            own_,
+            "reconstruct(rho1)"
+        );
+        surfaceScalarField rho1_nei = fvc::interpolate
+        (
+            rho1_,
+            nei_,
+            "reconstruct(rho1)"
+        );
+
+        surfaceScalarField rho2_own = fvc::interpolate
+        (
+            rho2_,
+            own_,
+            "reconstruct(rho2)"
+        );
+        surfaceScalarField rho2_nei = fvc::interpolate
+        (
+            rho2_,
+            nei_,
+            "reconstruct(rho2)"
+        );
+
+        //phi01d_own_ += linearInterpolate(rho1_)*phib_;
+        //phi02d_own_ += linearInterpolate(rho2_)*phib_;
+
+        surfaceScalarField rAU_own = fvc::interpolate
+        (
+            rbyA_,
+            own_,
+            "reconstruct(Dp)"
+        );
+        surfaceScalarField rAU_nei = fvc::interpolate
+        (
+            rbyA_,
+            nei_,
+            "reconstruct(Dp)"
+        );
+        
+        surfaceScalarField phiCorr = linearInterpolate(rho_*rbyA_)*fvc::ddtCorr(U_, phi_);
+        phi_ = linearInterpolate(HbyA_) & HbyA_.mesh().Sf();
+
+        surfaceScalarField kapparAuf = onemkappa_*rAUf_;
+        
+        //phi_ += phiCorr;
+        
+        phi01d_own_ *= kappa_; phi01d_own_ += rho01_*phi_*onemkappa_;
+        phi02d_own_ *= kappa_; phi02d_own_ += rho02_*phi_*onemkappa_;
+        phi1d_own_  *= kappa_; phi1d_own_  += linearInterpolate(psi1_)*phi_*onemkappa_;
+        phi2d_own_  *= kappa_; phi2d_own_  += linearInterpolate(psi2_)*phi_*onemkappa_;
+        Dp1_own_    *= kappa_; Dp1_own_    += linearInterpolate(rho1_)*kapparAuf;
+        Dp2_own_    *= kappa_; Dp2_own_    += linearInterpolate(rho2_)*kapparAuf;
+        
+        phi01d_nei_ *= kappa_;
+        phi02d_nei_ *= kappa_;
+        phi1d_nei_  *= kappa_;
+        phi2d_nei_  *= kappa_;
+        Dp1_nei_    *= kappa_;
+        Dp2_nei_    *= kappa_;
+        
         phi01d_own_ += linearInterpolate(rho1_)*phib_;
+        //phi1_nei_ += linearInterpolate(rho1_)*phib_;
         phi02d_own_ += linearInterpolate(rho2_)*phib_;
+        //phi2_nei_ += linearInterpolate(rho2_)*phib_;
 
 //        phi01d_own_ +=linearInterpolate(rho1_*rbyA_)*fvc::ddtCorr(rho1_, U_, phi1_)*(1.0 - kappa_);
 //        phi02d_own_ +=linearInterpolate(rho2_*rbyA_)*fvc::ddtCorr(rho2_, U_, phi2_)*(1.0 - kappa_);
 
-    }
+        //surfaceScalarField phiCorr = 
+        //    linearInterpolate(rho_*rbyA_)*fvc::ddtCorr(U_, phi_)*(1.0 - kappa_);
 
-
-    {
-        forAll(phib_.boundaryField(), patchi)
-        {
-            if (!phib_.boundaryField()[patchi].coupled())
-            {
-                phib_.boundaryFieldRef()[patchi] = 0.0;
-            }
-        }
+        //phi01d_own_ +=rho1_own*phiCorr;
+        //phi02d_own_ +=rho2_own*phiCorr;
+        //phi01d_nei_ +=rho1_nei*phiCorr;
+        //phi02d_nei_ +=rho2_nei*phiCorr;
     }
 }
 
@@ -1589,7 +1663,6 @@ void Foam::interTwoPhaseCentralFoam::GravityCorrection()
     Wp_own_ = 1/(1.0 - (vF1face_*psi1_own + vF2face_*psi2_own)*ghf_);
 
     Wp_nei_ = 1/(1.0 - (vF1face_*psi1_nei + vF2face_*psi2_nei)*ghf_);
-
 
     rho0ghf_ = (vF1face_*rho01_ + vF2face_*rho02_)*ghf_;
 }

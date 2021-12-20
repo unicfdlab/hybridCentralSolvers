@@ -17,14 +17,22 @@ FoamFile
 
 solvers
 {
-    "(rho1|rho2|volumeFraction1|U|T|p_rgh|pcorr).*"
+    "(rho1|rho2|volumeFraction1|U|T|p_rgh).*"
     {
         solver          PBiCGStab;
-        preconditioner	diagonal none;
+        preconditioner	DILU;
         tolerance       1e-9;
         relTol          0.0;
-        cAlpha          0.0;
+        cAlpha          1.0;
         nAlphaCorr      1;
+    }
+    
+    "(pcorr|pcorrFinal)"
+    {
+        solver          PCG;
+        preconditioner	DIC;
+        tolerance       1e-9;
+        relTol          0.0;
     }
 }
 

@@ -110,6 +110,7 @@ interpolationSchemes
 
     dotInterpolate(S,(rho1_0*U_0)) linear;
     dotInterpolate(S,(rho2_0*U_0)) linear;
+    dotInterpolate(S,U_0) linear;
 
 
 }

@@ -186,6 +186,9 @@ namespace Foam
 
             //- Kappa KT/PISO blending field
             surfaceScalarField kappa_;
+            
+            //- Inversed kappa blending field
+            surfaceScalarField onemkappa_;
 
 /********************Variables for Update-Central Wieghts Function*************/
 
