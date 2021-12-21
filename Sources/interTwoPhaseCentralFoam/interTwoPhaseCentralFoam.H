@@ -279,10 +279,6 @@ namespace Foam
 
             fvVectorMatrix divDevRhoReff_;
 
-            fvScalarMatrix Tviscosity1;
-
-            fvScalarMatrix Tviscosity2;
-
             volSymmTensorField devRhoReff1_;
 
             volSymmTensorField devRhoReff2_;
@@ -447,10 +443,10 @@ namespace Foam
             void ReconstructVelocity();
 
             //- Solve an equation for Temperature
-            virtual void TEqnsolve();
+            virtual void TEqnSolve();
 
             //- Solve an equation for pressure
-            virtual void pEqnsolve();
+            virtual void pEqnSolve();
 
             //- Estimate error of Continuity equation for the first phase
             virtual void massError1();
@@ -503,14 +499,6 @@ namespace Foam
 //* * * * * * * * * * * * * * * * * Viscosity * * * * * * * * * * * * * * * *//
 
             void divDevRhoReff();
-
-            void viscosityTEqn();
-
-            void devRhoReff();
-
-//* * * * * * * * * * * * * * * * * * Others * * * * * * * * * * * * * * * * *//
-
-            void divU();
 
 //* * * * * * * * * * * * * * * * * * Gravity Terms * * * * * * * * * * * * * * * *//
 

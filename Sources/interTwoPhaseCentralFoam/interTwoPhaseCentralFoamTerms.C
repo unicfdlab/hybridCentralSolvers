@@ -28,32 +28,22 @@ void Foam::interTwoPhaseCentralFoam::pressureGradient()
     surfaceScalarField p_own = fvc::interpolate(p_rgh_, own_, "reconstruct(p)");
     surfaceScalarField p_nei = fvc::interpolate(p_rgh_, nei_, "reconstruct(p)");
     surfaceScalarField pf    = linearInterpolate(p_rgh_);
-    
-    surfaceVectorField phase1_coeffs = 
+
+    surfaceVectorField phase1_coeffs =
         (
             kappa_*(alpha1_own_ *p_own + alpha1_nei_*p_nei)
             +
             onemkappa_*pf
         ) * p_rgh_.mesh().Sf();
-    
-    surfaceVectorField phase2_coeffs = 
+
+    surfaceVectorField phase2_coeffs =
         (
             kappa_*(alpha2_own_ *p_own + alpha2_nei_*p_nei)
             +
             onemkappa_*pf
         ) * p_rgh_.mesh().Sf();
 
-    // gradp_ = fvc::div((alpha_own_ *p_own + alpha_nei_*p_nei)*U_.mesh().Sf());
-
-//    gradp_ = fvc::div((alpha1_own_ *p_own + alpha1_nei_*p_nei)*U_.mesh().Sf());
-//    gradp_ = fvc::div((alpha2_own_ *p_own + alpha2_nei_*p_nei)*U_.mesh().Sf());
-//    gradp_ = fvc::grad(p_rgh_);
-
-//    gradp_ =  volumeFraction1_*
-//        fvc::div((alpha1_own_ *p_own + alpha1_nei_*p_nei)*U_.mesh().Sf());
-//    gradp_ += volumeFraction2_*
-//        fvc::div((alpha2_own_ *p_own + alpha2_nei_*p_nei)*U_.mesh().Sf());
-    gradp_ = 
+    gradp_ =
         fvc::div(phase1_coeffs)*volumeFraction1_
         +
         fvc::div(phase2_coeffs)*volumeFraction2_;
@@ -69,46 +59,6 @@ void Foam::interTwoPhaseCentralFoam::divDevRhoReff()
         - fvm::laplacian(mu_, U_)
         - fvc::div((mu_)*dev2(Foam::T(fvc::grad(U_))))
     );
-}
-
-
-void Foam::interTwoPhaseCentralFoam::viscosityTEqn()
-{
-    Tviscosity1 = - fvm::laplacian(alpha1_*Cp1_, T_);
-
-    Tviscosity2 =- fvm::laplacian(alpha2_*Cp2_, T_);
-}
-
-
-void Foam::interTwoPhaseCentralFoam::devRhoReff()
-{
-    devRhoReff1_ = (-(alpha1_)*dev(twoSymm(fvc::grad(U_))));
-    devRhoReff2_ = (-(alpha2_)*dev(twoSymm(fvc::grad(U_))));
-    // Rename TSourse
-    TSource1_ =
-    fvc::div((linearInterpolate((-devRhoReff1_) & U_) & U_.mesh().Sf())());
-
-    TSource2_ =
-    fvc::div((linearInterpolate((-devRhoReff2_) & U_) & U_.mesh().Sf())());
-}
-
-//* * * * * * * * * * * * * * * * * * Others * * * * * * * * * * * * * * * * *//
-
-void Foam::interTwoPhaseCentralFoam::divU()
-{
-
-    surfaceScalarField rbyAf = fvc::interpolate(rbyA_);
-/*
-    Foam::CorrectPhi
-    (
-        U_,
-        phi_,
-        p_,
-        rbyAf,
-        divU_,
-        pimple_
-    );
-*/
 }
 
 //
