@@ -928,6 +928,10 @@ void Foam::interTwoPhaseCentralFoam::updateKappa()
             Maf/FaceAcCo,
             scalar(1.0)
         );
+
+//    kappa_.primitiveFieldRef() = 1.0;
+//    kappa_.boundaryFieldRef() = 1.0;
+
     onemkappa_ = 1.0 - kappa_;
     Info<< "max/min kappa: " << max(kappa_).value()
         << "/" << min(kappa_).value()
@@ -1045,6 +1049,33 @@ void Foam::interTwoPhaseCentralFoam::volumeFlux()
 
     pcorr_.primitiveFieldRef() = 0.0;
     pcorr_.boundaryFieldRef() = 0.0;
+
+    label labelFake = 0;
+    scalar scalarFake = 0.0;
+
+    bool hasDirichlet = false;
+    forAll(pcorr_.boundaryField(), ipatch)
+    {
+        if (pcorr_.boundaryField()[ipatch].coupled())
+        {
+            continue;
+        }
+        if (pcorr_.boundaryField()[ipatch].fixesValue())
+        {
+            hasDirichlet = true;
+        }
+    }
+
+    if (!hasDirichlet)
+    {
+        setRefCell
+        (
+            pcorr_,
+            pimple_.dict(),
+            labelFake,
+            scalarFake
+        );
+    }
 
     volScalarField& alpha1 = volumeFraction1_;
     volScalarField& alpha2 = volumeFraction2_;
@@ -1549,10 +1580,10 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralFieldsIndividual()
     //add contribution from body forces
     {
         surfaceScalarField ghSf = ghf_ * U_.mesh().magSf();
-        
+
         rAUf_ = linearInterpolate(rbyA_);
         phib_ = -ghSf*fvc::snGrad(rho_)*rAUf_;
-        
+
         {
             forAll(phib_.boundaryField(), patchi)
             {
@@ -1604,28 +1635,28 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralFieldsIndividual()
             nei_,
             "reconstruct(Dp)"
         );
-        
+
         surfaceScalarField phiCorr = linearInterpolate(rho_*rbyA_)*fvc::ddtCorr(U_, phi_);
         phi_ = linearInterpolate(HbyA_) & HbyA_.mesh().Sf();
 
         surfaceScalarField kapparAuf = onemkappa_*rAUf_;
-        
+
         //phi_ += phiCorr;
-        
+
         phi01d_own_ *= kappa_; phi01d_own_ += rho01_*phi_*onemkappa_;
         phi02d_own_ *= kappa_; phi02d_own_ += rho02_*phi_*onemkappa_;
         phi1d_own_  *= kappa_; phi1d_own_  += linearInterpolate(psi1_)*phi_*onemkappa_;
         phi2d_own_  *= kappa_; phi2d_own_  += linearInterpolate(psi2_)*phi_*onemkappa_;
         Dp1_own_    *= kappa_; Dp1_own_    += linearInterpolate(rho1_)*kapparAuf;
         Dp2_own_    *= kappa_; Dp2_own_    += linearInterpolate(rho2_)*kapparAuf;
-        
+
         phi01d_nei_ *= kappa_;
         phi02d_nei_ *= kappa_;
         phi1d_nei_  *= kappa_;
         phi2d_nei_  *= kappa_;
         Dp1_nei_    *= kappa_;
         Dp2_nei_    *= kappa_;
-        
+
         phi01d_own_ += linearInterpolate(rho1_)*phib_;
         //phi1_nei_ += linearInterpolate(rho1_)*phib_;
         phi02d_own_ += linearInterpolate(rho2_)*phib_;
@@ -1634,7 +1665,7 @@ void Foam::interTwoPhaseCentralFoam::UpdateCentralFieldsIndividual()
 //        phi01d_own_ +=linearInterpolate(rho1_*rbyA_)*fvc::ddtCorr(rho1_, U_, phi1_)*(1.0 - kappa_);
 //        phi02d_own_ +=linearInterpolate(rho2_*rbyA_)*fvc::ddtCorr(rho2_, U_, phi2_)*(1.0 - kappa_);
 
-        //surfaceScalarField phiCorr = 
+        //surfaceScalarField phiCorr =
         //    linearInterpolate(rho_*rbyA_)*fvc::ddtCorr(U_, phi_)*(1.0 - kappa_);
 
         //phi01d_own_ +=rho1_own*phiCorr;
