@@ -1,19 +1,19 @@
 /*---------------------------------------------------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2012                                 |
+|  \\    /   O peration     | Version:  2012                                  |
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
-Build  : v2012 OPENFOAM=2012
+Build  : _269d0ffd5c-20210619 OPENFOAM=2012 patch=210618
 Arch   : "LSB;label=32;scalar=64"
 Exec   : blockMesh
-Date   : Dec 20 2021
-Time   : 17:55:22
-Host   : matvey
-PID    : 140786
+Date   : Dec 21 2021
+Time   : 12:18:35
+Host   : friday
+PID    : 48363
 I/O    : uncollated
-Case   : /home/matvey/Calculations/hybridCentralSolvers-github/Sources/interTwoPhaseCentralFoam/tutorial/damBreak/damBreak
+Case   : /home/aleksandr/OpenFOAM/aleksandr-v2012/hybridCentralSolvers/Sources/interTwoPhaseCentralFoam/tutorial/damBreak/damBreak
 nProcs : 1
 trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
 fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
@@ -31,7 +31,7 @@ Creating topology patches
 Creating block mesh topology
 --> FOAM Warning : 
     From Foam::polyMesh::polyMesh(const Foam::IOobject&, Foam::pointField&&, const cellShapeList&, const faceListList&, const wordList&, const Foam::PtrList<Foam::dictionary>&, const Foam::word&, const Foam::word&, bool)
-    in file meshes/polyMesh/polyMeshFromShapeMesh.C at line 919
+    in file meshes/polyMesh/polyMeshFromShapeMesh.C at line 920
     Found 10 undefined faces in mesh; adding to default patch defaultFaces
 
 Check topology

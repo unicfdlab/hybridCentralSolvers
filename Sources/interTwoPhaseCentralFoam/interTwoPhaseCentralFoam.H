@@ -44,6 +44,7 @@ SourceFiles
 #include "interfaceProperties.H"
 
 #include "gravityMeshObject.H"
+#include "findRefCell.H"
 namespace Foam
 {
 
@@ -186,8 +187,7 @@ namespace Foam
 
             //- Kappa KT/PISO blending field
             surfaceScalarField kappa_;
-            
-            //- Inversed kappa blending field
+
             surfaceScalarField onemkappa_;
 
 /********************Variables for Update-Central Wieghts Function*************/
