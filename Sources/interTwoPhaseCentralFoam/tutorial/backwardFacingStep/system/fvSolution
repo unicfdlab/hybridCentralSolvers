@@ -17,7 +17,7 @@ FoamFile
 
 solvers
 {
-    "(rho1|rho2|volumeFraction1|U|T|p)"
+    "(rho1|rho2|volumeFraction1|U|T|p_rgh).*"
     {
         solver          PBiCGStab;
         preconditioner	DILU;
@@ -27,17 +27,12 @@ solvers
         nAlphaCorr      1;
     }
 
-    "(rho1|rho2|volumeFraction1|U|T|p)Final"
+    "(pcorr|pcorrFinal)"
     {
-      $p;
-    }
-
-    "pcorrFinal"
-    {
-      solver          PCG;
-      preconditioner  DIC;
-      tolerance       1e-9;
-      relTol          0.0;
+        solver          PCG;
+        preconditioner	none;
+        tolerance       1e-9;
+        relTol          0.0;
     }
 }
 
@@ -46,6 +41,9 @@ PIMPLE
 
     nOuterCorrectors            3;
     nCorrectors                 1;
+    pcorrRefCell                1;
+    pcorrRefValue               0.0;
+
 
     kappaFunction
     {

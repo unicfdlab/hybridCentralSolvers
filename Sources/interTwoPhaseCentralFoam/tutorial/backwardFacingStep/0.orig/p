@@ -17,25 +17,21 @@ FoamFile
 
 dimensions      [1 -1 -2 0 0 0 0];
 
-internalField   uniform 0;
+internalField   uniform 101325;
 
 boundaryField
 {
     inlet
     {
-        type            qhdFlux;
+        type            zeroGradient;
     }
     outlet
     {
-        type           totalPressure;
-        p0             $internalField;
-        rho            rho;
-        gamma          0.9;
-        value          $internalField;
+        type            zeroGradient;
     }
     walls
     {
-        type            qhdFlux;
+        type            zeroGradient;
     }
     symwall
     {

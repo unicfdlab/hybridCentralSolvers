@@ -87,27 +87,21 @@ int main(int argc, char *argv[])
 
             Veronika.massError2();
 
-            Veronika.UEqn();          //Generate fvmatrix for UEqn (note: without grad(p_))
+            Veronika.UEqn();             //Generate fvmatrix for UEqn (note: without grad(p_))
 
-            Veronika.TEqnsolve();
+            Veronika.TEqnSolve();
 
             Veronika.Compressibility(); //Update psi1_ = molM1_/(R_ * T_) and psi2_
-
-//            Veronika.updateK();         //Calculate values of C1_, C2_, Z1_, Z2_, K_, and phi_
 
             Veronika.DensityThermo();
 
             Veronika.speedOfSound();
 
-            // Veronika.UpdateCentralWeights(); //Calculate fluxes (phi1_own and phi1_nei)
-
-            // Veronika.UpdateCentralFields();  //Calculate coefficients of pEqn: phi1d_own, phi1_nei, Dp1_own, and Dp2_nei
-
             Veronika.UpdateCentralWeightsIndividual();
 
             Veronika.UpdateCentralFieldsIndividual();
 
-            Veronika.pEqnsolve();            //Solve pEqn
+            Veronika.pEqnSolve();             //Solve pEqn
 
             Veronika.Flux();
 

@@ -18,30 +18,26 @@ FoamFile
 dimensions      [0 0 0 0 0 0 0];
 
 
-internalField   uniform 0;
+internalField   uniform 1;
 
 boundaryField
 {
-    inlet
-    {
-        type            zeroGradient;
-    }
-    outlet
-    {
-        type            zeroGradient;
-    }
-    wallUpper
-    {
-        type            zeroGradient;
-    }
-    wallSymmetricBorder
-    {
-        type            slip;
-    }
-    symwall
-    {
-        type            empty;
-    }
+  inlet
+  {
+      type            zeroGradient;
+  }
+  outlet
+  {
+      type            zeroGradient;
+  }
+  walls
+  {
+      type            zeroGradient;
+  }
+  symwall
+  {
+      type            empty;
+  }
 }
 
 

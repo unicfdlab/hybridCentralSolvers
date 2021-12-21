@@ -31,18 +31,20 @@ defaultAdvSchemeV    MinmodV;
 divSchemes
 {
     default         none;
-div(((interpolate(volumeFraction1)*phi1_nei_)+((1-interpolate(volumeFraction1))*phi2_nei_)),U) Gauss $defaultAdvSchemeV;
-div(((interpolate(volumeFraction1)*phi1_own_)+((1-interpolate(volumeFraction1))*phi2_own_)),U) Gauss $defaultAdvSchemeV;
+
+   div(phiU_own,U) Gauss $defaultAdvSchemeV;
+   div(phiU_nei,U) Gauss $defaultAdvSchemeV;
+
    //Volume Fraction Equation
    div(phi,volumeFraction1) Gauss $defaultAdvScheme;
-   div(phirb,volumeFraction1) Gauss linear; //must be always linear
+   div(phirb,volumeFraction1) Gauss linear;             //must be always linear
 
    //continuity equation
-   div(phi1d_own_,p) Gauss $defaultAdvScheme;
-   div(phi1d_nei_,p) Gauss $defaultAdvScheme;
+   div(phi1d_own_,p_rgh) Gauss $defaultAdvScheme;
+   div(phi1d_nei_,p_rgh) Gauss $defaultAdvScheme;
 
-   div(phi2d_own_,p) Gauss $defaultAdvScheme;
-   div(phi2d_nei_,p) Gauss $defaultAdvScheme;
+   div(phi2d_own_,p_rgh) Gauss $defaultAdvScheme;
+   div(phi2d_nei_,p_rgh) Gauss $defaultAdvScheme;
 
    //Momentum equation
    div(phi1_own_,U) Gauss $defaultAdvSchemeV;
@@ -55,29 +57,23 @@ div(((interpolate(volumeFraction1)*phi1_own_)+((1-interpolate(volumeFraction1))*
 
    //Energy equation
 
-   div(((interpolate(volumeFraction1)*phi1_nei_)+((1-interpolate(volumeFraction1))*phi2_nei_)),T) Gauss $defaultAdvScheme;
-   div(((interpolate(volumeFraction1)*phi1_own_)+((1-interpolate(volumeFraction1))*phi2_own_)),T) Gauss $defaultAdvScheme;
-
-   div(((((1|Cp1)*interpolate(volumeFraction1))*phi1_nei_)+(((1|Cp2)*(1-interpolate(volumeFraction1)))*phi2_nei_)),(0.5*magSqr(U))) Gauss $defaultAdvScheme;
-   div(((((1|Cp1)*interpolate(volumeFraction1))*phi1_own_)+(((1|Cp2)*(1-interpolate(volumeFraction1)))*phi2_own_)),(0.5*magSqr(U))) Gauss $defaultAdvScheme;
-
    div(phi1_own_,T) Gauss $defaultAdvScheme;
    div(phi1_nei_,T) Gauss $defaultAdvScheme;
 
-   div(phi1_own_,(0.5*magSqr(U))) Gauss $defaultAdvScheme;
-   div(phi1_nei_,(0.5*magSqr(U))) Gauss $defaultAdvScheme;
+   div(phi1_own_,Q) Gauss $defaultAdvScheme;
+   div(phi1_nei_,Q) Gauss $defaultAdvScheme;
 
    div(phi2_own_,T) Gauss $defaultAdvScheme;
    div(phi2_nei_,T) Gauss $defaultAdvScheme;
 
-   div(phi2_own_,(0.5*magSqr(U))) Gauss $defaultAdvScheme;
-   div(phi2_nei_,(0.5*magSqr(U))) Gauss $defaultAdvScheme;
+   div(phi2_own_,Q) Gauss $defaultAdvScheme;
+   div(phi2_nei_,Q) Gauss $defaultAdvScheme;
 
 }
 
 laplacianSchemes
 {
-    default         Gauss linear uncorrected;
+    default         Gauss linear corrected;
 }
 
 interpolationSchemes
@@ -100,9 +96,15 @@ interpolationSchemes
 
     reconstruct(psi)	  	$defaultAdvScheme;
 
-    reconstruct(p)		    $defaultAdvScheme;
+    reconstruct(p)      	$defaultAdvScheme;
+
+    reconstruct(p_rgh)		$defaultAdvScheme;
     reconstruct(Dp)		    $defaultAdvScheme;
-    reconstruct(volumeFraction1) Minmod phi;
+    reconstruct(volumeFraction1) $defaultAdvScheme phi;
+
+    dotInterpolate(S,(rho1_0*U_0)) linear;
+    dotInterpolate(S,(rho2_0*U_0)) linear;
+    dotInterpolate(S,U_0) linear;
 
 
 }
@@ -115,7 +117,8 @@ snGradSchemes
 fluxRequired
 {
     default	none;
-    p;
+    p_rgh;
+    pcorr;
 }
 
 // ************************************************************************* //

@@ -23,10 +23,10 @@ solvers
         preconditioner	DILU;
         tolerance       1e-9;
         relTol          0.0;
-        cAlpha          1.0;
+        cAlpha          0.5;
         nAlphaCorr      1;
     }
-    
+
     "(pcorr|pcorrFinal)"
     {
         solver          PCG;
@@ -41,6 +41,7 @@ PIMPLE
 
     nOuterCorrectors            3;
     nCorrectors                 1;
+    kappaIsOne               false;
 
     kappaFunction
     {

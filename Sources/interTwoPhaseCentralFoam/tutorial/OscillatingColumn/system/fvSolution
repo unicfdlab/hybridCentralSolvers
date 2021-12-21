@@ -26,7 +26,7 @@ solvers
         cAlpha          1.0;
         nAlphaCorr      1;
     }
-    
+
     "(pcorr|pcorrFinal)"
     {
         solver          PCG;
@@ -41,6 +41,7 @@ PIMPLE
 
     nOuterCorrectors            3;
     nCorrectors                 1;
+    kappaIsOne               false;
 
     kappaFunction
     {

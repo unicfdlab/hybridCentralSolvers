@@ -17,19 +17,19 @@ FoamFile
 
 application     interTwoPhaseCentralFoam;
 
-startFrom       startTime;
+startFrom       latestTime;
 
 startTime       0;
 
 stopAt          endTime;
 
-endTime         1;
+endTime         600;
 
 deltaT          5e-3;//2e-05;
 
 writeControl    adjustableRunTime;
 
-writeInterval   0.1;
+writeInterval   100;
 
 cycleWrite      0;
 

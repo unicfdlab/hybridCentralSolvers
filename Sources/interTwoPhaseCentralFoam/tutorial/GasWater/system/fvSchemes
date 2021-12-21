@@ -31,13 +31,13 @@ defaultAdvSchemeV    MinmodV;
 divSchemes
 {
     default         none;
-    div((phi1_own_+phi1_nei_),volumeFraction1) Gauss $defaultAdvScheme;
 
-div(((interpolate(volumeFraction1)*phi1_nei_)+((1-interpolate(volumeFraction1))*phi2_nei_)),U) Gauss $defaultAdvSchemeV;
-div(((interpolate(volumeFraction1)*phi1_own_)+((1-interpolate(volumeFraction1))*phi2_own_)),U) Gauss $defaultAdvSchemeV;
+   div(phiU_own,U) Gauss $defaultAdvSchemeV;
+   div(phiU_nei,U) Gauss $defaultAdvSchemeV;
+
    //Volume Fraction Equation
    div(phi,volumeFraction1) Gauss $defaultAdvScheme;
-   div(phirb,volumeFraction1) Gauss linear; //must be always linear
+   div(phirb,volumeFraction1) Gauss linear;             //must be always linear
 
    //continuity equation
    div(phi1d_own_,p_rgh) Gauss $defaultAdvScheme;
@@ -57,23 +57,17 @@ div(((interpolate(volumeFraction1)*phi1_own_)+((1-interpolate(volumeFraction1))*
 
    //Energy equation
 
-   div(((interpolate(volumeFraction1)*phi1_nei_)+((1-interpolate(volumeFraction1))*phi2_nei_)),T) Gauss $defaultAdvScheme;
-   div(((interpolate(volumeFraction1)*phi1_own_)+((1-interpolate(volumeFraction1))*phi2_own_)),T) Gauss $defaultAdvScheme;
-
-   div(((((1|Cp1)*interpolate(volumeFraction1))*phi1_nei_)+(((1|Cp2)*(1-interpolate(volumeFraction1)))*phi2_nei_)),(0.5*magSqr(U))) Gauss $defaultAdvScheme;
-   div(((((1|Cp1)*interpolate(volumeFraction1))*phi1_own_)+(((1|Cp2)*(1-interpolate(volumeFraction1)))*phi2_own_)),(0.5*magSqr(U))) Gauss $defaultAdvScheme;
-
    div(phi1_own_,T) Gauss $defaultAdvScheme;
    div(phi1_nei_,T) Gauss $defaultAdvScheme;
 
-   div(phi1_own_,(0.5*magSqr(U))) Gauss $defaultAdvScheme;
-   div(phi1_nei_,(0.5*magSqr(U))) Gauss $defaultAdvScheme;
+   div(phi1_own_,Q) Gauss $defaultAdvScheme;
+   div(phi1_nei_,Q) Gauss $defaultAdvScheme;
 
    div(phi2_own_,T) Gauss $defaultAdvScheme;
    div(phi2_nei_,T) Gauss $defaultAdvScheme;
 
-   div(phi2_own_,(0.5*magSqr(U))) Gauss $defaultAdvScheme;
-   div(phi2_nei_,(0.5*magSqr(U))) Gauss $defaultAdvScheme;
+   div(phi2_own_,Q) Gauss $defaultAdvScheme;
+   div(phi2_nei_,Q) Gauss $defaultAdvScheme;
 
 }
 

@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     Veronika;
+application     interTwoPhaseCentralFoam;
 
 startFrom       latestTime;
 
@@ -29,7 +29,7 @@ deltaT          1e-8;
 
 writeControl    adjustable;
 
-writeInterval   5e-6;
+writeInterval   0.5e-6;
 
 purgeWrite      0;
 
