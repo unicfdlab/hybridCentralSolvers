@@ -221,7 +221,7 @@ void Foam::interTwoPhaseCentralFoam::TEqnSolve()
         + fvm::div(phi1_own_,T_) + fvm::div(phi1_nei_,T_)
         - fvm::Sp(E1_,T_)
         + 1/Cp1_*TSource1_
-        + fvm::laplacian(alpha1_, T_)
+        - fvm::laplacian(alpha1_, T_)
     );
 
     fvScalarMatrix TEqn2
@@ -230,7 +230,7 @@ void Foam::interTwoPhaseCentralFoam::TEqnSolve()
         + fvm::div(phi2_own_,T_) + fvm::div(phi2_nei_,T_)
         - fvm::Sp(E2_,T_)
         + 1/Cp2_*TSource2_
-        + fvm::laplacian(alpha2_, T_)
+        - fvm::laplacian(alpha2_, T_)
     );
 
     fvScalarMatrix TEqn

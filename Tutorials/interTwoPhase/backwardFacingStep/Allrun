@@ -4,6 +4,7 @@ touch    backwardFacingStep.foam
 # Source tutorial run functions
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
 
+cp -rf 0.orig 0
 runApplication blockMesh
 runApplication $(getApplication)
 

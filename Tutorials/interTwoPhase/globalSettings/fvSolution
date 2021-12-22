@@ -11,45 +11,44 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "system";
-    object      controlDict;
+    object      fvSolution;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     interTwoPhaseCentralFoam;
+solvers
+{
+    "(rho1|rho2|volumeFraction1|U|T|p_rgh).*"
+    {
+        solver          PBiCGStab;
+        preconditioner	DILU;
+        tolerance       1e-9;
+        relTol          0.0;
+        cAlpha          1.0;
+        nAlphaCorr      1;
+    }
 
-startFrom       latestTime;
+    "(pcorr).*"
+    {
+        solver          PCG;
+        preconditioner
+        {
+            preconditioner GAMG;
+            smoother       DIC;
+            relTol         1e-3;
+            tolerance      1e-5;
+        }
+        tolerance       1e-9;
+        relTol          0.0;
+    }
+}
 
-startTime       0;
-
-stopAt          endTime;
-
-endTime         600;
-
-deltaT          5e-3;//2e-05;
-
-writeControl    adjustableRunTime;
-
-writeInterval   5;
-
-cycleWrite      0;
-
-writeFormat     ascii;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable true;
-
-adjustTimeStep  true;
-
-maxCo           0.3;
-cTau            0.5;
-
-maxDeltaT       1;
+PIMPLE
+{
+    nOuterCorrectors                 3;
+    nCorrectors                      1;
+    pcorrRefCell                     1;
+    pcorrRefValue                  0.0;
+    #includeIfPresent "PIMPLEsettings";
+}
 
 // ************************************************************************* //

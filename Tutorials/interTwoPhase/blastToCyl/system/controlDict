@@ -45,10 +45,10 @@ timePrecision   6;
 
 runTimeModifiable true;
 
-adjustTimeStep  false;
+adjustTimeStep  true;
 
 //w/o DTS
-maxCo        0.25; //0.25, 0.5, 0.75, 1.25, 2.5
+maxCo        0.5; //0.25, 0.5, 0.75, 1.25, 2.5
 
 
 // ************************************************************************* //
