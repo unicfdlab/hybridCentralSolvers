@@ -36,7 +36,7 @@ Kurganov and Tadmor for combustion with chemical reactions and LTS support for s
     of Kurganov and Tadmor for conjugate simulation of compressible flows of perfect gas (Mach 
     number is ranging from 0 to 6) and solid body heat transfer.
 
-8. **interTwoPhaseCentralFoam** - pressure-based solver for compressible 0-4 Mach numbers flow of two-phase media with account to viscosity and gravity. The solver utilizes VoF method for resolution of phase interface and ACID to calculate properties in the region where both phases are present. The solver is located in [exper/2phase](https://github.com/unicfdlab/hybridCentralSolvers/tree/exper/2phase) branch.
+8. **interTwoPhaseCentralFoam** - pressure-based solver for compressible 0-4 Mach numbers flow of two-phase media with account to viscosity and gravity. The solver utilizes VoF method for resolution of phase interface and ACID to calculate properties in the region where both phases are present. The solver is located in [exper/2phase](https://github.com/unicfdlab/hybridCentralSolvers/tree/exper/2phase) branch (OpenFOAM+ v. 2012).
 
 
 # Meeting points for users and developers
