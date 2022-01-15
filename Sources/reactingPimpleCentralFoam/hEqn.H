@@ -10,12 +10,12 @@
     
     /*
      *
-     * Explicit flux correction, bounded with MULES
+     * Explicit flux correction coupled with MULES
      *
     */
     surfaceScalarField hFluxCorr
     (
-        lambdaCoeffs
+        hLambdaCoeffs
         *
         (
             fvc::flux
@@ -82,8 +82,6 @@
             }
         }
     }
-    
-
     
     volScalarField alphahEff(turbulence->alphaEff());
     

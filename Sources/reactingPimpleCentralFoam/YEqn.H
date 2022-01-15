@@ -17,6 +17,9 @@ slicedSurfaceScalarField lambdaCoeffs
     false   // Use slices for the couples
 );
 
+surfaceScalarField hLambdaCoeffs ("hLambdaCoeffs", own);
+surfaceScalarField maxDeltaY ("maxDeltaY", own*0.0);
+
 upwind<scalar> UDsOwn(mesh, phi_own);
 upwind<scalar> UDsNei(mesh, phi_nei);
 
@@ -71,7 +74,8 @@ upwind<scalar> UDsNei(mesh, phi_nei);
             );
             mDCf[iCmpt] = fvc::interpolate(turbulence->muEff());
         }
-        else
+        
+        if (Yi.name() == inertSpecie)
         {
             inertIndex = iCmpt;
             forAll(diffusiveFlux[iCmpt].internalField(), iFace)
@@ -99,6 +103,7 @@ upwind<scalar> UDsNei(mesh, phi_nei);
         volScalarField& Yi = Y[iCmpt];
         if ( Yi.name() != inertSpecie )
         {
+            Info << "Limiting for: " << Yi.name() << endl;
             surfaceScalarField& rhoPhiYCorr = phiY[iCmpt];
         
             mulesWithDiffusionImplicitLimiter
@@ -170,4 +175,64 @@ upwind<scalar> UDsNei(mesh, phi_nei);
     Y[inertIndex] = scalar(1) - Yt;
     Y[inertIndex].correctBoundaryConditions();
     Y[inertIndex].max(0.0);
+
+    label owner = -1;
+    label neighbour = -1;
+    scalar deltaY = 0.0;
+    forAll(Y, iCmpt)
+    {
+        forAll(maxDeltaY.primitiveField(), iFace)
+        {
+            owner = mesh.owner()[iFace];
+            neighbour = mesh.owner()[iFace];
+            deltaY = mag(Y[iCmpt][owner] - Y[iCmpt][neighbour]);
+            if (deltaY > maxDeltaY.primitiveField()[iFace])
+            {
+                 maxDeltaY.primitiveFieldRef()[iFace] = deltaY;
+            }
+        }
+        forAll(maxDeltaY.boundaryField(), iPatch)
+        {
+            if (maxDeltaY.boundaryField()[iPatch].coupled())
+            {
+                scalarField intF = maxDeltaY.boundaryField()[iPatch];
+                scalarField intY = Y[iCmpt].boundaryField()[iPatch];
+                scalarField neiY = Y[iCmpt].boundaryField()[iPatch].patchNeighbourField();
+                forAll(intF, iFace)
+                {
+                    deltaY = mag(intY[iFace] - neiY[iFace]);
+                    if (deltaY > intF[iFace])
+                    {
+                        intF[iFace] = deltaY;
+                    }
+                }
+                maxDeltaY.boundaryFieldRef()[iPatch].operator = (intF);
+            }
+        }
+    }
+    forAll(maxDeltaY.primitiveField(), iFace)
+    {
+        if (maxDeltaY.primitiveField()[iFace] >= 0.05)
+        {
+            hLambdaCoeffs.primitiveFieldRef()[iFace] = 
+                lambdaCoeffs.primitiveField()[iFace];
+        }
+    }
+    forAll(maxDeltaY.boundaryField(), iPatch)
+    {
+        if (maxDeltaY.boundaryField()[iPatch].coupled())
+        {
+            scalarField intF = maxDeltaY.boundaryField()[iPatch].primitiveField();
+            scalarField intH = hLambdaCoeffs.boundaryField()[iPatch];
+            const scalarField& intL = lambdaCoeffs.boundaryField()[iPatch].primitiveField();
+            forAll(intF, iFace)
+            {
+                if (intF[iFace] > 0.05)
+                {
+                    intH[iFace] = intL[iFace];
+                }
+            }
+            hLambdaCoeffs.boundaryFieldRef()[iPatch].operator = (intH);
+        }
+    }
 }
