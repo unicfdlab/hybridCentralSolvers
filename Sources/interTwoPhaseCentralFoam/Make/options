@@ -1,6 +1,8 @@
 
 EXE_INC = \
+    -I../pimpleCentral/lnInclude \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/transportModels/interfaceProperties/lnInclude \
     -I$(LIB_SRC)/transportModels/compressible/lnInclude \
     -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude \
     -I$(LIB_SRC)/thermophysicalModels/specie/lnInclude \
@@ -20,4 +22,6 @@ EXE_LIBS = \
     -lcompressibleTransportModels \
     -lcompressibleTurbulenceModels \
     -lmeshTools \
-    -lfvOptions
+    -linterfaceProperties \
+    -lfvOptions \
+    -lpimpleCentral

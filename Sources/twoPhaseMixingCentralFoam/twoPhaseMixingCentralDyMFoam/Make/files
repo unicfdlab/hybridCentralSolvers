@@ -1,4 +1,4 @@
 twoPhaseMixingCentralDyMFoam.C
 
-EXE = $(FOAM_APPBIN)/twoPhaseMixingCentralDyMFoam
+EXE = $(FOAM_USER_APPBIN)/twoPhaseMixingCentralDyMFoam
 

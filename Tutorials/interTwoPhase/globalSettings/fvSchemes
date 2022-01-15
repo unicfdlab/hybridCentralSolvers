@@ -1,0 +1,115 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default         Euler;
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+}
+
+defaultAdvScheme     Minmod;
+defaultAdvSchemeV    MinmodV;
+
+divSchemes
+{
+    default         none;
+
+   div(phiU_own,U) Gauss $defaultAdvSchemeV;
+   div(phiU_nei,U) Gauss $defaultAdvSchemeV;
+
+   //Volume Fraction Equation
+   div(phi,volumeFraction1) Gauss $defaultAdvScheme;
+   div(phirb,volumeFraction1) Gauss linear;             //must be always linear
+
+   //continuity equation
+   div(phi1d_own_,p_rgh) Gauss $defaultAdvScheme;
+   div(phi1d_nei_,p_rgh) Gauss $defaultAdvScheme;
+
+   div(phi2d_own_,p_rgh) Gauss $defaultAdvScheme;
+   div(phi2d_nei_,p_rgh) Gauss $defaultAdvScheme;
+
+   //Momentum equation
+   div(phi1_own_,U) Gauss $defaultAdvSchemeV;
+   div(phi1_nei_,U) Gauss $defaultAdvSchemeV;
+
+   div(phi2_own_,U) Gauss $defaultAdvSchemeV;
+   div(phi2_nei_,U) Gauss $defaultAdvSchemeV;
+
+   div((mu*dev2(T(grad(U))))) Gauss linear;
+
+   //Energy equation
+
+   div(phi1_own_,T) Gauss $defaultAdvScheme;
+   div(phi1_nei_,T) Gauss $defaultAdvScheme;
+
+   div(phi1_own_,Q) Gauss $defaultAdvScheme;
+   div(phi1_nei_,Q) Gauss $defaultAdvScheme;
+
+   div(phi2_own_,T) Gauss $defaultAdvScheme;
+   div(phi2_nei_,T) Gauss $defaultAdvScheme;
+
+   div(phi2_own_,Q) Gauss $defaultAdvScheme;
+   div(phi2_nei_,Q) Gauss $defaultAdvScheme;
+
+}
+
+laplacianSchemes
+{
+    default         Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+    default         none;
+
+    flux(U)                       linear;
+    interpolate(U)                linear;
+    interpolate(nHat)             linear;
+    interpolate(rbyA)             linear;
+    //
+    reconstruct(rho1)             $defaultAdvScheme;
+    reconstruct(rho2)             $defaultAdvScheme;
+    reconstruct(phi)              $defaultAdvScheme;
+    reconstruct(psi1)             $defaultAdvScheme;
+    reconstruct(psi2)             $defaultAdvScheme;
+    reconstruct(psi)              $defaultAdvScheme;
+    reconstruct(U)                $defaultAdvSchemeV;
+    reconstruct(p)                $defaultAdvScheme;
+    reconstruct(p_rgh)            $defaultAdvScheme;
+    reconstruct(Dp)               $defaultAdvScheme;
+    reconstruct(volumeFraction1)  $defaultAdvScheme phi;
+
+    dotInterpolate(S,U_0) linear;
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+fluxRequired
+{
+    default	none;
+    p_rgh;
+    pcorr;
+}
+
+// ************************************************************************* //

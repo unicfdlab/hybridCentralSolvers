@@ -13,4 +13,4 @@ Tools/correctCentralACMIInterpolation.C
 
 thermophysicalProperties/thermo/additionalRhoThermos.C
 
-LIB = $(FOAM_LIBBIN)/libpimpleCentral
+LIB = $(FOAM_USER_LIBBIN)/libpimpleCentral

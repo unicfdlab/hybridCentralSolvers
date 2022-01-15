@@ -1,0 +1,46 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+defaultFieldValues
+(
+    volScalarFieldValue volumeFraction1 0
+);
+
+<<<<<<< HEAD:Sources/interTwoPhaseCentralFoam/tutorial/Gas/0.2/uniform/time
+name            "0.2";
+
+index           3736;
+
+deltaT          5.382119325e-05;
+
+deltaT0         5.382119325e-05;
+=======
+regions
+(
+    boxToCell
+    {
+        box (0 0 -1) (0.1461 0.292 1);
+        fieldValues
+        (
+            volScalarFieldValue volumeFraction1 1
+        );
+    }
+);
+>>>>>>> 0082869beace073713fd2e87a22fd684978cb57f:Tutorials/interTwoPhase/damBreak/damBreak/system/setFieldsDict
+
+
+// ************************************************************************* //
