@@ -61,8 +61,8 @@ autoPtr<kappaFunction> kappaFunction::New
 
     Info<< "Selecting finite volume kappaFunction type " << modelType << endl;
 
-    dictionaryConstructorTable::iterator cstrIter =
-        dictionaryConstructorTablePtr_->find(modelType);
+    auto cstrIter =
+        dictionaryConstructorTablePtr_->cfind(modelType);
 
     if (cstrIter == dictionaryConstructorTablePtr_->end())
     {

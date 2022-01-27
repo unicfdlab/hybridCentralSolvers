@@ -10,6 +10,8 @@ cd twoPhaseMixingCentralFoam; ./Allwclean; cd ../
 
 cd chtMultiRegionCentralFoam; ./Allwclean; cd ../
 
+cd interTwoPhaseCentralFoam; ./Allwclean; cd ../
+
 #
 #END-OF-FILE
 #
