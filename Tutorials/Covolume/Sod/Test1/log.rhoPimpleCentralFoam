@@ -1,0 +1,62 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2112                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _14aeaf8dab-20211220 OPENFOAM=2112 version=v2112
+Arch   : "LSB;label=32;scalar=64"
+Exec   : rhoPimpleCentralFoam
+Date   : Feb 19 2022
+Time   : 14:41:28
+Host   : bl019.unicluster.ru
+PID    : 16504
+I/O    : uncollated
+Case   : /unicluster/home/matvey.kraposhin/run/Unicfdlab/github-hybridCentralSolvers/Tutorials/Covolume/Sod/Test1
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+
+PIMPLE: no residual control data found. Calculations will employ 3 corrector loops
+
+Reading thermophysical properties
+
+Selecting thermodynamics package 
+{
+    type            heRhoThermo;
+    mixture         pureMixture;
+    transport       const;
+    thermo          hConst;
+    equationOfState covolumeGas;
+    specie          specie;
+    energy          sensibleEnthalpy;
+}
+
+#0  Foam::error::printStack(Foam::Ostream&) in /unicluster/bl2x220Cluster/opt/fvm/OpenFOAM/OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib/libOpenFOAM.so
+#1  Foam::sigSegv::sigHandler(int) in /unicluster/bl2x220Cluster/opt/fvm/OpenFOAM/OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib/libOpenFOAM.so
+#2  ? in /lib64/libpthread.so.0
+#3  regfree in /lib64/libc.so.6
+#4  Foam::regExpPosix::clear() in /unicluster/bl2x220Cluster/opt/fvm/OpenFOAM/OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib/libOpenFOAM.so
+#5  Foam::GeometricField<double, Foam::fvPatchField, Foam::volMesh>::Boundary::readField(Foam::DimensionedField<double, Foam::volMesh> const&, Foam::dictionary const&) in ~/OpenFOAM/matvey.kraposhin-v2112/platforms/linux64GccDPInt32Opt/bin/rhoPimpleCentralFoam
+#6  Foam::GeometricField<double, Foam::fvPatchField, Foam::volMesh>::readFields(Foam::dictionary const&) in ~/OpenFOAM/matvey.kraposhin-v2112/platforms/linux64GccDPInt32Opt/bin/rhoPimpleCentralFoam
+#7  Foam::GeometricField<double, Foam::fvPatchField, Foam::volMesh>::readFields() in ~/OpenFOAM/matvey.kraposhin-v2112/platforms/linux64GccDPInt32Opt/bin/rhoPimpleCentralFoam
+#8  Foam::GeometricField<double, Foam::fvPatchField, Foam::volMesh>::GeometricField(Foam::IOobject const&, Foam::fvMesh const&, bool) in ~/OpenFOAM/matvey.kraposhin-v2112/platforms/linux64GccDPInt32Opt/bin/rhoPimpleCentralFoam
+#9  Foam::basicThermo::lookupOrConstruct(Foam::fvMesh const&, Foam::word const&, bool&) in /unicluster/bl2x220Cluster/opt/fvm/OpenFOAM/OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib/libfluidThermophysicalModels.so
+#10  Foam::basicThermo::basicThermo(Foam::fvMesh const&, Foam::word const&) in /unicluster/bl2x220Cluster/opt/fvm/OpenFOAM/OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib/libfluidThermophysicalModels.so
+#11  Foam::fluidThermo::fluidThermo(Foam::fvMesh const&, Foam::word const&) in /unicluster/bl2x220Cluster/opt/fvm/OpenFOAM/OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib/libfluidThermophysicalModels.so
+#12  Foam::rhoThermo::rhoThermo(Foam::fvMesh const&, Foam::word const&) in /unicluster/bl2x220Cluster/opt/fvm/OpenFOAM/OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib/libfluidThermophysicalModels.so
+#13  Foam::heThermo<Foam::rhoThermo, Foam::pureMixture<Foam::constTransport<Foam::species::thermo<Foam::hConstThermo<Foam::covolumeGas<Foam::specie> >, Foam::sensibleEnthalpy> > > >::heThermo(Foam::fvMesh const&, Foam::word const&) in ~/OpenFOAM/matvey.kraposhin-v2112/platforms/linux64GccDPInt32Opt/lib/libpimpleCentral.so
+#14  Foam::rhoThermo::addfvMeshConstructorToTable<Foam::heRhoThermo<Foam::rhoThermo, Foam::pureMixture<Foam::constTransport<Foam::species::thermo<Foam::hConstThermo<Foam::covolumeGas<Foam::specie> >, Foam::sensibleEnthalpy> > > > >::New(Foam::fvMesh const&, Foam::word const&) in ~/OpenFOAM/matvey.kraposhin-v2112/platforms/linux64GccDPInt32Opt/lib/libpimpleCentral.so
+#15  Foam::autoPtr<Foam::rhoThermo> Foam::basicThermo::New<Foam::rhoThermo>(Foam::fvMesh const&, Foam::word const&) in /unicluster/bl2x220Cluster/opt/fvm/OpenFOAM/OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib/libfluidThermophysicalModels.so
+#16  Foam::rhoThermo::New(Foam::fvMesh const&, Foam::word const&) in /unicluster/bl2x220Cluster/opt/fvm/OpenFOAM/OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib/libfluidThermophysicalModels.so
+#17  ? in ~/OpenFOAM/matvey.kraposhin-v2112/platforms/linux64GccDPInt32Opt/bin/rhoPimpleCentralFoam
+#18  __libc_start_main in /lib64/libc.so.6
+#19  ? in ~/OpenFOAM/matvey.kraposhin-v2112/platforms/linux64GccDPInt32Opt/bin/rhoPimpleCentralFoam

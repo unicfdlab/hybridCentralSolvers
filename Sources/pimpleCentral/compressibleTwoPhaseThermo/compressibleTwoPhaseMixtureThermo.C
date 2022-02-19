@@ -332,6 +332,24 @@ Foam::tmp<Foam::scalarField> Foam::compressibleTwoPhaseMixtureThermo::Cp
       + YGas().boundaryField()[patchi]*thermoGas_->Cp(p, T, patchi);
 }
 
+Foam::tmp<Foam::scalarField> Foam::compressibleTwoPhaseMixtureThermo::Cp
+(
+    const scalarField& p,
+    const scalarField& T,
+    const labelList& cells
+) const
+{
+    volScalarField CpAll(this->Cp());
+    tmp<scalarField> tCp( new scalarField(cells.size()));
+    scalarField& Cp = tCp.ref();
+    forAll(cells,icell)
+    {
+        Cp[icell] = CpAll.primitiveField()[cells[icell]];
+    }
+    
+    return tCp;
+}
+
 
 Foam::tmp<Foam::volScalarField> Foam::compressibleTwoPhaseMixtureThermo::Cv() const
 {
@@ -506,6 +524,24 @@ Foam::tmp<Foam::volScalarField> Foam::compressibleTwoPhaseMixtureThermo::rho() c
 Foam::tmp<Foam::scalarField> Foam::compressibleTwoPhaseMixtureThermo::rho(const label patchi) const
 {
     return rhoEff_.boundaryField()[patchi];
+}
+
+Foam::tmp<Foam::scalarField>
+Foam::compressibleTwoPhaseMixtureThermo::rhoEoS
+(
+    const scalarField& p, 
+    const scalarField& T,
+    const labelList& cells
+) const
+{
+    volScalarField rho (this->rho());
+    tmp<scalarField> tRho(new scalarField(cells.size()));
+    scalarField& rhoEoS = tRho.ref();
+    forAll(cells,icell)
+    {
+        rhoEoS[icell] = rho.primitiveField()[cells[icell]];
+    }
+    return tRho;
 }
 
 const Foam::dimensionedScalar& Foam::compressibleTwoPhaseMixtureThermo::pMin() const

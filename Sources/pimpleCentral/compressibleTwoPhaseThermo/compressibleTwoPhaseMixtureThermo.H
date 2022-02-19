@@ -210,6 +210,14 @@ public:
                 const scalarField& T,
                 const label patchi
             ) const;
+            
+            // Heat capacity at constant pressure in cell set
+            virtual tmp<scalarField> Cp
+            (
+                const scalarField&,
+                const scalarField&,
+                const labelList&
+            ) const;
 
             //- Heat capacity at constant volume [J/kg/K]
             virtual tmp<volScalarField> Cv() const;
@@ -310,6 +318,9 @@ public:
 
             //-
             virtual tmp<scalarField> rho(const label patchi) const;
+
+            //- Denstity for given cellSet
+            virtual tmp<scalarField> rhoEoS(const scalarField&, const scalarField&, const labelList&) const;
 
             //-
             const dimensionedScalar& pMin() const;
