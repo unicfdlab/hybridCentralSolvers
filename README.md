@@ -49,7 +49,7 @@ There is a [ResearchGate](https://www.researchgate.net/) project dedicated to th
 # Available OpenFOAM versions
 [To the contents](#Contents)
 
-The library is available for next version of OpenFOAM:
+The library is available for next versions of OpenFOAM:
 * OpenFOAM 3.1 - [master branch](https://github.com/unicfdlab/hybridCentralSolvers/tree/master)
 * OpenFOAM 4.1 - [dev-of4.1 branch](https://github.com/unicfdlab/hybridCentralSolvers/tree/dev-of4.1)
 * OpenFOAM 6   - [dev-of6 branch](https://github.com/unicfdlab/hybridCentralSolvers/tree/dev-of6)
