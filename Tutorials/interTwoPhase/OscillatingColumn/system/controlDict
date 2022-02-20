@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     interTwoCentralFoam;
+application     interTwoPhaseCentralFoam;
 
 startFrom       startTime;
 

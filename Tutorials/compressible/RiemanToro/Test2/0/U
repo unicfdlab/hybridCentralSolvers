@@ -25,7 +25,7 @@ boundaryField
     {
         type            surfaceNormalFixedValue;
         value           uniform (0 0 0);
-        refValue        2;
+        refValue        uniform 2;
     }
     "(empty1|empty2)"
     {

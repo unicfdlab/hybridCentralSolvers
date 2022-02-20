@@ -1,0 +1,1434 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2112                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _14aeaf8dab-20211220 OPENFOAM=2112 version=v2112
+Arch   : "LSB;label=32;scalar=64"
+Exec   : rhoPimpleCentralFoam
+Date   : Feb 20 2022
+Time   : 22:52:38
+Host   : matvey-81nc
+PID    : 433961
+I/O    : uncollated
+Case   : /data/Unicfdlab-github/hybridCentralSolvers-github/Tutorials/Covolume/Sod/Test1-3D
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+
+PIMPLE: no residual control data found. Calculations will employ 3 corrector loops
+
+Reading thermophysical properties
+
+Selecting thermodynamics package 
+{
+    type            heRhoThermo;
+    mixture         pureMixture;
+    transport       const;
+    thermo          hConst;
+    equationOfState covolumeGas;
+    specie          specie;
+    energy          sensibleEnthalpy;
+}
+
+Reading field U
+
+Creating field kinetic energy K
+
+Selecting finite volume kappaFunction type standardMachToAcCourantRatio
+Creating turbulence model
+
+Selecting turbulence model type laminar
+Selecting laminar stress model Stokes
+No finite volume options present
+No MRF models present
+
+Marking cells with bad quality to limit pressure gradient
+max/min FaceAcCourant: 6.79587e-21/3.33743e-23
+max/min Maf: 0/0
+max/min kappa: 0/0
+Courant Number max: 0
+
+Starting time loop
+
+Mean and max Characteristic Courant Numbers = 2.41177e-22 6.79587e-21
+Courant Number max: 0
+deltaT = 1.20048e-08
+Time = 1.20048e-08
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9949 / 0.999944
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 7.81619e-17, Final residual = 7.81619e-17, No Iterations 0
+max/min T: 3e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 4.0251e-06, Final residual = 1.77883e-20, No Iterations 1
+max(U): (549.449 0.490619 0.417645)
+max/min p: 1.00001e+08/99909.4
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9958 / 0.999038
+time step continuity errors : sum local = 1.15007e-16, global = -2.60822e-17, cumulative = 0
+max/min FaceAcCourant: 0.0182799/0.000195371
+max/min Maf: 4.73099/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 2.49658e-05, Final residual = 1.0534e-19, No Iterations 1
+max/min T: 3.00001e+06/332403
+DILUPBiCGStab:  Solving for p, Initial residual = 3.58461e-06, Final residual = 6.18088e-17, No Iterations 1
+max(U): (239.834 2.08787 1.43901)
+max/min p: 1e+08/99537.6
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.223 / 0.924691
+time step continuity errors : sum local = 7.63817e-16, global = 4.06626e-16, cumulative = 0
+max/min FaceAcCourant: 0.0145301/0.000195371
+max/min Maf: 0.811435/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 9.23633e-06, Final residual = 2.19674e-16, No Iterations 1
+max/min T: 3e+06/332510
+DILUPBiCGStab:  Solving for p, Initial residual = 1.97832e-06, Final residual = 3.04733e-17, No Iterations 1
+max(U): (402.295 1.34932 0.837657)
+max/min p: 1e+08/99728.1
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.388 / 0.870337
+time step continuity errors : sum local = 4.46494e-16, global = -1.29935e-16, cumulative = 0
+max/min FaceAcCourant: 0.01453/0.000195371
+max/min Maf: 1.06249/0
+max/min kappa: 1/0
+ExecutionTime = 1.34 s  ClockTime = 1 s
+
+Mean and max Characteristic Courant Numbers = 0.000950334 0.01453
+Courant Number max: 0.135613
+deltaT = 1.44127e-08
+Time = 2.64175e-08
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.861 / 0.714734
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 1.07573e-05, Final residual = 6.6213e-16, No Iterations 1
+max/min T: 3e+06/332164
+DILUPBiCGStab:  Solving for p, Initial residual = 2.93751e-06, Final residual = 1.50767e-16, No Iterations 1
+max(U): (638.033 4.66509 3.0167)
+max/min p: 1e+08/99433.3
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.712 / 0.76474
+time step continuity errors : sum local = 1.6886e-15, global = -1.43495e-16, cumulative = 0
+max/min FaceAcCourant: 0.0174444/0.000234557
+max/min Maf: 1.45507/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 2.54235e-06, Final residual = 3.59106e-16, No Iterations 1
+max/min T: 3e+06/331950
+DILUPBiCGStab:  Solving for p, Initial residual = 4.40053e-07, Final residual = 1.72648e-17, No Iterations 1
+max(U): (665.266 4.38108 2.88904)
+max/min p: 1e+08/99474.6
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.695 / 0.771134
+time step continuity errors : sum local = 3.09519e-16, global = -5.93879e-17, cumulative = 0
+max/min FaceAcCourant: 0.0174442/0.000234557
+max/min Maf: 1.45381/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 4.2942e-07, Final residual = 7.83671e-17, No Iterations 1
+max/min T: 3e+06/332321
+DILUPBiCGStab:  Solving for p, Initial residual = 7.36221e-08, Final residual = 3.00791e-18, No Iterations 1
+max(U): (661.437 4.30893 2.84845)
+max/min p: 1e+08/99601.3
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.701 / 0.768501
+time step continuity errors : sum local = 1.62954e-16, global = -2.38963e-17, cumulative = 0
+max/min FaceAcCourant: 0.0174441/0.000234557
+max/min Maf: 1.43192/0
+max/min kappa: 1/0
+ExecutionTime = 2.08 s  ClockTime = 2 s
+
+Mean and max Characteristic Courant Numbers = 0.00114142 0.0174441
+Courant Number max: 0.120807
+deltaT = 1.72852e-08
+Time = 4.37027e-08
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 101.076 / 0.646369
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 8.37019e-06, Final residual = 2.98348e-19, No Iterations 2
+max/min T: 3e+06/332279
+DILUPBiCGStab:  Solving for p, Initial residual = 2.71746e-06, Final residual = 3.26992e-16, No Iterations 1
+max(U): (838.919 9.69661 6.55485)
+max/min p: 1e+08/99439.5
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.897 / 0.707747
+time step continuity errors : sum local = 3.50459e-15, global = -5.04168e-16, cumulative = 0
+max/min FaceAcCourant: 0.0209206/0.000281306
+max/min Maf: 2.26034/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 1.29075e-06, Final residual = 4.74229e-16, No Iterations 1
+max/min T: 3e+06/332662
+DILUPBiCGStab:  Solving for p, Initial residual = 2.26469e-07, Final residual = 2.04213e-17, No Iterations 1
+max(U): (852.069 9.45351 6.47872)
+max/min p: 1e+08/99651.4
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.875 / 0.716188
+time step continuity errors : sum local = 3.43179e-16, global = -6.4943e-17, cumulative = 0
+max/min FaceAcCourant: 0.02092/0.000281306
+max/min Maf: 2.1974/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 3.3627e-07, Final residual = 1.53562e-16, No Iterations 1
+max/min T: 3e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 5.53653e-08, Final residual = 5.18916e-18, No Iterations 1
+max(U): (851.588 9.407 6.44526)
+max/min p: 1e+08/99843
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.884 / 0.71263
+time step continuity errors : sum local = 1.87599e-16, global = -4.83214e-17, cumulative = 0
+max/min FaceAcCourant: 0.0209199/0.000281306
+max/min Maf: 2.15919/0
+max/min kappa: 1/0
+ExecutionTime = 2.82 s  ClockTime = 2 s
+
+Mean and max Characteristic Courant Numbers = 0.00137027 0.0209199
+Courant Number max: 0.116621
+deltaT = 2.07423e-08
+Time = 6.4445e-08
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 101.105 / 0.645585
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 7.62832e-06, Final residual = 5.85725e-19, No Iterations 2
+max/min T: 3e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 2.85888e-06, Final residual = 7.66081e-16, No Iterations 1
+max(U): (988.822 17.5851 12.3029)
+max/min p: 1e+08/100000
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.938 / 0.70551
+time step continuity errors : sum local = 8.04671e-15, global = -1.32375e-15, cumulative = 0
+max/min FaceAcCourant: 0.0251032/0.000337568
+max/min Maf: 2.81252/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 8.88594e-07, Final residual = 6.82224e-16, No Iterations 1
+max/min T: 3e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 1.78087e-07, Final residual = 3.3185e-17, No Iterations 1
+max(U): (996.571 17.2076 12.1662)
+max/min p: 1e+08/100000
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.922 / 0.711435
+time step continuity errors : sum local = 4.87121e-16, global = -4.06692e-17, cumulative = 0
+max/min FaceAcCourant: 0.025102/0.000337568
+max/min Maf: 2.65056/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 3.14461e-07, Final residual = 3.21723e-16, No Iterations 1
+max/min T: 3e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 5.10678e-08, Final residual = 1.086e-17, No Iterations 1
+max(U): (1077.59 17.1939 12.1398)
+max/min p: 1e+08/100000
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.73 / 0.771637
+time step continuity errors : sum local = 2.58209e-16, global = -6.30636e-17, cumulative = 0
+max/min FaceAcCourant: 0.0251019/0.000337568
+max/min Maf: 2.60116/0
+max/min kappa: 1/0
+ExecutionTime = 3.57 s  ClockTime = 3 s
+
+Mean and max Characteristic Courant Numbers = 0.00164622 0.0251019
+Courant Number max: 0.116738
+deltaT = 2.49011e-08
+Time = 8.93462e-08
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.554 / 0.782026
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 7.54287e-06, Final residual = 1.20126e-18, No Iterations 2
+max/min T: 3e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 3.22116e-06, Final residual = 5.4475e-20, No Iterations 2
+max(U): (1117.29 28.683 20.6548)
+max/min p: 1e+08/100000
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.754 / 0.784327
+time step continuity errors : sum local = 1.39963e-16, global = 1.40054e-18, cumulative = 0
+max/min FaceAcCourant: 0.0301332/0.00040525
+max/min Maf: 2.98754/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 6.99811e-07, Final residual = 9.99837e-16, No Iterations 1
+max/min T: 3e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 1.71338e-07, Final residual = 5.9583e-17, No Iterations 1
+max(U): (1201.43 28.0765 20.3832)
+max/min p: 1e+08/100000
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.622 / 0.827314
+time step continuity errors : sum local = 7.51406e-16, global = -1.85067e-17, cumulative = 0
+max/min FaceAcCourant: 0.0301308/0.00040525
+max/min Maf: 2.76001/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 3.0995e-07, Final residual = 6.47834e-16, No Iterations 1
+max/min T: 3e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 5.10864e-08, Final residual = 2.5315e-17, No Iterations 1
+max(U): (1173.8 28.1428 20.387)
+max/min p: 1e+08/100000
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.728 / 0.791788
+time step continuity errors : sum local = 4.00426e-16, global = -1.37872e-16, cumulative = 0
+max/min FaceAcCourant: 0.0301306/0.00040525
+max/min Maf: 2.71231/0
+max/min kappa: 1/0
+ExecutionTime = 4.34 s  ClockTime = 4 s
+
+Mean and max Characteristic Courant Numbers = 0.00197865 0.0301306
+Courant Number max: 0.119526
+deltaT = 2.98514e-08
+Time = 1.19198e-07
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.725 / 0.815945
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 7.93337e-06, Final residual = 2.60245e-18, No Iterations 2
+max/min T: 3.00001e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 3.76743e-06, Final residual = 1.92104e-19, No Iterations 2
+max(U): (1243.28 43.2321 31.829)
+max/min p: 1.00001e+08/100000
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.529 / 0.895168
+time step continuity errors : sum local = 1.42457e-16, global = -6.69101e-17, cumulative = 0
+max/min FaceAcCourant: 0.0361171/0.000485812
+max/min Maf: 2.89078/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 6.13157e-07, Final residual = 2.13981e-19, No Iterations 2
+max/min T: 3.00001e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 1.75445e-07, Final residual = 1.06239e-16, No Iterations 1
+max(U): (1291.69 42.2913 31.3476)
+max/min p: 1.00001e+08/100000
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.485 / 0.905349
+time step continuity errors : sum local = 1.23226e-15, global = 1.19058e-17, cumulative = 0
+max/min FaceAcCourant: 0.0361127/0.000485812
+max/min Maf: 2.64445/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 3.06745e-07, Final residual = 1.51217e-19, No Iterations 2
+max/min T: 3.00001e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 4.81897e-08, Final residual = 4.43658e-17, No Iterations 1
+max(U): (1276.15 42.4944 31.4223)
+max/min p: 1.00001e+08/99999.9
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.545 / 0.885896
+time step continuity errors : sum local = 5.98618e-16, global = -2.71723e-16, cumulative = 0
+max/min FaceAcCourant: 0.0361123/0.000485812
+max/min Maf: 2.6023/0
+max/min kappa: 1/0
+ExecutionTime = 5.07 s  ClockTime = 5 s
+
+Mean and max Characteristic Courant Numbers = 0.00237474 0.0361123
+Courant Number max: 0.123293
+deltaT = 3.58e-08
+Time = 1.54998e-07
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.326 / 0.998758
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 8.7919e-06, Final residual = 6.43651e-18, No Iterations 2
+max/min T: 3.00001e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 4.49631e-06, Final residual = 6.49588e-19, No Iterations 2
+max(U): (1339.44 61.1467 45.7205)
+max/min p: 1.00001e+08/99999.9
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.153 / 0.999836
+time step continuity errors : sum local = 1.47344e-16, global = -5.96085e-18, cumulative = 0
+max/min FaceAcCourant: 0.0433023/0.000582623
+max/min Maf: 2.68376/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 6.33746e-07, Final residual = 1.6208e-18, No Iterations 2
+max/min T: 3.00001e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 1.83837e-07, Final residual = 1.89091e-16, No Iterations 1
+max(U): (1376.5 59.7159 44.9554)
+max/min p: 1.00001e+08/99974.5
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.114 / 0.999563
+time step continuity errors : sum local = 2.08383e-15, global = 2.52812e-16, cumulative = 0
+max/min FaceAcCourant: 0.0432941/0.000582623
+max/min Maf: 2.45403/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 3.03468e-07, Final residual = 3.51099e-19, No Iterations 2
+max/min T: 3.00001e+06/332981
+DILUPBiCGStab:  Solving for p, Initial residual = 4.30775e-08, Final residual = 7.80691e-17, No Iterations 1
+max(U): (1366.91 60.1383 45.1586)
+max/min p: 1.00001e+08/99952
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 100.162 / 0.99952
+time step continuity errors : sum local = 9.43311e-16, global = -3.07224e-16, cumulative = 0
+max/min FaceAcCourant: 0.0432935/0.000582623
+max/min Maf: 2.44134/0
+max/min kappa: 1/0
+ExecutionTime = 5.8 s  ClockTime = 5 s
+
+Mean and max Characteristic Courant Numbers = 0.0028509 0.0432935
+Courant Number max: 0.128092
+deltaT = 4.29913e-08
+Time = 1.97989e-07
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9963 / 0.99846
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 1.01867e-05, Final residual = 1.71727e-17, No Iterations 2
+max/min T: 3.00001e+06/332825
+DILUPBiCGStab:  Solving for p, Initial residual = 5.4226e-06, Final residual = 2.24567e-18, No Iterations 2
+max(U): (1415.9 82.6009 61.8477)
+max/min p: 1.00002e+08/99687
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9961 / 0.997341
+time step continuity errors : sum local = 1.64399e-16, global = -1.12868e-17, cumulative = 0
+max/min FaceAcCourant: 0.0519785/0.000699656
+max/min Maf: 2.52835/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 7.64597e-07, Final residual = 4.0461e-18, No Iterations 2
+max/min T: 3.00001e+06/332679
+DILUPBiCGStab:  Solving for p, Initial residual = 1.96566e-07, Final residual = 3.7554e-16, No Iterations 1
+max(U): (1446.73 80.3784 60.7288)
+max/min p: 1.00002e+08/99595.1
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9963 / 0.996859
+time step continuity errors : sum local = 4.00829e-15, global = 7.2372e-16, cumulative = 0
+max/min FaceAcCourant: 0.0519638/0.000699656
+max/min Maf: 2.32032/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 3.22451e-07, Final residual = 9.97652e-19, No Iterations 2
+max/min T: 3.00001e+06/332609
+DILUPBiCGStab:  Solving for p, Initial residual = 4.38515e-08, Final residual = 1.46628e-16, No Iterations 1
+max(U): (1440.85 80.9233 61.1558)
+max/min p: 1.00002e+08/99570.8
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9963 / 0.996824
+time step continuity errors : sum local = 1.6525e-15, global = -3.83853e-16, cumulative = 0
+max/min FaceAcCourant: 0.0519629/0.000699656
+max/min Maf: 2.31422/0
+max/min kappa: 1/0
+ExecutionTime = 6.54 s  ClockTime = 6 s
+
+Mean and max Characteristic Courant Numbers = 0.00342659 0.0519629
+Courant Number max: 0.135382
+deltaT = 5.15895e-08
+Time = 2.49578e-07
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9969 / 0.993588
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 1.21569e-05, Final residual = 5.04221e-17, No Iterations 2
+max/min T: 3.00002e+06/332093
+DILUPBiCGStab:  Solving for p, Initial residual = 6.55835e-06, Final residual = 8.16406e-18, No Iterations 2
+max(U): (1475.32 108.636 79.5552)
+max/min p: 1.00002e+08/98877.2
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9965 / 0.991426
+time step continuity errors : sum local = 2.27144e-16, global = -3.48632e-17, cumulative = 0
+max/min FaceAcCourant: 0.0623349/0.000839587
+max/min Maf: 2.36556/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 1.0323e-06, Final residual = 1.40827e-17, No Iterations 2
+max/min T: 3.00002e+06/332093
+DILUPBiCGStab:  Solving for p, Initial residual = 2.14065e-07, Final residual = 8.95712e-16, No Iterations 1
+max(U): (1500.53 105.392 78.8648)
+max/min p: 1.00003e+08/98789.5
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9968 / 0.990546
+time step continuity errors : sum local = 9.3607e-15, global = 2.28719e-15, cumulative = 0
+max/min FaceAcCourant: 0.0623092/0.000839587
+max/min Maf: 2.17033/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 3.92291e-07, Final residual = 3.83224e-18, No Iterations 2
+max/min T: 3.00002e+06/331941
+DILUPBiCGStab:  Solving for p, Initial residual = 5.84089e-08, Final residual = 3.37961e-16, No Iterations 1
+max(U): (1498.43 106.351 78.95)
+max/min p: 1.00003e+08/98796.1
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9968 / 0.990601
+time step continuity errors : sum local = 3.62281e-15, global = -4.69237e-16, cumulative = 0
+max/min FaceAcCourant: 0.062308/0.000839587
+max/min Maf: 2.17034/0
+max/min kappa: 1/0
+ExecutionTime = 7.26 s  ClockTime = 7 s
+
+Mean and max Characteristic Courant Numbers = 0.00411559 0.062308
+Courant Number max: 0.144806
+deltaT = 6.17115e-08
+Time = 3.1129e-07
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9973 / 0.983158
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 1.47209e-05, Final residual = 1.57692e-16, No Iterations 2
+max/min T: 3.00002e+06/330165
+DILUPBiCGStab:  Solving for p, Initial residual = 7.92706e-06, Final residual = 3.35342e-17, No Iterations 2
+max(U): (1519.39 136.484 108.979)
+max/min p: 1.00002e+08/97475.4
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9963 / 0.978987
+time step continuity errors : sum local = 4.76987e-16, global = -1.14719e-16, cumulative = 0
+max/min FaceAcCourant: 0.0744973/0.00100432
+max/min Maf: 2.20038/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 1.40668e-06, Final residual = 4.58446e-17, No Iterations 2
+max/min T: 3.00001e+06/329484
+DILUPBiCGStab:  Solving for p, Initial residual = 2.35233e-07, Final residual = 7.09174e-19, No Iterations 2
+max(U): (1539.71 133.229 107.647)
+max/min p: 1.00003e+08/97494.3
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9968 / 0.977784
+time step continuity errors : sum local = 1.41266e-16, global = 1.24037e-17, cumulative = 0
+max/min FaceAcCourant: 0.074454/0.00100432
+max/min Maf: 2.02096/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 5.42963e-07, Final residual = 1.91776e-17, No Iterations 2
+max/min T: 3.00001e+06/329306
+DILUPBiCGStab:  Solving for p, Initial residual = 9.07272e-08, Final residual = 2.74502e-19, No Iterations 2
+max(U): (1541.16 134.063 107.967)
+max/min p: 1.00003e+08/97569.2
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9968 / 0.978231
+time step continuity errors : sum local = 1.38048e-16, global = 1.24533e-17, cumulative = 0
+max/min FaceAcCourant: 0.0744524/0.00100432
+max/min Maf: 2.02885/0
+max/min kappa: 1/0
+ExecutionTime = 7.99 s  ClockTime = 8 s
+
+Mean and max Characteristic Courant Numbers = 0.00492817 0.0744524
+Courant Number max: 0.155876
+deltaT = 7.39596e-08
+Time = 3.85249e-07
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9967 / 0.963405
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 1.79931e-05, Final residual = 5.14535e-16, No Iterations 2
+max/min T: 3.00001e+06/325550
+DILUPBiCGStab:  Solving for p, Initial residual = 9.62998e-06, Final residual = 1.61123e-16, No Iterations 2
+max(U): (1549.85 180.622 146.344)
+max/min p: 1e+08/95004.8
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.956958
+time step continuity errors : sum local = 1.79196e-15, global = -5.19833e-16, cumulative = 0
+max/min FaceAcCourant: 0.0891689/0.00120365
+max/min Maf: 2.08867/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 1.88373e-06, Final residual = 1.55578e-16, No Iterations 2
+max/min T: 3e+06/324409
+DILUPBiCGStab:  Solving for p, Initial residual = 2.67273e-07, Final residual = 3.83218e-18, No Iterations 2
+max(U): (1566.82 176.861 144.074)
+max/min p: 1e+08/94876.2
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9952 / 0.95634
+time step continuity errors : sum local = 1.76589e-16, global = 1.78395e-17, cumulative = 0
+max/min FaceAcCourant: 0.0890974/0.00120365
+max/min Maf: 1.98623/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 8.26769e-07, Final residual = 9.2466e-17, No Iterations 2
+max/min T: 3e+06/324037
+DILUPBiCGStab:  Solving for p, Initial residual = 1.4297e-07, Final residual = 1.21509e-18, No Iterations 2
+max(U): (1571.02 178.076 144.775)
+max/min p: 1e+08/94847.6
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9952 / 0.957795
+time step continuity errors : sum local = 1.52451e-16, global = 8.9887e-18, cumulative = 0
+max/min FaceAcCourant: 0.089096/0.00120365
+max/min Maf: 1.94609/0
+max/min kappa: 1/0
+ExecutionTime = 8.74 s  ClockTime = 8 s
+
+Mean and max Characteristic Courant Numbers = 0.00591302 0.089096
+Courant Number max: 0.17038
+deltaT = 8.90255e-08
+Time = 4.74275e-07
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.933196
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 2.20966e-05, Final residual = 1.87628e-18, No Iterations 2
+max/min T: 3e+06/316853
+DILUPBiCGStab:  Solving for p, Initial residual = 1.1796e-05, Final residual = 8.04175e-16, No Iterations 2
+max(U): (1568.46 232.272 192.068)
+max/min p: 1.00001e+08/89983.9
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.924989
+time step continuity errors : sum local = 8.41101e-15, global = -2.05154e-15, cumulative = 0
+max/min FaceAcCourant: 0.107145/0.00144883
+max/min Maf: 2.01798/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 2.57133e-06, Final residual = 7.23031e-16, No Iterations 2
+max/min T: 3e+06/315267
+DILUPBiCGStab:  Solving for p, Initial residual = 3.31296e-07, Final residual = 2.20226e-17, No Iterations 2
+max(U): (1585.02 227.399 187.775)
+max/min p: 1.00001e+08/89443.7
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9954 / 0.930571
+time step continuity errors : sum local = 3.70662e-16, global = 7.67115e-17, cumulative = 0
+max/min FaceAcCourant: 0.107029/0.00144883
+max/min Maf: 1.8917/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 1.24777e-06, Final residual = 5.67014e-16, No Iterations 2
+max/min T: 3e+06/314881
+DILUPBiCGStab:  Solving for p, Initial residual = 2.09678e-07, Final residual = 1.14717e-17, No Iterations 2
+max(U): (1591.18 228.096 189.101)
+max/min p: 1.00001e+08/89464.8
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9954 / 0.932361
+time step continuity errors : sum local = 2.6508e-16, global = -2.15564e-17, cumulative = 0
+max/min FaceAcCourant: 0.107029/0.00144883
+max/min Maf: 1.8703/0
+max/min kappa: 1/0
+ExecutionTime = 9.48 s  ClockTime = 9 s
+
+Mean and max Characteristic Courant Numbers = 0.00712604 0.107029
+Courant Number max: 0.18971
+deltaT = 1.07031e-07
+Time = 5.81306e-07
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9956 / 0.901783
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 2.70807e-05, Final residual = 1.28052e-17, No Iterations 2
+max/min T: 3.00001e+06/303205
+DILUPBiCGStab:  Solving for p, Initial residual = 1.4493e-05, Final residual = 5.8506e-18, No Iterations 2
+max(U): (1579.4 287.429 243)
+max/min p: 1.00001e+08/81510.3
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9954 / 0.895252
+time step continuity errors : sum local = 2.02476e-16, global = -3.70557e-17, cumulative = 0
+max/min FaceAcCourant: 0.128513/0.00174186
+max/min Maf: 1.86276/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 3.62775e-06, Final residual = 1.10916e-17, No Iterations 2
+max/min T: 3.00001e+06/303386
+DILUPBiCGStab:  Solving for p, Initial residual = 4.53189e-07, Final residual = 1.12708e-16, No Iterations 2
+max(U): (1597.28 282.008 236.98)
+max/min p: 1.00001e+08/81645.5
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9956 / 0.896192
+time step continuity errors : sum local = 1.29592e-15, global = 5.08031e-16, cumulative = 0
+max/min FaceAcCourant: 0.128334/0.00174186
+max/min Maf: 1.83121/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 1.79401e-06, Final residual = 1.30434e-17, No Iterations 2
+max/min T: 3.00001e+06/304753
+DILUPBiCGStab:  Solving for p, Initial residual = 2.84791e-07, Final residual = 1.18681e-16, No Iterations 2
+max(U): (1604.52 282.381 239.078)
+max/min p: 1.00001e+08/82681.6
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9956 / 0.903488
+time step continuity errors : sum local = 1.35849e-15, global = -4.70387e-16, cumulative = 0
+max/min FaceAcCourant: 0.128338/0.00174186
+max/min Maf: 1.83925/0
+max/min kappa: 1/0
+ExecutionTime = 10.23 s  ClockTime = 10 s
+
+Mean and max Characteristic Courant Numbers = 0.00857838 0.128338
+Courant Number max: 0.212593
+deltaT = 1.2728e-07
+Time = 7.08585e-07
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9958 / 0.852782
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 3.30392e-05, Final residual = 2.69606e-16, No Iterations 2
+max/min T: 3.00001e+06/299052
+DILUPBiCGStab:  Solving for p, Initial residual = 1.76648e-05, Final residual = 3.68165e-17, No Iterations 2
+max(U): (1585.78 343.744 296.476)
+max/min p: 1.00001e+08/75893.9
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9952 / 0.845183
+time step continuity errors : sum local = 5.16916e-16, global = -1.48858e-16, cumulative = 0
+max/min FaceAcCourant: 0.152369/0.0020714
+max/min Maf: 1.78717/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 5.12157e-06, Final residual = 7.16581e-17, No Iterations 2
+max/min T: 3e+06/328555
+DILUPBiCGStab:  Solving for p, Initial residual = 6.55794e-07, Final residual = 5.8364e-16, No Iterations 2
+max(U): (1605.4 337.937 297.912)
+max/min p: 1.00001e+08/85291.9
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9954 / 0.864536
+time step continuity errors : sum local = 6.12728e-15, global = 2.62906e-15, cumulative = 0
+max/min FaceAcCourant: 0.15211/0.0020714
+max/min Maf: 1.76576/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 2.44041e-06, Final residual = 1.19263e-16, No Iterations 2
+max/min T: 3e+06/332891
+DILUPBiCGStab:  Solving for p, Initial residual = 3.55874e-07, Final residual = 5.87042e-16, No Iterations 2
+max(U): (1612.88 337.118 297.029)
+max/min p: 1.00001e+08/90376.7
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9954 / 0.870579
+time step continuity errors : sum local = 6.16473e-15, global = -2.72966e-15, cumulative = 0
+max/min FaceAcCourant: 0.152122/0.0020714
+max/min Maf: 1.77059/0
+max/min kappa: 1/0
+ExecutionTime = 10.98 s  ClockTime = 11 s
+
+Mean and max Characteristic Courant Numbers = 0.0102184 0.152122
+Courant Number max: 0.238308
+deltaT = 1.47483e-07
+Time = 8.56068e-07
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.832447
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 3.99319e-05, Final residual = 1.18478e-18, No Iterations 3
+max/min T: 3e+06/332839
+DILUPBiCGStab:  Solving for p, Initial residual = 2.09525e-05, Final residual = 1.69094e-16, No Iterations 2
+max(U): (1672.36 394.801 358.681)
+max/min p: 1e+08/98229.5
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.864341
+time step continuity errors : sum local = 1.87499e-15, global = -5.32538e-16, cumulative = 0
+max/min FaceAcCourant: 0.175915/0.00240019
+max/min Maf: 1.72076/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 6.63909e-06, Final residual = 2.08555e-16, No Iterations 2
+max/min T: 3e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 8.3976e-07, Final residual = 1.01451e-17, No Iterations 2
+max(U): (1654.61 387.927 373.051)
+max/min p: 1e+08/98421.2
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9952 / 0.885455
+time step continuity errors : sum local = 2.48897e-16, global = 6.68641e-17, cumulative = 0
+max/min FaceAcCourant: 0.175576/0.00240019
+max/min Maf: 1.70422/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 3.04946e-06, Final residual = 2.51212e-16, No Iterations 2
+max/min T: 3e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 4.17918e-07, Final residual = 5.33709e-18, No Iterations 2
+max(U): (1655.52 385.887 367.407)
+max/min p: 1e+08/98725.7
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.932935
+time step continuity errors : sum local = 2.0058e-16, global = -2.95424e-17, cumulative = 0
+max/min FaceAcCourant: 0.175597/0.00240019
+max/min Maf: 1.71174/0
+max/min kappa: 1/0
+ExecutionTime = 11.75 s  ClockTime = 11 s
+
+Mean and max Characteristic Courant Numbers = 0.0118653 0.175597
+Courant Number max: 0.305566
+deltaT = 1.66253e-07
+Time = 1.02232e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9954 / 0.96672
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 4.79023e-05, Final residual = 9.92178e-16, No Iterations 2
+max/min T: 3.00001e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 2.40559e-05, Final residual = 5.44789e-16, No Iterations 2
+max(U): (1731.7 432.83 435.335)
+max/min p: 1e+08/97870.7
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.960322
+time step continuity errors : sum local = 5.72999e-15, global = -1.03888e-15, cumulative = 0
+max/min FaceAcCourant: 0.197489/0.00270567
+max/min Maf: 1.91409/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 7.61257e-06, Final residual = 6.49218e-16, No Iterations 2
+max/min T: 3e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 9.76182e-07, Final residual = 3.73638e-17, No Iterations 2
+max(U): (1737.07 422.722 440.805)
+max/min p: 1.00001e+08/98943.2
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9954 / 0.959702
+time step continuity errors : sum local = 5.32974e-16, global = 2.30099e-16, cumulative = 0
+max/min FaceAcCourant: 0.197076/0.00270567
+max/min Maf: 1.85007/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 3.35495e-06, Final residual = 6.20033e-16, No Iterations 2
+max/min T: 3e+06/332999
+DILUPBiCGStab:  Solving for p, Initial residual = 4.93273e-07, Final residual = 1.59001e-17, No Iterations 2
+max(U): (1722.91 420.293 436.8)
+max/min p: 1.00001e+08/99926
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9955 / 0.962613
+time step continuity errors : sum local = 3.15392e-16, global = -7.27612e-17, cumulative = 0
+max/min FaceAcCourant: 0.197101/0.00270567
+max/min Maf: 1.8283/0
+max/min kappa: 1/0
+ExecutionTime = 12.52 s  ClockTime = 12 s
+
+Mean and max Characteristic Courant Numbers = 0.0134071 0.197101
+Courant Number max: 0.371977
+deltaT = 1.79554e-07
+Time = 1.20187e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9957 / 0.942842
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 5.56903e-05, Final residual = 4.9465e-18, No Iterations 3
+max/min T: 3.00001e+06/332999
+DILUPBiCGStab:  Solving for p, Initial residual = 2.63815e-05, Final residual = 1.02918e-17, No Iterations 3
+max(U): (1975.19 449.116 494.788)
+max/min p: 1e+08/99997.7
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.943994
+time step continuity errors : sum local = 2.52513e-16, global = -1.37181e-18, cumulative = 0
+max/min FaceAcCourant: 0.212338/0.00292212
+max/min Maf: 2.012/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 7.75553e-06, Final residual = 2.69741e-17, No Iterations 3
+max/min T: 3e+06/332999
+DILUPBiCGStab:  Solving for p, Initial residual = 1.08189e-06, Final residual = 6.2464e-17, No Iterations 2
+max(U): (1918.04 434.592 485.326)
+max/min p: 1.00001e+08/99997
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9955 / 0.95254
+time step continuity errors : sum local = 7.85454e-16, global = 2.96994e-16, cumulative = 0
+max/min FaceAcCourant: 0.211864/0.00292212
+max/min Maf: 1.91342/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 3.25913e-06, Final residual = 5.85788e-16, No Iterations 2
+max/min T: 3e+06/332998
+DILUPBiCGStab:  Solving for p, Initial residual = 5.28255e-07, Final residual = 2.79407e-17, No Iterations 2
+max(U): (1910.18 433.524 484.131)
+max/min p: 1.00001e+08/99996
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9955 / 0.958816
+time step continuity errors : sum local = 4.33634e-16, global = -5.64801e-17, cumulative = 0
+max/min FaceAcCourant: 0.211886/0.00292212
+max/min Maf: 1.922/0
+max/min kappa: 1/0
+ExecutionTime = 13.28 s  ClockTime = 13 s
+
+Mean and max Characteristic Courant Numbers = 0.0145139 0.211886
+Courant Number max: 0.409905
+deltaT = 1.75963e-07
+Time = 1.37784e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9956 / 0.955095
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 5.82678e-05, Final residual = 1.46101e-17, No Iterations 3
+max/min T: 3e+06/332996
+DILUPBiCGStab:  Solving for p, Initial residual = 2.61827e-05, Final residual = 1.09359e-17, No Iterations 3
+max(U): (2044.47 442.052 517.859)
+max/min p: 1e+08/99993.6
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.973174
+time step continuity errors : sum local = 2.56788e-16, global = -1.02787e-19, cumulative = 0
+max/min FaceAcCourant: 0.207138/0.00286368
+max/min Maf: 1.96771/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 6.53104e-06, Final residual = 9.67033e-18, No Iterations 3
+max/min T: 3e+06/332996
+DILUPBiCGStab:  Solving for p, Initial residual = 1.02396e-06, Final residual = 1.04491e-16, No Iterations 2
+max(U): (1987.75 431.95 504.949)
+max/min p: 1e+08/99991
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9952 / 0.999865
+time step continuity errors : sum local = 1.21369e-15, global = 3.5692e-16, cumulative = 0
+max/min FaceAcCourant: 0.206678/0.00286368
+max/min Maf: 1.90578/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 2.6654e-06, Final residual = 2.55014e-16, No Iterations 2
+max/min T: 3e+06/332995
+DILUPBiCGStab:  Solving for p, Initial residual = 4.25909e-07, Final residual = 3.43755e-17, No Iterations 2
+max(U): (1984.97 432.285 505.081)
+max/min p: 1e+08/99990.5
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9952 / 0.995845
+time step continuity errors : sum local = 5.00666e-16, global = 1.1414e-17, cumulative = 0
+max/min FaceAcCourant: 0.206698/0.00286368
+max/min Maf: 1.9173/0
+max/min kappa: 1/0
+ExecutionTime = 14.04 s  ClockTime = 14 s
+
+Mean and max Characteristic Courant Numbers = 0.0142541 0.206698
+Courant Number max: 0.397288
+deltaT = 1.75963e-07
+Time = 1.5538e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.999254
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 6.08437e-05, Final residual = 7.92609e-18, No Iterations 3
+max/min T: 3e+06/332992
+DILUPBiCGStab:  Solving for p, Initial residual = 2.64878e-05, Final residual = 1.4406e-17, No Iterations 3
+max(U): (2039.79 429.308 519.59)
+max/min p: 1e+08/99986.3
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9952 / 0.998457
+time step continuity errors : sum local = 2.92882e-16, global = -4.29872e-18, cumulative = 0
+max/min FaceAcCourant: 0.206183/0.00286368
+max/min Maf: 1.93697/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 5.92066e-06, Final residual = 6.55536e-18, No Iterations 3
+max/min T: 3e+06/332994
+DILUPBiCGStab:  Solving for p, Initial residual = 1.04616e-06, Final residual = 1.44714e-16, No Iterations 2
+max(U): (2014.4 427.393 508.632)
+max/min p: 1e+08/99983.9
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.99745
+time step continuity errors : sum local = 1.62515e-15, global = 3.68602e-16, cumulative = 0
+max/min FaceAcCourant: 0.205719/0.00286368
+max/min Maf: 1.92554/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 2.31055e-06, Final residual = 3.10775e-16, No Iterations 2
+max/min T: 3e+06/332994
+DILUPBiCGStab:  Solving for p, Initial residual = 3.5178e-07, Final residual = 4.93178e-17, No Iterations 2
+max(U): (2014.73 427.143 508.822)
+max/min p: 1.00001e+08/99983.9
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.998513
+time step continuity errors : sum local = 6.51731e-16, global = 3.37867e-17, cumulative = 0
+max/min FaceAcCourant: 0.205742/0.00286368
+max/min Maf: 1.88179/0
+max/min kappa: 1/0
+ExecutionTime = 14.79 s  ClockTime = 15 s
+
+Mean and max Characteristic Courant Numbers = 0.0142815 0.205742
+Courant Number max: 0.388317
+deltaT = 1.79706e-07
+Time = 1.73351e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.997041
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 6.36415e-05, Final residual = 6.68695e-18, No Iterations 3
+max/min T: 3e+06/332998
+DILUPBiCGStab:  Solving for p, Initial residual = 2.73375e-05, Final residual = 2.20981e-17, No Iterations 3
+max(U): (2033.52 420.768 510.214)
+max/min p: 1e+08/99989.5
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.999495
+time step continuity errors : sum local = 3.73156e-16, global = 2.24722e-17, cumulative = 0
+max/min FaceAcCourant: 0.209577/0.00292461
+max/min Maf: 1.99965/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 5.89353e-06, Final residual = 9.50708e-18, No Iterations 3
+max/min T: 3e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 1.11944e-06, Final residual = 1.89607e-16, No Iterations 2
+max(U): (2034.12 422.594 501.529)
+max/min p: 1e+08/99999.2
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.999937
+time step continuity errors : sum local = 2.08118e-15, global = 1.77576e-16, cumulative = 0
+max/min FaceAcCourant: 0.20909/0.00292461
+max/min Maf: 2.01866/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 2.24272e-06, Final residual = 7.33387e-18, No Iterations 3
+max/min T: 3e+06/332999
+DILUPBiCGStab:  Solving for p, Initial residual = 3.33982e-07, Final residual = 7.73783e-17, No Iterations 2
+max(U): (2032.26 422.272 501.524)
+max/min p: 1.00001e+08/99999.1
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.999936
+time step continuity errors : sum local = 9.37894e-16, global = 6.21836e-17, cumulative = 0
+max/min FaceAcCourant: 0.209117/0.00292461
+max/min Maf: 2.02685/0
+max/min kappa: 1/0
+ExecutionTime = 15.56 s  ClockTime = 15 s
+
+Mean and max Characteristic Courant Numbers = 0.0146125 0.209117
+Courant Number max: 0.40699
+deltaT = 1.75883e-07
+Time = 1.90939e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.999933
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 6.30721e-05, Final residual = 8.70255e-18, No Iterations 3
+max/min T: 3e+06/332999
+DILUPBiCGStab:  Solving for p, Initial residual = 2.69727e-05, Final residual = 2.30959e-17, No Iterations 3
+max(U): (2041.43 416.207 494.439)
+max/min p: 1e+08/99998.8
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.995 / 0.999934
+time step continuity errors : sum local = 3.82369e-16, global = -2.62086e-17, cumulative = 0
+max/min FaceAcCourant: 0.204145/0.00286238
+max/min Maf: 2.11483/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 5.61519e-06, Final residual = 2.23886e-17, No Iterations 3
+max/min T: 3e+06/332999
+DILUPBiCGStab:  Solving for p, Initial residual = 1.0704e-06, Final residual = 1.73482e-16, No Iterations 2
+max(U): (2042.71 418.165 488.26)
+max/min p: 1e+08/99998.5
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.999931
+time step continuity errors : sum local = 1.91169e-15, global = 3.27374e-17, cumulative = 0
+max/min FaceAcCourant: 0.203673/0.00286238
+max/min Maf: 2.12386/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 2.14102e-06, Final residual = 1.29342e-17, No Iterations 3
+max/min T: 3e+06/332999
+DILUPBiCGStab:  Solving for p, Initial residual = 3.27935e-07, Final residual = 7.34817e-17, No Iterations 2
+max(U): (2041.67 417.711 488.195)
+max/min p: 1e+08/99998.4
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.99993
+time step continuity errors : sum local = 8.965e-16, global = 2.68375e-17, cumulative = 0
+max/min FaceAcCourant: 0.203701/0.00286238
+max/min Maf: 2.11925/0
+max/min kappa: 1/0
+ExecutionTime = 16.31 s  ClockTime = 16 s
+
+Mean and max Characteristic Courant Numbers = 0.0143277 0.203701
+Courant Number max: 0.3996
+deltaT = 1.75883e-07
+Time = 2.08527e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.999924
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 6.35135e-05, Final residual = 1.3183e-17, No Iterations 3
+max/min T: 3e+06/332999
+DILUPBiCGStab:  Solving for p, Initial residual = 2.71488e-05, Final residual = 1.68902e-16, No Iterations 3
+max(U): (2045.09 411.821 475.949)
+max/min p: 1e+08/99998
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.995 / 0.999928
+time step continuity errors : sum local = 1.86649e-15, global = -2.09973e-16, cumulative = 0
+max/min FaceAcCourant: 0.203169/0.00286238
+max/min Maf: 2.20664/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 5.82124e-06, Final residual = 1.92567e-17, No Iterations 3
+max/min T: 3e+06/332999
+DILUPBiCGStab:  Solving for p, Initial residual = 1.04984e-06, Final residual = 1.99612e-16, No Iterations 2
+max(U): (2041.99 411.588 471.245)
+max/min p: 1e+08/99997.5
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.995 / 0.999922
+time step continuity errors : sum local = 2.17828e-15, global = 1.17855e-16, cumulative = 0
+max/min FaceAcCourant: 0.202698/0.00286238
+max/min Maf: 2.2114/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 2.25649e-06, Final residual = 3.05122e-17, No Iterations 3
+max/min T: 3e+06/332998
+DILUPBiCGStab:  Solving for p, Initial residual = 3.54379e-07, Final residual = 9.31197e-17, No Iterations 2
+max(U): (2041.98 410.922 471.085)
+max/min p: 1e+08/99997.2
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.995 / 0.99992
+time step continuity errors : sum local = 1.09466e-15, global = -6.18847e-17, cumulative = 0
+max/min FaceAcCourant: 0.202727/0.00286238
+max/min Maf: 2.19201/0
+max/min kappa: 1/0
+ExecutionTime = 17.08 s  ClockTime = 17 s
+
+Mean and max Characteristic Courant Numbers = 0.0143534 0.202727
+Courant Number max: 0.401872
+deltaT = 1.75883e-07
+Time = 2.26115e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.995 / 0.99991
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 6.37043e-05, Final residual = 5.85482e-17, No Iterations 3
+max/min T: 3e+06/332998
+DILUPBiCGStab:  Solving for p, Initial residual = 2.72963e-05, Final residual = 3.04792e-17, No Iterations 3
+max(U): (2038.4 410.064 484.83)
+max/min p: 1e+08/99996.7
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.995 / 0.999918
+time step continuity errors : sum local = 4.56222e-16, global = 3.81443e-17, cumulative = 0
+max/min FaceAcCourant: 0.202187/0.00286238
+max/min Maf: 2.27473/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 6.01389e-06, Final residual = 9.82363e-18, No Iterations 3
+max/min T: 3e+06/332998
+DILUPBiCGStab:  Solving for p, Initial residual = 1.01707e-06, Final residual = 1.85875e-16, No Iterations 2
+max(U): (2032.59 405.909 480.73)
+max/min p: 1e+08/99995.9
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.999908
+time step continuity errors : sum local = 2.03615e-15, global = 6.13526e-17, cumulative = 0
+max/min FaceAcCourant: 0.201722/0.00286238
+max/min Maf: 2.27437/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 2.4457e-06, Final residual = 8.48705e-18, No Iterations 3
+max/min T: 3e+06/332998
+DILUPBiCGStab:  Solving for p, Initial residual = 3.82138e-07, Final residual = 1.00115e-16, No Iterations 2
+max(U): (2033.14 405.704 479.449)
+max/min p: 1e+08/99995.4
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.999904
+time step continuity errors : sum local = 1.16546e-15, global = -2.10849e-17, cumulative = 0
+max/min FaceAcCourant: 0.201753/0.00286238
+max/min Maf: 2.25305/0
+max/min kappa: 1/0
+ExecutionTime = 17.83 s  ClockTime = 18 s
+
+Mean and max Characteristic Courant Numbers = 0.0143781 0.201753
+Courant Number max: 0.408656
+deltaT = 1.71974e-07
+Time = 2.43313e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.998214
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 6.24275e-05, Final residual = 5.62862e-17, No Iterations 3
+max/min T: 3e+06/332997
+DILUPBiCGStab:  Solving for p, Initial residual = 2.67835e-05, Final residual = 1.7244e-17, No Iterations 3
+max(U): (2039.92 412.509 485.535)
+max/min p: 1e+08/99995.2
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.999905
+time step continuity errors : sum local = 3.21305e-16, global = 1.77683e-17, cumulative = 0
+max/min FaceAcCourant: 0.196747/0.00279877
+max/min Maf: 2.3172/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 5.86082e-06, Final residual = 9.01664e-18, No Iterations 3
+max/min T: 3e+06/332998
+DILUPBiCGStab:  Solving for p, Initial residual = 9.43597e-07, Final residual = 1.75574e-16, No Iterations 2
+max(U): (2030.39 407.897 481.36)
+max/min p: 1e+08/99994
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.999891
+time step continuity errors : sum local = 1.92941e-15, global = 4.30831e-17, cumulative = 0
+max/min FaceAcCourant: 0.196308/0.00279877
+max/min Maf: 2.31483/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 2.49921e-06, Final residual = 7.53641e-18, No Iterations 3
+max/min T: 3e+06/332997
+DILUPBiCGStab:  Solving for p, Initial residual = 3.76443e-07, Final residual = 1.1529e-16, No Iterations 2
+max(U): (2031.63 408.024 480.216)
+max/min p: 1e+08/99993.4
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.999886
+time step continuity errors : sum local = 1.31799e-15, global = 1.07871e-16, cumulative = 0
+max/min FaceAcCourant: 0.196342/0.00279877
+max/min Maf: 2.29803/0
+max/min kappa: 1/0
+ExecutionTime = 18.6 s  ClockTime = 18 s
+
+Mean and max Characteristic Courant Numbers = 0.0140811 0.196342
+Courant Number max: 0.418431
+deltaT = 1.64497e-07
+Time = 2.59763e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.999868
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 5.9764e-05, Final residual = 6.89601e-18, No Iterations 3
+max/min T: 3e+06/332998
+DILUPBiCGStab:  Solving for p, Initial residual = 2.56555e-05, Final residual = 1.02599e-17, No Iterations 3
+max(U): (2109.37 409.668 479.498)
+max/min p: 1e+08/99878.2
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.997206
+time step continuity errors : sum local = 2.53932e-16, global = 2.39435e-17, cumulative = 0
+max/min FaceAcCourant: 0.187325/0.00267709
+max/min Maf: 2.33708/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 5.38782e-06, Final residual = 7.26021e-16, No Iterations 2
+max/min T: 3e+06/332998
+DILUPBiCGStab:  Solving for p, Initial residual = 8.41544e-07, Final residual = 1.37198e-16, No Iterations 2
+max(U): (2074.98 405.395 475.293)
+max/min p: 1e+08/99641.2
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.996355
+time step continuity errors : sum local = 1.54139e-15, global = -2.07689e-17, cumulative = 0
+max/min FaceAcCourant: 0.186928/0.00267709
+max/min Maf: 2.33815/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 2.34212e-06, Final residual = 3.55022e-16, No Iterations 2
+max/min T: 3e+06/332416
+DILUPBiCGStab:  Solving for p, Initial residual = 3.4382e-07, Final residual = 7.99651e-17, No Iterations 2
+max(U): (2074.63 405.337 474.799)
+max/min p: 1e+08/99992.7
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9951 / 0.999875
+time step continuity errors : sum local = 9.6523e-16, global = 2.23472e-16, cumulative = 0
+max/min FaceAcCourant: 0.186967/0.00267709
+max/min Maf: 2.31865/0
+max/min kappa: 1/0
+ExecutionTime = 19.39 s  ClockTime = 19 s
+
+Mean and max Characteristic Courant Numbers = 0.0134884 0.186967
+Courant Number max: 0.4109
+deltaT = 1.60921e-07
+Time = 2.75855e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9952 / 0.994619
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 5.84314e-05, Final residual = 9.62178e-16, No Iterations 2
+max/min T: 3e+06/332976
+DILUPBiCGStab:  Solving for p, Initial residual = 2.51037e-05, Final residual = 8.22757e-18, No Iterations 3
+max(U): (2137.89 405.84 468.709)
+max/min p: 1e+08/99108.7
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9952 / 0.991113
+time step continuity errors : sum local = 2.29261e-16, global = 2.52265e-17, cumulative = 0
+max/min FaceAcCourant: 0.182444/0.00261889
+max/min Maf: 2.35236/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 5.21717e-06, Final residual = 5.65285e-16, No Iterations 2
+max/min T: 3e+06/331257
+DILUPBiCGStab:  Solving for p, Initial residual = 7.93085e-07, Final residual = 9.78752e-17, No Iterations 2
+max(U): (2107.75 401.982 465.049)
+max/min p: 1e+08/98515.8
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9952 / 0.990296
+time step continuity errors : sum local = 1.13658e-15, global = -6.85005e-19, cumulative = 0
+max/min FaceAcCourant: 0.18207/0.00261889
+max/min Maf: 2.34612/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 2.26043e-06, Final residual = 3.43001e-16, No Iterations 2
+max/min T: 3e+06/330953
+DILUPBiCGStab:  Solving for p, Initial residual = 3.20599e-07, Final residual = 5.9168e-17, No Iterations 2
+max(U): (2108.53 402.374 465.162)
+max/min p: 1e+08/98418.7
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9952 / 0.990229
+time step continuity errors : sum local = 7.46223e-16, global = 1.90268e-16, cumulative = 0
+max/min FaceAcCourant: 0.182116/0.00261889
+max/min Maf: 2.33884/0
+max/min kappa: 1/0
+ExecutionTime = 20.14 s  ClockTime = 20 s
+
+Mean and max Characteristic Courant Numbers = 0.0132129 0.182116
+Courant Number max: 0.408003
+deltaT = 1.57423e-07
+Time = 2.91597e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9952 / 0.978768
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 5.70961e-05, Final residual = 9.92867e-16, No Iterations 2
+max/min T: 3e+06/329603
+DILUPBiCGStab:  Solving for p, Initial residual = 2.4545e-05, Final residual = 6.71583e-18, No Iterations 3
+max(U): (2137.42 400.738 471.179)
+max/min p: 1e+08/96321.4
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9952 / 0.973113
+time step continuity errors : sum local = 2.17476e-16, global = 9.29648e-18, cumulative = 0
+max/min FaceAcCourant: 0.177723/0.00256196
+max/min Maf: 2.36053/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 4.99039e-06, Final residual = 4.10349e-16, No Iterations 2
+max/min T: 3e+06/329707
+DILUPBiCGStab:  Solving for p, Initial residual = 7.50729e-07, Final residual = 6.93735e-17, No Iterations 2
+max(U): (2114.67 397.573 470.593)
+max/min p: 1e+08/96386.4
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9952 / 0.973461
+time step continuity errors : sum local = 8.53701e-16, global = -9.39706e-18, cumulative = 0
+max/min FaceAcCourant: 0.177372/0.00256196
+max/min Maf: 2.35929/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 2.15502e-06, Final residual = 2.77627e-16, No Iterations 2
+max/min T: 3e+06/330506
+DILUPBiCGStab:  Solving for p, Initial residual = 3.02944e-07, Final residual = 4.2258e-17, No Iterations 2
+max(U): (2115.52 398.559 469.801)
+max/min p: 1e+08/96660.1
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9952 / 0.973864
+time step continuity errors : sum local = 5.79657e-16, global = 9.05415e-17, cumulative = 0
+max/min FaceAcCourant: 0.177421/0.00256196
+max/min Maf: 2.35122/0
+max/min kappa: 1/0
+ExecutionTime = 20.88 s  ClockTime = 21 s
+
+Mean and max Characteristic Courant Numbers = 0.0129417 0.177421
+Courant Number max: 0.401436
+deltaT = 1.57423e-07
+Time = 3.07339e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.957499
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 5.70263e-05, Final residual = 7.0937e-18, No Iterations 3
+max/min T: 3e+06/330951
+DILUPBiCGStab:  Solving for p, Initial residual = 2.45231e-05, Final residual = 7.14223e-18, No Iterations 3
+max(U): (2122.76 394.15 477.763)
+max/min p: 1.00001e+08/94552.4
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.951372
+time step continuity errors : sum local = 2.23222e-16, global = 1.48935e-17, cumulative = 0
+max/min FaceAcCourant: 0.176994/0.00256196
+max/min Maf: 2.40533/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 5.02667e-06, Final residual = 3.06329e-16, No Iterations 2
+max/min T: 3e+06/332003
+DILUPBiCGStab:  Solving for p, Initial residual = 7.5394e-07, Final residual = 5.37336e-17, No Iterations 2
+max(U): (2108.61 400.203 475.735)
+max/min p: 1.00001e+08/95021.9
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.953063
+time step continuity errors : sum local = 6.93434e-16, global = -5.89413e-17, cumulative = 0
+max/min FaceAcCourant: 0.176653/0.00256196
+max/min Maf: 2.40388/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 2.17181e-06, Final residual = 2.78646e-16, No Iterations 2
+max/min T: 3e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 3.0208e-07, Final residual = 3.74056e-17, No Iterations 2
+max(U): (2109.37 402.5 475.188)
+max/min p: 1.00001e+08/95812.7
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.954262
+time step continuity errors : sum local = 5.30975e-16, global = 9.30422e-17, cumulative = 0
+max/min FaceAcCourant: 0.176704/0.00256196
+max/min Maf: 2.3939/0
+max/min kappa: 1/0
+ExecutionTime = 21.63 s  ClockTime = 21 s
+
+Mean and max Characteristic Courant Numbers = 0.0129569 0.176704
+Courant Number max: 0.401892
+deltaT = 1.57423e-07
+Time = 3.23082e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.93466
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 5.69642e-05, Final residual = 7.74998e-18, No Iterations 3
+max/min T: 3e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 2.44993e-05, Final residual = 1.11747e-17, No Iterations 3
+max(U): (2105.59 404.165 479.062)
+max/min p: 1.00001e+08/95124.5
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.930148
+time step continuity errors : sum local = 2.63334e-16, global = 2.69099e-17, cumulative = 0
+max/min FaceAcCourant: 0.176284/0.00256196
+max/min Maf: 2.43018/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 5.02307e-06, Final residual = 2.80409e-16, No Iterations 2
+max/min T: 3e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 7.57752e-07, Final residual = 5.74203e-17, No Iterations 2
+max(U): (2101.78 407.044 469.631)
+max/min p: 1.00001e+08/96460.7
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.934606
+time step continuity errors : sum local = 7.32214e-16, global = -7.0969e-17, cumulative = 0
+max/min FaceAcCourant: 0.175968/0.00256196
+max/min Maf: 2.43076/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 2.22421e-06, Final residual = 2.46256e-16, No Iterations 2
+max/min T: 3e+06/333000
+DILUPBiCGStab:  Solving for p, Initial residual = 3.1514e-07, Final residual = 3.99662e-17, No Iterations 2
+max(U): (2102.39 406.121 470.247)
+max/min p: 1.00001e+08/98312.8
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9953 / 0.936904
+time step continuity errors : sum local = 5.55709e-16, global = 6.25336e-17, cumulative = 0
+max/min FaceAcCourant: 0.176011/0.00256196
+max/min Maf: 2.41939/0
+max/min kappa: 1/0
+ExecutionTime = 22.38 s  ClockTime = 22 s
+
+Mean and max Characteristic Courant Numbers = 0.0129717 0.176011
+Courant Number max: 0.402139
+deltaT = 1.57423e-07
+Time = 3.38824e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9954 / 0.919545
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 5.68584e-05, Final residual = 8.76639e-16, No Iterations 2
+max/min T: 3.00001e+06/332609
+DILUPBiCGStab:  Solving for p, Initial residual = 2.44811e-05, Final residual = 7.55866e-18, No Iterations 3
+max(U): (2097.93 407.331 465.193)
+max/min p: 1.00001e+08/99290.7
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9954 / 0.920953
+time step continuity errors : sum local = 2.26454e-16, global = 1.5395e-17, cumulative = 0
+max/min FaceAcCourant: 0.175598/0.00256196
+max/min Maf: 2.44105/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 5.04016e-06, Final residual = 3.05263e-16, No Iterations 2
+max/min T: 3e+06/332481
+DILUPBiCGStab:  Solving for p, Initial residual = 7.63639e-07, Final residual = 5.65344e-17, No Iterations 2
+max(U): (2100.27 403.157 463.528)
+max/min p: 1.00001e+08/99549.2
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9954 / 0.957841
+time step continuity errors : sum local = 7.1959e-16, global = -7.52237e-17, cumulative = 0
+max/min FaceAcCourant: 0.175318/0.00256196
+max/min Maf: 2.44006/0
+max/min kappa: 1/0
+PIMPLE: iteration 3
+DILUPBiCGStab:  Solving for h, Initial residual = 2.31248e-06, Final residual = 2.67848e-16, No Iterations 2
+max/min T: 3.00001e+06/332425
+DILUPBiCGStab:  Solving for p, Initial residual = 3.30461e-07, Final residual = 4.10125e-17, No Iterations 2
+max(U): (2099.95 403.465 462.925)
+max/min p: 1.00001e+08/99742.7
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9954 / 0.937811
+time step continuity errors : sum local = 5.65697e-16, global = 4.84213e-17, cumulative = 0
+max/min FaceAcCourant: 0.175344/0.00256196
+max/min Maf: 2.42887/0
+max/min kappa: 1/0
+ExecutionTime = 23.15 s  ClockTime = 23 s
+
+Mean and max Characteristic Courant Numbers = 0.0129858 0.175344
+Courant Number max: 0.403178
+deltaT = 1.57423e-07
+Time = 3.54566e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9955 / 0.938718
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 5.6722e-05, Final residual = 8.43537e-16, No Iterations 2
+max/min T: 3.00001e+06/331403
+DILUPBiCGStab:  Solving for p, Initial residual = 2.44677e-05, Final residual = 8.58591e-18, No Iterations 3
+max(U): (2098.39 399.229 463.719)
+max/min p: 1.00001e+08/99999.9
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+rho max/min : 99.9954 / 0.94904
+time step continuity errors : sum local = 2.35144e-16, global = 1.88864e-17, cumulative = 0
+max/min FaceAcCourant: 0.174938/0.00256196
+max/min Maf: 2.43685/0
+max/min kappa: 1/0
+PIMPLE: iteration 2
+DILUPBiCGStab:  Solving for h, Initial residual = 5.11078e-06, Final residual = 2.86949e-16, No Iterations 2
+max/min T: 3.00001e+06/331136

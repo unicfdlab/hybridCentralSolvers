@@ -6,6 +6,7 @@ cd ${0%/*} || exit 1    # Run from this directory
 
 runApplication blockMesh
 runApplication setFields
+touch gasDiffusion.foam
 runApplication `getApplication`
 #runApplication postProcess -func sampleDict
 

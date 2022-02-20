@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     centrotechDropletFoam;
+application     interTwoPhaseCentralFoam;
 
 startFrom       latestTime;
 

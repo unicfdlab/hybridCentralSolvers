@@ -51,13 +51,13 @@ relaxationFactors
 {
     equations
     {
-        "U.*"           0.8;
-        "h.*"           0.8;
+        "U.*"           0.9;
+        "h.*"           0.9;
     }
     
     fields
     {
-        "p.*"           0.7;
+        "p.*"           1;
     }
 }
 

@@ -35,25 +35,25 @@ PIMPLE
     nonOrthogonalityThreshold   60;
     skewnessThreshold           0.5;
     updateEnergyInPISO          true;
-    fluxScheme                  Tadmor; //Kurganov; //Tadmor;
+    fluxScheme                  Kurganov; //Tadmor;
     
     kappaFunction
     {
-        //type standardMachToAcCourantRatio;
-        //
-        //standardMachToAcCourantRatioCoeffs
-        //{
-        //}
+        type standardMachToAcCourantRatio;
         
-        type acceleratedSonicCourantInverse;
-    
-        acceleratedSonicCourantInverseCoeffs
+        standardMachToAcCourantRatioCoeffs
         {
-            writeMaxMin true;
-            power       1;
-            resetCoupledBoundaries false;
-            reinterpolateToFaces   false;
         }
+        
+        //type acceleratedSonicCourantInverse;
+        //
+        //acceleratedSonicCourantInverseCoeffs
+        //{
+        //    writeMaxMin true;
+        //    power       1;
+        //    resetCoupledBoundaries false;
+        //    reinterpolateToFaces   false;
+        //}
 
     }
 
