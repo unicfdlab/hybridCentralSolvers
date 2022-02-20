@@ -36,7 +36,7 @@ Kurganov and Tadmor for combustion with chemical reactions and LTS support for s
     of Kurganov and Tadmor for conjugate simulation of compressible flows of perfect gas (Mach 
     number is ranging from 0 to 6) and solid body heat transfer.
 
-8. **interTwoPhaseCentralFoam** - pressure-based solver for compressible 0-4 Mach numbers flow of two-phase media with account to viscosity and gravity. The solver utilizes VoF method for resolution of phase interface and ACID ( [https://doi.org/10.1016/j.jcp.2018.04.028]( https://doi.org/10.1016/j.jcp.2018.04.028)) to calculate properties in the region where both phases are present. The solver is located in [exper/2phase](https://github.com/unicfdlab/hybridCentralSolvers/tree/exper/2phase) branch (OpenFOAM+ v. 2012).
+8. **interTwoPhaseCentralFoam** - pressure-based solver for compressible 0-4 Mach numbers flow of two-phase media with account to viscosity and gravity. The solver utilizes VoF method for resolution of phase interface and ACID ( [https://doi.org/10.1016/j.jcp.2018.04.028]( https://doi.org/10.1016/j.jcp.2018.04.028)) to calculate properties in the region where both phases are present. 
 
 
 # Meeting points for users and developers
@@ -56,6 +56,7 @@ The library is available for next versions of OpenFOAM:
 * OpenFOAM+ 1812 - [digitef-dev-1812](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-1812)
 * OpenFOAM+ 1912 - [digitef-dev-1912](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-1912)
 * OpenFOAM+ 2012 - [digitef-dev-2012](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-2012)
+* OpenFOAM+ 2112 - [digitef-dev-2112](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-2112)
 
 # Derived projects
 [To the contents](#Contents)
