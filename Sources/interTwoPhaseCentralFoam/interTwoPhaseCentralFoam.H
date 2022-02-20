@@ -421,7 +421,6 @@ namespace Foam
 
             const surfaceScalarField& phiC() const
             {
-                surfaceScalarField phiC = fvc::flux(U_);
                 return phi_;
             }
 
