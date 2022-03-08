@@ -183,12 +183,15 @@ upwind<scalar> UDsNei(mesh, phi_nei);
     {
         forAll(maxDeltaY.primitiveField(), iFace)
         {
-            owner = mesh.owner()[iFace];
-            neighbour = mesh.owner()[iFace];
-            deltaY = mag(Y[iCmpt][owner] - Y[iCmpt][neighbour]);
-            if (deltaY > maxDeltaY.primitiveField()[iFace])
+            if (mesh.isInternalFace(iFace))
             {
-                 maxDeltaY.primitiveFieldRef()[iFace] = deltaY;
+                owner = mesh.owner()[iFace];
+                neighbour = mesh.neighbour()[iFace];
+                deltaY = mag(Y[iCmpt][owner] - Y[iCmpt][neighbour]);
+                if (deltaY > maxDeltaY.primitiveField()[iFace])
+                {
+                     maxDeltaY.primitiveFieldRef()[iFace] = deltaY;
+                }
             }
         }
         forAll(maxDeltaY.boundaryField(), iPatch)
