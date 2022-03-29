@@ -75,6 +75,7 @@ If you want to see your research in this list, please write to [Issues](https://
 
 | Title | Description |
 |------|-------------|
+|[URANS Analysis of a Launch Vehicle Aero-Acoustic Environment](https://www.researchgate.net/publication/359494772_URANS_Analysis_of_a_Launch_Vehicle_Aero-Acoustic_Environment): **Article**|![Noise emittance sketch](https://www.mdpi.com/applsci/applsci-12-03356/article_deploy/html/images/applsci-12-03356-g001.png)|
 |[A study of the mesh effect on a rocket plume simulation](https://www.researchgate.net/publication/358555519_A_study_of_the_mesh_effect_on_a_rocket_plume_simulation): **Article**|![Gas plume after nozzle exit](https://ars.els-cdn.com/content/image/1-s2.0-S2590123022000366-gr2.jpg)|
 |[Analysis of the ignition induced by shock wave focusing equipped with conical and hemispherical reflectors](https://www.researchgate.net/publication/355077511_Analysis_of_the_ignition_induced_by_shock_wave_focusing_equipped_with_conical_and_hemispherical_reflectors):  **Article** |![Temperature distribution](https://ars.els-cdn.com/content/image/1-s2.0-S001021802100506X-gr5.jpg)|
 |[Three-dimensional Effects in Dual-pulse Laser Energy Deposition](https://www.researchgate.net/publication/357597475_Three-dimensional_Effects_in_Dual-pulse_Laser_Energy_Deposition): **Article**|![Plasma pulse](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Figs/axis_timed_shc.png)|
