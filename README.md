@@ -75,6 +75,7 @@ If you want to see your research in this list, please write to [Issues](https://
 
 | Title | Description |
 |------|-------------|
+|[Numerical simulation of forced acoustic gas oscillations with large amplitude in closed tube](https://www.researchgate.net/publication/360583545_Numerical_simulation_of_forced_acoustic_gas_oscillations_with_large_amplitude_in_closed_tube): **Article**|![Comparison of calculation and experimental measurements](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Figs/1-s2.0-S0165212522000373-ga1_lrg.jpg)|
 |[Dynamics of the current shell in a self-compressing plasma charge with additional gas injection (in Russian, Динамика токовой оболочки в самосжимающемся плазменном разряде с дополнительной инжекцией газа)](http://vant.iterru.ru/vant_2022_1/12.pdf): **Article** |![D2 mass fraction in camera](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Figs/D2_massfraction.png)|
 |[URANS Analysis of a Launch Vehicle Aero-Acoustic Environment](https://www.researchgate.net/publication/359494772_URANS_Analysis_of_a_Launch_Vehicle_Aero-Acoustic_Environment): **Article**|![Noise emittance sketch](https://www.mdpi.com/applsci/applsci-12-03356/article_deploy/html/images/applsci-12-03356-g001.png)|
 |[A study of the mesh effect on a rocket plume simulation](https://www.researchgate.net/publication/358555519_A_study_of_the_mesh_effect_on_a_rocket_plume_simulation): **Article**|![Gas plume after nozzle exit](https://ars.els-cdn.com/content/image/1-s2.0-S2590123022000366-gr2.jpg)|
