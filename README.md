@@ -14,16 +14,16 @@ United collection of hybrid  Central solvers - one-phase, two-phase and multicom
 
 Only OpenFOAM+ version of the OpenFOAM technology is supported since 2018. Use branches digitef-dev-YYMM, where YYMM - corresponds to OpenFOAM+ version, for example 1812
 
-1. **pimpleCentralFoam** - Pressure-based semi implicit compressible flow of perfect gas solver based on 
+1. **pimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas solver based on 
 central-upwind schemes of Kurganov and Tadmor with LTS support for steady-state calculations
 
-2. **rhoPimpleCentralFoam** - Pressure-based semi implicit compressible flow  of real gas solver based on 
+2. **rhoPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow  of real gas solver based on 
 central-upwind schemes of Kurganov and Tadmor and LTS support for steady-state calculations
 
-3. **pimpleCentralDyMFoam** - Pressure-based semi implicit compressible flow of perfect gas solver based 
+3. **pimpleCentralDyMFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas solver based 
 on central-upwind schemes of Kurganov and Tadmor with mesh motion and LTS support for steady-state calculations
 
-4. **reactingPimpleCentralFoam** - Pressure-based semi implicit compressible flow solver based on central-upwind schemes of 
+4. **reactingPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow solver based on central-upwind schemes of 
 Kurganov and Tadmor for combustion with chemical reactions and LTS support for steady-state calculations
 
 5. **twoPhaseMixingCentralFoam** - Transient Eulerian two-phase solver. Liquid and gas are
@@ -32,11 +32,11 @@ Kurganov and Tadmor for combustion with chemical reactions and LTS support for s
 6. **twoPhaseMixingCentralDyMFoam** - Transient Eulerian two-phase solver with dynamic meshes. Liquid and gas are
     considered as compressible fluids. Mass transfer at the interface is not accounted.
 
-7. **chtMultiRegionCentralFoam** -     Pressure-based semi implicit solver, based on hybrid central-upwind schemes
+7. **chtMultiRegionCentralFoam** -     Pressure-based semi implicit solver, which is based on hybrid central-upwind schemes
     of Kurganov and Tadmor for conjugate simulation of compressible flows of perfect gas (Mach 
     number is ranging from 0 to 6) and solid body heat transfer.
 
-8. **interTwoPhaseCentralFoam** - pressure-based solver for compressible 0-4 Mach numbers flow of two-phase media with account to viscosity and gravity. The solver utilizes VoF method for resolution of phase interface and ACID technique ( [https://doi.org/10.1016/j.jcp.2018.04.028]( https://doi.org/10.1016/j.jcp.2018.04.028)) to calculate properties in the region where both phases are present. 
+8. **interTwoPhaseCentralFoam** - pressure-based solver for compressible (0-4 Mach numbers) flow of two-phase media with account to viscosity and gravity. The solver utilizes VoF method for resolution of phase interface and ACID technique ( [https://doi.org/10.1016/j.jcp.2018.04.028]( https://doi.org/10.1016/j.jcp.2018.04.028)) to calculate properties in the region where both phases are present. 
 
 
 # Meeting points for users and developers
