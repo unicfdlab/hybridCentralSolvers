@@ -16,7 +16,7 @@ Only OpenFOAM+ version of the OpenFOAM technology is supported since 2018. Use b
 
 1. **pimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas 
 
-2. **rhoPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow  of real gas solver 
+2. **rhoPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow  of real gas 
 
 3. **pimpleCentralDyMFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas with mesh motion 
 
