@@ -144,6 +144,7 @@ int main(int argc, char *argv[])
         
         // --- update chemistry
         reaction->correct();
+        dQ = reaction->Qdot();
 
         // --- SIMPLE-like Pressure-Velocity Coupling
         while (pimple.loop())

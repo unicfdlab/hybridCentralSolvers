@@ -88,7 +88,7 @@ volScalarField dQ
         IOobject::AUTO_WRITE
     ),
     mesh,
-    dimensionedScalar("dQ", dimEnergy/dimTime, 0.0)
+    dimensionedScalar("dQ", dimEnergy/dimVolume/dimTime, 0.0)
 );
 
 volVectorField gradp

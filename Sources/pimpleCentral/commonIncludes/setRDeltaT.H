@@ -1,14 +1,14 @@
 {
     volScalarField& rDeltaT = trDeltaT.ref();
 
-    if (maxCoPtr.empty())
+    if (!bool(maxCoPtr))
     {
         maxCoPtr = Function1<scalar>::New("maxCo", runTime.controlDict());
     }
     maxCo = maxCoPtr->value(runTime.value());
     
     
-    if (rDeltaTSmoothingCoeffPtr.empty())
+    if (!bool(rDeltaTSmoothingCoeffPtr))
     {
         rDeltaTSmoothingCoeffPtr = Function1<scalar>::New
         (
@@ -22,7 +22,7 @@
     );
     
     
-    if (rDeltaTDampingCoeffPtr.empty())
+    if (!bool(rDeltaTDampingCoeffPtr))
     {
         rDeltaTDampingCoeffPtr = Function1<scalar>::New
         (
@@ -89,7 +89,8 @@
                         faceId = cellFaces[jFace];
                         if (mesh.isInternalFace(faceId))
                         {
-                            faceRDeltaT = SfUfbyDelta.internalField()[faceId] / mesh.magSf().internalField()[faceId] / maxCo;
+                            faceRDeltaT = SfUfbyDelta.internalField()[faceId] / 
+                                mesh.magSf().internalField()[faceId] / maxCo;
                         }
                         if (faceRDeltaT > maxCellRDeltaT)
                         {
@@ -105,12 +106,16 @@
                     }
                     else
                     {
-                        const fvsPatchField<scalar>& pSfUfbyDelta = SfUfbyDelta.boundaryField()[kPatch];
-                        const labelList& patchCells = mesh.boundary()[kPatch].faceCells();
+                        const fvsPatchField<scalar>& pSfUfbyDelta =
+                            SfUfbyDelta.boundaryField()[kPatch];
+                        const labelList& patchCells =
+                            mesh.boundary()[kPatch].faceCells();
                         scalar faceRDeltaT = -1;
                         forAll(pSfUfbyDelta, qFace)
                         {
-                            faceRDeltaT = pSfUfbyDelta[qFace] / mesh.magSf().boundaryField()[kPatch][qFace] / maxCo;
+                            faceRDeltaT = pSfUfbyDelta[qFace] /
+                                mesh.magSf().boundaryField()[kPatch][qFace] /
+                                maxCo;
                             if (faceRDeltaT > rDeltaT.primitiveField()[patchCells[qFace]])
                             {
                                 rDeltaT.primitiveFieldRef()[patchCells[qFace]] = faceRDeltaT;

@@ -3,10 +3,14 @@ cd "${0%/*}" || exit                                # Run from this directory
 . ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
 #------------------------------------------------------------------------------
 
-touch dam.foam
-restore0Dir
+touch GasToro5.foam
+
 runApplication blockMesh
+
+restore0Dir
+
 runApplication setFields
 runApplication $(getApplication)
+
 
 #------------------------------------------------------------------------------

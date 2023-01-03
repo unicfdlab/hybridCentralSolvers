@@ -103,24 +103,19 @@ tmp<surfaceScalarField> standardMachToAcCourantRatioKappaFunction::kappa()
             (
                 mesh_.thisDb().lookupObject<volScalarField>(fv::localEulerDdt::rDeltaTName).internalField()
             );
-//        surfaceScalarField rDeltaTf = linearInterpolate
-//        (
-//            mesh_.thisDb().lookupObject<volScalarField>(fv::localEulerDdt::rDeltaTName)
-//        );
 
-        FaceAcCourantPtr.set
+        FaceAcCourantPtr.reset
         (
             new surfaceScalarField
             (
                 "FaceAcCourant",
-                //amaxSfbyDelta/uMagSf / rDeltaTf
                 amaxSfbyDelta/uMagSf * cDeltaT
             )
         );
     }
     else
     {
-        FaceAcCourantPtr.set
+        FaceAcCourantPtr.reset
         (
             new surfaceScalarField
             (
