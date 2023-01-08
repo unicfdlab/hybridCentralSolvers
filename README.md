@@ -20,7 +20,7 @@ Only OpenFOAM+ version of the OpenFOAM technology is supported since 2018. Use b
 
 3. **pimpleCentralDyMFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas with mesh motion 
 
-4. **reactingPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow solver for combustion with chemical reactions
+4. **reactingPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow with combustion and chemical reactions
 
 5. **twoPhaseMixingCentralFoam** - Transient Eulerian two-phase solver. Liquid and gas are
     considered as compressible fluids. Mass transfer at the interface is not accounted.
