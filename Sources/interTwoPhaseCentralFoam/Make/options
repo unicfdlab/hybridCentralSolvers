@@ -24,4 +24,5 @@ EXE_LIBS = \
     -lmeshTools \
     -linterfaceProperties \
     -lfvOptions \
+    -lthermoTools \
     -lpimpleCentral

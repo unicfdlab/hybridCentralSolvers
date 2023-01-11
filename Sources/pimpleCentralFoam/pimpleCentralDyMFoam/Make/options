@@ -27,4 +27,5 @@ EXE_LIBS = \
     -ldynamicFvMesh \
     -ltopoChangerFvMesh \
     -ldynamicMesh \
+    -lthermoTools \
     -lfvOptions

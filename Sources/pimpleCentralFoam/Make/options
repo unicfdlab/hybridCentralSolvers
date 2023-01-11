@@ -21,4 +21,5 @@ EXE_LIBS = \
     -lcompressibleTransportModels \
     -lcompressibleTurbulenceModels \
     -lmeshTools \
+    -lthermoTools \
     -lfvOptions
