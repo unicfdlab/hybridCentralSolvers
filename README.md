@@ -10,21 +10,17 @@
 # Available solvers with hybrid approximation
 [To the contents](#Contents)
 
-United collection of hybrid  Central solvers - one-phase, two-phase and multicomponent versions.
+United collection of hybrid  Central solvers based on central-upwind schemes of Kurganov and Tadmor and LTS support for steady-state calculations:  one-phase, two-phase and multicomponent versions.
 
 Only OpenFOAM+ version of the OpenFOAM technology is supported since 2018. Use branches digitef-dev-YYMM, where YYMM - corresponds to OpenFOAM+ version, for example 1812
 
-1. **pimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas solver based on 
-central-upwind schemes of Kurganov and Tadmor with LTS support for steady-state calculations
+1. **pimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas 
 
-2. **rhoPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow  of real gas solver based on 
-central-upwind schemes of Kurganov and Tadmor and LTS support for steady-state calculations
+2. **rhoPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow  of real gas 
 
-3. **pimpleCentralDyMFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas solver based 
-on central-upwind schemes of Kurganov and Tadmor with mesh motion and LTS support for steady-state calculations
+3. **pimpleCentralDyMFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas with mesh motion 
 
-4. **reactingPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow solver based on central-upwind schemes of 
-Kurganov and Tadmor for combustion with chemical reactions and LTS support for steady-state calculations
+4. **reactingPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow with combustion and chemical reactions
 
 5. **twoPhaseMixingCentralFoam** - Transient Eulerian two-phase solver. Liquid and gas are
     considered as compressible fluids. Mass transfer at the interface is not accounted.
@@ -32,8 +28,7 @@ Kurganov and Tadmor for combustion with chemical reactions and LTS support for s
 6. **twoPhaseMixingCentralDyMFoam** - Transient Eulerian two-phase solver with dynamic meshes. Liquid and gas are
     considered as compressible fluids. Mass transfer at the interface is not accounted.
 
-7. **chtMultiRegionCentralFoam** -     Pressure-based semi implicit solver, which is based on hybrid central-upwind schemes
-    of Kurganov and Tadmor for conjugate simulation of compressible flows of perfect gas (Mach 
+7. **chtMultiRegionCentralFoam** -     Pressure-based semi implicit solver for conjugate simulation of compressible perfect gas flow  (Mach 
     number is ranging from 0 to 6) and solid body heat transfer.
 
 8. **interTwoPhaseCentralFoam** - pressure-based solver for compressible (0-4 Mach numbers) flow of two-phase media with account to viscosity and gravity. The solver utilizes VoF method for resolution of phase interface and ACID technique ( [https://doi.org/10.1016/j.jcp.2018.04.028]( https://doi.org/10.1016/j.jcp.2018.04.028)) to calculate properties in the region where both phases are present. 
@@ -57,6 +52,7 @@ The library is available for next versions of OpenFOAM:
 * OpenFOAM+ 1912 - [digitef-dev-1912](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-1912)
 * OpenFOAM+ 2012 - [digitef-dev-2012](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-2012)
 * OpenFOAM+ 2112 - [digitef-dev-2112](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-2112)
+* OpenFOAM+ 2212 - [digitef-dev-2212](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-2212)
 
 **Latest changes and bug fixes are applied only in branches corresponding to latest version of OpenFOAM.**
 
@@ -85,7 +81,7 @@ If you want to see your research in this list, please write to [Issues](https://
 |[Implementation of Higher-order PIMPLE Algorithm for Time Marching Analysis of Transonic Wing Compressibility Effects with High Mach Pre-conditioning](https://www.researchgate.net/publication/360633506_Implementation_of_Higher-order_PIMPLE_Algorithm_for_Time_Marching_Analysis_of_Transonic_Wing_Compressibility_Effects_with_High_Mach_Pre-conditioning): **Article**|![High-speed streamlines around the aircraft wing](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/wing_streamlines.png) |
 |[An extension of the all-Mach number pressure-based solution framework for numerical modelling of two-phase flows with interface](https://www.researchgate.net/publication/360962690_An_extension_of_the_all-Mach_number_pressure-based_solution_framework_for_numerical_modelling_of_two-phase_flows_with_interface): **Article**|![Comparison of experimental and calculated Shlieren fields for the case of blast and droplet interaction](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/blastToDroplet.png)|
 |[Numerical simulation of forced acoustic gas oscillations with large amplitude in closed tube](https://www.researchgate.net/publication/360583545_Numerical_simulation_of_forced_acoustic_gas_oscillations_with_large_amplitude_in_closed_tube): **Article**|![Comparison of calculation and experimental measurements](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Figs/1-s2.0-S0165212522000373-ga1_lrg.jpg)|
-|[Dynamics of the current shell in a self-compressing plasma charge with additional gas injection (in Russian, Динамика токовой оболочки в самосжимающемся плазменном разряде с дополнительной инжекцией газа)](http://vant.iterru.ru/vant_2022_1/12.pdf): **Article** |![D2 mass fraction in camera](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Figs/D2_massfraction.png)|
+|[In Russian: Dynamics of the current shell in a self-compressing plasma charge with additional gas injection (in Russian, Динамика токовой оболочки в самосжимающемся плазменном разряде с дополнительной инжекцией газа)](http://vant.iterru.ru/vant_2022_1/12.pdf) [In English: Calculations of the Density Profile for Pulse Injection of Working Gas into the PF Chamber and Experimental Results](https://link.springer.com/article/10.1134/S1063780X22601201) : **Article** |![D2 mass fraction in camera](https://github.com/unicfdlab/hybridCentralSolvers/blob/master/Figs/D2_massfraction.png)|
 |[URANS Analysis of a Launch Vehicle Aero-Acoustic Environment](https://www.researchgate.net/publication/359494772_URANS_Analysis_of_a_Launch_Vehicle_Aero-Acoustic_Environment): **Article**|![Noise emittance sketch](https://www.mdpi.com/applsci/applsci-12-03356/article_deploy/html/images/applsci-12-03356-g001.png)|
 |[A study of the mesh effect on a rocket plume simulation](https://www.researchgate.net/publication/358555519_A_study_of_the_mesh_effect_on_a_rocket_plume_simulation): **Article**|![Gas plume after nozzle exit](https://ars.els-cdn.com/content/image/1-s2.0-S2590123022000366-gr2.jpg)|
 |[Analysis of the ignition induced by shock wave focusing equipped with conical and hemispherical reflectors](https://www.researchgate.net/publication/355077511_Analysis_of_the_ignition_induced_by_shock_wave_focusing_equipped_with_conical_and_hemispherical_reflectors):  **Article** |![Temperature distribution](https://ars.els-cdn.com/content/image/1-s2.0-S001021802100506X-gr5.jpg)|
