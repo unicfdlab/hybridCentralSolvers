@@ -30,4 +30,5 @@ EXE_LIBS = \
     -lsolidThermo \
     -lradiationModels \
     -lregionModels \
+    -lthermoTools \
     -lsampling

@@ -31,10 +31,11 @@ PIMPLE
                                 
     momentumPredictor           false; //true;
     nCorrectors                 1;
-    nOuterCorrectors            3;
+    nOuterCorrectors            4;
     nonOrthogonalityThreshold   60;
     skewnessThreshold           0.5;
     updateEnergyInPISO          false;
+    noFluxWeighting             false;
     fluxScheme                  Kurganov; //Tadmor;
     
     kappaFunction

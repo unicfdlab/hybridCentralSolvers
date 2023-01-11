@@ -23,6 +23,7 @@ EXE_LIBS = \
     -lcompressibleTurbulenceModels \
     -lfiniteVolume \
     -lmeshTools \
+    -lthermoTools \
     -lsampling \
     -lfvOptions \
     -ldynamicFvMesh \
