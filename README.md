@@ -69,13 +69,19 @@ The library or approach were used in next projects:
 
 If you want to see your research in this list, please write to [Issues](https://github.com/unicfdlab/hybridCentralSolvers/issues) .
 
+## <p align="center"> >>>>> 2023 <<<<<  </p> 
+| Title | Description |
+|------|-------------|
+|[Validation and Verification of reactingPimpleCentralFOAM for Ejector Ramjet Applications](https://www.researchgate.net/publication/367311913_Validation_and_Verification_of_reactingPimpleCentralFOAM_for_Ejector_Ramjet_Applications)|---|
+|[Beam Shaping for the Laser Energy Deposition in Air](https://www.researchgate.net/publication/367312214_Beam_Shaping_for_the_Laser_Energy_Deposition_in_Air)|---|
+|[Analysis of the oscillations induced by a supersonic jet applied to produce nanofibers](https://doi.org/10.1016/j.ijmecsci.2022.107826): **Article**|![representation of the melt blowing and Cofiblas processes](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/1-s2.0-S0020740322007068-gr1_lrg.jpg)|
+
 ## <p align="center"> >>>>> 2022 <<<<<  </p> 
 
 | Title | Description |
 |------|-------------|
 |[CFD simulations of under-expanded hydrogen jets under high-pressure injection conditions](https://www.researchgate.net/publication/366521065_CFD_simulations_of_under-expanded_hydrogen_jets_under_high-pressure_injection_conditions): **Article**|![Temperature distribution in different jets](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Underexp-jet-temp.png)|
 |[Steady rotation of a Mach shock: experimental and numerical evidences](https://hal.archives-ouvertes.fr/hal-03867085/): **Article**|![Numerical shadowgraphs of shocks](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/rotating_mach_shock.png)|
-|[Analysis of the oscillations induced by a supersonic jet applied to produce nanofibers](https://doi.org/10.1016/j.ijmecsci.2022.107826): **Article**|![representation of the melt blowing and Cofiblas processes](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/1-s2.0-S0020740322007068-gr1_lrg.jpg)|
 |[Large eddy simulation of subsonic and supersonic flow using hybrid pressure-based solver](http://117.232.118.84/handle/123456789/253): **MSc Thesis**|![Instantaneous jet velocity field](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/jet_Uinst.png)|
 |[Validation and Verification of pimpleCentralFOAM and a 1D-ERAM Solver for Analysis of an Ejector-Ramjet](https://www.researchgate.net/publication/361452262_Validation_and_Verification_of_pimpleCentralFOAM_and_a_1D-ERAM_Solver_for_Analysis_of_an_Ejector-Ramjet): **Article**|![Intake system sketch](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/intake-sys.png)|
 |[Implementation of Higher-order PIMPLE Algorithm for Time Marching Analysis of Transonic Wing Compressibility Effects with High Mach Pre-conditioning](https://www.researchgate.net/publication/360633506_Implementation_of_Higher-order_PIMPLE_Algorithm_for_Time_Marching_Analysis_of_Transonic_Wing_Compressibility_Effects_with_High_Mach_Pre-conditioning): **Article**|![High-speed streamlines around the aircraft wing](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/wing_streamlines.png) |
