@@ -72,8 +72,8 @@ If you want to see your research in this list, please write to [Issues](https://
 ## <p align="center"> >>>>> 2023 <<<<<  </p> 
 | Title | Description |
 |------|-------------|
-|[Validation and Verification of reactingPimpleCentralFOAM for Ejector Ramjet Applications](https://www.researchgate.net/publication/367311913_Validation_and_Verification_of_reactingPimpleCentralFOAM_for_Ejector_Ramjet_Applications)|---|
-|[Beam Shaping for the Laser Energy Deposition in Air](https://www.researchgate.net/publication/367312214_Beam_Shaping_for_the_Laser_Energy_Deposition_in_Air)|---|
+|[Validation and Verification of reactingPimpleCentralFOAM for Ejector Ramjet Applications](https://www.researchgate.net/publication/367311913_Validation_and_Verification_of_reactingPimpleCentralFOAM_for_Ejector_Ramjet_Applications): **Article**|---|
+|[Beam Shaping for the Laser Energy Deposition in Air](https://www.researchgate.net/publication/367312214_Beam_Shaping_for_the_Laser_Energy_Deposition_in_Air): **Article**|---|
 |[Analysis of the oscillations induced by a supersonic jet applied to produce nanofibers](https://doi.org/10.1016/j.ijmecsci.2022.107826): **Article**|![representation of the melt blowing and Cofiblas processes](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/1-s2.0-S0020740322007068-gr1_lrg.jpg)|
 
 ## <p align="center"> >>>>> 2022 <<<<<  </p> 
