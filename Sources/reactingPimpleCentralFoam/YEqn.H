@@ -225,9 +225,9 @@ upwind<scalar> UDsNei(mesh, phi_nei);
     {
         if (maxDeltaY.boundaryField()[iPatch].coupled())
         {
-            scalarField intF = maxDeltaY.boundaryField()[iPatch].primitiveField();
+            scalarField intF = maxDeltaY.boundaryField()[iPatch];
             scalarField intH = hLambdaCoeffs.boundaryField()[iPatch];
-            const scalarField& intL = lambdaCoeffs.boundaryField()[iPatch].primitiveField();
+            const scalarField& intL = lambdaCoeffs.boundaryField()[iPatch];
             forAll(intF, iFace)
             {
                 if (intF[iFace] > 0.05)
