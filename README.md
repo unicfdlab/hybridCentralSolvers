@@ -80,6 +80,7 @@ If you want to see your research in this list, please write to [Issues](https://
 
 | Title | Description |
 |------|-------------|
+|[Aerothermodynamic analysis of an experimental rocket aimed to test micro-launcher technologies](https://ubibliorum.ubi.pt/handle/10400.6/13027): **MSc Thesis**|![A rocket with plume](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/ValeSimoes.png)|
 |[CFD simulations of under-expanded hydrogen jets under high-pressure injection conditions](https://www.researchgate.net/publication/366521065_CFD_simulations_of_under-expanded_hydrogen_jets_under_high-pressure_injection_conditions): **Article**|![Temperature distribution in different jets](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Underexp-jet-temp.png)|
 |[Steady rotation of a Mach shock: experimental and numerical evidences](https://hal.archives-ouvertes.fr/hal-03867085/): **Article**|![Numerical shadowgraphs of shocks](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/rotating_mach_shock.png)|
 |[Large eddy simulation of subsonic and supersonic flow using hybrid pressure-based solver](http://117.232.118.84/handle/123456789/253): **MSc Thesis**|![Instantaneous jet velocity field](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/jet_Uinst.png)|
