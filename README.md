@@ -72,7 +72,7 @@ If you want to see your research in this list, please write to [Issues](https://
 ## <p align="center"> >>>>> 2023 <<<<<  </p> 
 | Title | Description |
 |------|-------------|
-|[Validation and Verification of reactingPimpleCentralFOAM for Ejector Ramjet Applications](https://www.researchgate.net/publication/367311913_Validation_and_Verification_of_reactingPimpleCentralFOAM_for_Ejector_Ramjet_Applications): **Article**|---|
+|[Validation and Verification of reactingPimpleCentralFOAM for Ejector Ramjet Applications](https://www.researchgate.net/publication/367311913_Validation_and_Verification_of_reactingPimpleCentralFOAM_for_Ejector_Ramjet_Applications): **Article**|![The computational domain sketch](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Volvo_Schematic.png)|
 |[Beam Shaping for the Laser Energy Deposition in Air](https://www.researchgate.net/publication/367312214_Beam_Shaping_for_the_Laser_Energy_Deposition_in_Air): **Article**|---|
 |[Analysis of the oscillations induced by a supersonic jet applied to produce nanofibers](https://doi.org/10.1016/j.ijmecsci.2022.107826): **Article**|![representation of the melt blowing and Cofiblas processes](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/1-s2.0-S0020740322007068-gr1_lrg.jpg)|
 
@@ -80,6 +80,7 @@ If you want to see your research in this list, please write to [Issues](https://
 
 | Title | Description |
 |------|-------------|
+|[Aerothermodynamic analysis of an experimental rocket aimed to test micro-launcher technologies](https://ubibliorum.ubi.pt/handle/10400.6/13027): **MSc Thesis**|![A rocket with plume](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/ValeSimoes.png)|
 |[CFD simulations of under-expanded hydrogen jets under high-pressure injection conditions](https://www.researchgate.net/publication/366521065_CFD_simulations_of_under-expanded_hydrogen_jets_under_high-pressure_injection_conditions): **Article**|![Temperature distribution in different jets](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Underexp-jet-temp.png)|
 |[Steady rotation of a Mach shock: experimental and numerical evidences](https://hal.archives-ouvertes.fr/hal-03867085/): **Article**|![Numerical shadowgraphs of shocks](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/rotating_mach_shock.png)|
 |[Large eddy simulation of subsonic and supersonic flow using hybrid pressure-based solver](http://117.232.118.84/handle/123456789/253): **MSc Thesis**|![Instantaneous jet velocity field](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/jet_Uinst.png)|
