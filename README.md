@@ -72,6 +72,7 @@ If you want to see your research in this list, please write to [Issues](https://
 ## <p align="center"> >>>>> 2023 <<<<<  </p> 
 | Title | Description |
 |------|-------------|
+|[Numerical and experimental analysis of detonation induced by shock wave focusing](https://www.researchgate.net/publication/369020856_Numerical_and_experimental_analysis_of_detonation_induced_by_shock_wave_focusing): **Article**|![Exp and num simulation comparison](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Zezhong_Yang_Figure3.png)|
 |[Validation and Verification of reactingPimpleCentralFOAM for Ejector Ramjet Applications](https://www.researchgate.net/publication/367311913_Validation_and_Verification_of_reactingPimpleCentralFOAM_for_Ejector_Ramjet_Applications): **Article**|![The computational domain sketch](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Volvo_Schematic.png)|
 |[Beam Shaping for the Laser Energy Deposition in Air](https://www.researchgate.net/publication/367312214_Beam_Shaping_for_the_Laser_Energy_Deposition_in_Air): **Article**|---|
 |[Analysis of the oscillations induced by a supersonic jet applied to produce nanofibers](https://doi.org/10.1016/j.ijmecsci.2022.107826): **Article**|![representation of the melt blowing and Cofiblas processes](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/1-s2.0-S0020740322007068-gr1_lrg.jpg)|
