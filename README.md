@@ -72,6 +72,8 @@ If you want to see your research in this list, please write to [Issues](https://
 ## <p align="center"> >>>>> 2023 <<<<<  </p> 
 | Title | Description |
 |------|-------------|
+|[Investigations on Hydrogen Injections Using a Real-Fluid Approach](https://doi.org/10.4271/2023-01-0312): **Article**|![Perfect gas and real fluid gas velocity and mass fractiosn](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/F-Rahantamialisoa-jet.png)|
+|[Numerical Investigations of Pseudo-Boiling and Multi-Component Mixing Under Trans-/supercritical Conditions for Engine Applications](https://doi.org/10.1080/00102202.2023.2214947): **Article**|---|
 |[Numerical and experimental analysis of detonation induced by shock wave focusing](https://www.researchgate.net/publication/369020856_Numerical_and_experimental_analysis_of_detonation_induced_by_shock_wave_focusing): **Article**|![Exp and num simulation comparison](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Zezhong_Yang_Figure3.png)|
 |[Validation and Verification of reactingPimpleCentralFOAM for Ejector Ramjet Applications](https://www.researchgate.net/publication/367311913_Validation_and_Verification_of_reactingPimpleCentralFOAM_for_Ejector_Ramjet_Applications): **Article**|![The computational domain sketch](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Volvo_Schematic.png)|
 |[Beam Shaping for the Laser Energy Deposition in Air](https://www.researchgate.net/publication/367312214_Beam_Shaping_for_the_Laser_Energy_Deposition_in_Air): **Article**|---|
