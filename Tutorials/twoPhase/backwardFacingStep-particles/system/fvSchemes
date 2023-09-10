@@ -82,8 +82,8 @@ snGradSchemes
 fluxRequired
 {
     default	none;
-    p;h;
-    Yi;
+    p;h;Yi;
+    air;
 }
 
 // ************************************************************************* //

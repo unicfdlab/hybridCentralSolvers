@@ -6,6 +6,8 @@ cd pimpleCentralFoam; ./Allwmake; cd ../
 
 cd reactingPimpleCentralFoam; ./Allwmake; cd ../
 
+cd reactingLagrangianPimpleCentralFoam; ./Allwmake; cd ../
+
 cd twoPhaseMixingCentralFoam; ./Allwmake; cd ../
 
 cd chtMultiRegionCentralFoam; ./Allwmake; cd ../
