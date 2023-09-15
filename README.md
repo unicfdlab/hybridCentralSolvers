@@ -22,16 +22,18 @@ Only OpenFOAM+ version of the OpenFOAM technology is supported since 2018. Use b
 
 4. **reactingPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow with combustion and chemical reactions
 
-5. **twoPhaseMixingCentralFoam** - Transient Eulerian two-phase solver. Liquid and gas are
+5. **reactingLagrangianPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow with combustion, particles motion, phase change and chemical reactions
+
+6. **twoPhaseMixingCentralFoam** - Transient Eulerian two-phase solver. Liquid and gas are
     considered as compressible fluids. Mass transfer at the interface is not accounted.
 
-6. **twoPhaseMixingCentralDyMFoam** - Transient Eulerian two-phase solver with dynamic meshes. Liquid and gas are
+7. **twoPhaseMixingCentralDyMFoam** - Transient Eulerian two-phase solver with dynamic meshes. Liquid and gas are
     considered as compressible fluids. Mass transfer at the interface is not accounted.
 
-7. **chtMultiRegionCentralFoam** -     Pressure-based semi implicit solver for conjugate simulation of compressible perfect gas flow  (Mach 
+8. **chtMultiRegionCentralFoam** -     Pressure-based semi implicit solver for conjugate simulation of compressible perfect gas flow  (Mach 
     number is ranging from 0 to 6) and solid body heat transfer.
 
-8. **interTwoPhaseCentralFoam** - pressure-based solver for compressible (0-4 Mach numbers) flow of two-phase media with account to viscosity and gravity. The solver utilizes VoF method for resolution of phase interface and ACID technique ( [https://doi.org/10.1016/j.jcp.2018.04.028]( https://doi.org/10.1016/j.jcp.2018.04.028)) to calculate properties in the region where both phases are present. 
+9. **interTwoPhaseCentralFoam** - pressure-based solver for compressible (0-4 Mach numbers) flow of two-phase media with account to viscosity and gravity. The solver utilizes VoF method for resolution of phase interface and ACID technique ( [https://doi.org/10.1016/j.jcp.2018.04.028]( https://doi.org/10.1016/j.jcp.2018.04.028)) to calculate properties in the region where both phases are present. 
 
 
 # Meeting points for users and developers
@@ -72,6 +74,7 @@ If you want to see your research in this list, please write to [Issues](https://
 ## <p align="center"> >>>>> 2023 <<<<<  </p> 
 | Title | Description |
 |------|-------------|
+|[The diffraction and re-initiation behavior of detonation wave in premixed H2–O2–Ar mixture ](https://pubs.aip.org/aip/pof/article/35/9/095109/2909845): **Article**| ![Cell distribution in the cases of different D/d](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/BoZhan_difraction.jpeg) |
 |[Investigations on Hydrogen Injections Using a Real-Fluid Approach](https://doi.org/10.4271/2023-01-0312): **Article**|![Perfect gas and real fluid gas velocity and mass fractiosn](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/F-Rahantamialisoa-jet.png)|
 |[Numerical Investigations of Pseudo-Boiling and Multi-Component Mixing Under Trans-/supercritical Conditions for Engine Applications](https://doi.org/10.1080/00102202.2023.2214947): **Article**|---|
 |[Numerical and experimental analysis of detonation induced by shock wave focusing](https://www.researchgate.net/publication/369020856_Numerical_and_experimental_analysis_of_detonation_induced_by_shock_wave_focusing): **Article**|![Exp and num simulation comparison](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Zezhong_Yang_Figure3.png)|
