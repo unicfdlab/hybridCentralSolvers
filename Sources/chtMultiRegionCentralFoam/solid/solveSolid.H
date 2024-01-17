@@ -1,6 +1,6 @@
 if (pimple.finalIter())
 {
-    solidMesh.data::add("finalIteration", true);
+    solidMesh.data().add("finalIteration", true);
 }
 
 {
@@ -35,5 +35,5 @@ Info<< "Min/max T:" << min(solidThermo.T()).value() << ' '
 
 if (pimple.finalIter())
 {
-    solidMesh.data::remove("finalIteration");
+    solidMesh.data().remove("finalIteration");
 }
