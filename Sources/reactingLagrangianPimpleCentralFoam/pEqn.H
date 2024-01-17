@@ -25,6 +25,8 @@ while (pimple.correctNonOrthogonal())
         +
         pEqn_nei
         ==
+        parcels.Srho()
+        +
         fvOptions(psi,p,rho.name())
     );
     
