@@ -22,6 +22,7 @@ License
 \*---------------------------------------------------------------------------*/
 
 #include "vofTwoPhaseCentralFoam.H"
+#include "fixedFluxPressureFvPatchScalarField.H"
 
 namespace Foam
 {
@@ -78,11 +79,19 @@ Foam::vofTwoPhaseCentralFoam::vofTwoPhaseCentralFoam(const fvMesh& mesh, pimpleC
     ),
 
 
-//     p_rgh_
-//     (
-//         "p_rgh",
-//         p_
-//     ),
+    p_rgh_
+    (
+        IOobject
+        (
+            "p_rgh",
+            mesh.time().timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        p_,
+        p_rghPatchTypes()
+    ),
 
 
     T_
@@ -529,118 +538,10 @@ Foam::vofTwoPhaseCentralFoam::vofTwoPhaseCentralFoam(const fvMesh& mesh, pimpleC
         rAUf_own_
     ),
 
-// /***********************Tadmor-Kurganov Scheme*******************************/
-
-// /*************************Pressure Equation*********************************/
-
-//     phi1d_own_
-//     (
-//         "phi1d_own_",
-//         phi_*fvc::interpolate(psi1_, own_, "reconstruct(psi)")
-//     ),
-
-//     phi1d_nei_
-//     (
-//         "phi1d_nei_",
-//         phi_*fvc::interpolate(psi1_, own_, "reconstruct(psi)")
-//     ),
-
-//     Dp1_own_
-//     (
-//         "Dp1_own_",
-//         alpha_own_ *fvc::interpolate(rho1_*rbyA_, own_, "reconstruct(Dp)")
-//     ),
-
-//     Dp1_nei_
-//     (
-//         "Dp1_nei_",
-//         alpha_own_ *fvc::interpolate(rho1_*rbyA_, own_, "reconstruct(Dp)")
-//     ),
-
-//     phi2d_own_
-//     (
-//         "phi2d_own_",
-//         phi_*fvc::interpolate(psi1_, own_, "reconstruct(psi)")
-//     ),
-
-//     phi2d_nei_
-//     (
-//         "phi2d_nei_",
-//         phi_*fvc::interpolate(psi1_, own_, "reconstruct(psi)")
-//     ),
-
-//     Dp2_own_
-//     (
-//         "Dp2_own_",
-//         alpha_own_ *fvc::interpolate(rho2_*rbyA_, own_, "reconstruct(Dp)")
-//     ),
-
-//     Dp2_nei_
-//     (
-//         "Dp2_nei_",
-//         alpha_own_ *fvc::interpolate(rho2_*rbyA_, own_, "reconstruct(Dp)")
-//     ),
-
-//     phi01d_own_
-//     (
-//         phi_*rho01_
-//     ),
-
-//     phi01d_nei_
-//     (
-//         phi_*rho01_
-//     ),
-
-//     phi02d_own_
-//     (
-//         phi_*rho02_
-//     ),
-
-//     phi02d_nei_
-//     (
-//         phi_*rho02_
-//     ),
-
-//     pEqn1_own_
-//     (
-//         fvm::div(phi1d_own_,p_rgh_) - fvm::laplacian(Dp1_own_, p_rgh_)
-//     ),
-
-//     pEqn1_nei_
-//     (
-//         fvm::div(phi1d_nei_,p_rgh_) - fvm::laplacian(Dp1_nei_, p_rgh_)
-//     ),
-
-//     pEqn2_own_
-//     (
-//         fvm::div(phi2d_own_,p_rgh_) - fvm::laplacian(Dp2_own_, p_rgh_)
-//     ),
-
-//     pEqn2_nei_
-//     (
-//         fvm::div(phi2d_nei_,p_rgh_) - fvm::laplacian(Dp2_nei_, p_rgh_)
-//     ),
-
-//     gradp_
-//     (
-//         "gradp_",
-//         fvc::grad(p_rgh_)
-//     ),
-
     divDevRhoReff_
     (
         - fvm::laplacian(mu1_, U_)
     ),
-
-//     devRhoReff1_
-//     (
-//         (-(alpha1_)*dev(twoSymm(fvc::grad(U_))))
-//     ),
-
-//     devRhoReff2_
-//     (
-//         (-(alpha2_)*dev(twoSymm(fvc::grad(U_))))
-//     ),
 
     TSource1_
     (
@@ -695,89 +596,62 @@ Foam::vofTwoPhaseCentralFoam::vofTwoPhaseCentralFoam(const fvMesh& mesh, pimpleC
     dpdt_
     (
         0.0*p_/p_.mesh().time().deltaT()
+    ),
+    
+    gh_
+    (
+        IOobject
+        (
+            "gh",
+            mesh.time().timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionSet(0, 2, -2, 0, 0, 0, 0)
+    ),
+
+    ghf_
+    (
+        IOobject
+        (
+            "ghf",
+            mesh.time().timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionSet(0, 2, -2, 0, 0, 0, 0)
+    ),
+
+    Wp_
+    (
+        "Wp_",
+        1.0/(1.0 - (volumeFraction1_*psi1_ + volumeFraction2_*psi2_)*gh_)
+    ),
+
+    rho0_
+    (
+        "rho0",
+        volumeFraction1_*rho01_ + volumeFraction2_*rho02_
+    ),
+
+    B_
+    (
+        "B",
+        0.0*rho0_*U_/U_.mesh().time().deltaT()
+    ),
+
+    phib_
+    (
+        "phib",
+        0.0*phi_
     )
 
-//     rAUf_
-//     (
-//         linearInterpolate(rbyA_)
-//     ),
-
-//     gh_
-//     (
-//         IOobject
-//         (
-//             "gh",
-//             mesh.time().timeName(),
-//             mesh,
-//             IOobject::NO_READ,
-//             IOobject::NO_WRITE
-//         ),
-//         mesh,
-//         dimensionSet(0, 2, -2, 0, 0, 0, 0)
-//     ),
-
-//     ghf_
-//     (
-//         IOobject
-//         (
-//             "ghf",
-//             mesh.time().timeName(),
-//             mesh,
-//             IOobject::NO_READ,
-//             IOobject::NO_WRITE
-//         ),
-//         mesh,
-//         dimensionSet(0, 2, -2, 0, 0, 0, 0)
-//     ),
-
-//     Wp_
-//     (
-//         "Wp_",
-//         1.0/(1.0 - (volumeFraction1_*psi1_ + volumeFraction2_*psi2_)*gh_)
-//     ),
-
-//     Wp_own_
-//     (
-//         linearInterpolate(Wp_)
-//     ),
-
-//     Wp_nei_
-//     (
-//         linearInterpolate(Wp_)
-//     ),
-
-//     rho0_
-//     (
-//         "rho0",
-//         volumeFraction1_*rho01_ + volumeFraction2_*rho02_
-//     ),
-
-//     rho0ghf_
-//     (
-//         "rho0ghf",
-//         linearInterpolate(rho0_)*ghf_
-//     ),
-
-//     pcorr_
-//     (
-//         "pcorr",
-//         p_rgh_
-//     ),
-
-//     phi1_
-//     (
-//         "phi1",
-//         phi1_own_ + phi1_nei_
-//     ),
-
-//     phi2_
-//     (
-//         "phi2",
-//         phi2_own_ + phi2_nei_
-//     )
-
 {
-    Info<< "\nConstructor is working\n" << endl;
+    Info<< "\nAll fields were created\n" << endl;
 }
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
@@ -801,7 +675,7 @@ void Foam::vofTwoPhaseCentralFoam::saveOld()
     psi1_.oldTime();
     psi2_.oldTime();
     Q_.oldTime();
-    // p_rgh_.oldTime();
+    p_rgh_.oldTime();
     phi_.oldTime();
 }
 
@@ -898,34 +772,34 @@ void Foam::vofTwoPhaseCentralFoam::Initialize()
     const fvMesh & mesh = U_.mesh();
     const Foam::Time& runTime = U_.mesh().time();
 
-    // Info<< "\nReading g" << endl;
-    // const meshObjects::gravity& g = meshObjects::gravity::New(runTime);
+    Info<< "\nReading g" << endl;
+    const meshObjects::gravity& g = meshObjects::gravity::New(runTime);
 
-    // Info<< "\nReading hRef" << endl;
-    // uniformDimensionedScalarField hRef
-    // (
-    //     IOobject
-    //     (
-    //         "hRef",
-    //         runTime.constant(),
-    //         mesh,
-    //         IOobject::READ_IF_PRESENT,
-    //         IOobject::NO_WRITE
-    //     ),
-    //     dimensionedScalar(dimLength, Zero)
-    // );
+    Info<< "\nReading hRef" << endl;
+    uniformDimensionedScalarField hRef
+    (
+        IOobject
+        (
+            "hRef",
+            runTime.constant(),
+            mesh,
+            IOobject::READ_IF_PRESENT,
+            IOobject::NO_WRITE
+        ),
+        dimensionedScalar(dimLength, Zero)
+    );
 
-    // Info<< "Calculating field g.h\n" << endl;
-    // dimensionedScalar ghRef
-    // (
-    //     mag(g.value()) > SMALL
-    //   ? g & (cmptMag(g.value())/mag(g.value()))*hRef
-    //   : dimensionedScalar("ghRef", g.dimensions()*dimLength, 0)
-    // );
+    Info<< "Calculating field g.h\n" << endl;
+    dimensionedScalar ghRef
+    (
+        mag(g.value()) > SMALL
+      ? g & (cmptMag(g.value())/mag(g.value()))*hRef
+      : dimensionedScalar("ghRef", g.dimensions()*dimLength, 0)
+    );
 
-    // gh_ = ((g & U_.mesh().C()) - ghRef);
+    gh_ = ((g & U_.mesh().C()) - ghRef);
 
-    // ghf_ = ((g & U_.mesh().Cf()) - ghRef);
+    ghf_ = ((g & U_.mesh().Cf()) - ghRef);
 
     Compressibility();
 
@@ -955,6 +829,15 @@ void Foam::vofTwoPhaseCentralFoam::Initialize()
     dpdt_     = fvc::ddt(p_);
     TSource1_ = dpdt_;
     TSource2_ = dpdt_;
+
+    p_rgh_.ref() = p_.internalField();
+    setSnGrad<fixedFluxPressureFvPatchScalarField>
+    (
+        p_rgh_.boundaryFieldRef(),
+        phi_.boundaryField()
+    );
+    p_rgh_.correctBoundaryConditions();
+    p_rgh_.write();
 }
 
 //* * * * * * * * * * * * * * * * * Flux` Functions * * * * * * * * * * * * *//
@@ -1137,6 +1020,21 @@ void Foam::vofTwoPhaseCentralFoam::combineMatrices
             pvf1*m1.boundaryCoeffs()[patchi] +
             pvf2*m2.boundaryCoeffs()[patchi];
     }
+}
+
+Foam::wordList Foam::vofTwoPhaseCentralFoam::p_rghPatchTypes()
+{
+    wordList patchTypes = p_.boundaryField().types();
+    forAll(p_.boundaryField(), ipatch)
+    {
+        const fvPatchScalarField& pp =
+            p_.boundaryField()[ipatch];
+        if (pp.patchType() == Foam::fieldTypes::zeroGradientType) {
+            patchTypes[ipatch] = fixedFluxPressureFvPatchScalarField::typeName;
+        }
+    }
+
+    return patchTypes;
 }
 
 //* * * * * * * * * * * * * * * Update Dencities * * * * * * * * * * * * * * *//

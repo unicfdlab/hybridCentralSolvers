@@ -71,6 +71,9 @@ namespace Foam
             //- MUST_READ
             volScalarField p_;
 
+            // Piesometric pressure
+            volScalarField p_rgh_;
+
 //             volScalarField p_rgh_;
 
             //- Temperature
@@ -280,34 +283,6 @@ namespace Foam
 
             surfaceScalarField rAUf_nei_;
 
-//             surfaceScalarField Dp1_own_;
-
-//             surfaceScalarField Dp1_nei_;
-
-//             surfaceScalarField phi2d_own_;
-
-//             surfaceScalarField phi2d_nei_;
-
-//             surfaceScalarField Dp2_own_;
-
-//             surfaceScalarField Dp2_nei_;
-
-//             surfaceScalarField phi01d_own_;
-
-//             surfaceScalarField phi01d_nei_;
-
-//             surfaceScalarField phi02d_own_;
-
-//             surfaceScalarField phi02d_nei_;
-
-//             fvScalarMatrix pEqn1_own_;
-
-//             fvScalarMatrix pEqn1_nei_;
-
-//             fvScalarMatrix pEqn2_own_;
-
-//             fvScalarMatrix pEqn2_nei_;
-
 // /*******************************Reconstruct Velocity***************************/
 
 //             volVectorField gradp_;
@@ -347,19 +322,17 @@ namespace Foam
 
             volScalarField dpdt_;
 
-//             surfaceScalarField rAUf_;
+            volScalarField gh_;
 
-//             volScalarField gh_;
+            surfaceScalarField ghf_;
 
-//             surfaceScalarField ghf_;
+            volScalarField Wp_;
 
-//             volScalarField Wp_;
+            volScalarField rho0_;
 
-//             surfaceScalarField Wp_own_;
+            volVectorField B_;
 
-//             surfaceScalarField Wp_nei_;
-
-//             volScalarField rho0_;
+            surfaceScalarField phib_;
 
 //             surfaceScalarField rho0ghf_;
 
@@ -440,6 +413,8 @@ namespace Foam
                 fvScalarMatrix& m,
                 bool removeConst = false
             );
+
+            wordList p_rghPatchTypes();
 
         public:
 
