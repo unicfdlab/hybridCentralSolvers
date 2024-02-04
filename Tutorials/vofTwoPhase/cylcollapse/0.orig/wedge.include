@@ -1,0 +1,14 @@
+wedge1
+{
+    type	wedge;
+}
+
+wedge2
+{
+    type	wedge;
+}
+
+defaultFaces
+{
+    type	empty;
+}

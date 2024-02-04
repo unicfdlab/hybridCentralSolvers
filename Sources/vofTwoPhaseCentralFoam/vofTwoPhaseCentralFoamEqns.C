@@ -45,21 +45,23 @@ void Foam::vofTwoPhaseCentralFoam::solveRho
 
 void Foam::vofTwoPhaseCentralFoam::solveRho1()
 {
-    const auto cdt = 0.0/rho1_.mesh().time().deltaT();
-    solveRho(rho1_, phi1_own_, phi1_nei_);
-    rho1_ = max(rho1_, rho1Min_);
-    E1_ = cdt * rho1_;
+    auto& rho1 = mixture_model_.rho1();
+    const auto cdt = 0.0/rho1.mesh().time().deltaT();
+    solveRho(rho1, phi1_own_, phi1_nei_);
+    mixture_model_.limitRho1();
+    E1_ = cdt * rho1;
 }
 
 void Foam::vofTwoPhaseCentralFoam::solveRho2()
 {
-    const auto cdt = 0.0/rho2_.mesh().time().deltaT();
-    solveRho(rho2_, phi2_own_, phi2_nei_);
-    rho2_ = max(rho2_, rho2Min_);
-    E2_ = cdt * rho2_;
+    auto& rho2 = mixture_model_.rho2();
+    const auto cdt = 0.0/rho2.mesh().time().deltaT();
+    solveRho(rho2, phi2_own_, phi2_nei_);
+    mixture_model_.limitRho2();
+    E2_ = cdt * rho2;
 }
 
-void Foam::vofTwoPhaseCentralFoam::alpha1Eqnsolve()
+void Foam::vofTwoPhaseCentralFoam::LiquidVolumeFractionSolve()
 {
     //MULES version with antidiffusive flux
 
@@ -190,7 +192,7 @@ void Foam::vofTwoPhaseCentralFoam::alpha1Eqnsolve()
 
 void Foam::vofTwoPhaseCentralFoam::UEqn()
 {
-    // divDevRhoReff();
+    const auto& rho = mixture_model_.rho();
 
     surfaceScalarField phiU_own = vF1face_*phi1_own_ +
         vF2face_*phi2_own_;
@@ -199,15 +201,44 @@ void Foam::vofTwoPhaseCentralFoam::UEqn()
     phiU_own.rename("phiU_own");
     phiU_nei.rename("phiU_nei");
 
-    E_ = fvc::ddt(rho_) + fvc::div(phiU_own) + fvc::div(phiU_nei);
-
+    E_ = fvc::ddt(rho) + fvc::div(phiU_own) + fvc::div(phiU_nei);
     fvVectorMatrix UEqn
     (
-          fvm::ddt(rho_,U_)
+          fvm::ddt(rho,U_)
         + fvm::div(phiU_own,U_) + fvm::div(phiU_nei,U_)
         - fvm::Sp(E_,U_)
-        + divDevRhoReff_
+        + turbulence_->divDevRhoReff(rho,U_)
     );
+
+    // const auto& rho1 = mixture_model_.rho1();
+    // const auto& rho2 = mixture_model_.rho2();
+    // fvVectorMatrix UEqn1
+    // (
+    //     fvm::ddt(rho1,U_)
+    //     + fvm::div(phi1_own_,U_) + fvm::div(phi1_nei_,U_)
+    //     - fvm::Sp(E1_,U_)
+    // );
+    // fvVectorMatrix UEqn2
+    // (
+    //     fvm::ddt(rho2,U_)
+    //     + fvm::div(phi2_own_,U_) + fvm::div(phi2_nei_,U_)
+    //     - fvm::Sp(E2_,U_)
+    // );
+    // fvVectorMatrix UEqn
+    // (
+    //     U_,
+    //     UEqn1.dimensions()
+    // );
+    // combineMatrices
+    // (
+    //     UEqn1,
+    //     UEqn2,
+    //     volumeFraction1_,
+    //     volumeFraction2_,
+    //     UEqn,
+    //     true //do not copy: update origin matrices
+    // );
+    // UEqn += turbulence_->divDevRhoReff(rho,U_);
 
     oneByA_  = 1.0/UEqn.A();
     HbyA_ = UEqn.H()*oneByA_;
@@ -216,62 +247,94 @@ void Foam::vofTwoPhaseCentralFoam::UEqn()
     B_ = fvc::reconstruct
     (
         (
-//            mixture.surfaceTensionForce()
-            - ghf_*fvc::snGrad(rho_)
+           interface_.surfaceTensionForce()
+            - ghf_*fvc::snGrad(rho)
         ) * B_.mesh().magSf()
     );
 }
 
-void Foam::vofTwoPhaseCentralFoam::ReconstructVelocity()
-{
-    // pressureGradient();
-    // U_ = HbyA_ - oneByA_*gradp_
-    //      +  oneByA_*fvc::reconstruct(phib_/rAUf_);
-    // U_.correctBoundaryConditions();
-}
-
-
 void Foam::vofTwoPhaseCentralFoam::TEqnSolve()
 {
-    #warning "Add viscous dissipation"
+    const auto& rho1 = mixture_model_.rho1();
+    const auto& rho2 = mixture_model_.rho2();
+    const auto& rho  = mixture_model_.rho();
+    const auto& alpha1=mixture_model_.alpha1();
+    const auto& alpha2=mixture_model_.alpha2();
+    const auto& Cp1  = mixture_model_.Cp1();
+    const auto& Cp2  = mixture_model_.Cp2();
+    const auto& Prt  = mixture_model_.Prt();
+
+    //yi = vFi*rhoi / rho
+    
+    volScalarField d1 = rho1 / rho;
+    volScalarField d2 = rho2 / rho;
+
     volScalarField BdotU
     (
         B_ & U_
     );
 
-    //yi = vFi*rhoi / rho
-    
-    volScalarField d1 = rho1_ / rho_;
-    volScalarField d2 = rho2_ / rho_;
+    volScalarField Vd1
+    (
+        fvc::div //viscous dissipation for the first phase
+        (
+            (
+                linearInterpolate
+                (
+                    (-rho1*turbulence_->devRhoReff()) & U_
+                ) & U_.mesh().Sf()
+            )()
+        )
+    );
+    volScalarField Vd2
+    (
+        fvc::div //viscous dissipation for the second phase
+        (
+            (
+                linearInterpolate
+                (
+                    (-rho2*turbulence_->devRhoReff()) & U_
+                ) & U_.mesh().Sf()
+            )()
+        )
+    );
+
+    surfaceScalarField alphaEff=
+        linearInterpolate(rho1*turbulence_->nuEff())/Prt
+        +
+        vF1face_*alpha1
+        +
+        vF2face_*alpha2;
+    alphaEff.rename("alphaEff");
 
     fvScalarMatrix TEqn1
     (
-        fvm::ddt(rho1_,T_)
+        fvm::ddt(rho1,T_)
         + fvm::div(phi1_own_,T_) + fvm::div(phi1_nei_,T_)
         - fvm::Sp(E1_,T_)
-        + 1.0/Cp1_*TSource1_
-
-        - fvm::laplacian(alpha1_, T_) // that part should be outside
+        + 1.0/Cp1*TSource1_
         ==
-        d1*BdotU/Cp1_
+        d1*BdotU/Cp1
+        +
+        Vd1/Cp1
     );
 
     fvScalarMatrix TEqn2
     (
-        fvm::ddt(rho2_,T_)
+        fvm::ddt(rho2,T_)
         + fvm::div(phi2_own_,T_) + fvm::div(phi2_nei_,T_)
         - fvm::Sp(E2_,T_)
-        + 1.0/Cp2_*TSource2_
-
-        - fvm::laplacian(alpha2_, T_) // that part should be outside
+        + 1.0/Cp2*TSource2_
         ==
-        d2*BdotU/Cp2_
+        d2*BdotU/Cp2
+        +
+        Vd2/Cp2
     );
 
     fvScalarMatrix TEqn
     (
         T_,
-        rho1_.dimensions()*T_.dimensions()/dimTime
+        TEqn1.dimensions()
     );
 
     combineMatrices
@@ -284,23 +347,33 @@ void Foam::vofTwoPhaseCentralFoam::TEqnSolve()
         true //do not copy: update origin matrices
     );
 
-    // Contribution from  g \cdot  U, etc?
-
-    TEqn.solve();
+    solve
+    (
+        TEqn
+        ==
+        fvm::laplacian(alphaEff, T_)
+    );
 }
 
 
 void Foam::vofTwoPhaseCentralFoam::pEqnSolve()
 {
+    const auto& rho  = mixture_model_.rho();
+    const auto& rho0 = mixture_model_.rho0();
+    const auto& rho1 = mixture_model_.rho1();
+    const auto& rho2 = mixture_model_.rho2();
+    const auto& psi1 = mixture_model_.psi1();
+    const auto& psi2 = mixture_model_.psi2();
+
     phiHbyA_ = fvc::flux(HbyA_);
     surfaceScalarField rAUf("rAUf", linearInterpolate(oneByA_));
 
     phib_ = 
     (
-//        mixture.surfaceTensionForce()
+        interface_.surfaceTensionForce()
         -
-        ghf_*fvc::snGrad(rho_)
-    )* rAUf * rho_.mesh().magSf();
+        ghf_*fvc::snGrad(rho)
+    )* rAUf * rho.mesh().magSf();
 
     // blend KNP coeffs with linear interpolation
     rAUf_own_ *= kappa_; rAUf_own_ += onemkappa_*rAUf*alpha_own_;
@@ -308,9 +381,9 @@ void Foam::vofTwoPhaseCentralFoam::pEqnSolve()
     phiHbyA_own_ *= kappa_; phiHbyA_own_ += alpha_own_*onemkappa_*phiHbyA_;
     phiHbyA_nei_ *= kappa_; phiHbyA_nei_ += alpha_nei_*onemkappa_*phiHbyA_;
 
-    phiHbyA_own_ += alpha_own_*onemkappa_*linearInterpolate(rho_*oneByA_)*
+    phiHbyA_own_ += alpha_own_*onemkappa_*linearInterpolate(rho*oneByA_)*
         fvc::ddtCorr(U_, phi_);
-    phiHbyA_nei_ += alpha_nei_*onemkappa_*linearInterpolate(rho_*oneByA_)*
+    phiHbyA_nei_ += alpha_nei_*onemkappa_*linearInterpolate(rho*oneByA_)*
         fvc::ddtCorr(U_, phi_);
     phiHbyA_own_ += alpha_own_*phib_;
     phiHbyA_nei_ += alpha_nei_*phib_;
@@ -327,39 +400,31 @@ void Foam::vofTwoPhaseCentralFoam::pEqnSolve()
     // ddt(alpha1*rho1) + fvc::div(alpha1*rho1*U) \approx
     // alpha1*(ddt(rho1) + fvc::div(rho1*U))
     // c = alpha1/rho1
-    Info<< "Calculating phase1 pressure contr."
-        << endl;
     surfaceScalarField phiRho1 =
         aphiv_own_*rho1_own_ + aphiv_nei_*rho1_nei_;
     fvScalarMatrix cDDtAlpha1Rho1 = pos(volumeFraction1_)*
     (
-        (volumeFraction1_/rho1_)*
+        (volumeFraction1_/rho1)*
         (
-            fvc::ddt(rho1_) + fvc::div(phiRho1) + psi1_*correction(fvm::ddt(p_rgh_))
+            fvc::ddt(rho1) + fvc::div(phiRho1) + psi1*correction(fvm::ddt(p_rgh_))
         )
         - dotVF1_ - fvc::div(phiVF1_)
     );
 
-    Info<< "Calculating phase2 pressure contr."
-        << endl;
     surfaceScalarField phiRho2 =
         aphiv_own_*rho2_own_ + aphiv_nei_*rho2_nei_;
     fvScalarMatrix cDDtAlpha2Rho2 = pos(volumeFraction2_)*
     (
-        (volumeFraction2_/rho2_)*
+        (volumeFraction2_/rho2)*
         (
-            fvc::ddt(rho2_) + fvc::div(phiRho2) + psi2_*correction(fvm::ddt(p_rgh_))
+            fvc::ddt(rho2) + fvc::div(phiRho2) + psi2*correction(fvm::ddt(p_rgh_))
         )
         - dotVF2_ - fvc::div(phiVF2_)
     );
 
-    Info<< "Creating elliptic parts of the equation"
-        << endl;
     fvScalarMatrix elliptic_p_own = fvc::div(phiHbyA_own_) - fvm::laplacian(rAUf_own_,p_rgh_);
     fvScalarMatrix elliptic_p_nei = fvc::div(phiHbyA_nei_) - fvm::laplacian(rAUf_nei_,p_rgh_);
 
-    Info<< "Solving the equation"
-        << endl;
     solve
     (
         cDDtAlpha1Rho1 +
@@ -373,20 +438,29 @@ void Foam::vofTwoPhaseCentralFoam::pEqnSolve()
     phi_ = aphiv_own_ + aphiv_nei_;
 
     U_ = HbyA_
-        + oneByA_*
-        fvc::reconstruct
-        (
-            (phib_ + elliptic_p_own.flux() + elliptic_p_nei.flux())/
-            (rAUf_own_ + rAUf_nei_)
-        );
+    //    + oneByA_*
+    //    (
+    //         fvc::reconstruct
+    //         (
+    //             phib_/
+    //             (rAUf_own_ + rAUf_nei_)
+    //         )
+    //         -
+    //         fvc::grad(p_rgh_)
+    //    );
+       + oneByA_*
+       fvc::reconstruct
+       (
+           (phib_ + elliptic_p_own.flux() + elliptic_p_nei.flux())/
+           (rAUf_own_ + rAUf_nei_)
+       );
     U_.correctBoundaryConditions();
     //fvOptions.correct(U_);
 
 
-    Wp_ = 1.0/(1.0 - (volumeFraction1_*psi1_ + volumeFraction2_*psi2_)*gh_);
-    rho0_ = volumeFraction1_*rho01_ + volumeFraction2_*rho02_;
+    Wp_ = 1.0/(1.0 - (volumeFraction1_*psi1 + volumeFraction2_*psi2)*gh_);
 
-    p_ = Wp_*(p_rgh_ + rho0_*gh_);
+    p_ = Wp_*(p_rgh_ + rho0*gh_);
     p_.correctBoundaryConditions();
 }
 

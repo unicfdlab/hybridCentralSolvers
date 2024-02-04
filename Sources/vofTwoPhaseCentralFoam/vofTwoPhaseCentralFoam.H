@@ -1,10 +1,9 @@
-
 /*---------------------------------------------------------------------------*\
   =========                 |
   \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
    \\    /   O peration     |
     \\  /    A nd           | Copyright (C) 2019-2021
-     \\/     M anipulation  | Synthetik Applied Technologies
+     \\/     M anipulation  | 
 -------------------------------------------------------------------------------
 License
     This file is derivative work of OpenFOAM.
@@ -21,7 +20,7 @@ License
 Class
     Foam::singlePhaseCompressibleSystem
 Description
-    Compressible system with one phase
+    Compressible system with one liquid phase and one gaseous phase
 SourceFiles
     singlePhaseCompressibleSystem.C
 \*---------------------------------------------------------------------------*/
@@ -37,14 +36,15 @@ SourceFiles
 #include "surfaceFields.H"
 #include "scalarField.H"
 #include "kappaFunction.H"
-#include "psiThermo.H"
 #include "CorrectPhi.H"
 #include "pimpleControl.H"
 #include "physicoChemicalConstants.H"
 #include "interfaceProperties.H"
-
+#include "turbulentTransportModel.H"
 #include "gravityMeshObject.H"
 #include "findRefCell.H"
+#include "quasiIncompressibleTwoPhaseMixture.H"
+
 namespace Foam
 {
 
@@ -64,49 +64,19 @@ namespace Foam
             //- MUST_READ
             volVectorField U_;
 
-            //- Velocity estimated on cell boundaries
+            //- Velocity defined on cell boundaries
             surfaceScalarField phi_;
 
             //- Pressure
             //- MUST_READ
             volScalarField p_;
 
-            // Piesometric pressure
+            //- Piesometric pressure
             volScalarField p_rgh_;
-
-//             volScalarField p_rgh_;
 
             //- Temperature
             //- MUST_READ
             volScalarField T_;
-
-            //- Specific gas constant of the first phase
-            //- Set in the phaseProperties file
-            dimensioned<scalar> R1_;
-
-            //- Specific gas constant of the second phase
-            //- Set in the phaseProperties file
-            dimensioned<scalar> R2_;
-
-            //- Molecular mass of the first phase
-            //- Set in the phaseProperties file
-            dimensioned<scalar> molM1_;
-
-            //- Molecular mass of the second phase
-            //- Set in the phaseProperties file
-            dimensioned<scalar> molM2_;
-
-            //- Compressibility coefficient of the first phase
-            volScalarField psi1_;
-
-            //- Compressibility coefficient of the second phase
-            volScalarField psi2_;
-
-            //- Density of the first phase
-            volScalarField rho1_;
-
-            //- Density of the second phase
-            volScalarField rho2_;
 
             //- Volume fraction of the first phase
             //- MUST_READ
@@ -115,6 +85,14 @@ namespace Foam
             //- Volume fraction of the second phase
             //- NO_READ
             volScalarField volumeFraction2_;
+
+            //- The mixture model contains properties of
+            // phases and is needed to connect to turbulence
+            // model
+            quasiIncompressibleTwoPhaseMixture mixture_model_;
+
+            //-
+            autoPtr<incompressible::turbulenceModel> turbulence_;
 
             //- the temporal change of the first phase volume fraction
             volScalarField dotVF1_;
@@ -131,53 +109,6 @@ namespace Foam
             //- Description of the interface
             interfaceProperties interface_;
 
-            //- Total density of a mixture
-            volScalarField rho_;
-
-            // Constant density of the first phase, i.e. rho_01
-            // Set in the phaseProperties file as rho01
-            dimensioned<scalar> rho01_;
-
-            // Constant density of a phase, i.e. rho_02
-            // Set in the phaseProperties file as rho02
-            dimensioned<scalar> rho02_;
-
-            //- Specific heat of the first phase
-            //- Set in the phaseProperties
-            dimensioned<scalar> Cp1_;
-
-            //- Specific heat of the second phase
-            //- Set in the phaseProperties
-            dimensioned<scalar> Cp2_;
-
-            //- Dynamic viscousity of the first phase
-            //- Set in the phaseProperties
-            dimensioned<scalar> mu1_;
-
-            //- Dynamic viscousity of the second phase
-            //- Set in the phaseProperties
-            dimensioned<scalar> mu2_;
-
-            //- Prandtl number of the first phase
-            //- Set in the phaseProperties
-            dimensioned< scalar > Pr1_;
-
-            //- Prandtl number of the second phase
-            //- Set in the phaseProperties
-            dimensioned< scalar > Pr2_;
-
-            //- Thermal diffusivity of the first phase
-            dimensioned< scalar > alpha1_;
-
-            //- Thermal diffusivity of the second phase
-            dimensioned< scalar > alpha2_;
-
-            //- Heat capacity ratio of the first phase
-            dimensioned<scalar> gamma1_;
-
-            //- Heat capacity ratio of the second phase
-            dimensioned<scalar> gamma2_;
-
             //- Squared speed of sound of a mixture
             volScalarField C_;
 
@@ -189,12 +120,6 @@ namespace Foam
 
             //- The 1/A matrix of the Momentum equation
             volScalarField oneByA_;
-
-//             //- Volumetric flux due to body forces
-//             surfaceScalarField phib_;
-
-//             //- Kappa KT/PISO blending function
-//             autoPtr<fv::kappaFunction> kappaFuncPtr_;
 
             //- Kappa KT/PISO blending field
             surfaceScalarField kappa_;
@@ -260,9 +185,6 @@ namespace Foam
             //-
             surfaceScalarField amaxSf_;
 
-            //- mixture dynamic viscosity
-            volScalarField mu_;
-
 // /****************************Update Central Fields*****************************/
 
             surfaceScalarField aphiv_own_;
@@ -289,12 +211,6 @@ namespace Foam
 
 // /******************************Viscosity Terms*********************************/
 
-            fvVectorMatrix divDevRhoReff_;
-
-//             volSymmTensorField devRhoReff1_;
-
-//             volSymmTensorField devRhoReff2_;
-
             volScalarField TSource1_;
 
             volScalarField TSource2_;
@@ -314,10 +230,6 @@ namespace Foam
 
             surfaceScalarField vF2face_;
 
-            dimensionedScalar rho1Min_;
-
-            dimensionedScalar rho2Min_;
-
             volScalarField Q_;
 
             volScalarField dpdt_;
@@ -328,19 +240,9 @@ namespace Foam
 
             volScalarField Wp_;
 
-            volScalarField rho0_;
-
             volVectorField B_;
 
             surfaceScalarField phib_;
-
-//             surfaceScalarField rho0ghf_;
-
-//             volScalarField pcorr_;
-
-//             surfaceScalarField phi1_;
-
-//             surfaceScalarField phi2_;
 
         protected:
 
@@ -414,7 +316,21 @@ namespace Foam
                 bool removeConst = false
             );
 
+            //- Combines balance matrices from different phases
+            // values of matrices m1 and m2 are multiplied
+            void combineMatrices
+            (
+                const fvVectorMatrix& m1,
+                const fvVectorMatrix& m2,
+                const volScalarField& vf1,
+                const volScalarField& vf2,
+                fvVectorMatrix& m,
+                bool removeConst = false
+            );
+
             wordList p_rghPatchTypes();
+
+            void p_rghUpdatePatchFields();
 
         public:
 
@@ -436,15 +352,10 @@ namespace Foam
             scalar FlowCourant();
 
 
-            // const surfaceScalarField& phiC() const
-            // {
-            //     return phi_;
-            // }
-
 // * * * * * * * * * * * * * * * * Main Functions  * * * * * * * * * * * * * //
 
             //- Solve an equation for volumeFraction1_
-            virtual void alpha1Eqnsolve();
+            virtual void LiquidVolumeFractionSolve();
 
             //- Solve for density of the first phase
             void solveRho1();
@@ -454,9 +365,6 @@ namespace Foam
 
             //- Construct Momentum equation and extract rbyA_ and HbyA_
             void UEqn();
-
-            //- Reconstructs velocity from pressure gradient, H and A operators
-            void ReconstructVelocity();
 
             //- Solve an equation for Temperature
             virtual void TEqnSolve();
@@ -472,8 +380,6 @@ namespace Foam
 
             void TSource();
 
-            void pressureGradient();
-
 //* * * * * * * * * * * * * * * Intermidiate Functions * * * * * * * * * * * *//
 
             void Initialize();
@@ -482,15 +388,14 @@ namespace Foam
 
             void updateKappa();
 
-//* * * * * * * * * * * * * * * Update Dencities * * * * * * * * * * * * * * *//
+// * * * * * * * * * Mixture properties and thermodynamics * * * * * * * * *//
 
             void DensityThermo();
 
-            void Density();
+            //- Updates mixture and turbulence properties
+            void MixtureProperties();
 
-//* * * * * * * * * * * * * Update Depending Variables * * * * * * * * * * *//
-
-            virtual void updateLambda();
+            void updateLambda();
 
             void Compressibility();
 
@@ -507,14 +412,6 @@ namespace Foam
             void UpdateCentralFields();
 
             void CalculateMassFluxes();
-
-//* * * * * * * * * * * * * * * * * Viscosity * * * * * * * * * * * * * * * *//
-
-            void divDevRhoReff();
-
-//* * * * * * * * * * * * * * * * * * Gravity Terms * * * * * * * * * * * * * * * *//
-
-            void GravityCorrection();
 
     }; // End of the class
 

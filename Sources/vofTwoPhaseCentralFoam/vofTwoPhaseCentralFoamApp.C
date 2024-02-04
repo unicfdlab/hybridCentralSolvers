@@ -28,7 +28,6 @@ Description
 
 #include "fvCFD.H"
 #include "pimpleControl.H"
-#include "turbulentFluidThermoModel.H"
 #include "vofTwoPhaseCentralFoam.H"
 
 int main(int argc, char *argv[])
@@ -62,8 +61,7 @@ int main(int argc, char *argv[])
 
         #include "readTimeControls.H"
         #include "setDeltaT.H"
-
-
+                
         Veronika.CharacteristicCourant();
 
         runTime++;
@@ -76,48 +74,108 @@ int main(int argc, char *argv[])
 
         while (pimple.loop())
         {
-            Veronika.updateLambda();         //Calculate values of C1_, C2_, Z1_, Z2_, Lambda_, and phi_
+            /*
+             * Calculate compressibility at the interface
+             * for the advection of liquid (volumeFraction1)
+             * volume fraction field
+             * Calculates values of: C1_, C2_, Z1_, Z2_, Lambda_
+             */
+            Veronika.updateLambda();
 
-            Veronika.alpha1Eqnsolve();
+            /*
+             * Solve for evolution (advection) of liquid(volumeFraction1)
+             * volume fraction field
+             * Calculates:
+             * - volumeFraction1_
+             * - volumeFraction2_
+             * - fluxes of volumeFraction1_ volumeFraction2_
+             * - temporal changes of phases volume fractions
+             * - face interpolations of phases volume fractions
+             */
+            Veronika.LiquidVolumeFractionSolve();
             
-            Veronika.Density();
 
-            Veronika.UEqn();             //Generate fvmatrix for UEqn (note: without grad(p_))
+            /*
+             * Update mixture density and viscosity using new composition
+             * of the mixture
+             * Updates turbulence properties
+             */
+            Veronika.MixtureProperties();
 
+            /*
+             * Create discretized equation for the mixture velocity
+             */
+            Veronika.UEqn();
+
+            /*
+             * Solve energy equation for the mixture temperature
+             */
             Veronika.TEqnSolve();
 
-            Veronika.Compressibility(); //Update psi1_ = molM1_/(R_ * T_) and psi2_
+            /*
+             * Calculate compressibilities of the mixture phases
+             * psi1_ and psi2_
+             */
+            Veronika.Compressibility();
 
+            /*
+             * Update densities of the mixture phases
+             */
             Veronika.DensityThermo();
 
+            /*
+             * Update approximation of the mixture speed of sound
+             */
             Veronika.speedOfSound();
 
+            /*
+             * Update weights of KNP central scheme for hyperbolic
+             * parts of the system
+             */
             Veronika.UpdateCentralWeights();
-
             Veronika.UpdateCentralFields();
 
-            // Solve pressure equation
+            /*
+             * Solve pressure equation
+             */
             Veronika.pEqnSolve();
 
-            // Veronika.Flux();
-
-            // Update rho1_ and rho2_ through rhoi_ = psii_*p_ + \rhoi_0_
+            /*
+             * Update phases densities according to the new pressure field
+             */
             Veronika.DensityThermo();
 
-            Veronika.Density();
-
+            /*
+             * Interpolate phases densities to faces
+             */
             Veronika.interpolateDensities();
 
+            /*
+             * Calculate mass fluxes from interpolated densities
+             * and volumetric fluxes obtained from pressure equation
+             */
             Veronika.CalculateMassFluxes();
 
+            /*
+             * Calculate mass error for the phase 1
+             */
             Veronika.massError1();
 
+            /*
+             * Calculate mass error for the phase 2
+             */
             Veronika.massError2();
 
+            /*
+             * Calculate blending KNP/PIMPLE blending coefficient.
+             * Apply the blending coefficient to fluxes (volumetric
+             * and mass).
+             */
             Veronika.updateKappa();
 
-            // Veronika.ReconstructVelocity();
-
+            /*
+             * Calculate mechanical energy transport terms
+             */
             Veronika.TSource();
         }
 

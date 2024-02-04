@@ -23,44 +23,87 @@ License
 #include "vofTwoPhaseCentralFoam.H"
 #include "gaussGrad.H"
 
-void Foam::vofTwoPhaseCentralFoam::pressureGradient()
+void Foam::vofTwoPhaseCentralFoam::UpdateCentralWeights()
 {
-    // surfaceScalarField p_own = fvc::interpolate(p_rgh_, own_, "reconstruct(p)");
-    // surfaceScalarField p_nei = fvc::interpolate(p_rgh_, nei_, "reconstruct(p)");
-    // surfaceScalarField pf    = linearInterpolate(p_rgh_);
+    const auto& Sf = U_.mesh().Sf();
+    const auto& magSf = U_.mesh().magSf();
+    // phiv_own_ = fvc::interpolate(U_, own_, "reconstruct(U)") & Sf;
+    // phiv_nei_ = fvc::interpolate(U_, nei_, "reconstruct(U)") & Sf;
 
-    // surfaceVectorField phase1_coeffs =
-    //     (
-    //         kappa_*(alpha1_own_ *p_own + alpha1_nei_*p_nei)
-    //         +
-    //         onemkappa_*pf
-    //     ) * p_rgh_.mesh().Sf();
+    const auto &rho1 = mixture_model_.rho1();
+    const auto &rho2 = mixture_model_.rho2();
 
-    // surfaceVectorField phase2_coeffs =
-    //     (
-    //         kappa_*(alpha2_own_ *p_own + alpha2_nei_*p_nei)
-    //         +
-    //         onemkappa_*pf
-    //     ) * p_rgh_.mesh().Sf();
+    surfaceScalarField rho_phi_own =
+        (fvc::interpolate(rho1*U_, own_, "reconstruct(U)") & Sf)*vF1face_
+        +
+        (fvc::interpolate(rho2*U_, own_, "reconstruct(U)") & Sf)*vF2face_;
+    surfaceScalarField rho_phi_nei =
+        (fvc::interpolate(rho1*U_, nei_, "reconstruct(U)") & Sf)*vF1face_
+        +
+        (fvc::interpolate(rho2*U_, nei_, "reconstruct(U)") & Sf)*vF2face_;
+    surfaceScalarField rho_own =
+        vF1face_*rho1_own_ + vF2face_*rho2_own_;
+    surfaceScalarField rho_nei =
+        vF1face_*rho1_nei_ + vF2face_*rho2_nei_;
+    phiv_own_ = rho_phi_own / rho_own;
+    phiv_own_ = rho_phi_nei / rho_nei;
 
-    // gradp_ =
-    //     fvc::div(phase1_coeffs)*volumeFraction1_
+
+    CfSf_own_     = Cf_own_ * magSf;
+    CfSf_own_.setOriented(true);
+    CfSf_nei_     = Cf_nei_ * magSf;
+    CfSf_nei_.setOriented(true);
+
+    surfaceScalarField ap =
+        max(max(phiv_own_ + CfSf_own_, phiv_nei_ + CfSf_nei_), v_zero_); //??? phiv_own ???
+    surfaceScalarField am =
+        min(min(phiv_own_ - CfSf_own_, phiv_nei_ - CfSf_nei_), v_zero_); //??? phiv_nei ???
+
+    alpha_own_   = ap/(ap - am);
+    aSf_     = am*alpha_own_;
+    alpha_nei_   = 1.0 - alpha_own_;
+}
+
+void Foam::vofTwoPhaseCentralFoam::UpdateCentralFields()
+{
+    const auto& Sf = U_.mesh().Sf();
+	rAUf_own_ = alpha_own_*fvc::interpolate(oneByA_, own_, "reconstruct(rAU)");
+	rAUf_nei_ = alpha_nei_*fvc::interpolate(oneByA_, nei_, "reconstruct(rAU)");
+
+	phiHbyA_own_ =
+        alpha_own_*((fvc::interpolate(HbyA_, own_, "reconstruct(U)")) & Sf)
+        - aSf_;
+	phiHbyA_nei_ =
+        alpha_nei_*((fvc::interpolate(HbyA_, nei_, "reconstruct(U)")) & Sf)
+        + aSf_;
+
+    //This interpolation causes instability:
+    // const auto &rho1 = mixture_model_.rho1();
+    // const auto &rho2 = mixture_model_.rho2();
+    // surfaceScalarField rho_phi_own =
+    //     (fvc::interpolate(rho1*HbyA_, own_, "reconstruct(U)") & Sf)*vF1face_
     //     +
-    //     fvc::div(phase2_coeffs)*volumeFraction2_;
+    //     (fvc::interpolate(rho2*HbyA_, own_, "reconstruct(U)") & Sf)*vF2face_;
+    // surfaceScalarField rho_phi_nei =
+    //     (fvc::interpolate(rho1*HbyA_, nei_, "reconstruct(U)") & Sf)*vF1face_
+    //     +
+    //     (fvc::interpolate(rho2*HbyA_, nei_, "reconstruct(U)") & Sf)*vF2face_;
+    // surfaceScalarField rho_own =
+    //     vF1face_*rho1_own_ + vF2face_*rho2_own_;
+    // surfaceScalarField rho_nei =
+    //     vF1face_*rho1_nei_ + vF2face_*rho2_nei_;
+    // phiHbyA_own_ = rho_phi_own / rho_own - aSf_;
+    // phiHbyA_own_ = rho_phi_nei / rho_nei + aSf_;
 }
 
-//* * * * * * * * * * * * * * * * * Viscosity * * * * * * * * * * * * * * * *//
-
-void Foam::vofTwoPhaseCentralFoam::divDevRhoReff()
+void Foam::vofTwoPhaseCentralFoam::CalculateMassFluxes()
 {
-    mu_ = volumeFraction1_*mu1_ + volumeFraction2_*mu2_;
-    divDevRhoReff_ =
-    (
-        - fvm::laplacian(mu_, U_)
-        - fvc::div((mu_)*dev2(Foam::T(fvc::grad(U_))))
-    );
-}
+    phi1_own_ = rho1_own_*aphiv_own_;
+    phi1_nei_ = rho1_nei_*aphiv_nei_;
 
+    phi2_own_ = rho2_own_*aphiv_own_;
+    phi2_nei_ = rho2_nei_*aphiv_nei_;
+}
 //
 //END-OF-FILE
 //
