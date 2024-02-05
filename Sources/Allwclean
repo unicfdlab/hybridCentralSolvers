@@ -12,6 +12,8 @@ cd chtMultiRegionCentralFoam; ./Allwclean; cd ../
 
 cd interTwoPhaseCentralFoam; ./Allwclean; cd ../
 
+cd vofTwoPhaseCentralFoam; ./Allwclean; cd ../
+
 #
 #END-OF-FILE
 #
