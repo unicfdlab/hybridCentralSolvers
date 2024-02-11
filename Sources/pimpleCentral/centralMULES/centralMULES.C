@@ -64,7 +64,7 @@ void Foam::mulesWithDiffusionImplicitLimiter
         fv::gaussConvectionScheme<scalar>(mesh, phi_nei, UDsNei).fvmDiv(phi_nei, Y)
     );
 
-    surfaceScalarField rhoPhifBD = YConvection.flux();
+    surfaceScalarField rhoPhifBD (YConvection.flux());
 
     surfaceScalarField& rhoPhifCorr = rhoPhif;
     rhoPhifCorr -= rhoPhifBD;
@@ -115,7 +115,7 @@ void Foam::mulesWithDiffusionImplicitLimiter
         fv::gaussConvectionScheme<scalar>(mesh, phi, UDs).fvmDiv(phi, Y)
     );
 
-    surfaceScalarField rhoPhifBD = YConvection.flux();
+    surfaceScalarField rhoPhifBD (YConvection.flux());
 
     surfaceScalarField& rhoPhifCorr = rhoPhif;
     rhoPhifCorr -= rhoPhifBD;

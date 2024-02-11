@@ -524,7 +524,7 @@ void Foam::vofTwoPhaseCentralFoam::CharacteristicCourant()
     const auto &deltaCoeffs = phi_.mesh().deltaCoeffs();
     const auto &deltaT = phi_.mesh().time().deltaT();
 
-    surfaceScalarField CfSf = max(CfSf_own_, CfSf_nei_);
+    surfaceScalarField CfSf (max(CfSf_own_, CfSf_nei_));
     amaxSf_ = max(mag(phi_ + CfSf), mag(phi_ - CfSf));
     // surfaceScalarField uPlusC_pos =
     //     max(max(phi_own_ + CfSf_own_,phi_nei_ + CfSf_nei_),v_zero_)/magSf;
@@ -532,7 +532,7 @@ void Foam::vofTwoPhaseCentralFoam::CharacteristicCourant()
     //     min(min(phi_own_ - CfSf_own_,phi_nei_ - CfSf_nei_),v_zero_)/magSf;
     // surfaceScalarField uPlusC_max = max(uPlusC_pos,-uPlusC_neg);
     
-    surfaceScalarField CCof = amaxSf_ * deltaCoeffs * deltaT / magSf;
+    surfaceScalarField CCof (amaxSf_ * deltaCoeffs * deltaT / magSf);
     Info<< "max/min CCof:"
         << gMax(CCof)
         << "/"
@@ -710,7 +710,7 @@ void Foam::vofTwoPhaseCentralFoam::updateKappa()
     {
         const fvMesh& mesh = U_.mesh();
 
-        surfaceScalarField CfSf = max(CfSf_own_, CfSf_nei_);
+        surfaceScalarField CfSf (max(CfSf_own_, CfSf_nei_));
         CfSf.setOriented(true);
 
         surfaceScalarField amaxSfbyDelta
@@ -718,13 +718,13 @@ void Foam::vofTwoPhaseCentralFoam::updateKappa()
             mesh.surfaceInterpolation::deltaCoeffs()*amaxSf_
         );
 
-        surfaceScalarField FaceAcCo =
+        surfaceScalarField FaceAcCo
         (
             amaxSfbyDelta/mesh.magSf() * mesh.time().deltaT()
         );
 
 
-        surfaceScalarField Maf = mag(phi_) / CfSf;
+        surfaceScalarField Maf (mag(phi_) / CfSf);
 
         kappa_ =
             min
@@ -1002,11 +1002,11 @@ void Foam::vofTwoPhaseCentralFoam::updateLambda()
     const auto& rho1 = mixture_model_.rho1();
     const auto& rho2 = mixture_model_.rho2();
 
-    volScalarField C1sqr = gam1*R1*T_;
-    volScalarField C2sqr = gam2*R2*T_;
+    volScalarField C1sqr (gam1*R1*T_);
+    volScalarField C2sqr (gam2*R2*T_);
 
-    volScalarField Z1 = rho1*C1sqr;
-    volScalarField Z2 = rho2*C2sqr;
+    volScalarField Z1 (rho1*C1sqr);
+    volScalarField Z2 (rho2*C2sqr);
     Lambda_ =
     (
         (volumeFraction1_*volumeFraction2_*(Z2 - Z1))
@@ -1031,12 +1031,12 @@ void Foam::vofTwoPhaseCentralFoam::speedOfSound()
     const auto& Cp1  = mixture_model_.Cp1();
     const auto& Cp2  = mixture_model_.Cp2();
 
-    volScalarField psiM = volumeFraction1_*psi1 + volumeFraction2_*psi2;
-    volScalarField y1 = volumeFraction1_*(rho1/rho);
-    volScalarField y2 = volumeFraction2_*(rho2/rho);
-    volScalarField CpM = y1*Cp1 + y2*Cp2;
-    volScalarField CvM = y1*(Cp1/gam1) + y2*(Cp2/gam2);
-    volScalarField gammaM = CpM/CvM;
+    volScalarField psiM (volumeFraction1_*psi1 + volumeFraction2_*psi2);
+    volScalarField y1 (volumeFraction1_*(rho1/rho));
+    volScalarField y2 (volumeFraction2_*(rho2/rho));
+    volScalarField CpM (y1*Cp1 + y2*Cp2);
+    volScalarField CvM (y1*(Cp1/gam1) + y2*(Cp2/gam2));
+    volScalarField gammaM (CpM/CvM);
     C_ = sqrt(gammaM/psiM);
 
     Cf_own_ = fvc::interpolate(C_, own_, "reconstruct(psi)");

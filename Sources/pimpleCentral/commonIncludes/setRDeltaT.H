@@ -68,14 +68,18 @@
         {
             if (mesh.nInternalFaces())
             {
-                surfaceScalarField phiOverRho =
-                mag
+                surfaceScalarField phiOverRho
                 (
-                    phi / (rho_own * alpha_own + rho_nei * alpha_nei)
+                    mag
+                    (
+                        phi / (rho_own * alpha_own + rho_nei * alpha_nei)
+                    )
                 );
             
-                surfaceScalarField SfUfbyDelta =
-                    mesh.surfaceInterpolation::deltaCoeffs()*phiOverRho*2.0;
+                surfaceScalarField SfUfbyDelta
+                (
+                    mesh.surfaceInterpolation::deltaCoeffs()*phiOverRho*2.0
+                );
             
                 forAll(mesh.V(), iCell)
                 {

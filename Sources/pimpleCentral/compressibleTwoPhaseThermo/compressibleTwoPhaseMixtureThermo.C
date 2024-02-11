@@ -211,8 +211,8 @@ void Foam::compressibleTwoPhaseMixtureThermo::correct()
     const volScalarField& psiGas = thermoGas_->psi();
     const volScalarField& psiLiq = thermoLiq_->psi();
 
-    volScalarField YLiqByRhoLiq = YLiq() / rhoLiq;
-    volScalarField YGasByRhoGas = YGas() / rhoGas;
+    volScalarField YLiqByRhoLiq (YLiq() / rhoLiq);
+    volScalarField YGasByRhoGas (YGas() / rhoGas);
 
     psi_ =
         -Foam::pow(YLiqByRhoLiq + YGasByRhoGas,-2.0)*

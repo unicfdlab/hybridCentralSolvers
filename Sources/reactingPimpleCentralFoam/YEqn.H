@@ -198,9 +198,9 @@ upwind<scalar> UDsNei(mesh, phi_nei);
         {
             if (maxDeltaY.boundaryField()[iPatch].coupled())
             {
-                scalarField intF = maxDeltaY.boundaryField()[iPatch];
-                scalarField intY = Y[iCmpt].boundaryField()[iPatch];
-                scalarField neiY = Y[iCmpt].boundaryField()[iPatch].patchNeighbourField();
+                scalarField intF  (maxDeltaY.boundaryField()[iPatch]);
+                scalarField intY  (Y[iCmpt].boundaryField()[iPatch]);
+                scalarField neiY  (Y[iCmpt].boundaryField()[iPatch].patchNeighbourField());
                 forAll(intF, iFace)
                 {
                     deltaY = mag(intY[iFace] - neiY[iFace]);

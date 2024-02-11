@@ -56,7 +56,7 @@
     // Is it better to recalculate aSf due to changes in mesh.Sf() ?
     //
     
-    surfaceScalarField rhof = linearInterpolate(rho);
+    surfaceScalarField rhof (linearInterpolate(rho));
     phiv_own = (fvc::interpolate(rho*U, own, "reconstruct(U)") / rho_own & mesh.Sf()) - mesh.phi();
     phiv_nei = (fvc::interpolate(rho*U, nei, "reconstruct(U)") / rho_nei & mesh.Sf()) - mesh.phi();
     

@@ -1,7 +1,7 @@
 {
     volScalarField& he = thermo.he();
     volScalarField alphahEff (turbulence->alphaEff());
-    volScalarField Cp = thermo.Cp();
+    volScalarField Cp (thermo.Cp());
 
     upwind<scalar> UDsPos(mesh, phi_own);
     upwind<scalar> UDsNeg(mesh, phi_nei);

@@ -33,31 +33,36 @@ void Foam::vofTwoPhaseCentralFoam::UpdateCentralWeights()
     const auto &rho1 = mixture_model_.rho1();
     const auto &rho2 = mixture_model_.rho2();
 
-    surfaceScalarField rho_phi_own =
+    surfaceScalarField rho_phi_own
+    (
         (fvc::interpolate(rho1*U_, own_, "reconstruct(U)") & Sf)*vF1face_
         +
-        (fvc::interpolate(rho2*U_, own_, "reconstruct(U)") & Sf)*vF2face_;
-    surfaceScalarField rho_phi_nei =
+        (fvc::interpolate(rho2*U_, own_, "reconstruct(U)") & Sf)*vF2face_
+    );
+    surfaceScalarField rho_phi_nei
+    (
         (fvc::interpolate(rho1*U_, nei_, "reconstruct(U)") & Sf)*vF1face_
         +
-        (fvc::interpolate(rho2*U_, nei_, "reconstruct(U)") & Sf)*vF2face_;
-    surfaceScalarField rho_own =
-        vF1face_*rho1_own_ + vF2face_*rho2_own_;
-    surfaceScalarField rho_nei =
-        vF1face_*rho1_nei_ + vF2face_*rho2_nei_;
+        (fvc::interpolate(rho2*U_, nei_, "reconstruct(U)") & Sf)*vF2face_
+    );
+    surfaceScalarField rho_own (vF1face_*rho1_own_ + vF2face_*rho2_own_);
+    surfaceScalarField rho_nei (vF1face_*rho1_nei_ + vF2face_*rho2_nei_);
     phiv_own_ = rho_phi_own / rho_own;
     phiv_own_ = rho_phi_nei / rho_nei;
-
 
     CfSf_own_     = Cf_own_ * magSf;
     CfSf_own_.setOriented(true);
     CfSf_nei_     = Cf_nei_ * magSf;
     CfSf_nei_.setOriented(true);
 
-    surfaceScalarField ap =
-        max(max(phiv_own_ + CfSf_own_, phiv_nei_ + CfSf_nei_), v_zero_); //??? phiv_own ???
-    surfaceScalarField am =
-        min(min(phiv_own_ - CfSf_own_, phiv_nei_ - CfSf_nei_), v_zero_); //??? phiv_nei ???
+    surfaceScalarField ap
+    (
+        max(max(phiv_own_ + CfSf_own_, phiv_nei_ + CfSf_nei_), v_zero_)
+    );
+    surfaceScalarField am
+    (
+        min(min(phiv_own_ - CfSf_own_, phiv_nei_ - CfSf_nei_), v_zero_)
+    );
 
     alpha_own_   = ap/(ap - am);
     aSf_     = am*alpha_own_;

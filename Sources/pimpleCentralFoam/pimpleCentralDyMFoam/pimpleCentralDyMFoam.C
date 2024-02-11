@@ -94,8 +94,8 @@ int main(int argc, char *argv[])
     #include "updateCentralWeights.H"
     phi_own = phiv_own*rho_own;
     phi_nei = phiv_nei*rho_nei;
-    surfaceScalarField mphi_own = phi*0.0;
-    surfaceScalarField mphi_nei = mphi_own;
+    surfaceScalarField mphi_own (phi*0.0);
+    surfaceScalarField mphi_nei (mphi_own);
     #include "updateKappa.H"
     #include "createCentralCourantNo.H"
 

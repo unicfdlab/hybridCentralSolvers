@@ -33,8 +33,10 @@ void Foam::vofTwoPhaseCentralFoam::solveRho
     const surfaceScalarField& phii_nei
 )
 {
-    surfaceScalarField rhoiPhi = 
-        phii_own + phii_nei;
+    surfaceScalarField rhoiPhi
+    ( 
+        phii_own + phii_nei
+    );
     solve
     (
         fvm::ddt(rhoi)
@@ -150,7 +152,7 @@ void Foam::vofTwoPhaseCentralFoam::LiquidVolumeFractionSolve()
             )
         );
 
-        surfaceScalarField alphaPhi10 = talphaPhi1Un;
+        surfaceScalarField alphaPhi10 (talphaPhi1Un);
 
         MULES::explicitSolve
         (
@@ -194,10 +196,16 @@ void Foam::vofTwoPhaseCentralFoam::UEqn()
 {
     const auto& rho = mixture_model_.rho();
 
-    surfaceScalarField phiU_own = vF1face_*phi1_own_ +
-        vF2face_*phi2_own_;
-    surfaceScalarField phiU_nei = vF1face_*phi1_nei_ +
-        vF2face_*phi2_nei_;
+    surfaceScalarField phiU_own
+    (
+        vF1face_*phi1_own_ +
+        vF2face_*phi2_own_
+    );
+    surfaceScalarField phiU_nei
+    (
+        vF1face_*phi1_nei_ +
+        vF2face_*phi2_nei_
+    );
     phiU_own.rename("phiU_own");
     phiU_nei.rename("phiU_nei");
 
@@ -266,8 +274,8 @@ void Foam::vofTwoPhaseCentralFoam::TEqnSolve()
 
     //yi = vFi*rhoi / rho
     
-    volScalarField d1 = rho1 / rho;
-    volScalarField d2 = rho2 / rho;
+    volScalarField d1 (rho1 / rho);
+    volScalarField d2 (rho2 / rho);
 
     volScalarField BdotU
     (
@@ -299,12 +307,14 @@ void Foam::vofTwoPhaseCentralFoam::TEqnSolve()
         )
     );
 
-    surfaceScalarField alphaEff=
+    surfaceScalarField alphaEff
+    (
         linearInterpolate(rho1*turbulence_->nuEff())/Prt
         +
         vF1face_*alpha1
         +
-        vF2face_*alpha2;
+        vF2face_*alpha2
+    );
     alphaEff.rename("alphaEff");
 
     fvScalarMatrix TEqn1
@@ -400,30 +410,50 @@ void Foam::vofTwoPhaseCentralFoam::pEqnSolve()
     // ddt(alpha1*rho1) + fvc::div(alpha1*rho1*U) \approx
     // alpha1*(ddt(rho1) + fvc::div(rho1*U))
     // c = alpha1/rho1
-    surfaceScalarField phiRho1 =
-        aphiv_own_*rho1_own_ + aphiv_nei_*rho1_nei_;
-    fvScalarMatrix cDDtAlpha1Rho1 = pos(volumeFraction1_)*
+    surfaceScalarField phiRho1
     (
-        (volumeFraction1_/rho1)*
+        aphiv_own_*rho1_own_ + aphiv_nei_*rho1_nei_
+    );
+    fvScalarMatrix cDDtAlpha1Rho1
+    (
+        pos(volumeFraction1_)*
         (
-            fvc::ddt(rho1) + fvc::div(phiRho1) + psi1*correction(fvm::ddt(p_rgh_))
+            (volumeFraction1_/rho1)*
+            (
+                fvc::ddt(rho1)
+                + fvc::div(phiRho1)
+                + psi1*correction(fvm::ddt(p_rgh_))
+            )
+            - dotVF1_ - fvc::div(phiVF1_)
         )
-        - dotVF1_ - fvc::div(phiVF1_)
     );
 
-    surfaceScalarField phiRho2 =
-        aphiv_own_*rho2_own_ + aphiv_nei_*rho2_nei_;
-    fvScalarMatrix cDDtAlpha2Rho2 = pos(volumeFraction2_)*
+    surfaceScalarField phiRho2
     (
-        (volumeFraction2_/rho2)*
+        aphiv_own_*rho2_own_ + aphiv_nei_*rho2_nei_
+    );
+    fvScalarMatrix cDDtAlpha2Rho2
+    (
+        pos(volumeFraction2_)*
         (
-            fvc::ddt(rho2) + fvc::div(phiRho2) + psi2*correction(fvm::ddt(p_rgh_))
+            (volumeFraction2_/rho2)*
+            (
+                fvc::ddt(rho2)
+                + fvc::div(phiRho2)
+                + psi2*correction(fvm::ddt(p_rgh_))
+            )
+            - dotVF2_ - fvc::div(phiVF2_)
         )
-        - dotVF2_ - fvc::div(phiVF2_)
     );
 
-    fvScalarMatrix elliptic_p_own = fvc::div(phiHbyA_own_) - fvm::laplacian(rAUf_own_,p_rgh_);
-    fvScalarMatrix elliptic_p_nei = fvc::div(phiHbyA_nei_) - fvm::laplacian(rAUf_nei_,p_rgh_);
+    fvScalarMatrix elliptic_p_own
+    (
+        fvc::div(phiHbyA_own_) - fvm::laplacian(rAUf_own_,p_rgh_)
+    );
+    fvScalarMatrix elliptic_p_nei
+    (
+        fvc::div(phiHbyA_nei_) - fvm::laplacian(rAUf_nei_,p_rgh_)
+    );
 
     solve
     (
