@@ -67,7 +67,7 @@ If you want to see your research in this list, please write to [Issues](https://
 ## <p align="center"> >>>>> 2024 <<<<<  </p>
 | Title | Description |
 |------|-------------|
-|[Validation of High Speed Reactive Flow Solver in OpenFOAM with Detailed Chemistry](https://journal.openfoam.com/index.php/ofj/article/view/125): **Article**|![Detonation cells](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/submission_125_125_coverImage_en_US.png)|
+|[Validation of High Speed Reactive Flow Solver in OpenFOAM with Detailed Chemistry](https://journal.openfoam.com/index.php/ofj/article/view/125): **Article**|![Detonation cells](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/submission_resized.png)|
 
 ## <p align="center"> >>>>> 2023 <<<<<  </p> 
 | Title | Description |
