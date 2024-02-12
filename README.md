@@ -12,29 +12,22 @@
 
 United collection of hybrid  Central solvers based on central-upwind schemes of Kurganov and Tadmor and LTS support for steady-state calculations:  one-phase, two-phase and multicomponent versions.
 
-Only OpenFOAM+ version of the OpenFOAM technology is supported since 2018. Use branches digitef-dev-YYMM, where YYMM - corresponds to OpenFOAM+ version, for example 1812
+Only OpenFOAM+ version of the OpenFOAM technology is supported since 2018. The framework contains next solvers:
 
-1. **pimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas 
-
-2. **rhoPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow  of real gas 
-
-3. **pimpleCentralDyMFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas with mesh motion 
-
-4. **reactingPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow with combustion and chemical reactions
-
-5. **reactingLagrangianPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow with combustion, particles motion, phase change and chemical reactions
-
-6. **twoPhaseMixingCentralFoam** - Transient Eulerian two-phase solver. Liquid and gas are
-    considered as compressible fluids. Mass transfer at the interface is not accounted.
-
-7. **twoPhaseMixingCentralDyMFoam** - Transient Eulerian two-phase solver with dynamic meshes. Liquid and gas are
-    considered as compressible fluids. Mass transfer at the interface is not accounted.
-
-8. **chtMultiRegionCentralFoam** -     Pressure-based semi implicit solver for conjugate simulation of compressible perfect gas flow  (Mach 
+1. Compressible single phase flow solvers:
+    - **pimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas 
+    - **rhoPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow  of real gas
+    - **pimpleCentralDyMFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas with mesh motion
+    - **chtMultiRegionCentralFoam** -     Pressure-based semi implicit solver for conjugate simulation of compressible perfect gas flow  (Mach 
     number is ranging from 0 to 6) and solid body heat transfer.
-
-9. **interTwoPhaseCentralFoam** - pressure-based solver for compressible (0-4 Mach numbers) flow of two-phase media with account to viscosity and gravity. The solver utilizes VoF method for resolution of phase interface and ACID technique ( [https://doi.org/10.1016/j.jcp.2018.04.028]( https://doi.org/10.1016/j.jcp.2018.04.028)) to calculate properties in the region where both phases are present. 
-
+2. Multi-component solvers:
+    - **reactingPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow with combustion and chemical reactions
+    - **reactingLagrangianPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow with combustion, particles motion, phase change and chemical reactions
+3. Multi-phase solvers:
+    - **interTwoPhaseCentralFoam** - pressure-based solver for compressible (0-4 Mach numbers) flow of two-phase media with account to viscosity and gravity. The solver utilizes VoF method for resolution of phase interface and ACID technique ( [https://doi.org/10.1016/j.jcp.2018.04.028]( https://doi.org/10.1016/j.jcp.2018.04.028)) to calculate properties in the region where both phases are present. 
+    - **vofTwoPhaseCentralFoam** - an improved version (since OpenFOAM+ 2312) of **interTwoPhaseCentralFoam** solver that uses volumetric fluxes for transport (increased robustness).
+    - **twoPhaseMixingCentralFoam** - Transient Eulerian two-phase solver. Liquid and gas are considered as compressible fluids. Mass transfer at the interface is not accounted.
+    - **twoPhaseMixingCentralDyMFoam** - Transient Eulerian two-phase solver with dynamic meshes. Liquid and gas are considered as compressible fluids. Mass transfer at the interface is not accounted.
 
 # Meeting points for users and developers
 [To the contents](#Contents)
@@ -55,6 +48,7 @@ The library is available for next versions of OpenFOAM:
 * OpenFOAM+ 2012 - [digitef-dev-2012](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-2012)
 * OpenFOAM+ 2112 - [digitef-dev-2112](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-2112)
 * OpenFOAM+ 2212 - [digitef-dev-2212](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-2212)
+* OpenFOAM+ 2312 - [digitef-dev-2212](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-2312)
 
 **Latest changes and bug fixes are applied only in branches corresponding to latest version of OpenFOAM.**
 
