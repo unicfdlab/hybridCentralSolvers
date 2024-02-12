@@ -24,8 +24,8 @@ Only OpenFOAM+ version of the OpenFOAM technology is supported since 2018. The f
     - **reactingPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow with combustion and chemical reactions
     - **reactingLagrangianPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow with combustion, particles motion, phase change and chemical reactions
 3. Multi-phase solvers:
-    - **interTwoPhaseCentralFoam** - pressure-based solver for compressible (0-4 Mach numbers) flow of two-phase media with account to viscosity and gravity. The solver utilizes VoF method for resolution of phase interface and ACID technique ( [https://doi.org/10.1016/j.jcp.2018.04.028]( https://doi.org/10.1016/j.jcp.2018.04.028)) to calculate properties in the region where both phases are present. 
     - **vofTwoPhaseCentralFoam** - an improved version (since OpenFOAM+ 2312) of **interTwoPhaseCentralFoam** solver that uses volumetric fluxes for transport (increased robustness).
+    - **interTwoPhaseCentralFoam** - pressure-based solver for compressible (0-4 Mach numbers) flow of two-phase media with account to viscosity and gravity. The solver utilizes VoF method for resolution of phase interface and ACID technique ( [https://doi.org/10.1016/j.jcp.2018.04.028]( https://doi.org/10.1016/j.jcp.2018.04.028)) to calculate properties in the region where both phases are present. 
     - **twoPhaseMixingCentralFoam** - Transient Eulerian two-phase solver. Liquid and gas are considered as compressible fluids. Mass transfer at the interface is not accounted.
     - **twoPhaseMixingCentralDyMFoam** - Transient Eulerian two-phase solver with dynamic meshes. Liquid and gas are considered as compressible fluids. Mass transfer at the interface is not accounted.
 
