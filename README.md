@@ -64,12 +64,22 @@ The library or approach were used in next projects:
 [To the contents](#Contents)
 
 If you want to see your research in this list, please write to [Issues](https://github.com/unicfdlab/hybridCentralSolvers/issues) .
+## <p align="center"> >>>>> 2024 <<<<<  </p>
+| Title | Description |
+|------|-------------|
+|[Validation of High Speed Reactive Flow Solver in OpenFOAM with Detailed Chemistry](https://journal.openfoam.com/index.php/ofj/article/view/125): **Article**|![Detonation cells](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/submission_125_125_coverImage_en_US.png)|
 
 ## <p align="center"> >>>>> 2023 <<<<<  </p> 
 | Title | Description |
 |------|-------------|
+|[Experimental and Numerical Comparison of Weakly Unstable Detonation using Planar Laser-Induced Fluorescence of Nitric Oxide Imaging](http://www.icders.org/ICDERS2023/abstracts/ICDERS2023-093.pdf)|![NO-PLIF: experiment vs numerical results](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/NO-PLIF_exp_vs_num.png)|
+|[Study of the Mechanism of Shock-Induced Droplet Breakup Based on a Hybrid Solver](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4676348)|![Droplet Countors vs Mach number](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/droplet_breakup_12022024.png)|
 |[Deflector shape impact on aero-acoustic noise generation and propagation](https://www.sciencedirect.com/science/article/abs/pii/S0094576523004599): **Article**|---|
 |[The diffraction and re-initiation behavior of detonation wave in premixed H2–O2–Ar mixture ](https://pubs.aip.org/aip/pof/article/35/9/095109/2909845): **Article**| ![Cell distribution in the cases of different D/d](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/BoZhan_difraction.jpeg) |
+|[Numerical Study of Forced Nonlinear Acoustic Gas Oscillations in a Tube under the Action of Two Pistons with Phase Shift](https://www.sciencedirect.com/science/article/abs/pii/S0165212522000373)|![Sketch of resonator with 2 pistons](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/two_pistons_sketch.png)|
+|[Self-consistent model and numerical approach for laser-induced non-equilibrium plasma](https://pubs.aip.org/aip/jap/article-abstract/134/22/223301/2929689/Self-consistent-model-and-numerical-approach-for?redirectedFrom=fulltext)|![Plasma solver architecture](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/plasmaSolver_arch.png)|
+|[On the Resolution of Approximation Errors on an Ensemble of Numerical Solutions](https://link.springer.com/chapter/10.1007/978-3-031-36030-5_51)|---|
+|[Numerical and experimental analysis of autoignition induced by shock wave focusing](http://www.icders.org/ICDERS2023/abstracts/ICDERS2023-037.pdf)|![Schematic diagram of the experimental facilities](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Autoignition_exp_facility.png)|
 |[Investigations on Hydrogen Injections Using a Real-Fluid Approach](https://doi.org/10.4271/2023-01-0312): **Article**|![Perfect gas and real fluid gas velocity and mass fractiosn](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/F-Rahantamialisoa-jet.png)|
 |[Numerical Investigations of Pseudo-Boiling and Multi-Component Mixing Under Trans-/supercritical Conditions for Engine Applications](https://doi.org/10.1080/00102202.2023.2214947): **Article**|---|
 |[Numerical and experimental analysis of detonation induced by shock wave focusing](https://www.researchgate.net/publication/369020856_Numerical_and_experimental_analysis_of_detonation_induced_by_shock_wave_focusing): **Article**|![Exp and num simulation comparison](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Zezhong_Yang_Figure3.png)|
