@@ -1,5 +1,5 @@
 
-volScalarField psiCpmCvByT = psi* (thermo.Cp() - thermo.Cv()) / T;
+volScalarField psiCpmCvByT (psi* (thermo.Cp() - thermo.Cv()) / T);
 
 surfaceScalarField pressureGradEnergyFluxContribution
 (

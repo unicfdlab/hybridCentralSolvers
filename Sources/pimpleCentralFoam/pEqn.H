@@ -60,7 +60,7 @@ Info << "max/min p: " << max(p).value() << "/" << min(p).value() << endl;
 
 #include "massEqn.H"
 
-volScalarField rhoT = thermo.rho();
+volScalarField rhoT (thermo.rho());
 
 #include "centralContinuityErrs.H"
 

@@ -143,7 +143,7 @@ void Foam::interTwoPhaseCentralFoam::alpha1Eqnsolve()
             )
         );
 
-        surfaceScalarField alphaPhi10 = talphaPhi1Un;
+        surfaceScalarField alphaPhi10 (talphaPhi1Un);
 
         MULES::explicitSolve
         (
@@ -183,8 +183,8 @@ void Foam::interTwoPhaseCentralFoam::UEqn()
     Density();
     divDevRhoReff();
 
-    surfaceScalarField phiU_own = vF1face_*phi1_own_ + vF2face_*phi2_own_;
-    surfaceScalarField phiU_nei = vF1face_*phi1_nei_ + vF2face_*phi2_nei_;
+    surfaceScalarField phiU_own (vF1face_*phi1_own_ + vF2face_*phi2_own_);
+    surfaceScalarField phiU_nei (vF1face_*phi1_nei_ + vF2face_*phi2_nei_);
     phiU_own.rename("phiU_own");
     phiU_nei.rename("phiU_nei");
 

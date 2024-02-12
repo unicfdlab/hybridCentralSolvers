@@ -25,23 +25,36 @@ License
 
 void Foam::interTwoPhaseCentralFoam::pressureGradient()
 {
-    surfaceScalarField p_own = fvc::interpolate(p_rgh_, own_, "reconstruct(p)");
-    surfaceScalarField p_nei = fvc::interpolate(p_rgh_, nei_, "reconstruct(p)");
-    surfaceScalarField pf    = linearInterpolate(p_rgh_);
+    surfaceScalarField p_own
+    (
+        fvc::interpolate(p_rgh_, own_, "reconstruct(p)")
+    );
+    surfaceScalarField p_nei
+    (
+        fvc::interpolate(p_rgh_, nei_, "reconstruct(p)")
+    );
+    surfaceScalarField pf
+    (
+        linearInterpolate(p_rgh_)
+    );
 
-    surfaceVectorField phase1_coeffs =
+    surfaceVectorField phase1_coeffs
+    (
         (
             kappa_*(alpha1_own_ *p_own + alpha1_nei_*p_nei)
             +
             onemkappa_*pf
-        ) * p_rgh_.mesh().Sf();
+        ) * p_rgh_.mesh().Sf()
+    );
 
-    surfaceVectorField phase2_coeffs =
+    surfaceVectorField phase2_coeffs
+    (
         (
             kappa_*(alpha2_own_ *p_own + alpha2_nei_*p_nei)
             +
             onemkappa_*pf
-        ) * p_rgh_.mesh().Sf();
+        ) * p_rgh_.mesh().Sf()
+    );
 
     gradp_ =
         fvc::div(phase1_coeffs)*volumeFraction1_

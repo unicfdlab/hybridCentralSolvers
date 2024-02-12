@@ -4,7 +4,7 @@ if (pimple.corrPISO() > 1 )
     thermo.correct();
 }
 
-volScalarField rhoT = thermo.rho();
+volScalarField rhoT (thermo.rho());
 rhoHat = rhoT - psi*p;
 volVectorField HbyA ("HbyA", U);
 volScalarField rAU ("rAU", 1.0 / UEqn.A());

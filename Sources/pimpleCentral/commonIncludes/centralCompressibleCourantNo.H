@@ -93,24 +93,28 @@ velMag = 0.0;
                 );
             }
             
-            surfaceScalarField magUf =
-            mag
+            surfaceScalarField magUf
             (
-                phi
-                / 
+                mag
                 (
-                    rho_own * alpha_own
-                    +
-                    rho_nei * alpha_nei
-                ) / tuMagSf()
+                    phi
+                    / 
+                    (
+                        rho_own * alpha_own
+                        +
+                        rho_nei * alpha_nei
+                    ) / tuMagSf()
+                )
             );
             
-            surfaceScalarField faceCo =
+            surfaceScalarField faceCo
+            (
                 mesh.surfaceInterpolation::deltaCoeffs()
                 *
                 magUf
                 *
-                runTime.deltaT() * 2.0;
+                runTime.deltaT() * 2.0
+            );
             
             //update boundary Courant numbers
             forAll (faceCo.boundaryField(), iPatch)
