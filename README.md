@@ -12,29 +12,22 @@
 
 United collection of hybrid  Central solvers based on central-upwind schemes of Kurganov and Tadmor and LTS support for steady-state calculations:  one-phase, two-phase and multicomponent versions.
 
-Only OpenFOAM+ version of the OpenFOAM technology is supported since 2018. Use branches digitef-dev-YYMM, where YYMM - corresponds to OpenFOAM+ version, for example 1812
+Only OpenFOAM+ version of the OpenFOAM technology is supported since 2018. The framework contains next solvers:
 
-1. **pimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas 
-
-2. **rhoPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow  of real gas 
-
-3. **pimpleCentralDyMFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas with mesh motion 
-
-4. **reactingPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow with combustion and chemical reactions
-
-5. **reactingLagrangianPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow with combustion, particles motion, phase change and chemical reactions
-
-6. **twoPhaseMixingCentralFoam** - Transient Eulerian two-phase solver. Liquid and gas are
-    considered as compressible fluids. Mass transfer at the interface is not accounted.
-
-7. **twoPhaseMixingCentralDyMFoam** - Transient Eulerian two-phase solver with dynamic meshes. Liquid and gas are
-    considered as compressible fluids. Mass transfer at the interface is not accounted.
-
-8. **chtMultiRegionCentralFoam** -     Pressure-based semi implicit solver for conjugate simulation of compressible perfect gas flow  (Mach 
+1. Compressible single phase flow solvers:
+    - **pimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas 
+    - **rhoPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow  of real gas
+    - **pimpleCentralDyMFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas with mesh motion
+    - **chtMultiRegionCentralFoam** -     Pressure-based semi implicit solver for conjugate simulation of compressible perfect gas flow  (Mach 
     number is ranging from 0 to 6) and solid body heat transfer.
-
-9. **interTwoPhaseCentralFoam** - pressure-based solver for compressible (0-4 Mach numbers) flow of two-phase media with account to viscosity and gravity. The solver utilizes VoF method for resolution of phase interface and ACID technique ( [https://doi.org/10.1016/j.jcp.2018.04.028]( https://doi.org/10.1016/j.jcp.2018.04.028)) to calculate properties in the region where both phases are present. 
-
+2. Multi-component solvers:
+    - **reactingPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow with combustion and chemical reactions
+    - **reactingLagrangianPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow with combustion, particles motion, phase change and chemical reactions
+3. Multi-phase solvers:
+    - **vofTwoPhaseCentralFoam** - an improved version (since OpenFOAM+ 2312) of **interTwoPhaseCentralFoam** solver that uses volumetric fluxes for transport (increased robustness).
+    - **interTwoPhaseCentralFoam** - pressure-based solver for compressible (0-4 Mach numbers) flow of two-phase media with account to viscosity and gravity. The solver utilizes VoF method for resolution of phase interface and ACID technique ( [https://doi.org/10.1016/j.jcp.2018.04.028]( https://doi.org/10.1016/j.jcp.2018.04.028)) to calculate properties in the region where both phases are present. 
+    - **twoPhaseMixingCentralFoam** - Transient Eulerian two-phase solver. Liquid and gas are considered as compressible fluids. Mass transfer at the interface is not accounted.
+    - **twoPhaseMixingCentralDyMFoam** - Transient Eulerian two-phase solver with dynamic meshes. Liquid and gas are considered as compressible fluids. Mass transfer at the interface is not accounted.
 
 # Meeting points for users and developers
 [To the contents](#Contents)
@@ -55,6 +48,7 @@ The library is available for next versions of OpenFOAM:
 * OpenFOAM+ 2012 - [digitef-dev-2012](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-2012)
 * OpenFOAM+ 2112 - [digitef-dev-2112](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-2112)
 * OpenFOAM+ 2212 - [digitef-dev-2212](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-2212)
+* OpenFOAM+ 2312 - [digitef-dev-2312](https://github.com/unicfdlab/hybridCentralSolvers/tree/digitef-dev-2312)
 
 **Latest changes and bug fixes are applied only in branches corresponding to latest version of OpenFOAM.**
 
@@ -70,12 +64,23 @@ The library or approach were used in next projects:
 [To the contents](#Contents)
 
 If you want to see your research in this list, please write to [Issues](https://github.com/unicfdlab/hybridCentralSolvers/issues) .
+## <p align="center"> >>>>> 2024 <<<<<  </p>
+| Title | Description |
+|------|-------------|
+|[Validation of High Speed Reactive Flow Solver in OpenFOAM with Detailed Chemistry](https://journal.openfoam.com/index.php/ofj/article/view/125): **Article**|![Detonation cells](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/submission_resized.png)|
 
 ## <p align="center"> >>>>> 2023 <<<<<  </p> 
 | Title | Description |
 |------|-------------|
-|[Deflector shape impact on aero-acoustic noise generation and propagation](https://www.sciencedirect.com/science/article/abs/pii/S0094576523004599): **Article**|---|
+|[Experimental and Numerical Comparison of Weakly Unstable Detonation using Planar Laser-Induced Fluorescence of Nitric Oxide Imaging](http://www.icders.org/ICDERS2023/abstracts/ICDERS2023-093.pdf): **Article**|![NO-PLIF: experiment vs numerical results](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/NO-PLIF_exp_vs_num.png)|
+|[Study of the Mechanism of Shock-Induced Droplet Breakup Based on a Hybrid Solver](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4676348): **Article**|![Droplet Countors vs Mach number](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/droplet_breakup_12022024.png)|
+|[Deflector shape impact on aero-acoustic noise generation and propagation](https://www.sciencedirect.com/science/article/abs/pii/S0094576523004599): **Article**|![Acoustic pressure around the rocket](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/1-s2.0-S0094576523004599-gr5.jpg)|
+|[Numerical Simulation of Supersonic Jet Noise Using Open Source Software](https://link.springer.com/chapter/10.1007/978-3-031-36030-5_24): **Article**|---|
 |[The diffraction and re-initiation behavior of detonation wave in premixed H2–O2–Ar mixture ](https://pubs.aip.org/aip/pof/article/35/9/095109/2909845): **Article**| ![Cell distribution in the cases of different D/d](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/BoZhan_difraction.jpeg) |
+|[Numerical Study of Forced Nonlinear Acoustic Gas Oscillations in a Tube under the Action of Two Pistons with Phase Shift](https://www.sciencedirect.com/science/article/abs/pii/S0165212522000373): **Article**|![Sketch of resonator with 2 pistons](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/two_pistons_sketch.png): **Article**|
+|[Self-consistent model and numerical approach for laser-induced non-equilibrium plasma](https://pubs.aip.org/aip/jap/article-abstract/134/22/223301/2929689/Self-consistent-model-and-numerical-approach-for?redirectedFrom=fulltext): **Article**|![Plasma solver architecture](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/plasmaSolver_arch.png)|
+|[On the Resolution of Approximation Errors on an Ensemble of Numerical Solutions](https://link.springer.com/chapter/10.1007/978-3-031-36030-5_51): **Article**|---|
+|[Numerical and experimental analysis of autoignition induced by shock wave focusing](http://www.icders.org/ICDERS2023/abstracts/ICDERS2023-037.pdf): **Article**|![Schematic diagram of the experimental facilities](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Autoignition_exp_facility.png)|
 |[Investigations on Hydrogen Injections Using a Real-Fluid Approach](https://doi.org/10.4271/2023-01-0312): **Article**|![Perfect gas and real fluid gas velocity and mass fractiosn](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/F-Rahantamialisoa-jet.png)|
 |[Numerical Investigations of Pseudo-Boiling and Multi-Component Mixing Under Trans-/supercritical Conditions for Engine Applications](https://doi.org/10.1080/00102202.2023.2214947): **Article**|---|
 |[Numerical and experimental analysis of detonation induced by shock wave focusing](https://www.researchgate.net/publication/369020856_Numerical_and_experimental_analysis_of_detonation_induced_by_shock_wave_focusing): **Article**|![Exp and num simulation comparison](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Zezhong_Yang_Figure3.png)|
@@ -182,3 +187,4 @@ If you want to see your research in this list, please write to [Issues](https://
    * [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3878441.svg)](https://doi.org/10.5281/zenodo.3878441)
    * [Kraposhin MV, Banholzer M, Pfitzner M, Marchevsky IK. A hybrid pressure‐based solver for nonideal single‐phase fluid flows at all speeds. Int J Numer Meth Fluids. 2018;88:79–99](https://www.researchgate.net/publication/325025590_A_hybrid_pressure-based_solver_for_non-ideal_single-phase_fluid_flows_at_all_speeds_Non-ideal_single-phase_fluid_flow_solver). https://doi.org/10.1002/fld.4512
    * [Kraposhin MV, Strijhak SV, Bovtrikova A Adaptation of Kurganov-Tadmor Numerical Scheme for Applying in Combination with the PISO Method in Numerical Simulation of Flows in a Wide Range of Mach Numbers. Procedia Computer Science. 2015;66:43-52](https://www.researchgate.net/publication/284913682_Adaptation_of_Kurganov-Tadmor_Numerical_Scheme_for_Applying_in_Combination_with_the_PISO_Method_in_Numerical_Simulation_of_Flows_in_a_Wide_Range_of_Mach_Numbers). https://doi.org/10.1016/j.procs.2015.11.007
+   * [Kraposhin, M., Kukharskii, A., Victoria, & Shevelev, A. (2022). An extension of the all-Mach number pressure-based solution framework for numerical modelling of two-phase flows with interface. Industrial Processes and Technologies, 2(3(5), 6–27. ](https://www.researchgate.net/publication/365897832_An_extension_of_the_all-Mach_number_pressure-based_solution_framework_for_numerical_modelling_of_two-phase_flows_with_interface) https://doi.org/10.37816/2713-0789-2022-2-3(5)-6-27
