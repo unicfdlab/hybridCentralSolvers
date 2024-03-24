@@ -18,10 +18,10 @@
         phiv_own    = (psiU_own / psi_own) & mesh.Sf();
         phiv_nei    = (psiU_nei / psi_nei) & mesh.Sf();
     }
-    if (mesh.changing())
+    if (mesh.moving())
     {
-        phiv_own   -= mesh.phi();
-        phiv_nei   -= mesh.phi();
+        phiv_own   -= mesh_phi;
+        phiv_nei   -= mesh_phi;
     }
     
     MRF.makeRelative(phiv_own);

@@ -144,6 +144,10 @@ int main(int argc, char *argv[])
             if (mesh.changing())
             {
                 #include "updateFaceAreas.H"
+                if (mesh.moving())
+                {
+                    mesh_phi = mesh.phi();
+                }
 
                 if (correctPhi)
                 {
@@ -152,10 +156,10 @@ int main(int argc, char *argv[])
                     phi_own = phi_own + (1.0 - kappa) * phi_nei;
                     phi_nei = kappa * phi_nei;
                 }
-                else
+                else if (!correctPhi && mesh.moving())
                 {
-                    mphi_own = alpha_own*rho_own*mesh.phi();
-                    mphi_nei = alpha_nei*rho_nei*mesh.phi();
+                    mphi_own = alpha_own*rho_own*mesh_phi;
+                    mphi_nei = alpha_nei*rho_nei*mesh_phi;
 
                     //make fluxes relative
                     phi_own -= (mphi_own + (1.0 - kappa)*mphi_nei);
@@ -165,7 +169,7 @@ int main(int argc, char *argv[])
             }
         }
 
-        if (mesh.changing() && checkMeshCourantNo)
+        if (mesh.moving() && checkMeshCourantNo)
         {
             #include "centralMeshCourantNo.H"
             #include "markBadQualityCells.H"
@@ -204,17 +208,20 @@ int main(int argc, char *argv[])
             
             if (!updateEnergyInPISO)
             {
-                mphi_own = alpha_own * rho_own * mesh.phi();
-                mphi_nei = alpha_nei * rho_nei * mesh.phi();
+                if (mesh.moving())
+                {
+                    mphi_own = alpha_own * rho_own * mesh_phi;
+                    mphi_nei = alpha_nei * rho_nei * mesh_phi;
 
-                phi_own += mphi_own;
-                phi_nei += mphi_nei;
-                phi = phi_own + phi_nei;
+                    phi_own += mphi_own;
+                    phi_nei += mphi_nei;
+                    phi = phi_own + phi_nei;
+                }
                 #include "updateKappa.H"
                 #include "updateMechanicalFields.H"
             }
 
-            if (!pimple.finalIter())
+            if (!pimple.finalIter() && mesh.moving())
             {
                 phi_own -= (mphi_own + (1.0 - kappa)*mphi_nei);
                 phi_nei -= (mphi_nei*kappa);

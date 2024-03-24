@@ -134,7 +134,10 @@ int main(int argc, char *argv[])
              if (mesh.changing())
              {
                  #include "updateFaceAreas.H"
-
+                if (mesh.moving())
+                {
+                    mesh_phi = mesh.phi();
+                }
                 if (correctPhi)
                 {
                     #include "centralCorrectPhi.H"
@@ -144,8 +147,8 @@ int main(int argc, char *argv[])
                 }
                 else
                 {
-                    mphi_own = alpha_own*rho_own*mesh.phi();
-                    mphi_nei = alpha_nei*rho_nei*mesh.phi();
+                    mphi_own = alpha_own*rho_own*mesh_phi;
+                    mphi_nei = alpha_nei*rho_nei*mesh_phi;
 
                     //make fluxes relative
                     phi_own -= (mphi_own + (1.0 - kappa)*mphi_nei);
@@ -195,11 +198,14 @@ int main(int argc, char *argv[])
 
                 if (updateEnergyInPISO)
                 {
-                    mphi_own = alpha_own*rho_own*mesh.phi();
-                    mphi_nei = alpha_nei*rho_nei*mesh.phi();
-                    phi_own += mphi_own;
-                    phi_nei += mphi_nei;
-                    phi = phi_own + phi_nei;
+                    if (mesh.moving())
+                    {
+                        mphi_own = alpha_own*rho_own*mesh_phi;
+                        mphi_nei = alpha_nei*rho_nei*mesh_phi;
+                        phi_own += mphi_own;
+                        phi_nei += mphi_nei;
+                        phi = phi_own + phi_nei;
+                    }
                     #include "updateKappa.H"
                     #include "updateMechanicalFields.H"
                 }
@@ -208,11 +214,14 @@ int main(int argc, char *argv[])
 
             if (!updateEnergyInPISO)
             {
-                mphi_own = alpha_own*rho_own*mesh.phi();
-                mphi_nei = alpha_nei*rho_nei*mesh.phi();
-                phi_own += mphi_own;
-                phi_nei += mphi_nei;
-                phi = phi_own + phi_nei;
+                if (mesh.moving())
+                {
+                    mphi_own = alpha_own*rho_own*mesh_phi;
+                    mphi_nei = alpha_nei*rho_nei*mesh_phi;
+                    phi_own += mphi_own;
+                    phi_nei += mphi_nei;
+                    phi = phi_own + phi_nei;
+                }
                 #include "updateKappa.H"
                 #include "updateMechanicalFields.H"
             }

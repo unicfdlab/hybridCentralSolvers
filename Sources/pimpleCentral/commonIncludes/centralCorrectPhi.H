@@ -57,8 +57,13 @@
     //
     
     surfaceScalarField rhof (linearInterpolate(rho));
-    phiv_own = (fvc::interpolate(rho*U, own, "reconstruct(U)") / rho_own & mesh.Sf()) - mesh.phi();
-    phiv_nei = (fvc::interpolate(rho*U, nei, "reconstruct(U)") / rho_nei & mesh.Sf()) - mesh.phi();
+    phiv_own = (fvc::interpolate(rho*U, own, "reconstruct(U)") / rho_own & mesh.Sf());
+    phiv_nei = (fvc::interpolate(rho*U, nei, "reconstruct(U)") / rho_nei & mesh.Sf());
+    if (mesh.moving())
+    {
+        phiv_own -= mesh_phi;
+        phiv_nei -= mesh_phi;
+    }
     
     phi_own = rho_own * (alpha_own*phiv_own - aSf);
     phi_nei = rho_nei * (alpha_nei*phiv_nei + aSf);

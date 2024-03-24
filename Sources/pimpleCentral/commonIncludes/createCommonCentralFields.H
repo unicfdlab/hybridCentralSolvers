@@ -65,6 +65,19 @@
         ),
         linearInterpolate(rho*U) & tuSf()
     );
+
+    surfaceScalarField mesh_phi
+    (
+        IOobject
+        (
+            "mesh_phi",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        dimensionedScalar("1/rho", dimVolume/dimMass, 0.0) * phi
+    );
     
     surfaceScalarField rho_own
     (
