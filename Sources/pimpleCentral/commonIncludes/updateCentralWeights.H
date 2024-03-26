@@ -13,10 +13,10 @@
             phiv_nei    = (fvc::interpolate(rho*U, nei, "reconstruct(U)") / rho_nei) & mesh.Sf();
         }
         
-        if (mesh.changing())
+        if (mesh.moving())
         {
-            phiv_own   -= mesh.phi();
-            phiv_nei   -= mesh.phi();
+            phiv_own   -= mesh_phi;
+            phiv_nei   -= mesh_phi;
         }
         
         c           = sqrt(thermo.Cp()/thermo.Cv() / psi);
