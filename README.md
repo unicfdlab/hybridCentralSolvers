@@ -17,7 +17,7 @@ Only OpenFOAM+ version of the OpenFOAM technology is supported since 2018. The f
 1. Compressible single phase flow solvers:
     - **pimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas 
     - **rhoPimpleCentralFoam** - Pressure-based semi implicit solver for compressible flow  of real gas
-    - **pimpleCentralDyMFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas with mesh motion
+    - **pimpleCentralDyMFoam** - Pressure-based semi implicit solver for compressible flow of perfect gas with mesh motion and AMR
     - **chtMultiRegionCentralFoam** -     Pressure-based semi implicit solver for conjugate simulation of compressible perfect gas flow  (Mach 
     number is ranging from 0 to 6) and solid body heat transfer.
 2. Multi-component solvers:
@@ -92,6 +92,7 @@ If you want to see your research in this list, please write to [Issues](https://
 
 | Title | Description |
 |------|-------------|
+|[Calculation of the velocity profile and experimental observations during pulse injection of a gas into the PF camera (In Russian) Расчеты профиля плотности при импульсной инжекции рабочего газа в камеру ПФ и экппериментальные результаты](https://sciencejournals.ru/view-article/?j=fizplaz&y=2022&v=48&n=11&a=FizPlaz2260111Lototskii): **Article**|![The gas dynamics field inside the PF camera slide](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Galanin-et-al.png)|
 |[Aerothermodynamic analysis of an experimental rocket aimed to test micro-launcher technologies](https://ubibliorum.ubi.pt/handle/10400.6/13027): **MSc Thesis**|![A rocket with plume](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/ValeSimoes.png)|
 |[CFD simulations of under-expanded hydrogen jets under high-pressure injection conditions](https://www.researchgate.net/publication/366521065_CFD_simulations_of_under-expanded_hydrogen_jets_under_high-pressure_injection_conditions): **Article**|![Temperature distribution in different jets](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Underexp-jet-temp.png)|
 |[Steady rotation of a Mach shock: experimental and numerical evidences](https://hal.archives-ouvertes.fr/hal-03867085/): **Article**|![Numerical shadowgraphs of shocks](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/rotating_mach_shock.png)|
