@@ -68,6 +68,7 @@ If you want to see your research in this list, please write to [Issues](https://
 | Title | Description |
 |------|-------------|
 |[Validation of High Speed Reactive Flow Solver in OpenFOAM with Detailed Chemistry](https://journal.openfoam.com/index.php/ofj/article/view/125): **Article**|![Detonation cells](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/submission_resized.png)|
+|[A real-fluid low-dissipative solver for flash boiling simulations of non-equilibrium mixtures](https://www.sciencedirect.com/science/article/pii/S0017931024002229): **Article**|![Propane spray visualization: comparison of an experiment vs present calculations](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/propane_spray.jpg)|
 
 ## <p align="center"> >>>>> 2023 <<<<<  </p> 
 | Title | Description |
