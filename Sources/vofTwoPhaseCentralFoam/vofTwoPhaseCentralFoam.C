@@ -494,6 +494,10 @@ Foam::vofTwoPhaseCentralFoam::vofTwoPhaseCentralFoam(const fvMesh& mesh, pimpleC
     )
 
 {
+    HbyA_.primitiveFieldRef() = vector::zero;
+    HbyA_.boundaryFieldRef() = vector::zero;
+    oneByA_.primitiveFieldRef() = 1.0;
+    oneByA_.boundaryFieldRef() = 1.0;
     Info<< "\nAll fields were created\n" << endl;
 }
 
@@ -659,9 +663,12 @@ void Foam::vofTwoPhaseCentralFoam::Initialize()
     CharacteristicCourant();
 
     UpdateCentralWeights();
+    Info << "UpdateCentralWeights();" << endl;
     UpdateCentralFields();
+    Info << "UpdateCentralFields();" << endl;
 
     UEqn();
+    Info << "UEqn();" << endl;
 
     // pressureGradient();
 
