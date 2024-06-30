@@ -23,7 +23,8 @@ License
 
 #include "vofTwoPhaseCentralFoam.H"
 #include "fixedFluxPressureFvPatchScalarField.H"
-#include "totalPressureFvPatchScalarField.H"
+// #include "totalPressureFvPatchScalarField.H"
+#include "StringStream.H"
 
 namespace Foam
 {
@@ -663,12 +664,10 @@ void Foam::vofTwoPhaseCentralFoam::Initialize()
     CharacteristicCourant();
 
     UpdateCentralWeights();
-    Info << "UpdateCentralWeights();" << endl;
+
     UpdateCentralFields();
-    Info << "UpdateCentralFields();" << endl;
 
     UEqn();
-    Info << "UEqn();" << endl;
 
     // pressureGradient();
 
@@ -967,26 +966,52 @@ Foam::wordList Foam::vofTwoPhaseCentralFoam::p_rghPatchTypes()
 
 void Foam::vofTwoPhaseCentralFoam::p_rghUpdatePatchFields()
 {
+
+    OStringStream obf_stream;
+
     forAll(p_.boundaryField(), ipatch)
     {
         const fvPatchScalarField& pp =
             p_.boundaryField()[ipatch];
-        if (isA<totalPressureFvPatchScalarField>(pp))
+        const fvPatchScalarField &pp_rgh =
+            p_rgh_.boundaryField()[ipatch];
+
+        if (pp.patchType() == Foam::fieldTypes::zeroGradientType)
         {
-            totalPressureFvPatchScalarField& p_rghpf =
-                dynamic_cast<totalPressureFvPatchScalarField&>
-                (p_rgh_.boundaryFieldRef()[ipatch]);
-            const totalPressureFvPatchScalarField& p_pf =
-                dynamic_cast<const totalPressureFvPatchScalarField&>
-                (p_.boundaryField()[ipatch]);
-            p_rghpf.UName() = p_pf.UName();
-            p_rghpf.phiName() = p_pf.phiName();
-            p_rghpf.rhoName() = p_pf.rhoName();
-            p_rghpf.psiName() = p_pf.psiName();
-            p_rghpf.gamma() = p_pf.gamma();
-            p_rghpf.p0() = p_pf.p0();
+            obf_stream.beginBlock(pp_rgh.patch().name());
+            pp_rgh.write(obf_stream);
+            obf_stream.endBlock();
         }
+        else
+        {
+            obf_stream.beginBlock(pp.patch().name());
+            pp.write(obf_stream);
+            obf_stream.endBlock();
+        }
+
+        // if (isA<totalPressureFvPatchScalarField>(pp))
+        // {
+        //     totalPressureFvPatchScalarField& p_rghpf =
+        //         dynamic_cast<totalPressureFvPatchScalarField&>
+        //         (p_rgh_.boundaryFieldRef()[ipatch]);
+        //     const totalPressureFvPatchScalarField& p_pf =
+        //         dynamic_cast<const totalPressureFvPatchScalarField&>
+        //         (p_.boundaryField()[ipatch]);
+        //     p_rghpf.UName() = p_pf.UName();
+        //     p_rghpf.phiName() = p_pf.phiName();
+        //     p_rghpf.rhoName() = p_pf.rhoName();
+        //     p_rghpf.psiName() = p_pf.psiName();
+        //     p_rghpf.gamma() = p_pf.gamma();
+        //     p_rghpf.p0() = p_pf.p0();
+        //     continue;
+        // }
     }
+
+    IStringStream ibf_stream (obf_stream.str());
+
+    dictionary bf_dict(ibf_stream);
+
+    p_rgh_.boundaryFieldRef().readField(p_rgh_, bf_dict);
 }
 
 void Foam::vofTwoPhaseCentralFoam::DensityThermo()
