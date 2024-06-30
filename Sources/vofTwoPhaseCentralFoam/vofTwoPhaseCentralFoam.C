@@ -23,6 +23,7 @@ License
 
 #include "vofTwoPhaseCentralFoam.H"
 #include "fixedFluxPressureFvPatchScalarField.H"
+#include "zeroGradientFvPatchFields.H"
 // #include "totalPressureFvPatchScalarField.H"
 #include "StringStream.H"
 
@@ -676,12 +677,12 @@ void Foam::vofTwoPhaseCentralFoam::Initialize()
     TSource2_ = dpdt_;
 
     p_rgh_.ref() = p_.internalField();
+    p_rghUpdatePatchFields();
     setSnGrad<fixedFluxPressureFvPatchScalarField>
     (
         p_rgh_.boundaryFieldRef(),
         phi_.boundaryField()
     );
-    p_rghUpdatePatchFields();
     p_rgh_.correctBoundaryConditions();
     p_rgh_.write();
 }
@@ -956,7 +957,8 @@ Foam::wordList Foam::vofTwoPhaseCentralFoam::p_rghPatchTypes()
     {
         const fvPatchScalarField& pp =
             p_.boundaryField()[ipatch];
-        if (pp.patchType() == Foam::fieldTypes::zeroGradientType) {
+        if (isA<zeroGradientFvPatchScalarField>(pp))
+        {
             patchTypes[ipatch] = fixedFluxPressureFvPatchScalarField::typeName;
         }
     }
@@ -976,7 +978,7 @@ void Foam::vofTwoPhaseCentralFoam::p_rghUpdatePatchFields()
         const fvPatchScalarField &pp_rgh =
             p_rgh_.boundaryField()[ipatch];
 
-        if (pp.patchType() == Foam::fieldTypes::zeroGradientType)
+        if (isA<zeroGradientFvPatchScalarField>(pp))
         {
             obf_stream.beginBlock(pp_rgh.patch().name());
             pp_rgh.write(obf_stream);
@@ -988,23 +990,6 @@ void Foam::vofTwoPhaseCentralFoam::p_rghUpdatePatchFields()
             pp.write(obf_stream);
             obf_stream.endBlock();
         }
-
-        // if (isA<totalPressureFvPatchScalarField>(pp))
-        // {
-        //     totalPressureFvPatchScalarField& p_rghpf =
-        //         dynamic_cast<totalPressureFvPatchScalarField&>
-        //         (p_rgh_.boundaryFieldRef()[ipatch]);
-        //     const totalPressureFvPatchScalarField& p_pf =
-        //         dynamic_cast<const totalPressureFvPatchScalarField&>
-        //         (p_.boundaryField()[ipatch]);
-        //     p_rghpf.UName() = p_pf.UName();
-        //     p_rghpf.phiName() = p_pf.phiName();
-        //     p_rghpf.rhoName() = p_pf.rhoName();
-        //     p_rghpf.psiName() = p_pf.psiName();
-        //     p_rghpf.gamma() = p_pf.gamma();
-        //     p_rghpf.p0() = p_pf.p0();
-        //     continue;
-        // }
     }
 
     IStringStream ibf_stream (obf_stream.str());
