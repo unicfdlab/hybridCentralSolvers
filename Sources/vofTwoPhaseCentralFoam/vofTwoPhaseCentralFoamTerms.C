@@ -47,7 +47,7 @@ void Foam::vofTwoPhaseCentralFoam::UpdateCentralWeights()
     surfaceScalarField rho_own (vF1face_*rho1_own_ + vF2face_*rho2_own_);
     surfaceScalarField rho_nei (vF1face_*rho1_nei_ + vF2face_*rho2_nei_);
     phiv_own_ = rho_phi_own / rho_own;
-    phiv_own_ = rho_phi_nei / rho_nei;
+    phiv_nei_ = rho_phi_nei / rho_nei;
     CfSf_own_     = Cf_own_ * magSf;
     CfSf_own_.setOriented(true);
     CfSf_nei_     = Cf_nei_ * magSf;

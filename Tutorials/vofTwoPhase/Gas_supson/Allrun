@@ -9,8 +9,8 @@ runApplication blockMesh
 
 restore0Dir
 
-#runApplication setFields
-#runApplication $(getApplication)
+runApplication setFields
+runApplication $(getApplication)
 
 
 #------------------------------------------------------------------------------

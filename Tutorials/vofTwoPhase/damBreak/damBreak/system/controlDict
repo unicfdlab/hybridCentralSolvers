@@ -49,8 +49,6 @@ adjustTimeStep  true;
 
 maxCo           0.1;
 
-maxAlphaCo      1;
-
 maxDeltaT       1;
 
 //#sinclude   "sampling"

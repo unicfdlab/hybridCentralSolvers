@@ -127,6 +127,19 @@ Foam::vofTwoPhaseCentralFoam::vofTwoPhaseCentralFoam(const fvMesh& mesh, pimpleC
         1.0 - volumeFraction1_
     ),
 
+    volumeFraction1_sharp_
+    (
+        IOobject
+        (
+            "volumeFraction1s",
+            mesh.time().timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        volumeFraction1_
+    ),
+
     mixture_model_(*this, volumeFraction1_, volumeFraction2_, p_, T_),
 
     turbulence_
@@ -500,6 +513,7 @@ Foam::vofTwoPhaseCentralFoam::vofTwoPhaseCentralFoam(const fvMesh& mesh, pimpleC
     HbyA_.boundaryFieldRef() = vector::zero;
     oneByA_.primitiveFieldRef() = 1.0;
     oneByA_.boundaryFieldRef() = 1.0;
+    volumeFraction1_sharp_.correctBoundaryConditions();
     Info<< "\nAll fields were created\n" << endl;
 }
 
@@ -515,6 +529,7 @@ void Foam::vofTwoPhaseCentralFoam::saveOld()
 {
     volumeFraction1_.oldTime();
     volumeFraction2_.oldTime();
+    volumeFraction1_sharp_.oldTime();
     U_.oldTime();
     T_.oldTime();
     p_.oldTime();
@@ -543,7 +558,6 @@ void Foam::vofTwoPhaseCentralFoam::CharacteristicCourant()
         << gMax(CCof)
         << "/"
         << gMin(CCof)
-        << ", CCof dims = " << CCof.dimensions()
         << endl;
 }
 
@@ -554,7 +568,7 @@ Foam::scalar Foam::vofTwoPhaseCentralFoam::FlowCourant()
 
     scalarField sumPhi
     (
-        fvc::surfaceSum(mag(phi_))().primitiveField()
+        0.5*fvc::surfaceSum(mag(phi_))().primitiveField()
     );
 
     scalar CoMax = gMax((sumPhi)/V)*deltaT;
@@ -701,6 +715,11 @@ void Foam::vofTwoPhaseCentralFoam::updateKappa()
         pimple_.dict().getOrDefault("kappaIsZero", false)
     );
 
+    bool oneByACo
+    (
+        pimple_.dict().getOrDefault("oneByACo", false)
+    );
+
     if (kappaIsOne)
     {
         kappa_.primitiveFieldRef() = 1.0;
@@ -713,7 +732,7 @@ void Foam::vofTwoPhaseCentralFoam::updateKappa()
         kappa_.boundaryFieldRef() = 0.0;
     }
 
-    if (!kappaIsOne && !kappaIsZero)
+    if (oneByACo)
     {
         const fvMesh& mesh = U_.mesh();
 
@@ -729,8 +748,32 @@ void Foam::vofTwoPhaseCentralFoam::updateKappa()
         (
             amaxSfbyDelta/mesh.magSf() * mesh.time().deltaT()
         );
+        FaceAcCo.setOriented(false);
 
+        kappa_ =
+            min
+            (
+                1.0/FaceAcCo,
+                scalar(1.0)
+            );
+    }
 
+    if (!kappaIsOne && !kappaIsZero && !oneByACo)
+    {
+        const fvMesh& mesh = U_.mesh();
+
+        surfaceScalarField CfSf (max(CfSf_own_, CfSf_nei_));
+        CfSf.setOriented(true);
+
+        surfaceScalarField amaxSfbyDelta
+        (
+            mesh.surfaceInterpolation::deltaCoeffs()*amaxSf_
+        );
+
+        surfaceScalarField FaceAcCo
+        (
+            amaxSfbyDelta/mesh.magSf() * mesh.time().deltaT()
+        );
         surfaceScalarField Maf (mag(phi_) / CfSf);
 
         kappa_ =
@@ -742,11 +785,14 @@ void Foam::vofTwoPhaseCentralFoam::updateKappa()
     }
 
     onemkappa_ = 1.0 - kappa_;
-    Info<< "max/min kappa: " << max(kappa_).value()
+    Info<< " max/min kappa: " << max(kappa_).value()
         << "/" << min(kappa_).value()
         << endl;
 
-    //writeMaxMinKappa (kappa_);
+    if (pimple_.dict().getOrDefault("writeMaxMinKappa", false))
+    {
+        writeMaxMinKappa(kappa_);
+    }
 
     kappaBlend(kappa_, phi1_own_, phi1_nei_);
     kappaBlend(kappa_, phi2_own_, phi2_nei_);
