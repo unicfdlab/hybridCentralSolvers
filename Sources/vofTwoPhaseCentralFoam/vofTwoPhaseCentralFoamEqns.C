@@ -404,6 +404,7 @@ void Foam::vofTwoPhaseCentralFoam::pEqnSolve()
 
     phiHbyA_ = fvc::flux(HbyA_);
     surfaceScalarField rAUf("rAUf", linearInterpolate(oneByA_));
+    rAUf *= onemkappa_;
 
     phib_ = 
     (
@@ -417,9 +418,11 @@ void Foam::vofTwoPhaseCentralFoam::pEqnSolve()
     HbyAKappa *= onemkappa_;
 
     // blend KNP coeffs with linear interpolation
-    rAUf_own_ *= kappa_; rAUf_own_ += onemkappa_*rAUf;
+    rAUf_own_ *= kappa_;
+    rAUf_own_ += rAUf;
     rAUf_nei_ *= kappa_;
-    phiHbyA_own_ *= kappa_; phiHbyA_own_ += onemkappa_*HbyAKappa;
+    phiHbyA_own_ *= kappa_;
+    phiHbyA_own_ += HbyAKappa;
     phiHbyA_own_ += phib_;
     phiHbyA_nei_ *= kappa_;
 

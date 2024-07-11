@@ -66,7 +66,7 @@ PIMPLE
     nCorrectors                      1;
     //kappaIsZero                     true; //forces kappa to 0
     //kappaIsOne                      true; //forces kappa to 1
-    oneByACo                         true;
+    //oneByACo                         true;
     writeMaxMinKappa                 true;
     #includeIfPresent "PIMPLEsettings";
 }
