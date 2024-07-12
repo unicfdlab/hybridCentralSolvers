@@ -428,6 +428,7 @@ void Foam::vofTwoPhaseCentralFoam::pEqnSolve()
 
     // Update the pressure BCs to ensure flux consistency
     phiHbyA_      = phiHbyA_own_ + phiHbyA_nei_;
+    rAUf          = rAUf_own_ + rAUf_nei_;
     constrainPressure(p_rgh_, U_, phiHbyA_, rAUf);
 
     // DDt(alpha1*rho1) =
