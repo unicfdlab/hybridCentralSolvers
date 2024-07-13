@@ -24,7 +24,8 @@ License
 #include "vofTwoPhaseCentralFoam.H"
 #include "fixedFluxPressureFvPatchScalarField.H"
 #include "zeroGradientFvPatchFields.H"
-// #include "totalPressureFvPatchScalarField.H"
+#include "slipFvPatchFields.H"
+#include "fixedValueFvPatchFields.H"
 #include "StringStream.H"
 
 namespace Foam
@@ -996,6 +997,23 @@ void Foam::vofTwoPhaseCentralFoam::combineMatrices
     }
 }
 
+static bool isWallBc
+(
+    const Foam::fvPatchScalarField &pp,
+    const Foam::fvPatchVectorField &pU
+)
+{
+    if (Foam::isA<Foam::zeroGradientFvPatchScalarField>(pp))
+    {
+        if (Foam::isA<Foam::slipFvPatchVectorField>(pU) ||
+            Foam::isA<Foam::fixedValueFvPatchVectorField>(pU))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 Foam::wordList Foam::vofTwoPhaseCentralFoam::p_rghPatchTypes()
 {
     wordList patchTypes = p_.boundaryField().types();
@@ -1003,7 +1021,9 @@ Foam::wordList Foam::vofTwoPhaseCentralFoam::p_rghPatchTypes()
     {
         const fvPatchScalarField& pp =
             p_.boundaryField()[ipatch];
-        if (isA<zeroGradientFvPatchScalarField>(pp))
+        const fvPatchVectorField& pU =
+            U_.boundaryField()[ipatch];
+        if (isWallBc(pp, pU))
         {
             patchTypes[ipatch] = fixedFluxPressureFvPatchScalarField::typeName;
         }
@@ -1023,8 +1043,9 @@ void Foam::vofTwoPhaseCentralFoam::p_rghUpdatePatchFields()
             p_.boundaryField()[ipatch];
         const fvPatchScalarField &pp_rgh =
             p_rgh_.boundaryField()[ipatch];
-
-        if (isA<zeroGradientFvPatchScalarField>(pp))
+        const fvPatchVectorField& pU =
+            U_.boundaryField()[ipatch];
+        if (isWallBc(pp, pU))
         {
             obf_stream.beginBlock(pp_rgh.patch().name());
             pp_rgh.write(obf_stream);
