@@ -67,6 +67,8 @@ If you want to see your research in this list, please write to [Issues](https://
 ## <p align="center"> >>>>> 2024 <<<<<  </p>
 | Title | Description |
 |------|-------------|
+|[Study of the mechanism of shock-induced and detonation-induced droplet breakup based on hybrid solvers](https://www.researchgate.net/publication/382754845_Study_of_the_mechanism_of_shock-induced_and_detonation-induced_droplet_breakup_based_on_hybrid_solvers): **Article**|---|
+|[Aeroacoustic Improvements during Lift-off of Launch Vehicles](https://riunet.upv.es/handle/10251/204805?show=full):**PhD Thesis**|![The duct geometry and mesh](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/duct-geom-and-mesh.png)|
 |[Validation of High Speed Reactive Flow Solver in OpenFOAM with Detailed Chemistry](https://journal.openfoam.com/index.php/ofj/article/view/125): **Article**|![Detonation cells](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/submission_resized.png)|
 |[A real-fluid low-dissipative solver for flash boiling simulations of non-equilibrium mixtures](https://www.sciencedirect.com/science/article/pii/S0017931024002229): **Article**|![Propane spray visualization: comparison of an experiment vs present calculations](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/propane_spray.jpg)|
 
