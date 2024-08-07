@@ -86,6 +86,11 @@ namespace Foam
             //- NO_READ
             volScalarField volumeFraction2_;
 
+            //- The sharp field of volume fraction of the first phase,
+            // NO_READ. We solve for sharp and unbounded field. Then
+            // we limit it, we smooth it and store as volumeFraction1_.
+            volScalarField volumeFraction1_sharp_;
+
             //- The mixture model contains properties of
             // phases and is needed to connect to turbulence
             // model

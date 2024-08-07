@@ -20,21 +20,29 @@ gRelTol    0;
 
 solvers
 {
-    "(rho1|rho2).*"
-    {
-        solver          diagonal;
-        tolerance       $gTolerance;
-        relTol          $gRelTol;
-    }
-
-    "(volumeFraction1|T|k|epsilon).*"
+    "(T|k|epsilon|rho1|rho2).*"
     {
         solver          PBiCGStab;
         preconditioner	DILU;
         tolerance       $gTolerance;
         relTol          $gRelTol;
+    }
+
+    "(volumeFraction1).*"
+    {
+        solver          PCG;
+        preconditioner
+        {
+            preconditioner GAMG;
+            smoother       DIC;
+            relTol         1e-3;
+            tolerance      1e-5;
+        }
+        tolerance       $gTolerance;
+        relTol          $gRelTol;
         cAlpha          1.0;
         nAlphaCorr      1;
+        nLimiteIter     5;
     }
 
     "p.*"
@@ -56,6 +64,10 @@ PIMPLE
 {
     nOuterCorrectors                 3;
     nCorrectors                      1;
+    //kappaIsZero                     true; //forces kappa to 0
+    //kappaIsOne                      true; //forces kappa to 1
+    //oneByACo                         true;
+    writeMaxMinKappa                 true;
     #includeIfPresent "PIMPLEsettings";
 }
 

@@ -73,12 +73,6 @@ void Foam::vofTwoPhaseCentralFoam::LiquidVolumeFractionSolve()
 
     interface_.correct();
 
-    // Set the off-centering coefficient according to ddt scheme
-    scalar ocCoeff = 0;
-
-    // Set the time blending factor, 1 for Euler
-    scalar cnCoeff = 1.0/(1.0 + ocCoeff);
-
     scalar cAlpha  =  interface_.cAlpha(); //or read from dictionary
 
     // Standard face-flux compression coefficient
@@ -111,6 +105,9 @@ void Foam::vofTwoPhaseCentralFoam::LiquidVolumeFractionSolve()
 
     for (int aCorr=0; aCorr<nAlphaCorr; aCorr++)
     {
+        volScalarField alpha_liq_bd = max(min(volumeFraction1_sharp_, 1.0), 0.0);
+        volScalarField alpha_gas_bd = 1.0 - alpha_liq_bd;
+
         volScalarField::Internal Sp
         (
             IOobject
@@ -130,7 +127,7 @@ void Foam::vofTwoPhaseCentralFoam::LiquidVolumeFractionSolve()
                 mesh.time().timeName(),
                 mesh
             ),
-            (1.0 + Lambda_)*divU*volumeFraction1_
+            (1.0 + Lambda_)*divU*alpha_liq_bd
         );
 
 
@@ -141,13 +138,13 @@ void Foam::vofTwoPhaseCentralFoam::LiquidVolumeFractionSolve()
             fvc::flux
             (
                 phiCN(),
-                cnCoeff*volumeFraction1_,
+                alpha_liq_bd,
                 alphaScheme
             )
           + fvc::flux
             (
-               -fvc::flux(-phir, volumeFraction2_, alpharScheme),
-                volumeFraction1_,
+               -fvc::flux(-phir, alpha_gas_bd, alpharScheme),
+                alpha_liq_bd,
                 alpharScheme
             )
         );
@@ -157,7 +154,7 @@ void Foam::vofTwoPhaseCentralFoam::LiquidVolumeFractionSolve()
         MULES::explicitSolve
         (
             geometricOneField(),
-            volumeFraction1_,
+            volumeFraction1_sharp_,
             phiCN,
             alphaPhi10,
             Sp,
@@ -165,9 +162,39 @@ void Foam::vofTwoPhaseCentralFoam::LiquidVolumeFractionSolve()
             oneField(),
             zeroField()
         );
-
-        // #include "alphasMinMax.H"
     }
+
+    Info<< " Phase-1 volume fraction  (sharp) = "
+        << volumeFraction1_sharp_.weightedAverage(U_.mesh().Vsc()).value()
+        << "  Min(" << volumeFraction1_sharp_.name() << ") = " << min(volumeFraction1_sharp_).value()
+        << "  Max(" << volumeFraction1_sharp_.name() << ") = " << max(volumeFraction1_sharp_).value()
+        << endl;
+
+    volScalarField alpha_liq_bd = max(min(volumeFraction1_sharp_, 1.0), 0.0);
+
+    const surfaceScalarField Unf =
+    phi_ / mesh.magSf();
+    dimensionedScalar cDalpha
+    (
+        "cDalpha",
+        dimless,
+        vf1Controls.getOrDefault<scalar>("cDalpha", 2.0)
+    );
+    const surfaceScalarField Dalpha
+    (
+        "Dalpha",
+        Unf*Unf*cDalpha*mesh.time().deltaT()
+    );
+    fvScalarMatrix alpha1Eqn
+    (
+        fvm::Sp(1.0/mesh.time().deltaT(),volumeFraction1_)
+        -
+        fvc::Sp(1.0/mesh.time().deltaT(),alpha_liq_bd)
+        -
+        fvm::laplacian(Dalpha,volumeFraction1_)
+    );
+
+    alpha1Eqn.solve();
 
     volumeFraction2_ = 1 - volumeFraction1_;
 
@@ -184,7 +211,7 @@ void Foam::vofTwoPhaseCentralFoam::LiquidVolumeFractionSolve()
     phiVF1_ = phi_*vF1face_;
     phiVF2_ = phi_ - phiVF1_;
 
-    Info<< "Phase-1 volume fraction = "
+    Info<< " Phase-1 volume fraction (smooth) = "
         << volumeFraction1_.weightedAverage(U_.mesh().Vsc()).value()
         << "  Min(" << volumeFraction1_.name() << ") = " << min(volumeFraction1_).value()
         << "  Max(" << volumeFraction1_.name() << ") = " << max(volumeFraction1_).value()
@@ -377,6 +404,7 @@ void Foam::vofTwoPhaseCentralFoam::pEqnSolve()
 
     phiHbyA_ = fvc::flux(HbyA_);
     surfaceScalarField rAUf("rAUf", linearInterpolate(oneByA_));
+    rAUf *= onemkappa_;
 
     phib_ = 
     (
@@ -385,21 +413,22 @@ void Foam::vofTwoPhaseCentralFoam::pEqnSolve()
         ghf_*fvc::snGrad(rho)
     )* rAUf * rho.mesh().magSf();
 
-    // blend KNP coeffs with linear interpolation
-    rAUf_own_ *= kappa_; rAUf_own_ += onemkappa_*rAUf*alpha_own_;
-    rAUf_nei_ *= kappa_; rAUf_nei_ += onemkappa_*rAUf*alpha_nei_;
-    phiHbyA_own_ *= kappa_; phiHbyA_own_ += alpha_own_*onemkappa_*phiHbyA_;
-    phiHbyA_nei_ *= kappa_; phiHbyA_nei_ += alpha_nei_*onemkappa_*phiHbyA_;
+    surfaceScalarField phiCorr   = linearInterpolate(rho*oneByA_)*fvc::ddtCorr(U_, phi_);
+    surfaceScalarField HbyAKappa = phiHbyA_ + phiCorr;
+    HbyAKappa *= onemkappa_;
 
-    phiHbyA_own_ += alpha_own_*onemkappa_*linearInterpolate(rho*oneByA_)*
-        fvc::ddtCorr(U_, phi_);
-    phiHbyA_nei_ += alpha_nei_*onemkappa_*linearInterpolate(rho*oneByA_)*
-        fvc::ddtCorr(U_, phi_);
-    phiHbyA_own_ += alpha_own_*phib_;
-    phiHbyA_nei_ += alpha_nei_*phib_;
+    // blend KNP coeffs with linear interpolation
+    rAUf_own_ *= kappa_;
+    rAUf_own_ += rAUf;
+    rAUf_nei_ *= kappa_;
+    phiHbyA_own_ *= kappa_;
+    phiHbyA_own_ += HbyAKappa;
+    phiHbyA_own_ += phib_;
+    phiHbyA_nei_ *= kappa_;
 
     // Update the pressure BCs to ensure flux consistency
     phiHbyA_      = phiHbyA_own_ + phiHbyA_nei_;
+    rAUf          = rAUf_own_ + rAUf_nei_;
     constrainPressure(p_rgh_, U_, phiHbyA_, rAUf);
 
     // DDt(alpha1*rho1) =
