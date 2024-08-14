@@ -742,7 +742,7 @@ void Foam::vofTwoPhaseCentralFoam::updateKappa()
 
         surfaceScalarField amaxSfbyDelta
         (
-            mesh.surfaceInterpolation::deltaCoeffs()*amaxSf_
+            mesh.surfaceInterpolation::deltaCoeffs()*CfSf
         );
 
         surfaceScalarField FaceAcCo
@@ -754,7 +754,7 @@ void Foam::vofTwoPhaseCentralFoam::updateKappa()
         kappa_ =
             min
             (
-                1.0/FaceAcCo,
+                0.5/FaceAcCo,
                 scalar(1.0)
             );
     }
