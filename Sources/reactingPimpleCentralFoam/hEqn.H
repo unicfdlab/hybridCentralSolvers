@@ -127,7 +127,7 @@
     
     fvScalarMatrix hEqn
     (
-        hConvection + fvc::div(hFluxCorr) + fvc::div(dzetaPhi)
+        hConvection + fvc::div(hFluxCorr)// + fvc::div(dzetaPhi)
         +
         KChange
         ==

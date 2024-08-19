@@ -1,0 +1,2 @@
+#include "../reactingPimpleCentralFoam/hEqn.H"
+

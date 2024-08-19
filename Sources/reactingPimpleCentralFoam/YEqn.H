@@ -61,7 +61,7 @@ upwind<scalar> UDsNei(mesh, phi_nei);
                     YiNeiScheme
                 )
             );
-            
+
             SuSp.set
             (
                 iCmpt,
@@ -72,9 +72,9 @@ upwind<scalar> UDsNei(mesh, phi_nei);
                     fvOptions(rho,Yi)
                 )
             );
-            mDCf[iCmpt] = fvc::interpolate(turbulence->muEff());
+            mDCf.set(iCmpt, linearInterpolate(turbulence->muEff()));
         }
-        
+
         if (Yi.name() == inertSpecie)
         {
             inertIndex = iCmpt;
@@ -134,7 +134,7 @@ upwind<scalar> UDsNei(mesh, phi_nei);
             surfaceScalarField& rhoPhiYCorr = phiY[iCmpt];
             fvScalarMatrix YConvection
             (
-                fvm::ddt(rho,Yi)
+                fvm::ddt(rho, Yi)
                 +
                 fv::gaussConvectionScheme<scalar>(mesh, phi_own, UDsOwn).fvmDiv(phi_own, Yi)
                 +
@@ -142,7 +142,7 @@ upwind<scalar> UDsNei(mesh, phi_nei);
                 ==
                 SuSp[iCmpt]
             );
-        
+
             fvScalarMatrix YDiffusion
             (
                 - fvm::laplacian(mDCf[iCmpt], Yi)
@@ -150,25 +150,25 @@ upwind<scalar> UDsNei(mesh, phi_nei);
 
             fvScalarMatrix YiEqn
             (
-                YConvection + YDiffusion +  fvc::div(lambdaCoeffs * rhoPhiYCorr)
+                YConvection // + YDiffusion +  fvc::div(lambdaCoeffs * rhoPhiYCorr)
             );
-            
+
             YiEqn.relax();
-            
+
             fvOptions.constrain(YiEqn);
-            
+
             YiEqn.solve(mesh.solver("Yi"));
-            
+
             fvOptions.correct(Yi);
-            
+
             Yi.max(0.0);
             Yt += Yi;
-        
+
             phiY[iCmpt] = YConvection.flux() + lambdaCoeffs * rhoPhiYCorr;
-            
+
             diffusiveFlux[iCmpt] = YDiffusion.flux();
             diffusiveFlux[inertIndex] -= diffusiveFlux[iCmpt];
-            
+
             Info << "max/min " << Yi.name() << ": " << max(Yi).value() << "/" << min(Yi).value() << endl;
         }
     }
