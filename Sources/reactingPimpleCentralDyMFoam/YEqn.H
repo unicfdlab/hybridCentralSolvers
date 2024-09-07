@@ -6,3 +6,4 @@ forAll(Y, iCmpt)
     diffusiveFlux.set(iCmpt, phi*0.0);
 }
 #include "../reactingPimpleCentralFoam/YEqn.H"
+

@@ -128,16 +128,7 @@ int main(int argc, char *argv[])
             #include "setDeltaT.H"
         }
 
-        runTime++;
-
-        psi.oldTime();
-        rho.oldTime();
-        p.oldTime();
-        U.oldTime();
-        h.oldTime();
-        K.oldTime();
-
-        Info<< "Time = " << runTime.timeName() << nl << endl;
+        #include "increaseTimeStep.H"
 
         // --- Predict density
         #include "massEqn.H"

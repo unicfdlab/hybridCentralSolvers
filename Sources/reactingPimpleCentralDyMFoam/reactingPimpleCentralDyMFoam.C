@@ -143,8 +143,7 @@ int main(int argc, char *argv[])
                 #include "setDeltaT.H"
         }
 
-        ++runTime;
-        Info<< "Time = " << runTime.timeName() << nl << endl;
+        #include "increaseTimeStep.H"
 
         mesh.update();
 
@@ -181,9 +180,6 @@ int main(int argc, char *argv[])
             #include "centralMeshCourantNo.H"
             #include "markBadQualityCells.H"
         }
-
-        Info << mesh.Cf().primitiveField().size() << endl;
-        Info << "phi size = " << phi.primitiveField().size() << endl;
 
         // --- Predict density
         #include "massEqn.H"

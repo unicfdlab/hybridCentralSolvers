@@ -82,9 +82,8 @@
             }
         }
     }
-    
+
     volScalarField alphahEff(turbulence->alphaEff());
-    
     surfaceScalarField dzetaPhi
     (
         "dzetaPhi",
@@ -124,10 +123,10 @@
                 "div(alphaEff*hi,grad(Yi))"
             );
     }
-    
+
     fvScalarMatrix hEqn
     (
-        hConvection + fvc::div(hFluxCorr)// + fvc::div(dzetaPhi)
+        hConvection + fvc::div(hFluxCorr) + fvc::div(dzetaPhi)
         +
         KChange
         ==

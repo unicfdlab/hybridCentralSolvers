@@ -32,10 +32,9 @@ upwind<scalar> UDsNei(mesh, phi_nei);
 
     label inertIndex = -1;
     volScalarField Yt(0.0*Y[0]);
-    const label nComponents = Y.size();
+    Yt.rename("sumNonInertY");
 
-    PtrList<fvScalarMatrix> SuSp(nComponents);
-    
+    PtrList<fvScalarMatrix> SuSp(Y.size());
     forAll(Y, iCmpt)
     {
         volScalarField& Yi = Y[iCmpt];
@@ -43,7 +42,7 @@ upwind<scalar> UDsNei(mesh, phi_nei);
         {
             word YiOwnScheme ("div(phi_own,Yi)");
             word YiNeiScheme ("div(phi_nei,Yi)");
-            
+
             phiY.set
             (
                 iCmpt,
@@ -61,34 +60,21 @@ upwind<scalar> UDsNei(mesh, phi_nei);
                     YiNeiScheme
                 )
             );
-
             SuSp.set
             (
                 iCmpt,
                 new fvScalarMatrix
                 (
-                    reaction->R(Yi)
+                   reaction->R(Yi)
                     +
                     fvOptions(rho,Yi)
                 )
             );
-            mDCf.set(iCmpt, linearInterpolate(turbulence->muEff()));
+            mDCf[iCmpt] = linearInterpolate(turbulence->muEff());
         }
-
-        if (Yi.name() == inertSpecie)
+        else
         {
             inertIndex = iCmpt;
-            forAll(diffusiveFlux[iCmpt].internalField(), iFace)
-            {
-                diffusiveFlux[iCmpt].primitiveFieldRef()[iFace] = 0.0;
-            }
-            forAll(diffusiveFlux[iCmpt].boundaryFieldRef(), iPatch)
-            {
-                forAll(diffusiveFlux[iCmpt].boundaryFieldRef()[iPatch], iFace)
-                {
-                    diffusiveFlux[iCmpt].boundaryFieldRef()[iPatch][iFace] = 0.0;
-                }
-            }
         }
     }
 
@@ -103,9 +89,7 @@ upwind<scalar> UDsNei(mesh, phi_nei);
         volScalarField& Yi = Y[iCmpt];
         if ( Yi.name() != inertSpecie )
         {
-            Info << "Limiting for: " << Yi.name() << endl;
             surfaceScalarField& rhoPhiYCorr = phiY[iCmpt];
-        
             mulesWithDiffusionImplicitLimiter
             (
                 rho,
@@ -120,7 +104,7 @@ upwind<scalar> UDsNei(mesh, phi_nei);
             );
         }
     }
-    
+
     /*
      *
      * Solve for components
@@ -150,21 +134,21 @@ upwind<scalar> UDsNei(mesh, phi_nei);
 
             fvScalarMatrix YiEqn
             (
-                YConvection // + YDiffusion +  fvc::div(lambdaCoeffs * rhoPhiYCorr)
+                YConvection + YDiffusion// +  fvc::div(lambdaCoeffs * rhoPhiYCorr)
             );
 
-            YiEqn.relax();
+            //YiEqn.relax();
 
-            fvOptions.constrain(YiEqn);
+            //fvOptions.constrain(YiEqn);
 
             YiEqn.solve(mesh.solver("Yi"));
 
-            fvOptions.correct(Yi);
+            //fvOptions.correct(Yi);
 
             Yi.max(0.0);
             Yt += Yi;
 
-            phiY[iCmpt] = YConvection.flux() + lambdaCoeffs * rhoPhiYCorr;
+            //phiY[iCmpt] = YConvection.flux() + lambdaCoeffs * rhoPhiYCorr;
 
             diffusiveFlux[iCmpt] = YDiffusion.flux();
             diffusiveFlux[inertIndex] -= diffusiveFlux[iCmpt];
@@ -172,7 +156,7 @@ upwind<scalar> UDsNei(mesh, phi_nei);
             Info << "max/min " << Yi.name() << ": " << max(Yi).value() << "/" << min(Yi).value() << endl;
         }
     }
-    Y[inertIndex] = scalar(1) - Yt;
+    Y[inertIndex].primitiveFieldRef() = (scalar(1.0) - Yt.primitiveField());
     Y[inertIndex].correctBoundaryConditions();
     Y[inertIndex].max(0.0);
 
