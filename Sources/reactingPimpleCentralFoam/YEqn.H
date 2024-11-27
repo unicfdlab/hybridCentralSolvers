@@ -134,7 +134,7 @@ upwind<scalar> UDsNei(mesh, phi_nei);
 
             fvScalarMatrix YiEqn
             (
-                YConvection + YDiffusion// +  fvc::div(lambdaCoeffs * rhoPhiYCorr)
+                YConvection + YDiffusion +  fvc::div(lambdaCoeffs * rhoPhiYCorr)
             );
 
             //YiEqn.relax();
