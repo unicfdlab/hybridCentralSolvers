@@ -64,7 +64,15 @@ The library or approach were used in next projects:
 # Research studies where the library was useful
 [To the contents](#Contents)
 
-If you want to see your research in this list, please write to [Issues](https://github.com/unicfdlab/hybridCentralSolvers/issues) .
+If you want to see your research in this list, please write to [Issues](https://github.com/unicfdlab/hybridCentralSolvers/issues).
+
+## <p align="center"> >>>>> 2025 <<<<<  </p>
+| Title | Description |
+|------|-------------|
+|[Zamana bağlı akış alanının açık kaynak programlar ile aerodinamik incelemesi](https://doi.org/10.17341/gazimmfd.1156600): **Article**|![Turbulent flow over an airfoil sketch](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Ekinci-Zafer.png)|
+|[Refractive Index Modification and Plasma Characteristics of a Femtosecond Laser-Induced Filament in Nitrogen](http://iopscience.iop.org/article/10.1088/1361-6463/adb498): **Article**|![Refractive index change for the 532 nm probing laser pulse](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/RefrIndex.png)|
+|[Evaluation of chemical kinetic models for simulations of hydrogen detonations by comparison with experimental data](https://www.sciencedirect.com/science/article/pii/S2666352X2400061X): **Article**|![thermicity peak](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/1-s2.0-S2666352X2400061X-gr12.jpg)|
+
 ## <p align="center"> >>>>> 2024 <<<<<  </p>
 | Title | Description |
 |------|-------------|
