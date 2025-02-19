@@ -58,17 +58,27 @@ The library is available for next versions of OpenFOAM:
 The library or approach were used in next projects:
 * [multiRegionRectingPimpleCentralFoam](https://github.com/TonkomoLLC/hybridCentralSolvers/tree/master/OpenFOAM-4.1/multiRegionReactingPimpleCentralFoam) - the solver for coupled simulation of gas dynamics and heat transfer using hybrid KT/PIMPLE approximation of convective fluxes
 * [adjointReactingRhoPimpleCentralFoam](https://github.com/clapointe2011/public/tree/master/discreteAdjointOpenFOAM/applications/solvers/adjoint/adjointReactingRhoPimpleCentralFoam) - the solver for adjoint shape optimization of region with gas flow modelled using hybrid KT/PIMPLE approximation of convective fluxes
+* [HLLCFoam](https://github.com/AAShevelev/HLLCFoam) - the solver for perfect gas dynamics using hybrid HLLC/PIMPLE approach (an extension of the hybrid KNP/PIMPLE scheme for HLLC approximate Riemann solver).
 
 
 # Research studies where the library was useful
 [To the contents](#Contents)
 
-If you want to see your research in this list, please write to [Issues](https://github.com/unicfdlab/hybridCentralSolvers/issues) .
+If you want to see your research in this list, please write to [Issues](https://github.com/unicfdlab/hybridCentralSolvers/issues).
+
+## <p align="center"> >>>>> 2025 <<<<<  </p>
+| Title | Description |
+|------|-------------|
+|[Zamana bağlı akış alanının açık kaynak programlar ile aerodinamik incelemesi](https://doi.org/10.17341/gazimmfd.1156600): **Article**|![Turbulent flow over an airfoil sketch](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/Ekinci-Zafer.png)|
+|[Refractive Index Modification and Plasma Characteristics of a Femtosecond Laser-Induced Filament in Nitrogen](http://iopscience.iop.org/article/10.1088/1361-6463/adb498): **Article**|![Refractive index change for the 532 nm probing laser pulse](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/RefrIndex.png)|
+|[Evaluation of chemical kinetic models for simulations of hydrogen detonations by comparison with experimental data](https://www.sciencedirect.com/science/article/pii/S2666352X2400061X): **Article**|![thermicity peak](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/1-s2.0-S2666352X2400061X-gr12.jpg)|
+
 ## <p align="center"> >>>>> 2024 <<<<<  </p>
 | Title | Description |
 |------|-------------|
+|[Turbulent Combustion Modeling of an Ejector Ramjet Propulsion System](https://prism.ucalgary.ca/items/d01ad206-7b26-4711-8f52-231407a8bfd0): **MsC Thesis**|![Mean temperature field from RANS obtained with the default PaSR combustion mode](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/T_RANS_PASR.png)|
 |[Study of the mechanism of shock-induced and detonation-induced droplet breakup based on hybrid solvers](https://www.researchgate.net/publication/382754845_Study_of_the_mechanism_of_shock-induced_and_detonation-induced_droplet_breakup_based_on_hybrid_solvers): **Article**|---|
-|[Aeroacoustic Improvements during Lift-off of Launch Vehicles](https://riunet.upv.es/handle/10251/204805?show=full):**PhD Thesis**|![The duct geometry and mesh](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/duct-geom-and-mesh.png)|
+|[Aeroacoustic Improvements during Lift-off of Launch Vehicles](https://riunet.upv.es/handle/10251/204805?show=full): **PhD Thesis**|![The duct geometry and mesh](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/duct-geom-and-mesh.png)|
 |[Validation of High Speed Reactive Flow Solver in OpenFOAM with Detailed Chemistry](https://journal.openfoam.com/index.php/ofj/article/view/125): **Article**|![Detonation cells](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/submission_resized.png)|
 |[A real-fluid low-dissipative solver for flash boiling simulations of non-equilibrium mixtures](https://www.sciencedirect.com/science/article/pii/S0017931024002229): **Article**|![Propane spray visualization: comparison of an experiment vs present calculations](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/propane_spray.jpg)|
 
