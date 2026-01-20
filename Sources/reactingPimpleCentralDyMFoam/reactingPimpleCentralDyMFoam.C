@@ -51,6 +51,8 @@ Description
 #include "kappaFunction.H"
 #include "correctCentralACMIInterpolation.H"
 #include "centralMULES.H"
+#include "KnpTemplates.H"
+#include "gasMixtureUpdateSonicSpeedOnFaces.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -69,6 +71,7 @@ int main(int argc, char *argv[])
 
     Info << "Creating fields" << endl;
     #include "createFields.H"
+    #include "readScNumbers.H"
 
     Info << "Reading additional pimple controls..." << endl;
     #include "readAdditionalPimpleControl.H"
@@ -105,14 +108,9 @@ int main(int argc, char *argv[])
     #include "readCourantType.H"
 
     #include "markBadQualityCells.H"
-    Info << "Number of cells graded as bad quality is: " << badQualityCells.size() << endl;
+    Info << "Number of cells marked as having bad quality is: " << badQualityCells.size() << endl;
 
-    #include "updateCentralWeights.H"
-    phi_own = phiv_own*rho_own;
-    phi_nei = phiv_nei*rho_nei;
-    surfaceScalarField mphi_own (phi*0.0);
-    surfaceScalarField mphi_nei (mphi_own);
-    #include "psiUpdateCentralFields.H"
+    #include "initMeshPhi.H"
     #include "updateKappa.H"
     #include "createCentralCourantNo.H"
     

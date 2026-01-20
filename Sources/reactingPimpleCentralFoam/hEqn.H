@@ -1,41 +1,13 @@
 {
-    fvScalarMatrix hConvection
+    fvScalarMatrix hConvImpl
     (
         fvm::ddt(rho,h)
         +
-        fv::gaussConvectionScheme<scalar>(mesh, phi_own, UDsOwn).fvmDiv(phi_own, h)
+        fvm::div(phi_own,h)
         +
-        fv::gaussConvectionScheme<scalar>(mesh, phi_nei, UDsNei).fvmDiv(phi_nei, h)
+        fvm::div(phi_nei,h)
     );
-    
-    /*
-     *
-     * Explicit flux correction coupled with MULES
-     *
-    */
-    surfaceScalarField hFluxCorr
-    (
-        hLambdaCoeffs
-        *
-        (
-            fvc::flux
-            (
-                phi_own,
-                h,
-                "div(phi_own," + h.name() + ")"
-            )
-            +
-            fvc::flux
-            (
-                phi_nei,
-                h,
-                "div(phi_nei," + h.name() + ")"
-            )
-            -
-            hConvection.flux()
-        )
-    );
-    
+
     /*
      *
      * Diffusive fluxes of energy due to mass diffusion
@@ -124,9 +96,11 @@
             );
     }
 
+    #include "hExtSources.H"
+
     fvScalarMatrix hEqn
     (
-        hConvection + fvc::div(hFluxCorr) + fvc::div(dzetaPhi)
+        hConvImpl + fvc::div(dzetaPhi)
         +
         KChange
         ==
@@ -134,7 +108,7 @@
         +
         KSource
         +
-        reaction->Qdot()
+        hExtSources
         +
         fvOptions(rho,h)
     );

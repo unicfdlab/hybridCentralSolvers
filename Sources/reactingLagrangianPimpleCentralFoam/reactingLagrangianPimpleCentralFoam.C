@@ -50,6 +50,8 @@ Description
 #include "kappaFunction.H"
 #include "correctCentralACMIInterpolation.H"
 #include "centralMULES.H"
+#include "KnpTemplates.H"
+#include "gasMixtureUpdateSonicSpeedOnFaces.H"
 
 #include "cloudMacros.H"
 
@@ -77,6 +79,7 @@ int main(int argc, char *argv[])
     #include "createRDeltaTVariables.H"
     #include "createTimeControls.H"
     #include "createFields.H"
+    #include "readScNumbers.H"
     #include "readAdditionalPimpleControl.H"
     #include "createCommonCentralFields.H"
 
@@ -107,10 +110,8 @@ int main(int argc, char *argv[])
 
     #include "markBadQualityCells.H"
 
-    #include "psiUpdateCentralFields.H"
+    #include "psiInitMassFluxes.H"
     #include "updateKappa.H"
-
-    #include "updateCentralWeights.H"
     #include "createCentralCourantNo.H"
 
     if (!LTS)
@@ -150,7 +151,7 @@ int main(int argc, char *argv[])
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
         // --- Predict density
-        #include "massEqn.H"
+        #include "pMassEqn.H"
 
         // --- update chemistry
         reaction->correct();

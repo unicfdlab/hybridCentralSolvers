@@ -117,4 +117,8 @@
         p / runTime.deltaT() * 0.0
     );
 
-
+    volScalarField W
+    (
+        "W",
+        p / T
+    );

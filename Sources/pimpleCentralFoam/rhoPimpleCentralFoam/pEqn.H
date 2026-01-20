@@ -10,8 +10,86 @@ rAU = 1.0 / UEqn.A();
 HbyA = UEqn.H() * rAU;
 HbyA.boundaryFieldRef() == U.boundaryField();
 
-#include "updateCentralWeights.H"
-#include "rhoUpdateCentralFields.H"
+UpdateSonicSpeedOnFaces
+(
+    thermo,
+    own,
+    nei,
+    p_own,
+    p_nei,
+    Rmf,
+    cf_own,
+    cf_nei
+);
+
+CalculateKnpWeights
+(
+    noFluxWeighting,
+    fluxScheme,
+    v_zero,
+    thermo,
+    mesh,
+    rho, // Here we weight with rho
+    U,
+    c,
+    psi,
+    own,
+    nei,
+    mesh_phi,
+    rho_own,
+    rho_nei,
+    phiv_own,
+    phiv_nei,
+    cf_own,
+    cf_nei,
+    cSf_own,
+    cSf_nei,
+    ap,
+    am,
+    alpha_own,
+    alpha_nei,
+    aSf
+);
+
+RhoUpdateCentralFields
+(
+    noFluxWeighting,
+    MRF,
+    mesh,
+    rho,
+    rhoHat,
+    HbyA,
+    rAU,
+    psi,     // 1/(Rm*T)
+    T,
+    own,
+    nei,
+    mesh_phi,
+    kappa,
+    alpha_own,
+    alpha_nei,
+    rho_own,
+    rho_nei,
+    aSf,
+    rhoU_own,
+    rhoU_nei,
+    rhoHatf,
+    rhoHat_own,
+    rhoHat_nei,
+    phiRhoHat_own,
+    phiRhoHat_nei,
+    phiv_own,
+    phiv_nei,
+    aphiv_own,
+    aphiv_nei,
+    phid_own,
+    phid_nei,
+    psi_own,
+    psi_nei,
+    psif,
+    Dp_own,
+    Dp_nei
+);
 
 while (pimple.correctNonOrthogonal())
 {

@@ -44,6 +44,9 @@ Description
 #include "compressibleTwoPhaseMixtureThermo.H"
 #include "dynamicFvMesh.H"
 #include "correctCentralACMIInterpolation.H"
+#include "KnpTemplates.H"
+// #include "updateSonicSpeedOnFaces.H"
+#include "twoPhaseMixtureUpdateSonicSpeedOnFaces.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

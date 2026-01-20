@@ -71,6 +71,8 @@ interpolationSchemes
     reconstruct(rho*U)		$defaultAdvSchemeV;
     reconstruct(U)		$defaultAdvSchemeV;
     reconstruct(Dp)		$defaultAdvScheme;
+    reconstruct(W)		$defaultAdvScheme;
+    reconstruct(Ybar.Liq)	$defaultAdvScheme;
     reconstruct(rhoHat)		$defaultAdvScheme;
 }
 

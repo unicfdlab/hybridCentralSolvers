@@ -17,83 +17,110 @@ HbyA = UEqn.H() * rAU;
  *
  */
 {
-    /*
-    rho_own       = fvc::interpolate(rho, own, "reconstruct(rho)");
-    rho_nei       = fvc::interpolate(rho, nei, "reconstruct(rho)");
-    correctCentralACMIInterpolation(rho_nei);
-    
-    psi_own       = fvc::interpolate(psi, own, "reconstruct(psi)");
-    psi_nei       = fvc::interpolate(psi, nei, "reconstruct(psi)");
-    correctCentralACMIInterpolation(psi_nei);
-    
-    rhoHat_own    = fvc::interpolate(rhoHat, own, "reconstruct(rhoHat)");
-    rhoHat_nei    = fvc::interpolate(rhoHat, nei, "reconstruct(rhoHat)");
-    correctCentralACMIInterpolation(rhoHat_nei);
-    
-    rhoU_own      = fvc::interpolate(rho*HbyA, own, "reconstruct(U)");
-    rhoU_nei      = fvc::interpolate(rho*HbyA, nei, "reconstruct(U)");
 
-    phiv_own      = (rhoU_own / rho_own) & mesh.Sf();
-    phiv_nei      = (rhoU_nei / rho_nei) & mesh.Sf();
-    
-    c             = sqrt(thermo.Cp()/thermo.Cv() / psi);
-    cf_own        = fvc::interpolate(c, own, "reconstruct(c)");
-    cf_nei        = fvc::interpolate(c, nei, "reconstruct(c)");
-    cSf_own       = cf_own*mesh.magSf();
-    cSf_nei       = cf_nei*mesh.magSf();
-    
-    phiv_own -= meshPhi;
-    phiv_nei -= meshPhi;
-    
-    MRF.makeRelative(phiv_own);
-    MRF.makeRelative(phiv_nei);
-    
-    ap            = max(max(phiv_own + cSf_own, phiv_nei + cSf_nei), v_zero);
-    am            = min(min(phiv_own - cSf_own, phiv_nei - cSf_nei), v_zero);
-    
-    alpha_own     = ap/(ap - am);
-    aSf           = am*alpha_own;
-    alpha_nei     = 1.0 - alpha_own;
-    
-    aphiv_own     = alpha_own * phiv_own - aSf;
-    aphiv_nei     = alpha_nei * phiv_nei + aSf;
-    
-    phid_own      = aphiv_own * psi_own;
-    phid_nei      = aphiv_nei * psi_nei;
-    
-    phiRhoHat_own = aphiv_own * rhoHat_own;
-    phiRhoHat_nei = aphiv_nei * rhoHat_nei;
-    
-    Dp_own = alpha_own*fvc::interpolate(rho*rAU, own, "reconstruct(Dp)");
+    UpdateSonicSpeedOnFaces
+    (
+        thermo,
+        own,
+        nei,
+        p_own,
+        p_nei,
+        phi,
+        cf_own,
+        cf_nei
+    );
 
-    Dp_nei = alpha_nei*fvc::interpolate(rho*rAU, nei, "reconstruct(Dp)");
-    */
-    
-    //#include "updateCentralWeightsDyM.H"
-    #include "updateCentralWeights.H"
-    #include "rhoUpdateCentralFields.H"
+    CalculateKnpWeights
+    (
+        noFluxWeighting,
+        fluxScheme,
+        v_zero,
+        thermo,
+        mesh,
+        rho, // Here we weight with rho
+        U,
+        c,
+        psi,
+        own,
+        nei,
+        mesh_phi,
+        rho_own,
+        rho_nei,
+        phiv_own,
+        phiv_nei,
+        cf_own,
+        cf_nei,
+        cSf_own,
+        cSf_nei,
+        ap,
+        am,
+        alpha_own,
+        alpha_nei,
+        aSf
+    );
+
+    RhoUpdateCentralFields
+    (
+        noFluxWeighting,
+        MRF,
+        mesh,
+        rho,
+        rhoHat,
+        HbyA,
+        rAU,
+        psi,     // 1/(Rm*T)
+        T,
+        own,
+        nei,
+        mesh_phi,
+        kappa,
+        alpha_own,
+        alpha_nei,
+        rho_own,
+        rho_nei,
+        aSf,
+        rhoU_own,
+        rhoU_nei,
+        rhoHatf,
+        rhoHat_own,
+        rhoHat_nei,
+        phiRhoHat_own,
+        phiRhoHat_nei,
+        phiv_own,
+        phiv_nei,
+        aphiv_own,
+        aphiv_nei,
+        phid_own,
+        phid_nei,
+        psi_own,
+        psi_nei,
+        psif,
+        Dp_own,
+        Dp_nei
+    );
 
     while (pimple.correctNonOrthogonal())
     {
         fvScalarMatrix pEqn_own
         (
-            fvm::div(phid_own,p) + fvc::div(phiRhoHat_own) - fvm::laplacian(Dp_own,p)
+            fvm::div(phid_own,p)
+          + fvc::div(phiRhoHat_own)
+          - fvm::laplacian(Dp_own,p)
         );
     
         fvScalarMatrix pEqn_nei
         (
-            fvm::div(phid_nei,p) + fvc::div(phiRhoHat_nei) - fvm::laplacian(Dp_nei,p)
+            fvm::div(phid_nei,p)
+          + fvc::div(phiRhoHat_nei)
+          - fvm::laplacian(Dp_nei,p)
         );
     
         fvScalarMatrix pEqn
         (
             fvm::ddt(psi,p)
-            +
-            fvc::ddt(rhoHat)
-            +
-            pEqn_own
-            +
-            pEqn_nei
+          + fvc::ddt(rhoHat)
+          + pEqn_own
+          + pEqn_nei
             ==
             fvOptions(psi,p,rho.name())
         );

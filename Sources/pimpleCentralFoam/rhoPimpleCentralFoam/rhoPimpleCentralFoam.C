@@ -46,6 +46,8 @@ Description
 #include "kappaFunction.H"
 #include "fvcSmooth.H"
 #include "correctCentralACMIInterpolation.H"
+#include "KnpTemplates.H"
+#include "updateSonicSpeedOnFaces.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -87,10 +89,9 @@ int main(int argc, char *argv[])
 
     #include "markBadQualityCells.H"
 
-    #include "psiUpdateCentralFields.H"
+    
+    #include "rhoInitMassFluxes.H"
     #include "updateKappa.H"
-
-    #include "updateCentralWeights.H"
     #include "createCentralCourantNo.H"
 
     if (!LTS)

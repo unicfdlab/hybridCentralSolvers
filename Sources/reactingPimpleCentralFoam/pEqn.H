@@ -2,8 +2,86 @@ rAU = 1.0 / UEqn.A();
 HbyA = UEqn.H() * rAU;
 HbyA.boundaryFieldRef() == U.boundaryField();
 
-#include "updateCentralWeights.H"
-#include "psiUpdateCentralFields.H"
+W = rho*Rm;
+Rmf = fvc::interpolate(Rm, phi, "reconstruct(psi)");
+// Actually, Rmf must be calculated as weighted harmonic
+// average:
+// 1/Rmf = sum(Yif/Ri)
+
+UpdateSonicSpeedOnFaces
+(
+    thermo,
+    own,
+    nei,
+    p_own,
+    p_nei,
+    Rmf,
+    cf_own,
+    cf_nei
+);
+
+CalculateKnpWeights
+(
+    noFluxWeighting,
+    fluxScheme,
+    v_zero,
+    thermo,
+    mesh,
+    W, // use p/T instead of rho
+    U,
+    c,
+    psi,
+    own,
+    nei,
+    mesh_phi,
+    W_own,
+    W_nei,
+    phiv_own,
+    phiv_nei,
+    cf_own,
+    cf_nei,
+    cSf_own,
+    cSf_nei,
+    ap,
+    am,
+    alpha_own,
+    alpha_nei,
+    aSf
+);
+
+PsiUpdateCentralFields
+(
+    noFluxWeighting,
+    MRF,
+    mesh,
+    W, // p/T
+    HbyA,
+    rAU,
+    psi,     // 1/(Rm*T)
+    T,
+    Rm,
+    own,
+    nei,
+    mesh_phi,
+    kappa,
+    alpha_own,
+    alpha_nei,
+    aSf,
+    Rmf,
+    W_own,
+    W_nei,
+    phiv_own,
+    phiv_nei,
+    aphiv_own,
+    aphiv_nei,
+    phid_own,
+    phid_nei,
+    psi_own,
+    psi_nei,
+    psif,
+    Dp_own,
+    Dp_nei
+);
 
 while (pimple.correctNonOrthogonal())
 {
@@ -16,6 +94,8 @@ while (pimple.correctNonOrthogonal())
     (
         fvm::div(phid_nei,p) - fvm::laplacian(Dp_nei,p)
     );
+
+    #include "mExtSources.H"
     
     fvScalarMatrix pEqn
     (
@@ -25,7 +105,7 @@ while (pimple.correctNonOrthogonal())
         +
         pEqn_nei
         ==
-        fvOptions(psi,p,rho.name())
+        mExtSources
     );
     
     fvOptions.constrain(pEqn);

@@ -208,6 +208,8 @@ Foam::simplePhasePsiThermo::simplePhasePsiThermo(const fvMesh& mesh, const dicti
     Pr_  = readScalar(dict.lookup("Pr"));
     rho0_= readScalar(dict.lookup("rho0"));
     p0_  = readScalar(dict.lookup("p0"));
+    T0_  = readScalar(dict.lookup("p0"));
+    H0_  = readScalar(dict.lookup("p0"));
 
     this->he_.operator= (this->he(p_,T_)());
 

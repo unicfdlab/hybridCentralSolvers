@@ -107,6 +107,16 @@ volVectorField limGradP
     "limGradP",
     fvc::grad(p)
 );
+volScalarField W
+(
+    "W",
+    p / T
+);
+volScalarField Rm
+(
+    "Rm",
+    W / rho
+);
 
 ///////////////////////////////////////////
 

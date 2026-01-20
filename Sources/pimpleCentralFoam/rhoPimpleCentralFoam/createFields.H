@@ -84,6 +84,20 @@ volVectorField limGradP
     fvc::grad(p)
 );
 
+volScalarField W
+(
+    "W",
+    p / T
+);
+
+const volScalarField Rm
+(
+    "Rm",
+    1000.0*constant::physicoChemical::R/thermo.W()
+);
+
+const surfaceScalarField Rmf = linearInterpolate(Rm);
+
 DynamicList<label> badQualityCells(0);
 
 Switch updateEnergyInPISO (false);

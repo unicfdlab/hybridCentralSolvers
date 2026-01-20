@@ -27,7 +27,7 @@ Application
     twoPhaseMixingCentralFoam
 
 Description
-    Transient Eulerian two-phase solver. Liquid and gas are
+    Transient Eulerian homogeneous two-phase model. Liquid and gas are
     considered as compressible fluids. Mass transfer at the interface
     is accounted at the diffusion approximation.
 
@@ -43,6 +43,9 @@ Description
 #include "fvcSmooth.H"
 #include "compressibleTwoPhaseMixtureThermo.H"
 #include "correctCentralACMIInterpolation.H"
+#include "KnpTemplates.H"
+// #include "updateSonicSpeedOnFaces.H"
+#include "twoPhaseMixtureUpdateSonicSpeedOnFaces.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

@@ -48,6 +48,8 @@ Description
 #include "CorrectPhi.H"
 #include "kappaFunction.H"
 #include "correctCentralACMIInterpolation.H"
+#include "KnpTemplates.H"
+#include "psiUpdateSonicSpeedOnFaces.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -91,11 +93,7 @@ int main(int argc, char *argv[])
 
     #include "markBadQualityCells.H"
 
-    #include "updateCentralWeights.H"
-    phi_own = phiv_own*rho_own;
-    phi_nei = phiv_nei*rho_nei;
-    surfaceScalarField mphi_own (phi*0.0);
-    surfaceScalarField mphi_nei (mphi_own);
+    #include "initMeshPhi.H"
     #include "updateKappa.H"
     #include "createCentralCourantNo.H"
 

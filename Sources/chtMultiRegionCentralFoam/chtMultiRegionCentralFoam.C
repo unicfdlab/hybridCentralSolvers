@@ -50,7 +50,8 @@ Description
 #include "solidThermo.H"
 #include "radiationModel.H"
 #include "coordinateSystem.H"
-
+#include "psiUpdateSonicSpeedOnFaces.H"
+#include "KnpTemplates.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

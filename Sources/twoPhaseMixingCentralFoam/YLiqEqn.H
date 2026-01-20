@@ -1,3 +1,4 @@
+
 scalarField allFacesLambda(mesh.nFaces(), 1.0);
 slicedSurfaceScalarField lambdaCoeffs
 (

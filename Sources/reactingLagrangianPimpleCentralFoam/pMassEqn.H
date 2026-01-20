@@ -17,4 +17,3 @@
         Info<< "rho max/min : " << gMax(rho.primitiveField())
             << " / " << gMin(rho.primitiveField()) << endl;
     }
-    

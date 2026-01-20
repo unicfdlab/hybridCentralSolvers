@@ -41,12 +41,14 @@ Description
 #include "zeroGradientFvPatchFields.H"
 #include "coupledFvsPatchFields.H"
 #include "localEulerDdtScheme.H"
-#include "cellQuality.H"
-#include "fvOptions.H"
-#include "kappaFunction.H"
 #include "fvcSmooth.H"
-#include "correctCentralACMIInterpolation.H"
 #include "Function1.H"
+#include "fvOptions.H"
+#include "cellQuality.H"
+#include "correctCentralACMIInterpolation.H"
+#include "KnpTemplates.H"
+#include "psiUpdateSonicSpeedOnFaces.H"
+#include "kappaFunction.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -85,10 +87,8 @@ int main(int argc, char *argv[])
 
     #include "markBadQualityCells.H"
 
-    #include "psiUpdateCentralFields.H"
+    #include "psiInitMassFluxes.H"
     #include "updateKappa.H"
-
-    #include "updateCentralWeights.H"
     #include "createCentralCourantNo.H"
 
     if (!LTS)

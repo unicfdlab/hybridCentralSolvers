@@ -17,9 +17,6 @@ slicedSurfaceScalarField lambdaCoeffs
     false   // Use slices for the couples
 );
 
-surfaceScalarField hLambdaCoeffs ("hLambdaCoeffs", own);
-surfaceScalarField maxDeltaY ("maxDeltaY", own*0.0);
-
 upwind<scalar> UDsOwn(mesh, phi_own);
 upwind<scalar> UDsNei(mesh, phi_nei);
 
@@ -60,17 +57,8 @@ upwind<scalar> UDsNei(mesh, phi_nei);
                     YiNeiScheme
                 )
             );
-            SuSp.set
-            (
-                iCmpt,
-                new fvScalarMatrix
-                (
-                   reaction->R(Yi)
-                    +
-                    fvOptions(rho,Yi)
-                )
-            );
-            mDCf[iCmpt] = linearInterpolate(turbulence->muEff());
+            #include "setSuSp.H"
+            mDCf[iCmpt] = linearInterpolate(turbulence->muEff() / ScNumbers[iCmpt]);
         }
         else
         {
@@ -84,6 +72,7 @@ upwind<scalar> UDsNei(mesh, phi_nei);
      * Calculate the limiter
      *
      */
+    surfaceScalarField phi_nei_zero = phi_nei*0.0;
     forAll(Y, iCmpt)
     {
         volScalarField& Yi = Y[iCmpt];
@@ -110,6 +99,7 @@ upwind<scalar> UDsNei(mesh, phi_nei);
      * Solve for components
      *
      */
+    volScalarField MuInv = (Rm / Foam::constant::physicoChemical::R)*0.0;
     diffusiveFlux[inertIndex].boundaryFieldRef() = 0.0;
     diffusiveFlux[inertIndex].primitiveFieldRef() = 0.0;
     forAll(Y, iCmpt)
@@ -139,89 +129,26 @@ upwind<scalar> UDsNei(mesh, phi_nei);
                 YConvection + YDiffusion +  fvc::div(lambdaCoeffs * rhoPhiYCorr)
             );
 
-            //YiEqn.relax();
-
-            //fvOptions.constrain(YiEqn);
+            fvOptions.constrain(YiEqn);
 
             YiEqn.solve(mesh.solver("Yi"));
 
-            //fvOptions.correct(Yi);
+            fvOptions.correct(Yi);
 
             Yi.max(0.0);
             Yt += Yi;
 
-            //phiY[iCmpt] = YConvection.flux() + lambdaCoeffs * rhoPhiYCorr;
-
             diffusiveFlux[iCmpt] = YDiffusion.flux();
             diffusiveFlux[inertIndex] -= diffusiveFlux[iCmpt];
 
-            Info << "max/min " << Yi.name() << ": " << max(Yi).value() << "/" << min(Yi).value() << endl;
+            dimensionedScalar MuCmptInv ("MuCmpt", MuInv.dimensions(), 1000.0 /thermo.composition().W(iCmpt));
+            MuInv += (Yi * MuCmptInv);
         }
     }
     Y[inertIndex].primitiveFieldRef() = (scalar(1.0) - Yt.primitiveField());
     Y[inertIndex].correctBoundaryConditions();
     Y[inertIndex].max(0.0);
-
-    label owner = -1;
-    label neighbour = -1;
-    scalar deltaY = 0.0;
-    forAll(Y, iCmpt)
-    {
-        forAll(maxDeltaY.primitiveField(), iFace)
-        {
-            if (mesh.isInternalFace(iFace))
-            {
-                owner = mesh.owner()[iFace];
-                neighbour = mesh.neighbour()[iFace];
-                deltaY = mag(Y[iCmpt][owner] - Y[iCmpt][neighbour]);
-                if (deltaY > maxDeltaY.primitiveField()[iFace])
-                {
-                     maxDeltaY.primitiveFieldRef()[iFace] = deltaY;
-                }
-            }
-        }
-        forAll(maxDeltaY.boundaryField(), iPatch)
-        {
-            if (maxDeltaY.boundaryField()[iPatch].coupled())
-            {
-                scalarField intF  (maxDeltaY.boundaryField()[iPatch]);
-                scalarField intY  (Y[iCmpt].boundaryField()[iPatch]);
-                scalarField neiY  (Y[iCmpt].boundaryField()[iPatch].patchNeighbourField());
-                forAll(intF, iFace)
-                {
-                    deltaY = mag(intY[iFace] - neiY[iFace]);
-                    if (deltaY > intF[iFace])
-                    {
-                        intF[iFace] = deltaY;
-                    }
-                }
-                maxDeltaY.boundaryFieldRef()[iPatch].operator = (intF);
-            }
-        }
-    }
-    forAll(maxDeltaY.primitiveField(), iFace)
-    {
-        if (maxDeltaY.primitiveField()[iFace] >= 0.05)
-        {
-            hLambdaCoeffs.primitiveFieldRef()[iFace] = 
-                lambdaCoeffs.primitiveField()[iFace];
-        }
-    }
-    forAll(maxDeltaY.boundaryField(), iPatch)
-    {
-        if (maxDeltaY.boundaryField()[iPatch].coupled())
-        {
-            scalarField intF = maxDeltaY.boundaryField()[iPatch];
-            scalarField intH = hLambdaCoeffs.boundaryField()[iPatch];
-            const scalarField& intL = lambdaCoeffs.boundaryField()[iPatch];
-            forAll(intF, iFace)
-            {
-                if (intF[iFace] > 0.05)
-                {
-                    intH[iFace] = intL[iFace];
-                }
-            }
-            hLambdaCoeffs.boundaryFieldRef()[iPatch].operator = (intH);
-        }
-    }
+    dimensionedScalar MuCmptInv ("MuCmpt", MuInv.dimensions(), 1000.0 / thermo.composition().W(inertIndex));
+    MuInv += (Y[inertIndex] * MuCmptInv);
+    Rm = Foam::constant::physicoChemical::R * MuInv;
 }

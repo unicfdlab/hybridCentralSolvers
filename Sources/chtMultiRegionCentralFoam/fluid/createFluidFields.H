@@ -90,6 +90,18 @@ Switch updateEnergyInPISO (false);
 word fluxScheme (word::null);
 Switch noFluxWeighting(false);
 
+volScalarField W
+(
+    "W",
+    p / T
+);
+const volScalarField Rm
+(
+    "Rm",
+    1000.0*constant::physicoChemical::R/thermo.W()
+);
+const surfaceScalarField Rmf = linearInterpolate(Rm);
+
 #include "readAdditionalPimpleControl.H"
 #include "createCommonCentralFields.H"
 
@@ -112,8 +124,6 @@ autoPtr<compressible::turbulenceModel> turbulence
 
 #include "markBadQualityCells.H"
 
-#include "psiUpdateCentralFields.H"
+#include "../../pimpleCentralFoam/psiInitMassFluxes.H"
 #include "updateKappa.H"
-
-#include "updateCentralWeights.H"
 #include "createCentralCourantNo.H"

@@ -41,6 +41,7 @@ SourceFiles
 #include "rhoThermo.H"
 #include "simplePhasePsiThermo.H"
 #include "compressibleTwoPhaseMixture.H"
+#include "surfaceFields.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -327,6 +328,17 @@ public:
 
             //-
             void correctRealDensities();
+
+           //- Returns the mixture's speed of sound on faces for the given
+           // values of pressure, temperature and YbarLiq on faces
+           tmp<surfaceScalarField> Cfm
+           (
+               const surfaceScalarField& pf,
+               const surfaceScalarField& Tf,
+               const surfaceScalarField& YbarLiqf,
+               const surfaceScalarField& rhoLiqf,
+               const surfaceScalarField& rhoGasf
+           ) const;
 
             //- Total enthalpy [J/kg]
             //  Non-const access allowed for transport equations

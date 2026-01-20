@@ -4,7 +4,7 @@
     dimensionedScalar amaxSmall ("amaxSmall", amaxSf.dimensions(), SMALL * min(mesh.magSf()).value());
     amaxSf = max(mag(aphiv_own), mag(aphiv_nei)) + amaxSmall;
     amaxSf.setOriented(true);
-    
+
     kappaFuncPtr().update();
     kappa.primitiveFieldRef() = kappaFuncPtr().kappa()();
 

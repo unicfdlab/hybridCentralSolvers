@@ -579,5 +579,99 @@ void Foam::compressibleTwoPhaseMixtureThermo::correctRealDensities()
     thermoGas_->correctDensity(pLimited);
 }
 
+Foam::tmp<Foam::surfaceScalarField> 
+Foam::compressibleTwoPhaseMixtureThermo::Cfm
+(
+    const surfaceScalarField& pf,
+    const surfaceScalarField& Tf,
+    const surfaceScalarField& YbarLiqf,
+    const surfaceScalarField& rhoLiqf,
+    const surfaceScalarField& rhoGasf
+) const
+{
+
+    tmp<surfaceScalarField> tCfm
+    (
+       YbarLiqf*dimensionedScalar("Cfm0", dimLength / dimTime, 0.0)
+    );
+    surfaceScalarField &CfmRef = tCfm.ref();
+    CfmRef.rename("Cfm");
+
+    
+    const simplePhasePsiThermo& Liq = this->thermoLiq_;
+    const simplePhasePsiThermo& Gas = this->thermoGas_;
+    auto CsMixture = [&Liq, &Gas](const scalar& p, const scalar& T, const scalar& ybarliq, const scalar& rholiq, const scalar& rhogas)
+    {
+        scalar psiliq = 0.0;
+        scalar psigas = 0.0;
+        scalar psiliq_eff = 0.0;
+        scalar psigas_eff = 0.0;
+        scalar rhom = 0.0;
+        scalar yliq = 0.0;
+        scalar ygas = 0.0;
+        scalar psim = 0.0;
+        scalar onebyrhosqr = 0.0;
+        scalar Cpm = 0.0;
+        scalar Cvm = 0.0;
+        scalar gammam = 0.0;
+
+        psiliq = Liq.psi(p, T);
+        psigas = Gas.psi(p, T);
+        rhom = rholiq*ybarliq + rhogas*(1.0 -  ybarliq);
+
+        yliq = rholiq*ybarliq / rhom;
+        ygas = 1.0 - yliq;
+        psiliq_eff = psiliq / sqr(rholiq);
+        psigas_eff = psigas / sqr(rhogas);
+        onebyrhosqr = 1.0 / sqr((yliq / rholiq) + (ygas / rhogas));
+
+        Cpm  = yliq*Liq.Cp(p, T)+
+               (1.0 - yliq)*Gas.Cp(p, T);
+        Cvm  = yliq*Liq.Cv(p, T)+
+               (1.0 - yliq)*Gas.Cv(p, T);
+        gammam = Cpm / Cvm;
+        psim = (yliq*psiliq_eff + ygas*psigas_eff)*onebyrhosqr;
+        //psim = ybarliq*psiliq + (1.0 - ybarliq)*psigas; //linear model
+        return sqrt(gammam / psim);
+    };
+
+    
+    forAll(Tf.primitiveField(), iface)
+    {
+        CfmRef.primitiveFieldRef()[iface] = CsMixture
+        (
+            pf.primitiveField()[iface],
+            Tf.primitiveField()[iface],
+            YbarLiqf.primitiveField()[iface],
+            rhoLiqf.primitiveField()[iface],
+            rhoGasf.primitiveField()[iface]
+        );
+    }
+
+    forAll(Tf.boundaryField(), ipatch)
+    {
+        scalarField& Cfp = CfmRef.boundaryFieldRef()[ipatch];
+        
+        const scalarField& pfp = pf.boundaryField()[ipatch];
+        const scalarField& Tfp = Tf.boundaryField()[ipatch];
+        const scalarField& YbarLiqfp = YbarLiqf.boundaryField()[ipatch];
+        const scalarField& rhoLiqfp = rhoLiqf.boundaryField()[ipatch];
+        const scalarField& rhoGasfp = rhoGasf.boundaryField()[ipatch];
+
+        forAll(Cfp, iface)
+        {
+            Cfp[iface] = CsMixture
+            (
+                pfp[iface],
+                Tfp[iface],
+                YbarLiqfp[iface],
+                rhoLiqfp[iface],
+                rhoGasfp[iface]
+            );
+        }
+    }
+
+    return tCfm;
+}
 
 // ************************************************************************* //

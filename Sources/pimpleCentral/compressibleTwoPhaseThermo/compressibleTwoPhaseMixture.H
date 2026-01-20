@@ -51,6 +51,7 @@ namespace Foam
 
 class compressibleTwoPhaseMixture
 {
+
 protected:
 
     // Protected data

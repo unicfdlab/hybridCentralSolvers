@@ -51,7 +51,7 @@ runTimeModifiable true;
 
 adjustTimeStep	true;
 
-maxCo		0.5;
+maxCo		0.25;
 
 CourantType	cellCourant;
 

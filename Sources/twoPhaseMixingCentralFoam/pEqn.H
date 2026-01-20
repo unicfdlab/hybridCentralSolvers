@@ -11,30 +11,112 @@ volScalarField rAU ("rAU", 1.0 / UEqn.A());
 HbyA = UEqn.H() * rAU;
 
 {
-    #include "updateCentralWeights.H"
-    #include "rhoUpdateCentralFields.H"
+    // #include "updateCentralWeights.H"
+    // #include "rhoUpdateCentralFields.H"
+
+    UpdateSonicSpeedOnFaces
+    (
+        thermo,
+        own,
+        nei,
+        p_own,
+        p_nei,
+        phi,
+        cf_own,
+        cf_nei
+    );
+
+    CalculateKnpWeights
+    (
+        noFluxWeighting,
+        fluxScheme,
+        v_zero,
+        thermo,
+        mesh,
+        rho, // Here we weight with rho
+        U,
+        c,
+        psi,
+        own,
+        nei,
+        mesh_phi,
+        rho_own,
+        rho_nei,
+        phiv_own,
+        phiv_nei,
+        cf_own,
+        cf_nei,
+        cSf_own,
+        cSf_nei,
+        ap,
+        am,
+        alpha_own,
+        alpha_nei,
+        aSf
+    );
+
+    RhoUpdateCentralFields
+    (
+        noFluxWeighting,
+        MRF,
+        mesh,
+        rho,
+        rhoHat,
+        HbyA,
+        rAU,
+        psi,     // 1/(Rm*T)
+        T,
+        own,
+        nei,
+        mesh_phi,
+        kappa,
+        alpha_own,
+        alpha_nei,
+        rho_own,
+        rho_nei,
+        aSf,
+        rhoU_own,
+        rhoU_nei,
+        rhoHatf,
+        rhoHat_own,
+        rhoHat_nei,
+        phiRhoHat_own,
+        phiRhoHat_nei,
+        phiv_own,
+        phiv_nei,
+        aphiv_own,
+        aphiv_nei,
+        phid_own,
+        phid_nei,
+        psi_own,
+        psi_nei,
+        psif,
+        Dp_own,
+        Dp_nei
+    );
 
     while (pimple.correctNonOrthogonal())
     {
         fvScalarMatrix pEqn_own
         (
-            fvm::div(phid_own,p) + fvc::div(phiRhoHat_own) - fvm::laplacian(Dp_own,p)
+            fvm::div(phid_own,p)
+          + fvc::div(phiRhoHat_own)
+          - fvm::laplacian(Dp_own,p)
         );
     
         fvScalarMatrix pEqn_nei
         (
-            fvm::div(phid_nei,p) + fvc::div(phiRhoHat_nei) - fvm::laplacian(Dp_nei,p)
+            fvm::div(phid_nei,p)
+          + fvc::div(phiRhoHat_nei)
+          - fvm::laplacian(Dp_nei,p)
         );
     
         fvScalarMatrix pEqn
         (
             fvm::ddt(psi,p)
-            +
-            fvc::ddt(rhoHat)
-            +
-            pEqn_own
-            +
-            pEqn_nei
+          + fvc::ddt(rhoHat)
+          + pEqn_own
+          + pEqn_nei
             ==
             fvOptions(psi,p,rho.name())
         );
@@ -68,9 +150,12 @@ Info << "max/min p: " << max(p).value() << "/" << min(p).value() << endl;
 
 p = max(p, pMin);
 thermo.correctRealDensities();
-rhoT = 1.0 / (YLiq / thermo.thermoLiq().rho() + YGas / thermo.thermoGas().rho());
-#include "massEqn.H"
+rhoT = 1.0 / 
+(
+    YLiq / thermo.thermoLiq().rho() + YGas / thermo.thermoGas().rho()
+);
 
+#include "massEqn.H"
 #include "centralContinuityErrs.H"
 rho = rhoT;
 

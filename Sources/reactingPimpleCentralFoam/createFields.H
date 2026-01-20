@@ -102,6 +102,18 @@ volVectorField limGradP
     fvc::grad(p)
 );
 
+volScalarField W
+(
+    "W",
+    p / T
+);
+
+volScalarField Rm
+(
+    "Rm",
+    W / rho
+);
+
 DynamicList<label> badQualityCells(0);
 
 Switch updateEnergyInPISO (false);
