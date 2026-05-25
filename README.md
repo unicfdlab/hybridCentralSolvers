@@ -72,6 +72,13 @@ If you want to see your research in this list, please write to [Issues](https://
 ## <p align="center"> >>>>> 2026 <<<<<  </p>
 | Title | Description |
 |------|-------------|
+|Numerical analysis of a novel intake concept for a transonic air-breathing propulsion system: **PhD Thesis**| --- |
+|Evolution Mechanism of flash-boiling-induced shock waves and regulation of jet-to-jet interactions in high-pressure jets: **PhD Thesis**| --- |
+|[Numerical Investigation of Water Injection Effects on Jet Centerline Temperature and Ignition Overpressure by Using OpenFOAM](https://arc.aiaa.org/doi/abs/10.2514/6.2026-0950): **Article**| --- |
+|[Towards efficient wide-speed-range combustion simulation: An ANN-FGM model and its validation](https://www.sciencedirect.com/science/article/abs/pii/S1270963826002762): **Article**| --- |
+|[Performance Impacts of Preheating the Primary Fuel Jet of an Ejector Ramjet](https://arc.aiaa.org/doi/abs/10.2514/1.B40070): **Article**| --- |
+|[A Review of Convective Schemes Used for Detonation Simulations in OpenFOAM After a Decade of Development](https://www.mdpi.com/2075-1680/15/4/282): **Article**|![ Typical detonation at different instants in time](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/axioms-15-00282-g002.png)|
+|[THE ADAPTATION OF IMPROVED NUMERICAL SCHEMES FOR PRESSURE BASED COMPRESSIBLE SOLVER BASED ON OPENFOAM](https://cdn.apub.kr/journalsite/sites/kscfe/2026-031-01/N0500310103/N0500310103.pdf): **Article**|![Pressure contours](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/kim-pressure-contours.png)|
 |[Modeling of ammonia under-expanded jets for application in advanced propulsion systems](https://www.sciencedirect.com/science/article/pii/S0017931025016023): **Article**| ![Visualization of the flow in the experiment](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/1-s2.0-S0017931025016023-gr5.jpg) |
 |[Role of reaction rate uncertainties on the dynamics of two-dimensional detonation](https://www.sciencedirect.com/science/article/abs/pii/S0010218025007667): **Article**| --- |
 |[A pressure-based hybrid framework for sub-and supersonic compressible two-phase flow with non-equilibrium phase change](https://www.researchgate.net/publication/397581917_A_pressure-based_hybrid_framework_for_sub-_and_supersonic_compressible_two-phase_flow_with_non-equilibrium_phase_change): **Article**| ![The distribution of Mach number in a flash boiling jet](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/2026-01-01_15-13.png)|
@@ -80,6 +87,8 @@ If you want to see your research in this list, please write to [Issues](https://
 ## <p align="center"> >>>>> 2025 <<<<<  </p>
 | Title | Description |
 |------|-------------|
+|Towards accurate numerical prediction of detonations: **PhD Thesis**| --- |
+|[Numerical analysis of jet engine noise with Mach number 0.75 using Detached Eddy Simulation method](http://jvs.isav.ir/article_724358.html?lang=en&lang=en): **Article**| --- |
 |[Numerical Investigation of Cylindrical Water Droplets Subjected to Air Shock Loading at a High Weber Number](https://www.mdpi.com/2311-5521/10/4/81)|![Spanwise tandem configuration: numerical Schlieren contours](https://github.com/mkraposhin/hybridCentralSolvers/blob/master/Figs/fluids-10-00081-g016.png)|
 |[CFD Prediction of Tandem Water Columns Aerobreakup Using Open-Source Codes](https://link.springer.com/chapter/10.1007/978-3-031-97000-9_3): **Article**| --- |
 |[Performance evaluation of RANS turbulence model coupled with pressure-based solver for supersonic flow](https://doi.org/10.1063/5.0286015)| --- |
