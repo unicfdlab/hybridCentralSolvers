@@ -1,3 +1,13 @@
+sinclude $(GENERAL_RULES)/module-path-user
+
+/* Failsafe - user locations */
+ifeq (,$(FOAM_MODULE_APPBIN))
+FOAM_MODULE_APPBIN = $(FOAM_USER_APPBIN)
+endif
+ifeq (,$(FOAM_MODULE_LIBBIN))
+FOAM_MODULE_LIBBIN = $(FOAM_USER_LIBBIN)
+endif
+
 EXE_INC = \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -I$(LIB_SRC)/transportModels/compressible/lnInclude \
@@ -15,7 +25,7 @@ EXE_INC = \
     -I../pimpleCentral/lnInclude
     
 EXE_LIBS = \
-    -L$(FOAM_USER_LIBBIN) \
+    -L$(FOAM_MODULE_LIBBIN) \
     -lpimpleCentral \
     -lfiniteVolume \
     -lfluidThermophysicalModels \
