@@ -1,0 +1,28 @@
+#!/bin/sh
+cd "${0%/*}" || exit                            # Run from this directory
+targetType=libso                                # Default target type
+. "${WM_PROJECT_DIR:?}"/wmake/scripts/AllwmakeParseArguments
+#------------------------------------------------------------------------------
+# Install locations are controlled by FOAM_MODULE_PREFIX (or -prefix=...).
+# Standalone build: user locations ($FOAM_USER_APPBIN, $FOAM_USER_LIBBIN).
+# Built as an OpenFOAM plugin: project locations ($FOAM_APPBIN, $FOAM_LIBBIN).
+
+wmake $targetType Sources/pimpleCentral
+
+for solver in \
+    pimpleCentralFoam \
+    pimpleCentralFoam/rhoPimpleCentralFoam \
+    pimpleCentralFoam/pimpleCentralDyMFoam \
+    reactingPimpleCentralFoam \
+    reactingPimpleCentralDyMFoam \
+    reactingLagrangianPimpleCentralFoam \
+    twoPhaseMixingCentralFoam \
+    twoPhaseMixingCentralFoam/twoPhaseMixingCentralDyMFoam \
+    chtMultiRegionCentralFoam \
+    interTwoPhaseCentralFoam \
+    vofTwoPhaseCentralFoam
+do
+    wmake Sources/"$solver"
+done
+
+#------------------------------------------------------------------------------
